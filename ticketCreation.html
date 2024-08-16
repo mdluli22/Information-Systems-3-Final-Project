@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance Requisition Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- the white left side of the page -->
+        <aside class="sidebar">
+            <div class="logo">ResQue</div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">Log faults</a></li>
+                    <li><a href="#">All Tickets</a></li>
+                    <li><a href="#">Open Tickets</a></li>
+                    <li><a href="#">Closed Tickets</a></li>
+                </ul>
+            </nav>
+            <!-- <div class="user-info">
+                <img src="user-avatar.png" alt="User Avatar" class="avatar">
+                <span>Derrick Aboagye</span>
+                <span class="role">Student</span>
+            </div> -->
+        </aside>
+
+        <main class="content">
+            <header class="page-header">
+                <!-- div is to ensure that the title page and res name are beneath each other -->
+                <div>
+                    <h1>Maintenance requisition form</h1>
+                    <p class="fade-out">Botha Residence</p>
+                </div>
+                <!-- Fix the logo size -->
+                <img src="pictures/logo.png" alt="Logo" width="175" height="130">
+            </header>
+            <section>
+                <!-- the actual form for fault -->
+                <form class="requisition-form">
+                    <div class="form-header">
+                        <h3>Requisition Details</h3>
+                        <p class="fade-out">Please fill in the form below</p>
+                    </div>
+
+                    <!-- dropdown for fault category -->
+                    <div class="form-group">
+                        <label for="fault-category">Fault Category *</label>
+                        <div class="form-input"> <!-- to ensure that the dropdown is in line with the label -->
+                        
+                        <select id="fault-category" required>
+                            <option value="" >Please enter fault category</option>
+                            <!-- Add more options as needed -->
+                            <option value="Electrical">Electrical</option>
+                        </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <div class="form-extra-info"><small>Please provide any additional information or instructions related to the requisition</small></div>
+                        <div class="form-input"> <!-- to ensure that the dropdown is in line with the label -->
+                            <textarea id="description"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="severity">Severity *</label>
+                        <div class="form-input"> <!-- to ensure that the dropdown is in line with the label -->
+                            <select id="severity" required>
+                                <option value="">Please indicate severity of fault</option>
+                                <!-- Add more options as needed -->
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="upload">Upload an Image</label>
+                        <div class="form-input"> <!-- to ensure that the dropdown is in line with the label -->
+                            <input type="file" id="upload" placeholder="Choose file">
+                            <!-- <small>Upload an image to provide context for the maintenance requisition</small> -->
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="reset" class="cancel-btn">Cancel</button>
+                        <button type="submit" class="submit-btn">Submit</button>
+                    </div>
+                </form>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

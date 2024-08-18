@@ -2,7 +2,6 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;
-    background-color: #f9f9f9;
     height: 100vh; /* Ensure the body takes up the full viewport height */
 }
 
@@ -14,60 +13,16 @@ body {
 /* the whole left side section */
 .sidebar {
     background-color: #fff;
-    width: 280px;
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    height: 100vh; /* Ensure sidebar takes up full height */
     display: flex;
     flex-direction: column;
-}
-
-.logo {
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 30px;
-}
-
-/* removes the bullet points */
-nav ul {
-    list-style: none;
-    padding: 0;
+    justify-content: space-between;
+    width: 280px;
+    padding: 20px;
+    height: 100vh; /* Ensure sidebar takes up full height */
+    
 }
 
 /* provides vertical spacing between each list item */
-nav ul li {
-    margin-bottom: 20px;
-}
-
-
-nav ul li a {
-    text-decoration: none;  /* removes the underline */
-    color: #333;    /* sets the text color */
-    font-size: 18px;   /* sets the font size */
-    display: block; /* makes the link a block-level element */
-    padding: 15px;
-    border-radius: 8px;
-}
-
-
-nav ul li a:hover {
-    background-color: #A020F0;
-}
-/* the left side section ends here */
-.content {
-    flex-grow: 1;
-    padding: 40px;
-    background-color: #f0f0f0;
-    position: relative;
-    height: 100vh; /* Ensure content area takes up full height */
-}
-
-.page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
 /* For the search bar */
 .search {
     --padding: 14px;
@@ -97,6 +52,69 @@ nav ul li a:hover {
 .search-input::placeholder,
 .search-icon {
     color: #666;
+}
+/* removes the bullet points */
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    margin-bottom: 15px;
+}
+
+nav ul li a {
+    align-items: center;
+    text-decoration: none;  /* removes the underline */
+    color: #333;    /* sets the text color */
+    font-size: 18px;   /* sets the font size */
+    display: block; /* makes the link a block-level element */
+    padding: 15px;
+    border-radius: 8px;
+    transition: background-color 0.25s; /* adds a smooth color transition */
+}
+nav ul li a img{
+    margin-right: 8px;  /* adds space between the icon and text */
+    width: 24px;    /* sets the width of the icon */
+    height: 24px;   /* sets the height of the icon */
+    object-fit: contain;    /* ensures the icon fits within the specified width and height */
+}
+nav ul li a:hover {
+    background-color: #A020F0;
+}
+
+.user-info {
+    text-align: left;
+    margin-top: auto;
+    padding: 20px; /* Adjust padding */
+    border-top: 1px solid #ddd; /* Add a top border for separation */
+    position: relative; /* Position relative to use pseudo-elements */
+}
+
+.role {
+    color: #666;
+}
+/* the left side section ends here */
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 40px;
+    background-color: #f0f0f0;
+    position: relative;
+    height: 100vh; /* Ensure content area takes up full height */
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 h1 {
@@ -132,7 +150,7 @@ h1 {
 }
 
 /* for the form labels */
-/* Added a faint thin border to separate sections */
+/* Added a faint thin line to separate sections */
 .form-group {
     display: flex;
     align-items: center; /* Center align items vertically */

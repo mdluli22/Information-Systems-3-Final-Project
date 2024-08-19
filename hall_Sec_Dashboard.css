@@ -1,0 +1,350 @@
+body {
+    margin-left: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+main {
+    display: flex;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: white;
+    color: #333;
+    position: fixed;
+    height: 100%;
+    padding: 0px 15px;
+}
+
+.sidebar .logo {
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.sidebar-search {
+    position: relative;
+    width: 300px;
+    display: flex;
+    align-items: stretch;
+}
+
+#search-field {
+    width: 70%;
+    padding: 10px 0px 10px 40px; /* Add padding for the icon */
+    margin-right: -5px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    font-size: 16px;
+}
+
+#search-icon {
+    position: absolute;
+    right: 270px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* This makes the icon unclickable, so clicks go through to the input */
+    font-size: 18px;
+    color: #888;
+}
+
+#search-button {
+    height: 30px;
+    /* padding: 0; */
+    margin: 5px 10px;
+    /* width: 100%; */
+    /* float: right; */
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 20px 0;
+}
+
+.sidebar ul li a {
+    color: #333;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+}
+
+#sidebar-nav {
+    margin-top: 20px;
+}
+
+
+.sidebar-links {
+    text-decoration: none;
+    color: #333; /* Default font color */
+    background-color: transparent; /* Default background */
+    margin: 0px;
+    padding: 20px 0px 0px 0px;
+    border-radius: 7px;
+    display: inline-block;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar-links.active {
+    color: #fff; /* Selected font color */
+    background-color: #A020F0; /* Selected background color */
+}
+
+
+
+#sidebar-hr {
+    /* display: none; */
+    position: absolute;
+    bottom: 110px;
+    width: 83%;
+    margin-left: 20px;
+}
+
+.sidebar .profile {
+    position: absolute;
+    font-size: 85%;
+    bottom: 40px;
+    width: 100%;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+}
+
+.sidebar .profile-pic {
+    background-color: lightgrey;
+    color: #333;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 0 auto;
+    line-height: 50px;
+    font-size: 24px;
+    float: left;
+    text-align: center;
+}
+.sidebar .profile-info {
+    margin-left: 20px;
+    /* padding-left: -20px; */
+    font-weight: bold;
+    flex-grow: 1;
+    line-height: 155%;
+}
+.sidebar .profile-info #role {
+    font-weight: lighter;
+}
+/* .sidebar .profile #sidebar-log-out i {
+    width: 50px;
+    height: 50px;
+} */
+
+#sidebar-log-out {
+    float: right;
+    flex-grow: 1.5;
+} 
+
+.main-content {
+    color: #333;
+    margin-left: 290px;
+    margin-right: 15px;
+    padding: 20px;
+    flex-grow: 2;
+}
+
+.main-content header {
+    margin-bottom: 30px;
+}
+
+header {
+    margin: 20px 0px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 32px;
+}
+
+header h1 .username {
+    color: #A020F0;
+}
+
+.houses {
+    margin-bottom: 30px;
+}
+
+.houses .house-link {
+    background-color: inherit;
+    color: inherit;
+    text-decoration: none;
+    font-weight: bold;
+    border: none;
+    padding: 10px 7px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.houses .house-link.active {
+    color: #A020F0;
+    border-bottom: 5px solid #A020F0;
+}
+
+.ticket-table table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.ticket-table th, .ticket-table td {
+    padding: 30px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.ticket-table .status {
+    padding: 5px 10px;
+    border-radius: 15px;
+    color: white;
+    font-size: 12px;
+}
+
+.status.processing {
+    color: #333;
+    /* background-color: grey; */
+    border: 0.5px solid grey;
+}
+
+.status.success {
+    border: 0.5px solid #81C784;
+    color: #81C784;
+}
+
+.circle {
+    border-radius: 50%;
+    width: 7px;
+    height: 7px;
+    display: inline-block;
+}
+
+.status.processing .circle {
+    background-color: grey;
+}
+
+.ticket-table .category {
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    color: white;
+}
+
+.status.success .circle {
+    background-color: #81C784;
+}
+
+.category.high-risk {
+    color: #ef3e3e;
+    border: 0.5px solid #ef3e3e;
+}
+
+.category.high-risk .circle {
+    background-color: #ef3e3e;
+}
+
+.category.low-risk {
+    border: 0.5px solid #81C784;
+    color: #81C784;
+}
+
+.category.low-risk .circle {
+    background-color: #81C784;
+}
+
+.maintenance-requests {
+    margin-top: 25px;
+    padding: 30px;
+    background-color: white;
+    border-radius: 15px;
+}
+
+.maintenance-requests #h2 {
+    /* margin: 20px 0px -35px; */
+    font-size: 22px;
+    /* font-weight: bold; */
+}
+
+#maintenance-requests-header {
+    /* margin: 15px 0px; */
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 30px;
+}
+
+.maintenance-requests .request {
+    background-color: #f4f4f4;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+}
+/* 
+.request {
+    display: flex;
+} */
+
+.request-info {
+    padding-left: 18px;
+}
+
+.request-btns {
+    float: right;
+    /* margin-bottom: -90px; */
+}
+.approve-btn, .delete-btn, .comment-btn {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.request-top-btns {
+    float: inline-end;
+}
+
+.approve-btn {
+    /* background-color: #81C784; */
+    color: #A020F0;
+    font-weight: bold;
+    font-size: 17px;
+    margin-right: 5%;
+    float: inline-end;
+}
+
+.delete-btn {
+    /* background-color: #E57373; */
+    color: #ef3e3e;
+}
+
+.view-all {
+    background-color: white;
+    font-weight: bold;
+    font-size: 15px;
+    /* color: white; */
+    /* box-shadow: 5px 5px 5px; */
+    padding: 12px;
+    border: 0.15px solid rgb(165, 164, 164);
+    cursor: pointer;
+    /* box-sizing: border-box; */
+    /* box-shadow: inset; */
+    border-radius: 7px;
+    /* display: block; */
+    margin: -10px 10px 20px 0px;
+    /* margin-right: 45px; */
+    float: right;
+}

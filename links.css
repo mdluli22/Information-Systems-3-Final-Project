@@ -4,6 +4,18 @@ body {
     padding: 0;
 }
 
+h2 {
+    /* all the headings before the purple line */
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 24px;
+    /* identical to box height, or 80% */
+    color: #000000;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin-bottom: 10px
+}
 
 /* Adds vertical space around the header */
 header {
@@ -14,20 +26,20 @@ header {
 header h1 {
     margin: 0;
     font-size: 32px;
-    padding-left: 10px;
+    padding-left: 30px;
 }
 
 /* Styles a username span inside the header with a purple color */
 header h1 .username {
     color: #A020F0;
+ 
 }
 
-p{
+p {
     color: lightslategray;
     font-family: 'Inter', sans-serif;
-    padding-left: 12px;
+    padding-left: 32px;
 }
-
 
 
 main {
@@ -35,7 +47,6 @@ main {
 }
 
 footer {
-    background-color: #f0f0f0;
     padding: 10px;
     text-align: center;
 }
@@ -44,8 +55,19 @@ section {
     margin-bottom: 20px;
 }
 
-.hr{
- border: none;
- width: 82%; /* Width of the horizontal line */
- border-top: 0.3rem solid #A020F0; /* Line style and color */
+.hr {
+    border: none;
+    width: 100%;/* Width of the horizontal line */
+    border-top: 0.3rem solid #A020F0;/* Line style and color */
+}
+
+img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    /* Adjust width as needed */
+    height: auto;
+    /* Maintain aspect ratio */
+    padding-right: 80px;
 }

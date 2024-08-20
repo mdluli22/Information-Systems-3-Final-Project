@@ -1,0 +1,51 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Adds vertical space around the header */
+header {
+    margin: 20px 0px;
+}
+
+/* Styles the main header text with no margin and a large font size */
+header h1 {
+    margin: 0;
+    font-size: 32px;
+    padding-left: 10px;
+}
+
+/* Styles a username span inside the header with a purple color */
+header h1 .username {
+    color: #A020F0;
+}
+
+p{
+    color: lightslategray;
+    font-family: 'Inter', sans-serif;
+    padding-left: 12px;
+}
+
+
+
+main {
+    padding: 20px;
+}
+
+footer {
+    background-color: #f0f0f0;
+    padding: 10px;
+    text-align: center;
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+.hr{
+ border: none;
+ width: 82%; /* Width of the horizontal line */
+ border-top: 0.3rem solid #A020F0; /* Line style and color */
+}

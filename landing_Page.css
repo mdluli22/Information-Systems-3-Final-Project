@@ -1,0 +1,245 @@
+/* Resetting margins and paddings for consistency across browsers */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Global styles for the body */
+body {
+    font-family: Arial, sans-serif; /* Sets the font */
+    line-height: 1.6; /* Improves readability */
+    /* background-color: #A020F0; Light background color*/
+    /* background: linear-gradient(135deg, #ececec, #d1cfd1); Background gradient */
+    color: #333; /* Default text color */
+}
+
+/* Header styles: Top navigation bar */
+.header {
+    display: flex; /* Flexbox layout for alignment */
+    justify-content: space-between; /* Space between logo, nav, and buttons */
+    align-items: center; /* Vertically align items */
+    padding: 0px 7%;
+    background-color: #fff; /* White background */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* insert header pic */
+#header-pic {
+    background-image: url("pictures/header-pic.jpg");
+    width: 100%;
+    height: 93px;
+}
+
+/* Space between logo text and nav links */
+#logo-nav {
+    display: flex; /* Use display: flex instead of flexbox */
+    align-items: center; /* Vertically align logo and nav on the same line */
+    /* justify-content: space-between; Space between the logo and nav links */
+    width: 70%;
+}
+
+/* Logo styles */
+.header .logo h1 {
+    font-size: 28px;
+    color: #333; /* Dark text color */
+    margin: 0; /* Remove default margin */
+}
+
+.header .logo {
+    display: flex; /* Use flex to ensure the logo container behaves properly */
+}
+
+/* Navigation menu styles */
+.header .nav ul {
+    list-style: none; /* Removes bullet points */
+    display: flex; /* Horizontal layout */
+    margin: 0; /* Reset margin */
+    padding: 0; /* Reset padding */
+}
+
+.header .nav ul li {
+    margin-left: 60px; /* Space between nav items */
+}
+
+/* Links inside the navigation menu */
+.header .nav ul li a {
+    text-decoration: none; /* Removes underline */
+    color: #333; /* Dark text color */
+    /* font-weight: 600; Bold text */
+}
+/* Authentication buttons (Login and Sign Up) */
+.header .auth-buttons {
+    font-weight: bold;
+    display: flex; /* Horizontal layout */
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 24px;
+    gap: 10px;
+    box-sizing: border-box;
+}
+
+.header .auth-buttons a {
+    text-decoration: none; /* Removes underline */
+    color: #fff; /* White text color */
+    background-color: #6C63FF; /* Default background color */
+    padding: 10px 20px; /* Button padding */
+    border-radius: 5px; /* Rounded corners */
+    margin-left: 10px; /* Space between buttons */
+}
+
+/* Specific style for the "Sign up" button */
+.header .auth-buttons .signup-btn {
+    color: white;
+    background-color: #A020F0; /* Different color for the signup button */
+    box-shadow: 0px 2px 4px #000929;
+}
+
+/* Specific style for the "Login" button */
+.header .auth-buttons .login-btn {
+    color: #333;
+    background-color: white;
+    box-shadow: 0px 2px 4px #000929;
+}
+
+/* background-gradient */
+#background-gradient {
+    background: linear-gradient(180deg, rgba(174, 92, 220, 0.2) 0%, rgba(95, 63, 112, 0) 100%);
+}
+
+/* Hero section: Main content area */
+.hero {
+    display: flex; /* Two-column layout */
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Vertically align content */
+    padding: 0% 2%; /* Responsive padding */
+    text-align: left;
+    margin: 0% auto;
+    max-width: 100%; /* Allow the section to take full width */
+    flex-wrap: wrap; /* Ensure content wraps on smaller screens */
+}
+
+.hero-content {
+    flex: 1;
+    margin: 0 5%; /* Adjust margin for spacing between text and image */
+    text-align: left;
+    /* align-items: start; */
+}
+
+/* Hero section headline */
+.hero .hero-content h2 {
+    font-size: 3.5rem; /* Responsive text size */
+    color: #333; /* Dark text color */
+    margin-bottom: 1rem; /* Space below the headline */
+}
+
+/* Hero section description text */
+.hero .hero-content p {
+    font-size: 1.5rem; /* Responsive text size */
+    color: #555; /* Slightly lighter text color */
+    margin-bottom: 2rem; /* Space below the description */
+}
+
+/* "Learn More" button in the hero section */
+.hero .learn-more-btn {
+    text-decoration: none; /* Removes underline */
+    color: #fff; /* White text color */
+    background-color: #A020F0; /* Button background color */
+    padding: 1rem 2rem; /* Responsive button padding */
+    border-radius: 0.5rem; /* Rounded corners */
+    font-size: 1rem; /* Responsive text size */
+}
+
+.hero .hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center; /* Center the image horizontally */
+    /* margin-top: 2rem; Add space above image for small screens */
+    /* max-height: 80%; */
+}
+
+.hero .hero-image img {
+    max-width: 100%; /* Image scales with its container */
+    /* height: auto; Maintain aspect ratio */
+    /* max-height: 80%; Ensures the image stays within its container */
+}
+
+/* Features section: Three-column layout for features */
+.features {
+    display: flex; /* Horizontal layout */
+    justify-content: space-around; /* Evenly distribute space */
+    padding: 5% 2%; /* Responsive padding */
+    margin: 0 5%; /* Margin to ensure content doesn't touch the edges */
+    text-align: center; /* Center-align text */
+    flex-wrap: wrap; /* Wrap the content on smaller screens */
+}
+
+/* Individual feature box */
+.features .feature {
+    flex: 1; /* Each feature takes equal space */
+    text-align: left;
+    margin: 0 3%; /* Space between features */
+    min-width: 25%; /* Ensure features don't get too small */
+}
+
+/* Feature headline */
+.features .feature h3 {
+    font-size: 1.8rem; /* Responsive text size */
+    margin-bottom: 1rem; /* Space below the headline */
+}
+
+/* Feature description */
+.features .feature p {
+    font-size: 1rem; /* Responsive text size */
+    color: #555; /* Slightly lighter text color */
+}
+
+/* Horizontal rule: Divider between features and footer */
+.hr {
+    width: 100%; /* Ensure it spans across the container */
+    display: flex;
+    justify-content: center; /* Center the horizontal rule */
+    margin-top: -4rem;
+}
+
+#hr {
+    border: none;
+    width: 82%; /* Width of the horizontal line */
+    border-top: 0.3rem solid #A020F0; /* Line style and color */
+}
+
+/* Footer section: Contains legal and policy links */
+.footer {
+    text-align: center; /* Center-align text */
+    padding: 2% 0; /* Responsive padding */
+    color: #000929; /* Text color */
+    margin-top: -1.1rem; /* Space above the footer */
+}
+
+/* Footer links */
+.footer .footer-links {
+    display: flex; /* Horizontal layout */
+    justify-content: center; /* Center-align links */
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap; /* Wrap links on smaller screens */
+}
+
+/* Individual footer link */
+.footer .footer-links a {
+    text-decoration: none; /* Removes underline */
+    color: inherit; /* Inherit text color */
+    padding: 0 1.5%; /* Space between links */
+    font-size: 1rem; /* Responsive text size */
+}
+
+.footer p {
+    margin-bottom: -1.25rem;
+}
+
+/* Container for the bottom section */
+.fixed-at-bottom {
+    position: static;
+    width: 100%; /* Full width */
+    background-color: inherit; /* Inherit background */
+}

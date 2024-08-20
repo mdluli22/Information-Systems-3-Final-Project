@@ -22,6 +22,46 @@ body {
     
 }
 
+.profile {
+    position: absolute;
+    font-size: 85%;
+    bottom: 40px;
+    width: 100%;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-pic {
+    background-color: #ddd;
+    color: #333;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin: 0 auto;
+    line-height: 50px;
+    font-size: 20px;
+    float: left;
+    text-align: center;
+}
+
+.profile-info {
+    margin-left: 20px;
+    /* padding-left: -20px; */
+    font-weight: bold;
+    flex-grow: 1;
+    line-height: 155%;
+}
+
+.sidebar .profile-info .role {
+    font-weight: lighter;
+}
+
+#sidebar-log-out {
+    float: right;
+    flex-grow: 1.5;
+}
+
 /* provides vertical spacing between each list item */
 /* For the search bar */
 .search {
@@ -133,7 +173,7 @@ h1 {
 }
 
 .requisition-form {
-    width: 1007px; /* Fixed width for the form */
+    width: 100%; /* Fixed width for the form */
     background-color: #fff;
     padding: 30px;
     border-radius: 8px;
@@ -157,15 +197,6 @@ h1 {
     margin-bottom: 20px;
     border-bottom: 1px solid #ddd; /* Light gray color */
     padding-bottom: 10px; /* Add some space below each section */
-}
-
-.form-group label {
-    flex: 0 0 200px; /* Fixed width for labels */
-    margin-right: 20px;
-    text-align: left; /* Align text to the left */
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 600;
 }
 
 .form-extra-info {

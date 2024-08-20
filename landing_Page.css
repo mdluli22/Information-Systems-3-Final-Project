@@ -132,6 +132,8 @@ body {
     font-size: 3.5rem; /* Responsive text size */
     color: #333; /* Dark text color */
     margin-bottom: 1rem; /* Space below the headline */
+    line-height: normal;
+    /* word-spacing: 100px; */
 }
 
 /* Hero section description text */

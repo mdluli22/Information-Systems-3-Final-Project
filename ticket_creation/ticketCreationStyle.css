@@ -2,18 +2,13 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;
+    background-color: #f2e6f7;
     height: 100vh; /* Ensure the body takes up the full viewport height */
 }
 
 .container {
     display: flex;
     height: 100vh;
-}
-
-.logo {
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 30px;
 }
 
 /* the whole left side section */
@@ -28,10 +23,7 @@ body {
     
 }
 
-/* Styles the profile section at the bottom of the sidebar, 
-with smaller font size, full width, left-aligned text, 
-and flexbox layout for horizontal alignment */
-.sidebar .profile {
+.profile {
     position: absolute;
     font-size: 85%;
     bottom: 40px;
@@ -41,25 +33,20 @@ and flexbox layout for horizontal alignment */
     flex-direction: row;
 }
 
-/* Styles the profile picture with light grey background, dark grey text, 
-fixed dimensions, circular shape, centered text, 
-and a large font size for initials or icons */
-.sidebar .profile-pic {
-    background-color: lightgrey;
+.profile-pic {
+    background-color: #ddd;
     color: #333;
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     margin: 0 auto;
     line-height: 50px;
-    font-size: 24px;
+    font-size: 20px;
     float: left;
     text-align: center;
 }
 
-/* Styles the profile information next to the profile picture with margin, 
-bold font, flexible growth to take up available space, and increased line height */
-.sidebar .profile-info {
+.profile-info {
     margin-left: 20px;
     /* padding-left: -20px; */
     font-weight: bold;
@@ -67,16 +54,14 @@ bold font, flexible growth to take up available space, and increased line height
     line-height: 155%;
 }
 
-/* Styles the role text inside the profile section with a lighter font weight */
-.sidebar .profile-info #role {
+.sidebar .profile-info .role {
     font-weight: lighter;
 }
 
-/* Styles the logout button inside the profile section with float and flexible growth */
 #sidebar-log-out {
     float: right;
     flex-grow: 1.5;
-} 
+}
 
 /* provides vertical spacing between each list item */
 /* For the search bar */
@@ -151,6 +136,12 @@ nav ul li a:hover {
     color: #666;
 }
 /* the left side section ends here */
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
 
 .content {
     flex-grow: 1;

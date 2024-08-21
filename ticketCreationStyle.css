@@ -2,6 +2,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;
+    background-color: #f2e6f7;
     height: 100vh; /* Ensure the body takes up the full viewport height */
 }
 
@@ -145,7 +146,7 @@ nav ul li a:hover {
 .content {
     flex-grow: 1;
     padding: 40px;
-    background-color: #f0f0f0;
+    /* background-color: #f6f6f6; */
     position: relative;
     height: 100vh; /* Ensure content area takes up full height */
 }

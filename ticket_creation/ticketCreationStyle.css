@@ -10,6 +10,12 @@ body {
     height: 100vh;
 }
 
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
 /* the whole left side section */
 .sidebar {
     background-color: #fff;
@@ -22,7 +28,10 @@ body {
     
 }
 
-.profile {
+/* Styles the profile section at the bottom of the sidebar, 
+with smaller font size, full width, left-aligned text, 
+and flexbox layout for horizontal alignment */
+.sidebar .profile {
     position: absolute;
     font-size: 85%;
     bottom: 40px;
@@ -32,20 +41,25 @@ body {
     flex-direction: row;
 }
 
-.profile-pic {
-    background-color: #ddd;
+/* Styles the profile picture with light grey background, dark grey text, 
+fixed dimensions, circular shape, centered text, 
+and a large font size for initials or icons */
+.sidebar .profile-pic {
+    background-color: lightgrey;
     color: #333;
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     margin: 0 auto;
     line-height: 50px;
-    font-size: 20px;
+    font-size: 24px;
     float: left;
     text-align: center;
 }
 
-.profile-info {
+/* Styles the profile information next to the profile picture with margin, 
+bold font, flexible growth to take up available space, and increased line height */
+.sidebar .profile-info {
     margin-left: 20px;
     /* padding-left: -20px; */
     font-weight: bold;
@@ -53,14 +67,16 @@ body {
     line-height: 155%;
 }
 
-.sidebar .profile-info .role {
+/* Styles the role text inside the profile section with a lighter font weight */
+.sidebar .profile-info #role {
     font-weight: lighter;
 }
 
+/* Styles the logout button inside the profile section with float and flexible growth */
 #sidebar-log-out {
     float: right;
     flex-grow: 1.5;
-}
+} 
 
 /* provides vertical spacing between each list item */
 /* For the search bar */
@@ -135,12 +151,6 @@ nav ul li a:hover {
     color: #666;
 }
 /* the left side section ends here */
-
-.logo {
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 30px;
-}
 
 .content {
     flex-grow: 1;

@@ -9,7 +9,7 @@
 body {
     font-family: Arial, sans-serif;
     /* Sets the font */
-    line-height: 1.6;
+    line-height: 1.6rem;
     /* Improves readability */
     /* background-color: #A020F0; Light background color*/
     /* background: linear-gradient(135deg, #ececec, #d1cfd1); Background gradient */
@@ -25,18 +25,18 @@ body {
     /* Space between logo, nav, and buttons */
     align-items: center;
     /* Vertically align items */
-    padding: 0px 7%;
+    padding: 0rem 7%;
     background-color: #fff;
     /* White background */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
     /* Subtle shadow for depth */
 }
 
 /* insert header pic */
 #header-pic {
-    background-image: url("pictures/header-pic.jpg");
+    background-image: url("images/header-pic.jpg");
     width: 100%;
-    height: 93px;
+    height: 5.8125rem;
 }
 
 /* Space between logo text and nav links */
@@ -51,7 +51,7 @@ body {
 
 /* Logo styles */
 .header .logo h1 {
-    font-size: 28px;
+    font-size: 1.75rem;
     color: #333;
     /* Dark text color */
     margin: 0;
@@ -82,7 +82,7 @@ body {
     font-family: 'Inter', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 20px;
+    font-size: 1.25rem;
     line-height: 150%;
     /* identical to box height, or 30px */
 
@@ -108,10 +108,9 @@ body {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 12px 24px;
-    gap: 10px;
+    padding: 0.75rem 1.5rem;
+    gap: 0.625rem;
     box-sizing: border-box;
-
 }
 
 .header .auth-buttons a {
@@ -121,11 +120,11 @@ body {
     /* White text color */
     background-color: #6C63FF;
     /* Default background color */
-    padding: 10px 20px;
+    padding: 0.625rem 1.25rem;
     /* Button padding */
-    border-radius: 5px;
+    border-radius: 0.3125rem;
     /* Rounded corners */
-    margin-left: 10px;
+    margin-left: 0.625rem;
     /* Space between buttons */
 }
 
@@ -134,14 +133,14 @@ body {
     color: white;
     background-color: #A020F0;
     /* Different color for the signup button */
-    box-shadow: 0px 2px 4px #000929;
+    box-shadow: 0 0.125rem 0.25rem #000929;
 }
 
 /* Specific style for the "Login" button */
 .header .auth-buttons .login-btn {
     color: #333;
     background-color: white;
-    box-shadow: 0px 2px 4px #000929;
+    box-shadow: 0 0.125rem 0.25rem #000929;
 }
 
 /* background-gradient */
@@ -166,14 +165,14 @@ body {
     flex-wrap: wrap;
     /* Ensure content wraps on smaller screens */
  
-    padding-top: 95px;
-    margin-left: 50px;
+    padding-top: 5.9375rem;
+    margin-left: 3.125rem;
 
     /* font edits */
     font-family: 'Inter', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 24px;
+    font-size: 1.5rem;
     line-height: 160%;
     /* or 38px */
     letter-spacing: -0.005em;
@@ -183,7 +182,7 @@ h2 {
     font-family: 'Inter', sans-serif;
     font-style: normal;
     font-weight: 700;
-    font-size: 64px;
+    font-size: 4rem;
     line-height: 110%;
     /* or 70px */
     letter-spacing: -0.01em;
@@ -225,7 +224,7 @@ h2 {
 }
 
 /* "Learn More" button in the hero section */
-.hero .learn-more-btn {
+.hero #learn-more-btn {
     text-decoration: none;
     /* Removes underline */
     color: #fff;
@@ -238,12 +237,12 @@ h2 {
     /* Rounded corners */
     font-size: 1rem;
     /* Responsive text size */
-
+    
     /* font edits */
     font-family: 'Inter', sans-serif;
     font-style: normal;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 150%;
     text-align: center;
     font-feature-settings: 'ss06' on, 'ss04' on, 'liga' off;
@@ -303,7 +302,7 @@ h2 {
     font-family: 'Inter', sans-serif;
     font-style: normal;
     font-weight: 700;
-    font-size: 24px;
+    font-size: 1.5rem;
     line-height: 150%;
     /* identical to box height, or 36px */
     letter-spacing: -0.01em;
@@ -321,7 +320,7 @@ h2 {
     font-family: 'Inter', sans-serif;
     font-style: normal;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 160%;
     /* or 26px */
 
@@ -389,7 +388,8 @@ h2 {
 
 /* Container for the bottom section */
 .fixed-at-bottom {
-    position: fixed;
+    position: relative;
+    position: absolute;
     width: 100%;
     /* Full width */
     bottom: 0%;

@@ -154,7 +154,8 @@ nav ul li a:hover {
 
 .content {
     flex-grow: 1;
-    padding: 40px;
+    padding: 2.5rem;
+    padding-right: 5rem;
     background-color: #f0f0f0;
     position: relative;
     height: 100vh; /* Ensure content area takes up full height */

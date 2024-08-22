@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;
-    background-color: #f2e6f7;
+    /* background-color: #f2e6f7; */
     height: 100vh; /* Ensure the body takes up the full viewport height */
 }
 
@@ -16,17 +16,18 @@ body {
     background-color: #fff;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    width: 280px;
-    padding: 20px;
+    position: fixed;
+    /* justify-content: space-between; */
+    width: 17.5rem; /* 280px converted to rem */
+    padding: 1.25rem; /* 20px converted to rem */
     height: 100vh; /* Ensure sidebar takes up full height */
     
 }
 
 .profile {
     position: absolute;
-    font-size: 85%;
-    bottom: 40px;
+    font-size: 0.85rem; /* 85% of 16px */
+    bottom: 2.5rem; /* 40px converted to rem */
     width: 100%;
     text-align: left;
     display: flex;
@@ -36,22 +37,22 @@ body {
 .profile-pic {
     background-color: #ddd;
     color: #333;
-    width: 45px;
-    height: 45px;
+    width: 2.8125rem; /* 45px converted to rem */
+    height: 2.8125rem; /* 45px converted to rem */
     border-radius: 50%;
     margin: 0 auto;
-    line-height: 50px;
-    font-size: 20px;
+    line-height: 3.125rem; /* 50px converted to rem */
+    font-size: 1.25rem; /* 20px converted to rem */
     float: left;
     text-align: center;
 }
 
 .profile-info {
-    margin-left: 20px;
+    margin-left: 1.25rem; /* 20px converted to rem */
     /* padding-left: -20px; */
     font-weight: bold;
     flex-grow: 1;
-    line-height: 155%;
+    line-height: 1.9375rem; /* 155% of 16px */
 }
 
 .sidebar .profile-info .role {
@@ -66,18 +67,17 @@ body {
 /* provides vertical spacing between each list item */
 /* For the search bar */
 .search {
-    --padding: 14px;
-    /* width: max-content; */
+    --padding: 0.875rem; /* 14px converted to rem */
     display: flex;
     align-items: center;
     padding: var(--padding);
-    border-radius: 8px;
+    border-radius: 0.5rem; /* 8px converted to rem */
     background: #ddd;
-    width: 248px;
+    width: 13.4375rem; /* 215px converted to rem */
 }
 
 .search-input{
-    font-size: 16px;
+    font-size: 1rem; /* 16px */
     font-family: inherit;
     color: #333333;
     margin-left: var(--padding);
@@ -87,13 +87,16 @@ body {
     flex: 1;
     transition: background 0.25s;
 }
+
 .search:focus-within {
     background: #f6f6f6;
 }
+
 .search-input::placeholder,
 .search-icon {
     color: #666;
 }
+
 /* removes the bullet points */
 nav ul {
     list-style: none;
@@ -101,25 +104,28 @@ nav ul {
 }
 
 nav ul li {
-    margin-bottom: 15px;
+    margin-bottom: 0.9375rem; /* 15px converted to rem */
 }
 
 nav ul li a {
     align-items: center;
     text-decoration: none;  /* removes the underline */
     color: #333;    /* sets the text color */
-    font-size: 18px;   /* sets the font size */
+    font-size: 1.125rem;   /* 18px converted to rem */
     display: block; /* makes the link a block-level element */
-    padding: 15px;
-    border-radius: 8px;
+    padding: 0.9375rem; /* 15px converted to rem */
+    border-radius: 0.5rem; /* 8px converted to rem */
     transition: background-color 0.25s; /* adds a smooth color transition */
+    width: 13.4375rem; /* Matches the width of the search bar */
 }
+
 nav ul li a img{
-    margin-right: 8px;  /* adds space between the icon and text */
-    width: 24px;    /* sets the width of the icon */
-    height: 24px;   /* sets the height of the icon */
+    margin-right: 0.5rem;  /* 8px converted to rem */
+    width: 1.5rem;    /* 24px converted to rem */
+    height: 1.5rem;   /* 24px converted to rem */
     object-fit: contain;    /* ensures the icon fits within the specified width and height */
 }
+
 nav ul li a:hover {
     background-color: #A020F0;
 }
@@ -127,20 +133,21 @@ nav ul li a:hover {
 .user-info {
     text-align: left;
     margin-top: auto;
-    padding: 20px; /* Adjust padding */
-    border-top: 1px solid #ddd; /* Add a top border for separation */
+    padding: 0.5625rem; /* 9px converted to rem */
+    border-top: 0.0625rem solid #ddd; /* 1px converted to rem */
     position: relative; /* Position relative to use pseudo-elements */
 }
 
 .role {
     color: #666;
 }
+
 /* the left side section ends here */
 
 .logo {
-    font-size: 24px;
+    font-size: 1.5rem; /* 24px converted to rem */
     font-weight: 700;
-    margin-bottom: 30px;
+    margin-bottom: 1.875rem; /* 30px converted to rem */
 }
 
 .content {
@@ -150,45 +157,46 @@ nav ul li a:hover {
     background-color: #f0f0f0;
     position: relative;
     height: 100vh; /* Ensure content area takes up full height */
+    margin-left: 17.5rem; /* Matches the width of the sidebar */
 }
 
 .page-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem; /* 20px converted to rem */
 }
 
 h1 {
-    font-size: 28px;
-    margin-bottom: 10px;
+    font-size: 1.75rem; /* 28px converted to rem */
+    margin-bottom: 0.625rem; /* 10px converted to rem */
 }
 
 .fade-out {
     color: #666;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem; /* 20px converted to rem */
 }
 
 .header-logo {
-    width: 100px; /* Adjust size as needed */
+    width: 6.25rem; /* 100px converted to rem */
     height: auto;
 }
 
 .requisition-form {
     width: 100%; /* Fixed width for the form */
     background-color: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 1.875rem; /* 30px converted to rem */
+    border-radius: 0.5rem; /* 8px converted to rem */
+    box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.1); /* 0 2px 10px converted to rem */
     box-sizing: border-box; /* Include padding in width and height */
     overflow: auto; /* Add scrollbars if content overflows */
 }
 
 .form-header {
-    margin-bottom: 20px;
-    border-bottom: 1px solid #ddd; /* Light gray color */
-    padding-bottom: 10px; /* Add some space below each section */
-    margin-bottom: 10px; /* Add some space between sections */
+    margin-bottom: 1.25rem; /* 20px converted to rem */
+    border-bottom: 0.0625rem solid #ddd; /* 1px converted to rem */
+    padding-bottom: 0.625rem; /* 10px converted to rem */
+    margin-bottom: 0.625rem; /* 10px converted to rem */
 }
 
 /* for the form labels */
@@ -196,13 +204,13 @@ h1 {
 .form-group {
     display: flex;
     align-items: center; /* Center align items vertically */
-    margin-bottom: 20px;
-    border-bottom: 1px solid #ddd; /* Light gray color */
-    padding-bottom: 10px; /* Add some space below each section */
+    margin-bottom: 1.25rem; /* 20px converted to rem */
+    border-bottom: 0.0625rem solid #ddd; /* 1px converted to rem */
+    padding-bottom: 0.625rem; /* 10px converted to rem */
 }
 
 .form-extra-info {
-    margin-bottom: 10px; /* Space between extra info and textarea */
+    margin-bottom: 0.625rem; /* 10px converted to rem */
 }
 
 .form-group small {
@@ -213,11 +221,11 @@ h1 {
 .form-group select,
 .form-group textarea,
 .form-group input[type="file"] {
-    width: 512px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
+    width: 32rem; /* 512px converted to rem */
+    padding: 0.625rem; /* 10px converted to rem */
+    border: 0.0625rem solid #ddd; /* 1px converted to rem */
+    border-radius: 0.25rem; /* 4px converted to rem */
+    font-size: 1rem; /* 16px */
     background-color: #fff; /* Set background color to white */
     color: #333; /* Ensure text color is readable */
     box-sizing: border-box; /* Include padding in width */
@@ -236,26 +244,26 @@ h1 {
 }
 
 .cancel-btn {
-    width: 404px; /* Fixed width for buttons */
+    width: 25.25rem; /* 404px converted to rem */
     height: auto; /* Height adjusts based on content */
     background-color: #DA0707;
     color: #fff;
     border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 4px;
+    padding: 0.625rem 1.25rem; /* 10px 20px converted to rem */
+    font-size: 1rem; /* 16px */
+    border-radius: 0.25rem; /* 4px converted to rem */
     cursor: pointer;
 }
 
 .submit-btn {
-    width: 404px; /* Fixed width for buttons */
+    width: 25.25rem; /* 404px converted to rem */
     height: auto; /* Height adjusts based on content */
     background-color: #A020F0;
     color: #fff;
     border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 4px;
+    padding: 0.625rem 1.25rem; /* 10px 20px converted to rem */
+    font-size: 1rem; /* 16px */
+    border-radius: 0.25rem; /* 4px converted to rem */
     cursor: pointer;
 }
 
@@ -266,8 +274,8 @@ h1 {
 
 /* Style for labels to have a fixed width */
 .form-group label {
-    flex: 0 0 200px; /* Fixed width for labels */
-    margin-right: 20px; /* Space between label and input */
+    flex: 0 0 12.5rem; /* 200px converted to rem */
+    margin-right: 1.25rem; /* 20px converted to rem */
     text-align: right; /* Align text to the right */
 }
 
@@ -278,6 +286,6 @@ h1 {
 
 /* Style for textarea */
 .form-input textarea {
-    height: 100px; /* Set a fixed height for textarea */
+    height: 6.25rem; /* 100px converted to rem */
     resize: vertical; /* Allow vertical resizing only */
 }

@@ -33,43 +33,67 @@ and some padding on the sides */
 /* Creates a flex container for the search bar 
 and stretches its children to align vertically */
 .sidebar-search {
-    position: relative;
-    width: 300px;
+    --padding: 14px;
+    /* width: max-content; */
     display: flex;
-    align-items: stretch;
+    align-items: center;
+    padding: var(--padding);
+    border-radius: 8px;
+    background: #ddd;
+    width: 248px;
 }
 
 /* Styles the search input field with width, padding (including space for an icon), 
 right margin, border, rounded corners, and font size */
-#search-field {
+/* #search-field {
     width: 70%;
-    padding: 10px 0px 10px 40px; /* Add padding for the icon */
+    padding: 10px 0px 10px 40px;  Add padding for the icon 
     margin-right: -5px;
     border: 1px solid #ccc;
     border-radius: 7px;
     font-size: 16px;
+} */
+ 
+.search-input{
+    font-size: 16px;
+    font-family: inherit;
+    color: #333333;
+    margin-left: var(--padding);
+    outline: none;
+    border: none;
+    background: transparent;
+    flex: 1;
+    transition: background 0.25s;
+}
+
+.search:focus-within {
+    background: #f6f6f6;
+}
+.search-input::placeholder,
+.search-icon {
+    color: #666;
 }
 
 /* Positions the search icon inside the search bar, 
 centers it vertically, and makes it unclickable */
-#search-icon {
+/* #search-icon {
     position: absolute;
     right: 270px;
     top: 50%;
     transform: translateY(-50%);
-    pointer-events: none; /* This makes the icon unclickable, so clicks go through to the input */
+    pointer-events: none; 
     font-size: 18px;
     color: #888;
-}
+} */
 
 /* Styles the search button with height, margin, and removes unnecessary properties */
-#search-button {
+/* #search-button {
     height: 30px;
-    /* padding: 0; */
+    padding: 0;
     margin: 5px 10px;
-    /* width: 100%; */
-    /* float: right; */
-}
+    width: 100%;
+    float: right;
+} */
 
 /* Removes the default list style and padding from the sidebar's unordered list */
 .sidebar ul {

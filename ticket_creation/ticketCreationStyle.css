@@ -24,7 +24,7 @@ body {
     
 }
 
-.profile {
+.sidebar .profile {
     position: absolute;
     font-size: 0.85rem; /* 85% of 16px */
     bottom: 2.5rem; /* 40px converted to rem */
@@ -130,7 +130,7 @@ nav ul li a:hover {
     background-color: #A020F0;
 }
 
-.user-info {
+.profile {
     text-align: left;
     margin-top: auto;
     padding: 0.5625rem; /* 9px converted to rem */

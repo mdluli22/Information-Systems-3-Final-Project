@@ -2,13 +2,12 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;
-    /* background-color: #f2e6f7; */
-    height: 100vh; /* Ensure the body takes up the full viewport height */
+    height: 100%; /* Ensure the body takes up the full viewport height */
 }
 
 .container {
     display: flex;
-    height: 100vh;
+    height: 100%;
 }
 
 /* the whole left side section */
@@ -77,7 +76,7 @@ body {
 
 .search-input{
     font-size: 1rem; /* 16px */
-    font-family: inherit;
+    font-family: 'Inter', sans-serif;
     color: #333333;
     margin-left: var(--padding);
     outline: none;
@@ -153,9 +152,7 @@ padding, and flexible growth to fill available space */
     padding-right: 5rem;
     background-color: #f0f0f0;
     position: relative;
-    height: 100vh; /* Ensure content area takes up full height */
     margin-left: 17.5rem; /* Matches the width of the sidebar */
-    /* color: #333; */
 }
 
 /* Adds space below the header inside the main content area */

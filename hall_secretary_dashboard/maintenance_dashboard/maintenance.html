@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance</title>
+    <link rel="stylesheet" href="maintenance.css">
+</head>
+<body>
+    <main>
+        <!-- Sidebar section for navigation -->
+        <section class="sidebar">
+            <!-- Logo section at the top of the sidebar -->
+            <div class="logo">
+                <h2>ResQue</h2>
+            </div>
+            
+            <!-- Search bar in the sidebar -->
+            <form action="" class="sidebar-search">
+                <span id="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                <input type="search" name="search-field" id="search-field" placeholder="Search for tickets" class="search-input">
+            </form>
+            
+            <!-- Search input field and button -->
+            <!-- <button id="search-button" type="submit">Find</button> -->
+            
+            <!-- Navigation menu in the sidebar -->
+            <nav>
+                <ul id="sidebar-nav">
+                    <!-- Navigation links with icons -->
+                    <li id="all-tickets"><a class="sidebar-links" href="#"><img src="pictures/receipt-icon.png" alt="receipt icon" height="18px">&nbsp;&nbsp;&nbsp;All Tickets</a></li>
+                    <li id="open-tickets"><a class="sidebar-links" href="#"><i class="fa-solid fa-layer-group"></i>&nbsp;&nbsp;&nbsp;Open Tickets</a></li>
+                    <li id="closed-tickets"><a class="sidebar-links" href="#"><i class="fa-solid fa-clipboard-check"></i>&nbsp;&nbsp;&nbsp;Closed Tickets</a></li>
+                    <li id="statistics"><a class="sidebar-links" href="#"><img src="pictures/bar-chart-icon.png" alt="bar chart icon" height="18px">&nbsp;&nbsp;Statistics</a></li>
+                </ul>
+            </nav>
+    
+            <hr id="sidebar-hr">
+    
+            <!-- Profile section at the bottom of the sidebar -->
+            <div class="profile">
+                <!-- Profile picture area -->
+                <div class="profile-pic">TT</div>
+                <!-- Profile information area -->
+                <div class="profile-info">
+                    <span id="user-name" class="username">Thokozile Tshabalala</span><br>
+                    <span id="role">Hall Secretary</span>
+                </div>
+                <!-- Logout button with icon -->
+                <div id="sidebar-log-out">
+                    <a href=""><i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main content area -->
+        <section class="main-content">
+            <header>
+                <!-- Welcome message -->
+                <h1>Welcome, <span class="username">Thokozile</span></h1>
+                <p>Access & Manage maintenance requisitions efficiently.</p>
+            </header>
+            <!-- House selection links -->
+            <div class="houses">
+                <a href="" class="house-link active">Cory House</a>
+                <a href="" class="house-link">Botha House</a>
+                <a href="" class="house-link">Walter Sisulu House</a>
+                <a href="" class="house-link">Starling House</a>
+            </div>
+            <!-- Ticket table section -->
+            <div class="ticket-table">
+                <table>
+                    <thead>
+                        <!-- Table headers -->
+                        <tr>
+                            <th>Ticket Number</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Category</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Example table rows with data -->
+                        <tr>
+                            <td>#183692</td>
+                            <td>Broken Wardrobe</td>
+                            <td><span class="status processing"><span class="circle"></span>&nbsp;&nbsp;Processing</span></td>
+                            <td>Wed 13:00pm</td>
+                            <td><span class="category high-risk"><span class="circle"></span>&nbsp;&nbsp;High Risk</span></td>
+                        </tr>
+                        <tr>
+                            <td>#289377</td>
+                            <td>Ceiling Fell</td>
+                            <td><span class="status processing"><span class="circle"></span>&nbsp;&nbsp;Processing</span></td>
+                            <td>Friday 16:10pm</td>
+                            <td><span class="category high-risk"><span class="circle"></span>&nbsp;&nbsp;High Risk</span></td>
+                        </tr>
+                        <tr>
+                            <td>#389383</td>
+                            <td>No Electricity</td>
+                            <td><span class="status processing"><span class="circle"></span>&nbsp;&nbsp;Processing</span></td>
+                            <td>Tue 18:10pm</td>
+                            <td><span class="category low-risk"><span class="circle"></span>&nbsp;&nbsp;Low Risk</span></td>
+                        </tr>
+                        <tr>
+                            <td>#388888</td>
+                            <td>No Door Handle</td>
+                            <td><span class="status processing"><span class="circle"></span>&nbsp;&nbsp;Processing</span></td>
+                            <td>Tue 23:10pm</td>
+                            <td><span class="category low-risk"><span class="circle"></span>&nbsp;&nbsp;Low Risk</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+</body>
+</html>

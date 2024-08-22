@@ -5,41 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ticket Tracking</title>
     <link rel="icon" type="image/x-icon" href="pictures/resque-logo.png">
-    <!-- Link to external CSS file -->
     <link rel="stylesheet" href="ticket_tracking.css">
-    <!--Link to fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Link to the FontAwesome library for icons -->
     <script src="https://kit.fontawesome.com/ddbf4d6190.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <main>
-        <!--Sidebar section for naviagtion-->
-        <section class="sidebar">
-            
-            <!--Logo section at the top of the sidebar-->
-            <div class="logo">
-                <h2>ResQue</h2>
-            </div>
+    <div class="container">
+        <!--Sidebar section for navigation-->
+        <aside class="sidebar">
+            <div class="logo"> <h2>ResQue</h2> </div>
 
             <!--Search bar in the sidebar-->
-            <form action="" class="sidebar-search">
-                <span id="search-icon"><i class="fa-magnifying-glass"></i></span>
-                <input type="search" name="search-field" id="search-field" size="18" placeholder="Search for a ticket">
+            <form action="" class="search">
+                <span class="search-icon material-symbols-outlined">search</span>
+                <input class="search-input" type="search" name="search-field" id="search-field" placeholder="Search">
             </form>
 
             <!-- Navigation menu in the sidebar -->
             <nav>
-                <ul id="sidebar-nav">
+                <ul>
                     <!-- Navigation links with icons -->
-                    <li id="log-faults"><a class="sidebar-links" href="#"><img src="images/receipt-add.png" alt="bar chart icon" height="18px">&nbsp;&nbsp;Log Faults</a></li>
-                    <li id="all-tickets"><a class="sidebar-links" href="#"><img src="images/receipt-icon.png" alt="receipt icon" height="18px">&nbsp;&nbsp;&nbsp;All Tickets</a></li>
-                    <li id="open-tickets"><a class="sidebar-links" href="#"><i class="fa-solid fa-layer-group"></i>&nbsp;&nbsp;&nbsp;Open Tickets</a></li>
-                    <li id="closed-tickets"><a class="sidebar-links" href="#"><i class="fa-solid fa-clipboard-check"></i>&nbsp;&nbsp;&nbsp;Closed Tickets</a></li>
+                    <li id="log-faults"><a class="sidebar-links" href="#"><img src="images/receipt-add.png" alt="Log faults">Log Faults</a></li>
+                    <li id="all-tickets"><a class="sidebar-links" href="#"><img src="images/receipt-icon.png" alt="All tickets">All Tickets</a></li>
+                    <li id="open-tickets"><a class="sidebar-links" href="#"><img src="pictures/layer.png" alt="layer">Open Tickets</a></li>
+                    <li id="closed-tickets"><a class="sidebar-links" href="#"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
                 </ul>
             </nav>
     
-            <hr id="sidebar-hr">
+            <!-- <hr id="sidebar-hr"> -->
     
             <!-- Profile section at the bottom of the sidebar -->
             <div class="profile">
@@ -48,96 +42,99 @@
                 <!-- Profile information area -->
                 <div class="profile-info">
                     <span id="user-name" class="username">Yeukai Runyowa</span><br>
-                    <span id="role">Student</span>
+                    <span class="role">Student</span>
                 </div>
                 <!-- Logout button with icon -->
                 <div id="sidebar-log-out">
-                    <a href=""><i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i></a>
+                    <a href="#"><i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i></a>
                 </div>
             </div>
-
-        </section>            
+        </aside>            
 
         <!-- Main Ticket Tracking section -->
-        <section class="main-tt-view">
+        <main class="content">
             <header>
-                <h2>Ticket Tracking</h2>
+                <h1>Ticket Tracking</h1>
                 <button class="add-ticket">+ Add New Ticket</button>
             </header>
 
             <!-- Flex container for the ticket list and ticket detail -->
             <div class="content-wrapper">
-            <div class="ticket-list">
-                <div class="ticket-card">
-                    <div class="ticket-number">#123454</div>
-                    <div class="ticket-status">Processing</div>
-                    <div class="ticket-info">
-                        <div class="ticket-date">
-                            <span>Estimated Date</span>
-                            <span>14:30 PM</span>
-                            <span>Nov 12, 2024</span>
+                <!-- Section for the list of tickets -->
+                <section class="ticket-list">
+                    <article class="ticket-card">
+                        <header>
+                            <div class="ticket-number">#123454</div>
+                            <div class="ticket-status">Processing</div>
+                        </header>
+                        <div class="ticket-info">
+                            <div class="ticket-date">
+                                <span>Estimated Date</span>
+                                <span>14:30 PM</span>
+                                <span>Nov 12, 2024</span>
+                            </div>
+                            <div class="ticket-user">
+                                <img src="images/staff-avatar.jpg" alt="Staff Member">
+                                <span>Peter Francis<br>Assigned Staff Member</span>
+                            </div>
                         </div>
-                        <div class="ticket-user">
-                            <img src="images/staff-avatar.jpg" alt="Staff Member">
-                            <span>Peter Francis<br>Assigned Staff Member</span>
-                        </div>
-                    </div>
-                </div>
+                    </article>
 
-                <div class="ticket-card">
-                    <div class="ticket-number">#123892</div>
-                    <div class="ticket-status">Processing</div>
-                    <div class="ticket-info">
-                        <div class="ticket-date">
-                            <span>Estimated Date</span>
-                            <span>11:23 AM</span>
-                            <span>Nov 12, 2024</span>
+                    <article class="ticket-card">
+                        <header>
+                            <div class="ticket-number">#123892</div>
+                            <div class="ticket-status">Processing</div>
+                        </header>
+                        <div class="ticket-info">
+                            <div class="ticket-date">
+                                <span>Estimated Date</span>
+                                <span>11:23 AM</span>
+                                <span>Nov 12, 2024</span>
+                            </div>
+                            <div class="ticket-user">
+                                <img src="images/staff-avatar.jpg" alt="Staff Member">
+                                <span>Peter Francis<br>Assigned Staff Member</span>
+                            </div>
                         </div>
-                        <div class="ticket-user">
-                            <img src="images/staff-avatar.jpg" alt="Staff Member">
-                            <span>Peter Francis<br>Assigned Staff Member</span>
+                    </article>
+                </section>
+
+                <!-- Section for the detailed view of a single ticket -->
+                <section class="ticket-detail">
+                    <article class="ticket-info">
+                        <img src="images/ticket-image.jpg" alt="Ticket Image">
+                        <h3>Ticket info</h3>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <div class="info-label">Ticket Number</div>
+                                <div class="info-data">#123454</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Residence</div>
+                                <div class="info-data">Cory House</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Category</div>
+                                <div class="info-data">Plumbing</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Room Number</div>
+                                <div class="info-data">21</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Comments</div>
+                                <div class="info-data">2</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Status</div>
+                                <div class="info-data">Pending</div>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    </article>
+                </section>
             </div>
-
-            <div class="ticket-detail">
-                <div class="ticket-info">
-                    <img src="images/ticket-image.jpg" alt="Ticket Image">
-                    <h3>Ticket info</h3>
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <div class="info-label">Ticket Number</div>
-                            <div class="info-data">#123454</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">Residence</div>
-                            <div class="info-data">Cory House</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">Category</div>
-                            <div class="info-data">Plumbing</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">Room Number</div>
-                            <div class="info-data">21</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">Comments</div>
-                            <div class="info-data">2</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">Status</div>
-                            <div class="info-data">Pending</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
-
-        </section>
-
-    </main>
+        </main>
+    </div>
     <!-- Link to external JavaScript file -->
     <script src="ticket_tracking.js"></script>
 </body>

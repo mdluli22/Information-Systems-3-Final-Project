@@ -5,63 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maintenance Staff</title>
     <link rel="icon" type="image/x-icon" href="pictures/resque-logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />    
     <link rel="stylesheet" href="maintenance.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <main>
+    <div class="container">
         <!-- Sidebar section for navigation -->
-        <section class="sidebar">
-            <!-- Logo section at the top of the sidebar -->
-            <div class="logo">
-                <h2>ResQue</h2>
-            </div>
+        <aside class="sidebar">
+            <div class="logo"><h2>ResQue</h2></div>
             
-            <!-- Search bar in the sidebar -->
-            <form action="" class="sidebar-search">
-                <span id="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
-                <input type="search" name="search-field" id="search-field" placeholder="Search for tickets" class="search-input">
+            <!-- search bar -->
+            <form action="" class="search">
+                <span class="search-icon material-symbols-outlined">search</span>
+                <input class="search-input" type="search" name="search-field" id="search-field" placeholder="Search">
             </form>
-            
-            <!-- Search input field and button -->
-            <!-- <button id="search-button" type="submit">Find</button> -->
             
             <!-- Navigation menu in the sidebar -->
             <nav>
-                <ul id="sidebar-nav">
-                    <!-- Navigation links with icons -->
-                    <li id="all-tickets"><a class="sidebar-links" href="#"><img src="pictures/receipt-icon.png" alt="receipt icon" height="18px">&nbsp;&nbsp;&nbsp;All Tickets</a></li>
-                    <li id="open-tickets"><a class="sidebar-links" href="#"><i class="fa-solid fa-layer-group"></i>&nbsp;&nbsp;&nbsp;Open Tickets</a></li>
-                    <li id="closed-tickets"><a class="sidebar-links" href="#"><i class="fa-solid fa-clipboard-check"></i>&nbsp;&nbsp;&nbsp;Closed Tickets</a></li>
-                    <li id="statistics"><a class="sidebar-links" href="#"><img src="pictures/bar-chart-icon.png" alt="bar chart icon" height="18px">&nbsp;&nbsp;Statistics</a></li>
+                <ul>
+                    <li id="logFaults"><a href="#"><img src="pictures/receipt-add.png" alt="receipt-add">Log faults</a></li> <!--style="background-color: #A020F0;" -->
+                    <li id="allTickets"><a href="#"><img src="pictures/receipt-icon.png" alt="receipt-icon">All Tickets</a></li>
+                    <li id="openTickets"><a href="#"><img src="pictures/layer.png" alt="layer">Open Tickets</a></li>
+                    <li id="closedTickets"><a href="#"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
+                    <!-- <li id="statistics"><a class="sidebar-links" href="#"><img src="images/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>height="18px" -->
                 </ul>
             </nav>
     
-            <hr id="sidebar-hr">
+            <!-- <hr id="sidebar-hr"> -->
     
-            <!-- Profile section at the bottom of the sidebar -->
+            <!-- the user information at the bottom -->
             <div class="profile">
                 <!-- Profile picture area -->
                 <div class="profile-pic">AM</div>
                 <!-- Profile information area -->
                 <div class="profile-info">
-                    <span id="user-name" class="username">Amogelang Mphela</span><br>
-                    <span id="role">Hall Secretary</span>
+                    <span id="user-name" class="username">Jesus Christ</span><br>
+                    <span class="role">Student</span>
                 </div>
                 <!-- Logout button with icon -->
                 <div id="sidebar-log-out">
-                    <a href=""><i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i></a>
+                    <a href="#"><i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i></a>
                 </div>
-            </div>
-        </section>
-
-        <!-- Main content area -->
-        <section class="main-content">
+             </div>
+         </aside>
+        
+        <!-- Main content section -->
+        <main class="content">
             <header>
                 <!-- Welcome message -->
                 <h1>Welcome, <span class="username">Maintenance Staff </span></h1>
                 <p>Access & Manage maintenance requisitions efficiently.</p>
             </header>
             <!-- House selection links -->
+            <section>
             <div class="houses">
                 <a href="" class="house-link active">Cory House</a>
                 <a href="" class="house-link">Starling House</a>
@@ -149,5 +147,8 @@
                     </tbody>
                 </table>
             </div>
+            </section>
+        </main>
+    </div>
 </body>
 </html>

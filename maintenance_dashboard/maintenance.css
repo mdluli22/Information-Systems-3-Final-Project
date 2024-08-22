@@ -1,62 +1,81 @@
-/* Styles the body element with no left margin, Arial as the font, 
-a light grey background, and dark grey text color */
 body {
-    margin-left: 0;
+    margin: 0;
+    padding: 0;
     font-family: 'Inter', sans-serif;
-    background-color: #f2e6f7;
-    color: #333;
+    height: 100vh; /* Ensure the body takes up the full viewport height */
 }
 
-/* Sets up the main container to use flexbox for layout */
-main {
+.container {
     display: flex;
+    height: 100vh;
 }
 
-/* Styles the sidebar with a fixed width, white background, 
-dark grey text, fixed position on the left, full height, 
-and some padding on the sides */
+/* the whole left side section */
 .sidebar {
-    width: 250px;
-    background-color: white;
-    color: #333;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
     position: fixed;
-    height: 100%;
-    padding: 0px 15px;
+    width: 17.5rem; /* 280px converted to rem */
+    padding: 1.25rem; /* 20px converted to rem */
+    height: 100vh; /* Ensure sidebar takes up full height */
 }
 
-/* Aligns the logo to the left and adds space below it */
-.sidebar .logo {
+.sidebar .profile {
+    position: absolute;
+    font-size: 0.85rem; /* 85% of 16px */
+    bottom: 2.5rem; /* 40px converted to rem */
+    width: 100%;
     text-align: left;
-    margin-bottom: 30px;
+    display: flex;
+    flex-direction: row;
 }
 
-/* Creates a flex container for the search bar 
-and stretches its children to align vertically */
-.sidebar-search {
-    --padding: 14px;
-    /* width: max-content; */
+.profile-pic {
+    background-color: #ddd;
+    color: #333;
+    width: 2.8125rem; /* 45px converted to rem */
+    height: 2.8125rem; /* 45px converted to rem */
+    border-radius: 50%;
+    margin: 0 auto;
+    line-height: 3.125rem; /* 50px converted to rem */
+    font-size: 1.25rem; /* 20px converted to rem */
+    float: left;
+    text-align: center;
+}
+
+.profile-info {
+    margin-left: 1.25rem; /* 20px converted to rem */
+    /* padding-left: -20px; */
+    font-weight: bold;
+    flex-grow: 1;
+    line-height: 1.9375rem; /* 155% of 16px */
+}
+ 
+.sidebar .profile-info .role {
+    font-weight: lighter;
+}
+
+#sidebar-log-out {
+    float: right;
+    flex-grow: 1.5;
+}
+
+/* provides vertical spacing between each list item */
+/* For the search bar */
+.search {
+    --padding: 0.875rem; /* 14px converted to rem */
     display: flex;
     align-items: center;
     padding: var(--padding);
-    border-radius: 8px;
+    border-radius: 0.5rem; /* 8px converted to rem */
     background: #ddd;
-    width: 248px;
+    width: 13.4375rem; /* 215px converted to rem */
 }
 
-/* Styles the search input field with width, padding (including space for an icon), 
-right margin, border, rounded corners, and font size */
-/* #search-field {
-    width: 70%;
-    padding: 10px 0px 10px 40px;  Add padding for the icon 
-    margin-right: -5px;
-    border: 1px solid #ccc;
-    border-radius: 7px;
-    font-size: 16px;
-} */
- 
 .search-input{
-    font-size: 16px;
-    font-family: inherit;
+    font-size: 1rem; /* 16px */
+    font-family: 'Inter', sans-serif;
     color: #333333;
     margin-left: var(--padding);
     outline: none;
@@ -69,152 +88,72 @@ right margin, border, rounded corners, and font size */
 .search:focus-within {
     background: #f6f6f6;
 }
+
 .search-input::placeholder,
 .search-icon {
     color: #666;
 }
 
-/* Positions the search icon inside the search bar, 
-centers it vertically, and makes it unclickable */
-/* #search-icon {
-    position: absolute;
-    right: 270px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none; 
-    font-size: 18px;
-    color: #888;
-} */
-
-/* Styles the search button with height, margin, and removes unnecessary properties */
-/* #search-button {
-    height: 30px;
-    padding: 0;
-    margin: 5px 10px;
-    width: 100%;
-    float: right;
-} */
-
-/* Removes the default list style and padding from the sidebar's unordered list */
-.sidebar ul {
-    list-style-type: none;
+/* removes the bullet points */
+nav ul {
+    list-style: none;
     padding: 0;
 }
 
-/* Adds vertical space between each list item in the sidebar */
-.sidebar ul li {
-    margin: 20px 0;
+nav ul li {
+    margin-bottom: 0.9375rem; /* 15px converted to rem */
 }
 
-/* Styles the links in the sidebar with dark grey text, bold font, no underline, 
-padding, and block-level display for easy clickability */
-.sidebar ul li a {
-    color: #333;
-    font-weight: bold;
-    text-decoration: none;
-    padding: 10px;
-    display: block;
+nav ul li a {
+    align-items: center;
+    text-decoration: none;  /* removes the underline */
+    color: #333;    /* sets the text color */
+    font-size: 1.125rem;   /* 18px converted to rem */
+    display: block; /* makes the link a block-level element */
+    padding: 0.9375rem; /* 15px converted to rem */
+    border-radius: 0.5rem; /* 8px converted to rem */
+    transition: background-color 0.25s; /* adds a smooth color transition */
+    width: 13.4375rem; /* Matches the width of the search bar */
 }
 
-/* Adds space above the navigation section in the sidebar */
-#sidebar-nav {
-    margin-top: 20px;
+nav ul li a img{
+    margin-right: 0.5rem;  /* 8px converted to rem */
+    width: 1.5rem;    /* 24px converted to rem */
+    height: 1.5rem;   /* 24px converted to rem */
+    object-fit: contain;    /* ensures the icon fits within the specified width and height */
 }
 
-/* Default styles for sidebar links, including no underline, 
-dark grey text, transparent background, margin, padding, 
-rounded corners, inline-block display, 
-and smooth transition effects for background and text color changes */
-.sidebar-links {
-    text-decoration: none;
-    color: #333; /* Default font color */
-    background-color: transparent; /* Default background */
-    margin: 0px;
-    padding: 20px 0px 0px 0px;
-    border-radius: 7px;
-    display: inline-block;
-    transition: background-color 0.3s, color 0.3s;
+nav ul li a:hover {
+    background-color: #A020F0;
 }
 
-/* Styles for active sidebar links with white text and purple background */
-.sidebar-links.active {
-    color: #fff; /* Selected font color */
-    background-color: #A020F0; /* Selected background color */
-}
-
-/* Styles a horizontal rule (hr) at the bottom of the sidebar, 
-positioned absolutely with specific width and margin */
-#sidebar-hr {
-    /* display: none; */
-    position: absolute;
-    bottom: 110px;
-    width: 83%;
-    margin-left: 20px;
-}
-
-/* Styles the profile section at the bottom of the sidebar, 
-with smaller font size, full width, left-aligned text, 
-and flexbox layout for horizontal alignment */
-.sidebar .profile {
-    position: absolute;
-    font-size: 85%;
-    bottom: 40px;
-    width: 100%;
+.profile {
     text-align: left;
-    display: flex;
-    flex-direction: row;
+    margin-top: auto;
+    padding: 0.5625rem; /* 9px converted to rem */
+    border-top: 0.0625rem solid #ddd; /* 1px converted to rem */
+    position: relative; /* Position relative to use pseudo-elements */
 }
 
-/* Styles the profile picture with light grey background, dark grey text, 
-fixed dimensions, circular shape, centered text, 
-and a large font size for initials or icons */
-.sidebar .profile-pic {
-    background-color: lightgrey;
-    color: #333;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin: 0 auto;
-    line-height: 50px;
-    font-size: 24px;
-    float: left;
-    text-align: center;
+.role {
+    color: #666;
 }
-
-/* Styles the profile information next to the profile picture with margin, 
-bold font, flexible growth to take up available space, and increased line height */
-.sidebar .profile-info {
-    margin-left: 20px;
-    /* padding-left: -20px; */
-    font-weight: bold;
-    flex-grow: 1;
-    line-height: 155%;
-}
-
-/* Styles the role text inside the profile section with a lighter font weight */
-.sidebar .profile-info #role {
-    font-weight: lighter;
-}
-
-/* Styles the logout button inside the profile section with float and flexible growth */
-#sidebar-log-out {
-    float: right;
-    flex-grow: 1.5;
-} 
 
 /* Styles the main content area with dark grey text, 
 left margin to make space for the sidebar, right margin, 
 padding, and flexible growth to fill available space */
-.main-content {
-    color: #333;
-    margin-left: 290px;
-    margin-right: 15px;
-    padding: 20px;
-    flex-grow: 2;
+.content {
+    flex-grow: 1;
+    padding: 2.5rem;
+    padding-right: 5rem;
+    background-color: #f0f0f0;
+    position: relative;
+    height: 100vh; /* Ensure content area takes up full height */
+    margin-left: 17.5rem; /* Matches the width of the sidebar */
 }
 
 /* Adds space below the header inside the main content area */
-.main-content header {
+.content header {
     margin-bottom: 30px;
 }
 

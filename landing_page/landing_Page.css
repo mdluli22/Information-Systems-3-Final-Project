@@ -165,7 +165,7 @@ body {
     flex-wrap: wrap;
     /* Ensure content wraps on smaller screens */
  
-    padding-top: 5.9375rem;
+    padding-top: 0.5rem;
     margin-left: 3.125rem;
 
     /* font edits */
@@ -389,7 +389,7 @@ h2 {
 /* Container for the bottom section */
 .fixed-at-bottom {
     position: relative;
-    position: absolute;
+    /* position: absolute; */
     width: 100%;
     /* Full width */
     bottom: 0%;

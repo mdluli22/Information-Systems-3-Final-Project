@@ -2,396 +2,369 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;
-    height: 100%; /* Ensure the body takes up the full viewport height */
+    height: 100%; /* Ensures the body takes up the full viewport height */
 }
 
 .container {
     display: flex;
-    height: 100%;
+    height: 100%; /* Container spans the full height of the viewport */
 }
 
-/* the whole left side section */
+/* Sidebar section with fixed position for navigation */
 .sidebar {
     background-color: #fff;
     display: flex;
     flex-direction: column;
     position: fixed;
-    width: 17.5rem; /* 280px converted to rem */
-    padding: 1.25rem; /* 20px converted to rem */
-    height: 100vh; /* Ensure sidebar takes up full height */
-    
+    width: 17.5rem; /* Fixed width for sidebar */
+    padding: 1.25rem; /* Padding for spacing inside the sidebar */
+    height: 100vh; /* Sidebar spans full viewport height */
 }
 
+/* Profile section within the sidebar */
 .sidebar .profile {
     position: absolute;
-    font-size: 0.85rem; /* 85% of 16px */
-    bottom: 2.5rem; /* 40px converted to rem */
+    font-size: 0.85rem; /* Adjusted font size for profile text */
+    bottom: 2.5rem; /* Positioned at the bottom of the sidebar */
     width: 100%;
-    text-align: left;
+    text-align: left; /* Aligns profile text to the left */
     display: flex;
     flex-direction: row;
 }
 
+/* Profile picture styling */
 .profile-pic {
     background-color: #ddd;
     color: #333;
-    width: 2.8125rem; /* 45px converted to rem */
-    height: 2.8125rem; /* 45px converted to rem */
-    border-radius: 50%;
+    width: 2.8125rem; /* Fixed width for profile picture */
+    height: 2.8125rem; /* Fixed height for profile picture */
+    border-radius: 50%; /* Circular profile picture */
     margin: 0 auto;
-    line-height: 3.125rem; /* 50px converted to rem */
-    font-size: 1.25rem; /* 20px converted to rem */
-    float: left;
-    text-align: center;
+    line-height: 3.125rem; /* Center text vertically */
+    font-size: 1.25rem; /* Font size for text inside the profile picture */
+    float: left; /* Floats profile picture to the left */
+    text-align: center; /* Centers text horizontally */
 }
 
+/* Profile info styling */
 .profile-info {
-    margin-left: 1.25rem; /* 20px converted to rem */
-    /* padding-left: -20px; */
-    font-weight: bold;
-    flex-grow: 1;
-    line-height: 1.9375rem; /* 155% of 16px */
+    margin-left: 1.25rem; /* Margin for spacing between profile picture and info */
+    font-weight: bold; /* Bold font for profile information */
+    flex-grow: 1; /* Allows profile info to grow and fill available space */
+    line-height: 1.9375rem; /* Line height for readability */
 }
 
+/* Styling for role text within profile info */
 .sidebar .profile-info .role {
-    font-weight: lighter;
+    font-weight: lighter; /* Lighter font weight for role text */
 }
 
+/* Log out button within the sidebar */
 #sidebar-log-out {
-    float: right;
-    flex-grow: 1.5;
+    float: right; /* Aligns log out button to the right */
+    flex-grow: 1.5; /* Expands log out button's width */
 }
 
-/* provides vertical spacing between each list item */
-/* For the search bar */
+/* Search bar styling */
 .search {
-    --padding: 0.875rem; /* 14px converted to rem */
+    --padding: 0.875rem; /* Padding for search bar */
     display: flex;
-    align-items: center;
-    padding: var(--padding);
-    border-radius: 0.5rem; /* 8px converted to rem */
-    background: #ddd;
-    width: 13.4375rem; /* 215px converted to rem */
+    align-items: center; /* Aligns items within the search bar */
+    padding: var(--padding); /* Uses variable padding */
+    border-radius: 0.5rem; /* Rounded corners for search bar */
+    background: #ddd; /* Background color for search bar */
+    width: 13.4375rem; /* Fixed width for search bar */
 }
 
-.search-input{
-    font-size: 1rem; /* 16px */
+/* Input field within the search bar */
+.search-input {
+    font-size: 1rem; /* Font size for search input */
     font-family: 'Inter', sans-serif;
-    color: #333333;
-    margin-left: var(--padding);
-    outline: none;
-    border: none;
-    background: transparent;
-    flex: 1;
-    transition: background 0.25s;
+    color: #333333; /* Text color for search input */
+    margin-left: var(--padding); /* Margin for spacing from the search bar edge */
+    outline: none; /* Removes outline */
+    border: none; /* Removes border */
+    background: transparent; /* Transparent background for input */
+    flex: 1; /* Allows input to expand within the search bar */
+    transition: background 0.25s; /* Smooth transition for background color change */
 }
 
+/* Focus state for the search bar */
 .search:focus-within {
-    background: #f6f6f6;
+    background: #f6f6f6; /* Background color on focus */
 }
 
+/* Placeholder and icon color within the search bar */
 .search-input::placeholder,
 .search-icon {
-    color: #666;
+    color: #666; /* Color for placeholder text and search icon */
 }
 
-/* removes the bullet points */
+/* Removes bullet points from navigation list */
 nav ul {
     list-style: none;
     padding: 0;
 }
 
+/* Spacing between list items in navigation */
 nav ul li {
-    margin-bottom: 0.9375rem; /* 15px converted to rem */
+    margin-bottom: 0.9375rem; /* Margin below each list item */
 }
 
+/* Navigation link styling */
 nav ul li a {
-    align-items: center;
-    text-decoration: none;  /* removes the underline */
-    color: #333;    /* sets the text color */
-    font-size: 1.125rem;   /* 18px converted to rem */
-    display: block; /* makes the link a block-level element */
-    padding: 0.9375rem; /* 15px converted to rem */
-    border-radius: 0.5rem; /* 8px converted to rem */
-    transition: background-color 0.25s; /* adds a smooth color transition */
+    align-items: center; /* Aligns items within the link */
+    text-decoration: none; /* Removes underline from links */
+    color: #333; /* Sets text color for links */
+    font-size: 1.125rem; /* Font size for navigation links */
+    display: block; /* Makes link a block-level element */
+    padding: 0.9375rem; /* Padding for spacing inside the link */
+    border-radius: 0.5rem; /* Rounded corners for links */
+    transition: background-color 0.25s; /* Smooth transition for background color */
     width: 13.4375rem; /* Matches the width of the search bar */
 }
 
-nav ul li a img{
-    margin-right: 0.5rem;  /* 8px converted to rem */
-    width: 1.5rem;    /* 24px converted to rem */
-    height: 1.5rem;   /* 24px converted to rem */
-    object-fit: contain;    /* ensures the icon fits within the specified width and height */
+/* Icon inside navigation link */
+nav ul li a img {
+    margin-right: 0.5rem; /* Margin for spacing between icon and text */
+    width: 1.5rem; /* Fixed width for icon */
+    height: 1.5rem; /* Fixed height for icon */
+    object-fit: contain; /* Ensures icon fits within specified dimensions */
 }
 
+/* Hover state for navigation links */
 nav ul li a:hover {
-    background-color: #A020F0;
+    background-color: #A020F0; /* Background color on hover */
 }
 
+/* Profile section at the bottom of the sidebar */
 .profile {
     text-align: left;
-    margin-top: auto;
-    padding: 0.5625rem; /* 9px converted to rem */
-    border-top: 0.0625rem solid #ddd; /* 1px converted to rem */
-    position: relative; /* Position relative to use pseudo-elements */
+    margin-top: auto; /* Pushes profile section to the bottom */
+    padding: 0.5625rem; /* Padding around profile section */
+    border-top: 0.0625rem solid #ddd; /* Top border for separation */
+    position: relative; /* Allows for positioning of pseudo-elements */
 }
 
+/* Styling for role text */
 .role {
-    color: #666;
+    color: #666; /* Color for role text */
 }
 
-/* the left side section ends here */
-
-
-/* Styles the main content area with dark grey text, 
-left margin to make space for the sidebar, right margin, 
-padding, and flexible growth to fill available space */
+/* Main content area styling */
 .content {
-    flex-grow: 1;
-    padding: 2.5rem;
-    padding-right: 5rem;
-    background-color: #f0f0f0;
-    position: relative;
-    margin-left: 17.5rem; /* Matches the width of the sidebar */
+    flex-grow: 1; /* Allows content area to fill available space */
+    padding: 2.5rem; /* Padding inside the content area */
+    padding-right: 5rem; /* Extra padding on the right */
+    background-color: #f0f0f0; /* Background color for content area */
+    position: relative; /* Allows for positioning of child elements */
+    margin-left: 17.5rem; /* Aligns content next to the sidebar */
 }
 
 /* Adds space below the header inside the main content area */
 .content header {
-    margin-bottom: 30px;
+    margin-bottom: 1.875rem; /* Space below the header */
 }
 
-/* Adds vertical space around the header */
+/* Vertical spacing around the header */
 header {
-    margin: 20px 0px;
+    margin: 1.25rem 0; /* Margin above and below the header */
 }
 
-/* Styles the main header text with no margin and a large font size */
+/* Main header text styling */
 header h1 {
-    margin: 0;
-    font-size: 32px;
+    margin: 0; /* Removes margin from the header text */
+    font-size: 2rem; /* Font size for the header text */
 }
 
-/* Styles a username span inside the header with a purple color */
+/* Styling for username within the header */
 header h1 .username {
-    color: #A020F0;
+    color: #A020F0; /* Purple color for username text */
 }
 
 /* Adds space below the houses section */
 .houses {
-    margin-bottom: 30px;
+    margin-bottom: 1.875rem; /* Margin below the houses section */
 }
 
-/* Styles links inside the houses section with inherited background and text color, 
-no underline, bold font, no border, padding, margin, and pointer cursor */
+/* Styling for links within the houses section */
 .houses .house-link {
-    background-color: inherit;
-    color: inherit;
-    text-decoration: none;
-    font-weight: bold;
-    border: none;
-    padding: 10px 7px;
-    margin-right: 5px;
-    cursor: pointer;
+    background-color: inherit; /* Inherits background color */
+    color: inherit; /* Inherits text color */
+    text-decoration: none; /* Removes underline from links */
+    font-weight: bold; /* Bold text for links */
+    border: none; /* No border for links */
+    padding: 0.625rem 0.4375rem; /* Padding inside the link */
+    margin-right: 0.3125rem; /* Margin to the right of the link */
+    cursor: pointer; /* Pointer cursor on hover */
 }
 
-/* Styles active links in the houses section with purple text color 
-and a thick purple border at the bottom */
+/* Styling for active links within the houses section */
 .houses .house-link.active {
-    color: #A020F0;
-    border-bottom: 5px solid #A020F0;
+    color: #A020F0; /* Purple color for active links */
+    border-bottom: 0.3125rem solid #A020F0; /* Purple bottom border for active state */
 }
 
-/* Styles the ticket table with full width, 
-no space between table cells, rounded corners, 
-white background, and a slight shadow for depth */
+/* Styling for ticket table */
 .ticket-table table {
-    width: 100%;
-    border-collapse: collapse;
-    border-radius: 15px;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Full width table */
+    border-collapse: collapse; /* Collapses table borders */
+    border-radius: 0.9375rem; /* Rounded corners for table */
+    background-color: #fff; /* Background color for table */
+    box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.1); /* Shadow for depth */
 }
 
-/* Styles table header and cell elements with padding, left alignment, 
-and a light grey bottom border */
+/* Padding and border for table header and cells */
 .ticket-table th, .ticket-table td {
-    padding: 30px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+    padding: 1.875rem; /* Padding inside table cells */
+    text-align: left; /* Aligns text to the left */
+    border-bottom: 0.0625rem solid #ddd; /* Light grey bottom border for cells */
 }
 
-/* Styles status indicators in the ticket table with padding, 
-rounded corners, white text, and smaller font size */
+/* Status indicators within the ticket table */
 .ticket-table .status {
-    padding: 5px 10px;
-    border-radius: 15px;
-    color: white;
-    font-size: 12px;
+    padding: 0.3125rem 0.625rem; /* Padding inside status indicators */
+    border-radius: 0.9375rem; /* Rounded corners for status indicators */
+    color: white; /* White text color */
+    font-size: 0.75rem; /* Font size for status text */
 }
 
-/* Styles the "processing" status with dark grey text 
-and a grey border (instead of a background) */
+/* Styles for processing status */
 .status.processing {
-    color: #333;
-    /* background-color: grey; */
-    border: 0.5px solid grey;
+    color: #333; /* Dark grey text color */
+    border: 0.03125rem solid grey; /* Grey border for processing status */
 }
 
-/* Styles the "success" status with a green border and text color */
+/* Styles for success status */
 .status.success {
-    border: 0.5px solid #81C784;
-    color: #81C784;
+    border: 0.03125rem solid #81C784; /* Green border for success status */
+    color: #81C784; /* Green text color */
 }
 
-/* Styles small circular indicators with a fixed size 
-and circular shape, used for status icons */
+/* Small circular indicators */
 .circle {
-    border-radius: 50%;
-    width: 7px;
-    height: 7px;
-    display: inline-block;
+    border-radius: 50%; /* Circular shape */
+    width: 0.4375rem; /* Fixed width */
+    height: 0.4375rem; /* Fixed height */
+    display: inline-block; /* Inline block display */
 }
 
-/* Colors the circle inside a "processing" status grey */
+/* Colors for processing status circle */
 .status.processing .circle {
-    background-color: grey;
+    background-color: grey; /* Grey color for processing status circle */
 }
 
-/* Styles category indicators in the ticket table with padding, 
-rounded corners, and smaller font size */
-.ticket-table .category {
-    padding: 5px 10px;
-    border-radius: 15px;
-    font-size: 12px;
-    color: white;
-}
-
-/* Colors the circle inside a "success" status green */
+/* Colors for success status circle */
 .status.success .circle {
-    background-color: #81C784;
+    background-color: #81C784; /* Green color for success status circle */
 }
 
-/* Styles the "high-risk" category with red text, 
-red border, and a red circle */
+/* Category indicators within the ticket table */
+.ticket-table .category {
+    padding: 0.3125rem 0.625rem; /* Padding inside category indicators */
+    border-radius: 0.9375rem; /* Rounded corners for category indicators */
+    font-size: 0.75rem; /* Font size for category text */
+    color: white; /* White text color */
+}
+
+/* Colors for high-risk category */
 .category.high-risk {
-    color: #ef3e3e;
-    border: 0.5px solid #ef3e3e;
+    color: #ef3e3e; /* Red text color */
+    border: 0.03125rem solid #ef3e3e; /* Red border for high-risk category */
 }
 
+/* Colors for high-risk category circle */
 .category.high-risk .circle {
-    background-color: #ef3e3e;
+    background-color: #ef3e3e; /* Red color for high-risk category circle */
 }
 
-/* Styles the "low-risk" category with green border, 
-green text, and a green circle */
+/* Colors for low-risk category */
 .category.low-risk {
-    border: 0.5px solid #81C784;
-    color: #81C784;
+    border: 0.03125rem solid #81C784; /* Green border for low-risk category */
+    color: #81C784; /* Green text color */
 }
 
+/* Colors for low-risk category circle */
 .category.low-risk .circle {
-    background-color: #81C784;
+    background-color: #81C784; /* Green color for low-risk category circle */
 }
 
-/* Styles the maintenance requests section with top margin, 
-padding, white background, and rounded corners */
+/* Maintenance requests section styling */
 .maintenance-requests {
-    margin-top: 25px;
-    padding: 30px;
-    background-color: white;
-    border-radius: 15px;
+    margin-top: 1.5625rem; /* Margin at the top of the section */
+    padding: 1.875rem; /* Padding inside the section */
+    background-color: white; /* White background color */
+    border-radius: 0.9375rem; /* Rounded corners */
 }
 
-/* Styles the header in the maintenance requests section with font size */
+/* Header in maintenance requests section */
 .maintenance-requests #h2 {
-    /* margin: 20px 0px -35px; */
-    font-size: 22px;
-    /* font-weight: bold; */
+    font-size: 1.375rem; /* Font size for header */
 }
 
-/* Styles the header text within maintenance requests with bold font, 
-top and bottom margins for spacing */
+/* Styling for maintenance requests header */
 #maintenance-requests-header {
-    /* margin: 15px 0px; */
-    font-weight: bold;
-    margin-top: 5px;
-    margin-bottom: 30px;
+    font-weight: bold; /* Bold text for header */
+    margin-top: 0.3125rem; /* Margin at the top */
+    margin-bottom: 1.875rem; /* Margin at the bottom */
 }
 
-/* Styles individual requests within maintenance requests 
-with a light grey background, padding, bottom margin, 
-rounded corners, and no shadow */
+/* Individual requests styling within maintenance requests */
 .maintenance-requests .request {
-    background-color: #f4f4f4;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 15px;
-    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+    background-color: #f4f4f4; /* Light grey background for requests */
+    padding: 0.9375rem; /* Padding inside request cards */
+    margin-bottom: 0.9375rem; /* Margin below each request card */
+    border-radius: 0.9375rem; /* Rounded corners */
 }
-/* 
 
-/* Adds left padding to the request information */
+/* Padding on the left side of request information */
 .request-info {
-    padding-left: 18px;
+    padding-left: 1.125rem; /* Padding for request information */
 }
 
-/* Floats the buttons on the right side of the request card */
+/* Floats buttons on the right side of the request card */
 .request-btns {
-    float: right;
-    /* margin-bottom: -90px; */
+    float: right; /* Aligns buttons to the right */
 }
 
-/* Styles the buttons for approve, delete, and comment actions 
-with padding, no border, pointer cursor, right margin, rounded corners, 
-and medium font size */
+/* Styling for approve, delete, and comment buttons */
 .approve-btn, .delete-btn, .comment-btn {
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    margin-right: 10px;
-    border-radius: 5px;
-    font-size: 14px;
+    padding: 0.625rem 1.25rem; /* Padding inside buttons */
+    border: none; /* Removes border */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin-right: 0.625rem; /* Margin to the right of buttons */
+    border-radius: 0.3125rem; /* Rounded corners for buttons */
+    font-size: 0.875rem; /* Font size for button text */
 }
 
-/* Floats the buttons inline to the end (right side) of the request card */
+/* Floats top buttons inline to the end of the request card */
 .request-top-btns {
-    float: inline-end;
+    float: inline-end; /* Aligns buttons to the end (right) */
 }
 
-/* Styles the approve button with purple text, 
-bold font, larger font size, and floats it inline to the end */
+/* Styles the approve button */
 .approve-btn {
-    /* background-color: #81C784; */
-    color: #A020F0;
-    font-weight: bold;
-    font-size: 17px;
-    margin-right: 5%;
-    float: inline-end;
+    color: #A020F0; /* Purple text color */
+    font-weight: bold; /* Bold font for approve button */
+    font-size: 1.0625rem; /* Font size for approve button */
+    margin-right: 5%; /* Margin to the right of the button */
+    float: inline-end; /* Floats button to the end (right) */
 }
 
-/* Styles the delete button with red text */
+/* Styles the delete button */
 .delete-btn {
-    /* background-color: #E57373; */
-    color: #ef3e3e;
+    color: #ef3e3e; /* Red text color */
 }
 
-/* Styles the "View All" button with white background, bold font, 
-medium font size, grey border, pointer cursor, padding, 
-and rounded corners, then floats it to the right side */
+/* Styles the "View All" button */
 .view-all {
-    background-color: white;
-    font-weight: bold;
-    font-size: 15px;
-    /* color: white; */
-    /* box-shadow: 5px 5px 5px; */
-    padding: 12px;
-    border: 0.15px solid rgb(165, 164, 164);
-    cursor: pointer;
-    /* box-sizing: border-box; */
-    /* box-shadow: inset; */
-    border-radius: 7px;
-    /* display: block; */
-    margin: -10px 10px 20px 0px;
-    /* margin-right: 45px; */
-    float: right;
+    background-color: white; /* White background color */
+    font-weight: bold; /* Bold font */
+    font-size: 0.9375rem; /* Font size for button */
+    padding: 0.75rem; /* Padding inside the button */
+    border: 0.009375rem solid rgb(165, 164, 164); /* Border color */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 0.4375rem; /* Rounded corners for button */
+    margin: -0.625rem 0.625rem 1.875rem 0; /* Margin around the button */
+    float: right; /* Floats button to the right */
 }

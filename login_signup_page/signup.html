@@ -3,32 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <link rel="icon" type="image/x-icon" href="images/resque-logo.png">
-    <link rel="stylesheet" href="login_page.css">
+    <title>Sign up</title>
+    <link rel="icon" type="image/x-icon" href="login_page/images/resque-logo.png">
+    <link rel="stylesheet" href="signup.css">
 </head>
 <body>
     <div class="container">
-        <div class="login-image">
+        <div class="signup-image">
             <img src="images/login_image.svg" alt="Resque Logo and Character">
         </div>
-        <div class="login-form">
-            <h1>Welcome Back 👋</h1>
-            <p>Enter your login credentials. Please ensure that login credentials are typed correctly.</p>
-            <form action="login.php" method="post">
+        <div class="signup-form">
+            <h1>Welcome 👋</h1>
+            <p>Enter your credentials. Please ensure that the credentials are typed correctly.</p>
+            <form action="signup.php" method="post">
+
                 <label for="username">Username</label>
                 <input type="text" id="username" placeholder="Username" name= "name" required maxlength="8">
                 <!-- <input type="email" id="email" placeholder="Email" required> -->
 
                 <label for="password">Password</label>
                 <input type="password" id="password" placeholder="Password" name = "pass" required>
-                <!-- <input type="password" id="password" placeholder="Password" required> -->
-                <a href="#" class="forgot-password">Forgot Password?</a>
+               
 
                 <!-- <button type="submit">Sign in</button> -->
-                <input type="submit" id="submit-btn" name="submit" value="Sign in">
+                <input type="submit" id="submit-btn" name="submit" value="Sign up">
             </form>
-            <p>Don't have an account? <a href="../landing_page/landing_Page.html">Sign up</a></p>
+            <p>Already have an account? <a href="login_page.html">Login in</a></p>
         </div>
     </div>
 </body>

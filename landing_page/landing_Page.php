@@ -21,7 +21,7 @@
                     <li><a href="#">FAQ</a></li>
                     <li><a href="#">About Us</a></li>
                     <li><a href="#">Help</a></li>
-                    <li><a href="#">Resources &nbsp;<img id="down-chevron" src="images/drop-down.png" width="18px" height="14px" alt="down-chevron"></a></li>
+                    <li><a href="#">Resources &nbsp;<img id="down-chevron" src="pictures/drop-down.png" width="18px" height="14px" alt="down-chevron"></a></li>
                 </ul>
             </nav>
         </div>
@@ -44,7 +44,7 @@
             </div>
             <div class="hero-image">
                 <!-- logo image -->
-                <img src="images/resque-logo.png" alt="ResQue Logo"> <!--width="808px" height="678px">-->
+                <img src="pictures/resque-logo.png" alt="ResQue Logo"> <!--width="808px" height="678px">-->
             </div>
         </section>
         

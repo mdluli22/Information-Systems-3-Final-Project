@@ -19,14 +19,13 @@
         // include database details from config.php file
         require_once("config.php");
 
-        //for the res name on top
-        $resName = $_REQUEST['residence'];
-        $studentID =$_REQUEST['username'];
-
         //for fault category
         if (isset($_REQUEST['submit'])) {
+             //for the res name on top
+            $resName = $_REQUEST['residence'];
+            $studentID =$_REQUEST['username'];
             $fault = $_REQUEST['fault-category'];
-        
+            $description = $_REQUEST['description']; 
 
         // attempt to make database connection
         $conn = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
@@ -40,9 +39,9 @@
         // Prepare and execute the query
         //for the res name on top
         $sql1 = "SELECT resName FROM student WHERE studentID = $studentID ";
-        $stmt = $conn->prepare($sql1);
-        $stmt->bind_param("i", $studentID); // Bind the student ID as an integer
-        $stmt->execute();
+        $stmt1 = $conn->prepare($sql2);
+        $stmt1-> bind_param("i", $studentID); // Bind the student ID as an integer
+        $stmt1-> execute();
         $result = $stmt->get_result();
 
         // Check if query successfull
@@ -50,9 +49,12 @@
             die("<p class=\"error\">Query was Unsuccessful!</p>");
         }
 
-        $sql2 = "INSERT INTO fault_categories (category) VALUES (?)";
-        $stmt1 = $conn -> prepare($sql2);
-        $stml -> bind_parm("s", $fault);
+        $sql3 = "INSERT INTO ticket (category) VALUES (?)";
+        $stmt2 = $conn -> prepare($sql3);
+        $stmt2 ->bind_param("s", $fault);
+
+        //echo $category;
+
 
         //design an error pop up
         if ($stmt->execute()) {
@@ -61,9 +63,21 @@
             echo "<p class=\"error\">Failed to insert fault category!</p>";
         }
         
+        $sql3 = "INSERT INTO ticket (description) VALUES (?)";
+        $stmt3 = $connection->prepare($sql);
+        $stmt3 -> bind_param("s", $description);
         
-        // close connection
-        $stmt->close();
+        // Execute and check success
+        if ($stmt3->execute()) {
+            echo "<p class=\"success\">Description successfully inserted into the database!</p>";
+        } else {
+            echo "<p class=\"error\">Failed to insert description!</p>";
+        }
+
+        // Close statements and connection
+        $stmt1->close();
+        $stmt2->close();
+        $stmt3->close();
         $conn->close();
     }
     ?>

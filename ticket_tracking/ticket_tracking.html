@@ -5,16 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ticket Tracking</title>
     <link rel="icon" type="image/x-icon" href="pictures/resque-logo.png">
-    <link rel="stylesheet" href="ticket_tracking.css">
+    <link rel="stylesheet" href="ticket_tracking2.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/ddbf4d6190.js" crossorigin="anonymous"></script>
 </head>
 <body>
+
     <div class="container">
+
         <!--Sidebar section for navigation-->
         <aside class="sidebar">
-            <div class="logo"> <h2>ResQue</h2> </div>
+            <div class="logo">ResQue</div>
 
             <!--Search bar in the sidebar-->
             <form action="" class="search">
@@ -26,8 +28,8 @@
             <nav>
                 <ul>
                     <!-- Navigation links with icons -->
-                    <li id="log-faults"><a class="sidebar-links" href="#"><img src="images/receipt-add.png" alt="Log faults">Log Faults</a></li>
-                    <li id="all-tickets"><a class="sidebar-links" href="#"><img src="images/receipt-icon.png" alt="All tickets">All Tickets</a></li>
+                    <li id="log-faults"><a class="sidebar-links" href="#"><img src="pictures/receipt-add.png" alt="Log faults">Log Faults</a></li>
+                    <li id="all-tickets"><a class="sidebar-links" href="#"><img src="pictures/receipt-icon.png" alt="All tickets">All Tickets</a></li>
                     <li id="open-tickets"><a class="sidebar-links" href="#"><img src="pictures/layer.png" alt="layer">Open Tickets</a></li>
                     <li id="closed-tickets"><a class="sidebar-links" href="#"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
                 </ul>
@@ -49,60 +51,59 @@
                     <a href="#"><i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i></a>
                 </div>
             </div>
-        </aside>            
+        </aside>
 
         <!-- Main Ticket Tracking section -->
         <main class="content">
             <header>
-                <h1>Ticket Tracking</h1>
-                <button class="add-ticket">+ Add New Ticket</button>
+                <div>
+                    <h1>Ticket Tracking<br></h1>
+                    <p class="fade-out">View logged tickets and make comments.</p>
+                </div>
+                <!-- Fix the logo size -->
+                 <div class="logo-container">
+                    <img src="pictures/resque-logo.png" alt="Logo" width="150" height="110">
+                </div>
             </header>
 
             <!-- Flex container for the ticket list and ticket detail -->
             <div class="content-wrapper">
                 <!-- Section for the list of tickets -->
                 <section class="ticket-list">
-                    <article class="ticket-card">
-                        <header>
-                            <div class="ticket-number">#123454</div>
-                            <div class="ticket-status">Processing</div>
-                        </header>
-                        <div class="ticket-info">
-                            <div class="ticket-date">
-                                <span>Estimated Date</span>
-                                <span>14:30 PM</span>
-                                <span>Nov 12, 2024</span>
-                            </div>
-                            <div class="ticket-user">
-                                <img src="images/staff-avatar.jpg" alt="Staff Member">
-                                <span>Peter Francis<br>Assigned Staff Member</span>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="ticket-card">
-                        <header>
-                            <div class="ticket-number">#123892</div>
-                            <div class="ticket-status">Processing</div>
-                        </header>
-                        <div class="ticket-info">
-                            <div class="ticket-date">
-                                <span>Estimated Date</span>
-                                <span>11:23 AM</span>
-                                <span>Nov 12, 2024</span>
-                            </div>
-                            <div class="ticket-user">
-                                <img src="images/staff-avatar.jpg" alt="Staff Member">
-                                <span>Peter Francis<br>Assigned Staff Member</span>
-                            </div>
-                        </div>
-                    </article>
+                    <button class="add-ticket">+ Add New Ticket</button>
+                    <br>
+                    <table class="ticket-table">
+                        <!-- Ticket Row 1 -->
+                        <tr class="ticket-card">
+                            <td class="ticket-number"><img src="pictures/clipboard-tick.png" alt="clipboard-tick" style="margin-right: 10px;">#123454</td>
+                            <td><span class="status pending"><span class="circle"></span>&nbsp;&nbsp;Pending</span></td>
+                        </tr>
+                
+                        <!-- Ticket Row 2 -->
+                        <tr class="ticket-card">
+                            <td class="ticket-number"><img src="pictures/clipboard-tick.png" alt="clipboard-tick" style="margin-right: 10px;">#849506</td>
+                            <td><span class="status processing"><span class="circle"></span>&nbsp;&nbsp;Processing</span></td>
+                        </tr>
+                
+                        <!-- Ticket Row 3 -->
+                        <tr class="ticket-card">
+                            <td class="ticket-number"><img src="pictures/clipboard-tick.png" alt="clipboard-tick" style="margin-right: 10px;">#734959</td>
+                            <td><span class="status rejected"><span class="circle"></span>&nbsp;&nbsp;Rejected</span></td>
+                        </tr>
+                
+                        <!-- Ticket Row 4 -->
+                        <tr class="ticket-card">
+                            <td class="ticket-number"><img src="pictures/clipboard-tick.png" alt="clipboard-tick" style="margin-right: 10px;">#570765</td>
+                            <td><span class="status processing"><span class="circle"></span>&nbsp;&nbsp;Processing</span></td>
+                        </tr>
+                    </table>
                 </section>
+                
 
                 <!-- Section for the detailed view of a single ticket -->
                 <section class="ticket-detail">
                     <article class="ticket-info">
-                        <img src="images/ticket-image.jpg" alt="Ticket Image">
+                        <img src="pictures/leak.jpg" alt="Ticket Image">
                         <h3>Ticket info</h3>
                         <div class="info-grid">
                             <div class="info-item">
@@ -127,13 +128,15 @@
                             </div>
                             <div class="info-item">
                                 <div class="info-label">Status</div>
-                                <div class="info-data">Pending</div>
+                                <div class="info-data">Processing</div>
                             </div>
                         </div>
                     </article>
                 </section>
             </div>
         </main>
+
+
     </div>
     <!-- Link to external JavaScript file -->
     <script src="ticket_tracking.js"></script>

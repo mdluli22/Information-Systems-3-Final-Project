@@ -388,8 +388,8 @@ h2 {
 
 /* Container for the bottom section */
 .fixed-at-bottom {
-    position: relative;
-    /* position: absolute; */
+    /* position: relative; */
+    position: absolute;
     width: 100%;
     /* Full width */
     bottom: 0%;

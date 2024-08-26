@@ -76,11 +76,13 @@
             <!-- Profile section at the bottom of the sidebar -->
             <div class="profile">
                 <!-- Profile picture area -->
-                <div class="profile-pic">AM</div>
+                <div class="profile-pic">
+                    <?php echo "AM";?>
+                </div>
                 <!-- Profile information area -->
                 <div class="profile-info">
-                    <span id="user-name" class="username">Amogelang Mphela</span><br>
-                    <span class="role">Hall Secretary</span>
+                    <span id="user-name" class="username"><?php echo "Amogelang Mphela"?></span><br>
+                    <span class="role"><?php echo "Hall Secretary"?></span>
                 </div>
                 <!-- Logout button with icon -->
                 <div id="sidebar-log-out">
@@ -93,7 +95,7 @@
         <main class="content">
             <header class="page-header">
                 <!-- Welcome message -->
-                <h1>Welcome, <span class="username">Amogelang</span></h1>
+                <h1>Welcome, <span class="username"><?php echo "Amogelang"?></span></h1>
                 <p>Access & Manage maintenance requisitions efficiently.</p>
             </header>
 
@@ -124,8 +126,10 @@
                             while ($row = $result->fetch_assoc()) {
                                 echo "<tr><td>#{$row['ticketID']}</td>";
                                 echo "<td>{$row['ticket_description']}</td>";
-                                echo "<td>{$row['ticket_status']}</td>";
-                                echo "<td>{$row['ticketDate']}</td>";
+                                // if ($row['ticket_status'] == "Processing") {
+                                echo "<td><span class='status processing'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
+                                // }
+                                echo "<td>" . date("D h:ia", strtotime($row['ticketDate'])) . "</td>";
                                 echo "<td>{$row['category']}</td></tr>";
                             }
                         ?>

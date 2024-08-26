@@ -19,17 +19,23 @@
         // include database details from config.php file
         require_once("config.php");
 
+        $resName = $_REQUEST['residence'];
+        $studentID =$_REQUEST['username'];
         // attempt to make database connection
-        $connection = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
+        $conn = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
 
         // Check if connection was successful
-        if ($connection->connect_error) {
+        if ($conn -> connect_error) {
             die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
         }
 
         // query instructions
-        $sql = "";
-        $result = "";
+        // Prepare and execute the query
+        $sql1 = "SELECT resName FROM student WHERE studentID = ?";
+        $stmt = $conn->prepare($sql1);
+        $stmt->bind_param("i", $studentID); // Bind the student ID as an integer
+        $stmt->execute();
+        $result = $stmt->get_result();
 
         // Check if query successfull
         if ($result === FALSE) {
@@ -37,7 +43,7 @@
         }
         
         // close connection
-        $connection->close();
+        $conn->close();
     ?>
 </body>
 </html>

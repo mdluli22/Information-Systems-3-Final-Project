@@ -6,27 +6,29 @@ session_start();
 $username= $_REQUEST['name'];
 $password= $_REQUEST['pass'];
 
-// include database credentials 
+// include database credentials
 require_once("config.php");
 
-// make connection to the database
-$conn=new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
+// make connection to database
+$conn = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
 
-// check if the connection is successful 
+// check connection successful
 if ($conn->connect_error) {
-    die("<p class=\"error\">Connection to database failed!</p>");
+    die("<p class='error'>Connection to database failed!</p>");
 }
- // issue query instructions
- $sql = "SELECT * FROM users WHERE username = '$name' AND password = '$pass'";
 
-//  if statement if password is found what, if email is found but password is not what now?
+// create prepare statement
+$stmt = $conn->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
 
- //check query successful
- $result = $conn->query($sql);
+// bind parameters
+$stmt->bind_param("ss", $username, $password);
 
- if ($result === FALSE) {
-     die("<p class=\"error\">Unable to retrieve data!</p>");
- }
+// set parameters and execute
+$username = $conn->real_escape_string($_REQUEST['name']);
+$password = $conn->real_escape_string($_REQUEST['pass']);
+$stmt->execute();
+
+//if the username is incorrect, and if the password is incorrect 
 
  //check if the user exists in the database
  if ($result->num_rows == 1) {
@@ -42,6 +44,9 @@ if ($conn->connect_error) {
      header("Location:landing.html");
  }
 
- //close connection to database
- $conn->close();
+ 
+ // close prepared statement
+$stmt->close();
 
+// close connection to database
+$conn->close();

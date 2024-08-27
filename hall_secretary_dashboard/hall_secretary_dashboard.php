@@ -118,6 +118,7 @@
                             <th>Status</th>
                             <th>Date</th>
                             <th>Category</th>
+                            <th>Priority</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -130,7 +131,17 @@
                                 echo "<td><span class='status processing'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
                                 // }
                                 echo "<td>" . date("D h:ia", strtotime($row['ticketDate'])) . "</td>";
-                                echo "<td>{$row['category']}</td></tr>";
+                                echo "<td>{$row['category']}</td>";
+                                switch (strtolower($row['priority'])) {
+                                    case "high":
+                                        echo "<td><span class='severity high-risk'><span class='circle'></span>&nbsp;&nbsp;High</span></td></tr>";
+                                        break;
+                                    case "medium":
+                                        echo "<td><span class='severity medium-risk'><span class='circle'></span>&nbsp;&nbsp;Medium</span></td></tr>";
+                                        break;
+                                    default:
+                                    echo "<td><span class='severity low-risk'><span class='circle'></span>&nbsp;&nbsp;Low</span></td></tr>";
+                                }
                             }
                         ?>
 
@@ -140,21 +151,21 @@
                             <td>Broken Window</td>
                             <td><span class="status processing"><span class="circle"></span>&nbsp;&nbsp;Processing</span></td>
                             <td>Wed 13:00pm</td>
-                            <td><span class="category high-risk"><span class="circle"></span>&nbsp;&nbsp;High Risk</span></td>
+                            <td><span class="severity high-risk"><span class="circle"></span>&nbsp;&nbsp;High Risk</span></td>
                         </tr>
                         <tr>
                             <td>#289377</td>
                             <td>Broken Curtain Rail</td>
                             <td><span class="status success"><span class="circle"></span>&nbsp;&nbsp;Success</span></td>
                             <td>Wed 14:45pm</td>
-                            <td><span class="category low-risk"><span class="circle"></span>&nbsp;&nbsp;Low Risk</span></td>
+                            <td><span class="severity low-risk"><span class="circle"></span>&nbsp;&nbsp;Low Risk</span></td>
                         </tr>
                         <tr>
                             <td>#389383</td>
                             <td>No Electricity</td>
                             <td><span class="status processing"><span class="circle"></span>&nbsp;&nbsp;Processing</span></td>
                             <td>Tue 18:10pm</td>
-                            <td><span class="category low-risk"><span class="circle"></span>&nbsp;&nbsp;Low Risk</span></td>
+                            <td><span class="severity low-risk"><span class="circle"></span>&nbsp;&nbsp;Low Risk</span></td>
                         </tr> -->
                     </tbody>
                 </table>
@@ -181,7 +192,7 @@
                         <p>Residence: <strong>Cory House</strong></p>
                         <p>Room Number: <strong>39</strong></p>
                         <p>
-                            Category: <strong>High Risk</strong>
+                            Priority: <strong>High</strong>
                             <!-- Button to approve the request -->
                             <button class="approve-btn request-btns"><i class="fa-solid fa-plus" style="color: #a020f0;"></i>&nbsp;&nbsp;&nbsp;Approve Request</button>
                         </p>
@@ -199,7 +210,7 @@
                         <p>Residence: <strong>Botha House</strong></p>
                         <p>Room Number: <strong>22</strong></p>
                         <p>
-                            Category: <strong>Low Risk</strong>
+                            Priority: <strong>Low</strong>
                             <button class="approve-btn request-btns"><i class="fa-solid fa-plus" style="color: #a020f0;"></i>&nbsp;&nbsp;&nbsp;Approve Request</button>
                         </p>
                     </div>

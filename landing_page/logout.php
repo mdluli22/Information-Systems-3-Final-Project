@@ -8,4 +8,4 @@ if (isset($_SESSION['login'])) {
     session_destroy();
 }
 
-header("Location:landing.html");
+header("Location:landing_Pagibf.html");

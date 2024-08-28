@@ -1,8 +1,9 @@
-body {
+html, body {
+    font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
-    font-family: 'Inter', sans-serif;
-    height: 100vh; /* Ensure the body takes up the full viewport height */
+    background-color: #f8f9fa;
+    height: 100vh;  /* Ensure the body takes up the full viewport height */
 }
 
 .container {
@@ -19,7 +20,7 @@ body {
     width: 17.5rem; /* 280px converted to rem */
     padding: 1.25rem; /* 20px converted to rem */
     height: 100vh; /* Ensure sidebar takes up full height */
-    
+    top: 0;
 }
 
 .sidebar .profile {
@@ -95,6 +96,7 @@ body {
     color: #666;
 }
 
+
 /* removes the bullet points */
 nav ul {
     list-style: none;
@@ -140,107 +142,193 @@ nav ul li a:hover {
     color: #666;
 }
 
-/* the left side section ends here */
+/* left section ends here */
 
+.logo {
+    font-size: 1.5rem; /* 24px converted to rem */
+    font-weight: 700;
+    margin-bottom: 1.875rem; /* 30px converted to rem */
+}
 
-/* the right side section */
+/* moving ResQue logo to the right */
+.logo-container {
+    position: absolute;
+    top: 20px; /* Adjust the top position as needed */
+    right: 70px; /* Adjust the right position as needed */
+    z-index: 1000; /* Ensure it stays above other elements */
+}
+
+.logo-container img {
+    max-width: 100px; /* Adjust the size as needed */
+    height: auto;
+}
+
 .content {
-    flex-grow: 1;
-    padding: 2.5rem;
-    padding-right: 5rem;
+    padding: 2rem;
+    padding-right: 4.5rem;
     background-color: #f0f0f0;
     position: relative;
     height: 100vh; /* Ensure content area takes up full height */
     margin-left: 17.5rem; /* Matches the width of the sidebar */
+    flex-direction: column;
+    overflow-y: auto;
+    display: flex;
+    flex-grow: 1;
 }
 
-.main-tt-view {
-    padding-left: 300px; /* Add padding equal to sidebar width + padding */
-    padding-right: 20px; /* Optional: Padding on the right */
-    padding-top: 20px; /* Optional: Padding on the top */
-    flex-grow: 1; /* Allow main to take up the remaining space */
-    overflow: auto; /* Allow scrolling if content overflows */
-}
-
-.main-tt-view header {
+.page-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem; /* 20px converted to rem */
 }
 
-.main-tt-view header h2 {
-    font-size: 28px;
-    color: #333;
+h1 {
+    font-size: 1.75rem; /* 28px converted to rem */
+    margin-bottom: 0.625rem; /* 10px converted to rem */
 }
 
-.main-tt-view header .add-ticket {
-    background-color: #6200ea;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
+.fade-out {
+    color: #666;
+    margin-bottom: 1.25rem; /* 20px converted to rem */
 }
 
-/* Ticket List */
-.ticket-list {
+.header-logo {
+    width: 6.25rem; /* 100px converted to rem */
+    height: auto;
+}
+
+
+/* ticket list and ticket detail section */
+/* Flexbox container for ticket list and ticket detail */
+.content-wrapper {
     display: flex;
-    flex-wrap: wrap;
-    flex: 2;
-    gap: 20px;
-    margin-bottom: 20px;
+    gap: 2rem;
+    height: 100pv;
+}
+
+.add-ticket {
+    background-color: #A020F0;  /* Purple background */
+    color: #fff;  /* White text */
+    border: none;  /* No border */
+    padding: 15px 20px;  /* Padding for size */
+    border-radius: 25px;  /* Rounded corners */
+    cursor: pointer;  /* Pointer cursor on hover */
+    font-size: 16px;  /* Font size */
+    transition: background-color 0.3s ease;  /* Smooth background transition */
+}
+.add-ticket:hover {
+    background-color: #A020F0;  /* Darker purple on hover */
+}
+
+.ticket-list {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto; /* Enables scrolling within each section */
 }
 
 .ticket-card {
-    background-color: #ffffff;
+    background-color: #fff;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
     border-radius: 10px;
-    padding: 20px;
-    width: calc(50% - 20px);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.ticket-card .ticket-number {
-    font-size: 22px;
-    font-weight: bold;
-    color: #333;
-}
-
-.ticket-card .ticket-status {
-    background-color: #e0e0e0;
-    padding: 5px 10px;
-    border-radius: 5px;
-    color: #333;
-    margin-top: 10px;
-}
-
-.ticket-card .ticket-info {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
+    align-items:center;
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
 }
 
-.ticket-card .ticket-date {
+.ticket-card:hover {
+    border-color: #A020F0;
+}
+
+.ticket-number {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Styles for status: processing, pending and rejected */
+.status.processing {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 14px;
+    color: #37b24d; /* green text color */
+    border: 0.03125rem solid #37b24d; /* green border for processing status */
+}
+
+.status.pending {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 14px;
+    color: #333; /* Dark grey text color */
+    border: 0.03125rem solid grey; /* Grey border for processing status */
+}
+
+.status.rejected {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 14px;
+    color: red; /* red text color */
+    border: 0.03125rem solid red; /* red border for processing status */
+}
+
+/* Colors for processing status circle */
+.status.processing .circle {
+    background-color: #37b24d; /* green color for processing status circle */
+}
+
+/* Colors for pending status circle */
+.status.pending .circle {
+    background-color: grey; /* Grey color for processing status circle */
+}
+
+/* Colors for rejected status circle */
+.status.rejected .circle {
+    background-color: red; /* red color for processing status circle */
+}
+
+/* Small circular indicators */
+.circle {
+    border-radius: 50%; /* Circular shape */
+    width: 0.4375rem; /* Fixed width */
+    height: 0.4375rem; /* Fixed height */
+    display: inline-block; /* Inline block display */
+}
+
+.ticket-table {
+    width: 100%; /* Adjust the width as needed */
+    border-spacing: 0; /* Remove spacing between table cells */
+    margin-bottom: 20px;
+}
+
+.ticket-table tr {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+}
+
+.ticket-table td {
+    padding: 15px;
     font-size: 16px;
-    color: #333;
-}
-
-.ticket-card .ticket-user img {
-    border-radius: 50%;
-    margin-right: 10px;
-    width: 20%;
 }
 
 /* Ticket Detail */
 .ticket-detail {
+    width: 60%;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     margin-bottom: 20px;
     flex: 1;
     flex-direction: column;
+    overflow-y: auto; /* Enables scrolling within each section */
 }
 
 .ticket-detail img {
@@ -264,12 +352,6 @@ nav ul li a:hover {
     font-size: 1.5rem;
     font-weight: bold;
     color: #333;
-}
-
-/* Flexbox container for ticket list and ticket detail */
-.content-wrapper {
-    display: flex;
-    gap: 10px;
 }
 
 /* Grid layout for the info section */

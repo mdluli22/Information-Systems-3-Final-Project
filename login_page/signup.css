@@ -17,6 +17,7 @@ body {
     box-shadow: 0 0 1.25rem rgba(0, 0, 0, 0.1); /* 20px subtle shadow for depth */
     overflow: hidden; /* Hide any content that overflows the container */
     max-width: 56.25rem; /* 900px maximum width to prevent stretching on large screens */
+    
 }
 
 /* Login Image: Styling for the side of the container that holds the image */

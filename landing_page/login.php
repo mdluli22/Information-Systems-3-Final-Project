@@ -1,47 +1,60 @@
-<?php
-// start the session
-session_start();
+<!DOCTYPE html>
+<html lang="en">
 
-// get the values from the form 
-$username= $_REQUEST['name'];
-$password= $_REQUEST['pass'];
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+</head>
 
-// include database credentials 
-require_once("config.php");
+<body>
+    <style>
+        .error {
+            color: red;
+        }
 
-// make connection to the database
-$conn=new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
+        .success {
+            color: green;
+        }
+    </style>
+    <?php
+    // Start the session
+    session_start();
 
-// check if the connection is successful 
-if ($conn->connect_error) {
-    die("<p class=\"error\">Connection to database failed!</p>");
-}
- // issue query instructions
- $sql = "SELECT * FROM users WHERE username = '$name' AND password = '$pass'";
+    // Get the values from the form
+    $username = $_REQUEST['username'];
+    $password = $_REQUEST['password'];
 
-//  if statement if password is found what, if email is found but password is not what now?
+    // Include database credentials
+    require_once("config.php");
 
- //check query successful
- $result = $conn->query($sql);
+    // Make a connection to the database
+    $conn = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
 
- if ($result === FALSE) {
-     die("<p class=\"error\">Unable to retrieve data!</p>");
- }
+    // Check if the connection is successful
+    if ($conn->connect_error) {
+        die("<p class=\"error\">Connection to the database failed!</p>");
+    }
 
- //check if the user exists in the database
- if ($result->num_rows == 1) {
-     // user exists in the database, so set session variable to allow access to web pages
-     $_SESSION['access'] = "yes";
+    $sql = "SELECT * FROM user WHERE userName = '$username' AND user_password = '$password'";
+    $result = $conn->query($sql);
 
-     // direct user to appropriate web page
-     header("Location:login.php");
- } 
- 
- else {
-     // if user does not exist in database then redirect back to home page
-     header("Location:landing.html");
- }
+    if ($result === FALSE) {
+        die("<p class=\"error\">Unable to retrieve data!</p>");
+    }
 
- //close connection to database
- $conn->close();
+    // Check if the user exists in the database
+    if ($result->num_rows == 1) {
+        $_SESSION['access'] = "yes";
+        header("Location: ../ticket_creation/ticketCreation.html");
+    } else {
+        // Password is incorrect
+        header("Location: landing.html");
+    }
 
+    // Close connection to the database
+    $conn->close();
+    ?>
+</body>
+
+</html>

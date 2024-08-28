@@ -434,16 +434,7 @@ h2 {
     cursor: pointer;
 }
 
-login-body {
-    font-family: Arial, sans-serif; /* Font family for the entire page */
-    background-color: #f4e9f8; /* Light background color */
-    display: flex; /* Flexbox for centering content */
-    justify-content: center; /* Horizontally center the content */
-    align-items: center; /* Vertically center the content */
-    height: 100vh; /* Full viewport height */
-    margin: 0; /* Remove default margin */
-}
-
+/* The area for Log in */
 /* Container: Main container that holds the login image and form */
 .container {
     display: flex; /* Flexbox layout to place image and form side by side */
@@ -451,7 +442,7 @@ login-body {
     border-radius: 1.25rem; /* 20px rounded corners */
     box-shadow: 0 0 1.25rem rgba(0, 0, 0, 0.1); /* 20px subtle shadow for depth */
     overflow: hidden; /* Hide any content that overflows the container */
-    max-width: 56.25rem; /* 900px maximum width to prevent stretching on large screens */
+    
 }
 
 /* Login Image: Styling for the side of the container that holds the image */
@@ -548,3 +539,5 @@ p a {
 p a:hover {
     text-decoration: underline; /* Add underline on hover */
 }
+
+/* the area for sign in */

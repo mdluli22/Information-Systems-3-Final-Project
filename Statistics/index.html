@@ -106,6 +106,80 @@
         <div class="charts">
             <canvas id="ticketsChart"></canvas>
         </div>
+        
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script>
+            const ctx = document.getElementById('ticketsChart').getContext('2d');
+
+            const myLineChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov'],
+                    datasets: [{
+                        label: 'Tickets',
+                        data: [40, 60, 45, 50, 35, 46, 30, 55, 40, 70, 80],
+                        fill: true,
+                        borderColor: '#7e5bef',
+                        backgroundColor: 'rgba(126, 91, 239, 0.1)',
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#7e5bef',
+                        pointHoverBackgroundColor: '#7e5bef',
+                        pointHoverBorderColor: '#fff',
+                        pointRadius: 6,
+                        pointHoverRadius: 8,
+                        lineTension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+
+                        },
+
+                        x: {
+                            grid:{
+                                display: false
+                            }
+                        }
+                        
+                    },
+                    plugins: {
+
+                        legend: {
+                            display: false  
+                        },
+
+                        title: {
+                            display: true,  
+                            text: 'Total Number of Tickets per Month',  
+                            align: 'start',  
+                            font: {
+                            size: 18,  
+                            weight: 'bold'  
+                            },
+                            padding: {
+                                top: 10,
+                                bottom: 30
+                            }
+                        },
+
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `Tickets: ${context.raw}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+          </script>
     </main>
     </div>
 </body>

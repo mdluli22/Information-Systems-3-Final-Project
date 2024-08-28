@@ -1,5 +1,5 @@
 /* Body: Setting up the overall layout and appearance of the page */
-body {
+login-body {
     font-family: Arial, sans-serif; /* Font family for the entire page */
     background-color: #f4e9f8; /* Light background color */
     display: flex; /* Flexbox for centering content */

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResQue</title>
+    <link rel="icon" type="image/x-icon" href="pictures/resque-logo.png">
+    <link rel="icon" type="image/x-icon" href="images/resque-logo.png">
+    <link rel="stylesheet" href="landing_Page.css">
+    <link rel="stylesheet" href="login_page.css">
+</head>
+<body>
+    <header id="header-pic" class="header">
+        <div id="logo-nav">
+            <div class="logo">
+                <h1>ResQue</h1>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Help</a></li>
+                    <li><a href="#">Resources &nbsp;<img id="down-chevron" src="pictures/drop-down.png" width="18px" height="14px" alt="down-chevron"></a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="auth-buttons">
+            <!-- Trigger the login modal -->
+            <a href="#" class="login-btn" id="login-btn">Login</a>
+            <!-- Trigger the sign-up modal -->
+            <a href="#" class="signup-btn" id="signup-btn">Sign up</a>
+        </div>
+    </header>
+    <div id="background-gradient">
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Saving Your Day, One Fix at a Time</h2>
+                <p>Easily report your maintenance issues and have them resolved without any hassle.</p>
+                <a href="#" id="learn-more-btn">Learn More</a>
+            </div>
+            <div class="hero-image">
+                <img src="pictures/resque-logo.png" alt="ResQue Logo">
+            </div>
+        </section>
+        
+        <div class="fixed-at-bottom">
+            <section class="features">
+                <div class="feature">
+                    <h3>Avg Response Time</h3>
+                    <p>Quick response to minimize downtime for residents.</p>
+                </div>
+                <div class="feature">
+                    <h3>Credibility</h3>
+                    <p>Trusted, reliable service by skilled professionals ensuring quality repairs.</p>
+                </div>
+                <div class="feature">
+                    <h3>Availability</h3>
+                    <p>Maintenance services available anytime for any issue.</p>
+                </div>
+            </section>
+            
+            <div class="hr"><hr id="hr"></div>
+            <footer class="footer">
+                <div class="footer-links">
+                    <a href="../footer_links/links.html#integrity-and-constraints">Integrity & Compliance</a>
+                    <a href="../footer_links/links.html#legal">Legal</a>
+                    <a href="../footer_links/links.html#manage-cookies">Manage Cookies</a>
+                    <a href="../footer_links/links.html#privacy-policy">Privacy Policy</a>
+                </div>
+                <p>&copy; ResQue <time datetime="">2024</time></p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Login Modal Structure -->
+    <div class="login-body">
+        <div id="login-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <div class="container">
+                    <div class="login-image">
+                        <img src="images/login_image.svg" alt="Resque Logo and Character">
+                    </div>
+
+                    <div class="login-form">
+                        <h1>Welcome Back 👋</h1>
+                        <p>Enter your login credentials. Please ensure that login credentials are typed correctly.</p>
+                        <form action="login.php" method="post">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" name="username" placeholder="Username" required maxlength="8">
+                            
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" placeholder="Password" required>
+                            
+                            <a href="#" class="forgot-password">Forgot Password?</a>
+                            
+                            <input type="submit" id="login-submit-btn" name="submit" value="Sign in">
+                        </form>
+                        <p>Don't have an account? <a href="../landing_page/landing_Page.html">Sign up</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign-Up Modal Structure -->
+    <div id="signup-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Create Account</h2>
+            <form action="signup.php" method="post">
+                <label for="username">Username</label>
+                <input type="text" id="signup-username" name="username" placeholder="Username" required maxlength="8">
+                
+                <label for="email">Email</label>
+                <input type="email" id="signup-email" name="email" placeholder="Email" required>
+                
+                <label for="password">Password</label>
+                <input type="password" id="signup-password" name="password" placeholder="Password" required>
+                
+                <input type="submit" id="signup-submit-btn" name="submit" value="Sign Up">
+            </form>
+        </div>
+    </div>
+
+    <script src="landing_Page.js"></script>
+</body>
+</html>

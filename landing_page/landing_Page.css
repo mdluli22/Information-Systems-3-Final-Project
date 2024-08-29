@@ -434,11 +434,11 @@ h2 {
     cursor: pointer;
 }
 
-/* The area for Log in */
+/* The area for Log in and sign up */
 /* Container: Main container that holds the login image and form */
 .container {
     display: flex; /* Flexbox layout to place image and form side by side */
-    background-color: white; /* White background for the container */
+    /* background-color: white; */
     border-radius: 1.25rem; /* 20px rounded corners */
     box-shadow: 0 0 1.25rem rgba(0, 0, 0, 0.1); /* 20px subtle shadow for depth */
     overflow: hidden; /* Hide any content that overflows the container */
@@ -446,19 +446,22 @@ h2 {
 }
 
 /* Login Image: Styling for the side of the container that holds the image */
-.login-image {
+.login-image,
+.signup-image {
     background-color: #e4d1f3; /* Light purple background */
     padding: 2.5rem; /* 40px padding around the image */
 }
 
 /* Image inside the Login Image container */
-.login-image img {
+.login-image img,
+.signup-image img {
     max-width: 100%; /* Ensure the image doesn’t exceed the container’s width */
     height: auto; /* Maintain aspect ratio of the image */
 }
 
 /* Login Form: Styling for the side of the container that holds the form */
-.login-form {
+.login-form,
+.signup-form {
     padding: 2.5rem; /* 40px padding inside the form container */
     width: 100%; /* Full width to take up remaining space */
 }
@@ -539,5 +542,3 @@ p a {
 p a:hover {
     text-decoration: underline; /* Add underline on hover */
 }
-
-/* the area for sign in */

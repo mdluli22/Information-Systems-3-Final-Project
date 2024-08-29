@@ -49,7 +49,7 @@
         header("Location: ../ticket_creation/ticketCreation.html");
     } else {
         // Password is incorrect
-        header("Location: landing.html");
+        header("Location: landing_Pagegi.html");
     }
 
     // Close connection to the database

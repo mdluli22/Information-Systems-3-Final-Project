@@ -298,6 +298,20 @@ h1 {
     display: inline-block; /* Inline block display */
 }
 
+/* Details button */
+.details-button {
+    background-color: grey; /* Purple color */
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+/* Details button */
+.details-button:hover {
+    background-color: #A020F0; /* Darker purple on hover */
+}
+
 .ticket-table {
     width: 100%; /* Adjust the width as needed */
     border-spacing: 0; /* Remove spacing between table cells */

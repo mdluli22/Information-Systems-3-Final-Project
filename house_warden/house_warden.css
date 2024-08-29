@@ -17,6 +17,7 @@ body {
     flex-direction: column;
     position: fixed;
     width: 17.5rem; /* Fixed width for sidebar */
+    width: 15rem; /* Fixed width for sidebar */
     padding: 1.25rem; /* Padding for spacing inside the sidebar */
     height: 100vh; /* Sidebar spans full viewport height */
 }

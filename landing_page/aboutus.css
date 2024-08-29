@@ -1,4 +1,4 @@
-/* body {
+body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -11,15 +11,15 @@
 
 header {
     text-align: center;
-    margin-top: 50px;
-    margin-bottom: 30px;
+    margin-top: 3.125rem;
+    margin-bottom: 1.875rem;
 }
 
 h1 {
     font-size: 2.5em;
     font-weight: bold;
     color: #333;
-    margin-bottom: 10px;
+    margin-bottom: 0.625rem;
 }
 
 h2 {
@@ -28,24 +28,28 @@ h2 {
     color: #666;
 }
 
-.team-container {
+.img-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    max-width: 1200px;
+    max-width: 75rem;
     width: 100%;
-    padding: 20px;
+    padding: 1.25rem;
 }
 
 .team-member {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
+}
+.team-member-th{
+    content: a;
 }
 
+
 .image-container {
-    width: 200px;
-    height: 200px;
-    margin-bottom: 10px;
+    width: 12.5rem;
+    height: 12.5rem;
+    margin-bottom: 0.625rem;
     position: relative;
 }
 
@@ -55,7 +59,9 @@ h2 {
     object-fit: cover;
     border-radius: 10px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
 }
+
 
 .image-container:hover img {
     transform: scale(1.05);
@@ -81,90 +87,8 @@ p {
 p span {
     font-weight: bold;
 } 
- */
 
 
 
 
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    margin: 0;
-    padding: 20px;
-    text-align: center;
-}
-
-/* the other page css */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.team-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    background-color: #ffffff;
-    padding: 20px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-    font-size: 2em;
-    margin-bottom: 10px;
-}
-
-h2 {
-    font-size: 1.5em;
-    margin-bottom: 30px;
-    color: #555;
-}
-
-/* the other page  */
-header {
-    text-align: center;
-    margin-top: 50px;
-    margin-bottom: 30px;
-}
-
-.team-table {
-    width: 100%;
-    border-spacing: 20px;
-}
-
-.image-cell, .text-cell {
-    vertical-align: top;
-}
-
-.image-box {
-    width: 150px;
-    height: 150px;
-    background-color: #d3d3d3;
-    margin: 0 auto;
-    transition: transform 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.image-box:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-}
-
-.text-cell p {
-    font-size: 1em;
-    color: #333;
-    text-align: left;
-}
-
-.text-cell p br {
-    margin-bottom: 10px;
-} 
-
-
-
+ 

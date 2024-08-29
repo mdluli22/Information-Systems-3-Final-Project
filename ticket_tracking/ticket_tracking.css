@@ -358,35 +358,39 @@ h1 {
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     /* flex: 1; */
-    margin-top: 20px;
+    margin-top: 1.25rem;  /* 20px */
 }
 
 .ticket-detail .ticket-info h3 {
-    margin-top: 20px;
-    font-size: 1.5rem;
+    margin-top: 1.25rem; /* 20px */
+    font-size: 1.5rem; /* 24px */
     font-weight: bold;
     color: #333;
 }
 
-/* Grid layout for the info section */
-.info-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 edual columns */
-    gap: 10px; /* Space between rows */
-    column-gap: 30px;
-    border: 1px solid #ccc; /* Thin grey border around the entire grid */
-    border-radius: 8px; /* Optional: Rounded corners */
-    padding: 20px; /* Padding inside the grid */
+/* Styling for the table */
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-/* Data styling */
-.info-data {
-    font-weight: bold;
-    color: #333;
+.info-cell {
+    width: 33.33%; /* Ensure 3 cells per row */
+    padding: 1rem 0; /* Vertical padding */
+    text-align: left;
+    vertical-align: top;
 }
 
-/*Label styling */
 .info-label {
-    font-size: small;
-    color: #555;
+    display: block;
+    font-size: 1rem; /* 16px */
+    color: #777; /* Light gray for labels */
+}
+
+.info-data {
+    display: block;
+    font-size: 1.25rem; /* 20px */
+    font-weight: bold;
+    color: #000; /* Black for data */
+    margin-top: 0.25rem; /* Small space between label and data */
 }

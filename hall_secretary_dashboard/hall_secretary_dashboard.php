@@ -86,7 +86,7 @@
                 </div>
                 <!-- Profile information area -->
                 <div class="profile-info">
-                    <span id="user-name" class="username"><?php echo "Amogelang Mphela"?></span><br>
+                    <span id="user-name" class="username"><?php echo "Derrick Aboagye"?></span><br>
                     <span class="role"><?php echo "Hall Secretary"?></span>
                 </div>
                 <!-- Logout button with icon -->

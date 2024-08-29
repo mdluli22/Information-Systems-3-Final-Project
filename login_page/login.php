@@ -29,6 +29,19 @@ $password = $conn->real_escape_string($_REQUEST['pass']);
 $stmt->execute();
 
 //if the username is incorrect, and if the password is incorrect 
+if ($result->num_rows > 1) {
+    // User exists, now check the password
+    $user = $result->fetch_assoc();
+ 
+    if (password_verify($password, $username['password'])) {
+        echo "Username and password are correct.";
+    } else {
+        echo "Username is correct, but the password is incorrect.";
+    }
+} else {
+    // Username does not exist in the database
+    echo "Username does not exist.";
+}
 
  //check if the user exists in the database
  if ($result->num_rows == 1) {

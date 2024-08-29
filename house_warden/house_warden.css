@@ -206,14 +206,14 @@ header h1 .username {
     border-bottom: 0.3125rem solid #A020F0; /* Purple bottom border for active state */
 }
 
-/* Make scrollbar so that only 3 tickets are displayed at a time */
+/* Make scrollbar so that only 4 tickets are displayed at a time */
 .scrollbar {
     width: 100%;
-    /* height: 9%; */
-    min-height: 2.87%;
-    max-height: 2.87%;
+    min-height: 7.5%;
+    max-height: 7.5%;
     overflow-y: auto;
     overflow-x: hidden;
+
 }
 
 /* Make table headers stick in place when scrolling */
@@ -221,12 +221,8 @@ table thead {
     position: sticky;
     top: 0;
     background-color: lightgray; /* Ensure background is set to avoid transparency issues */
-    z-index: 100; /* Ensure header stays above the other table content */
+    z-index: 1; /* Ensure header stays above the other table content */
 }
-/* Make top right corners round */
-/* thead :last-child {
-    border-top-right-radius: 0.9375rem;
-} */
 
 /* Styling for ticket table */
 .ticket-table table, .scrollbar {
@@ -246,27 +242,6 @@ table thead {
     max-width: 40%;
     word-wrap: break-word;
 }
-
-
-
-/* Container to hold the table with scrollable content */
-/* .ticket-table-container {
-    max-height: 18rem; /* Adjust this height as needed (e.g., 18rem should show about 3 tickets) */
-    /* overflow-y: auto; Enable vertical scrolling if content exceeds max height */
-    /* margin-bottom: 1rem; Optional: adds some space below the container */
-/* } */
-
-/* Optional: Additional styling to ensure the scrollbar doesn't mess with table width */
-/* .ticket-table-container::-webkit-scrollbar { */
-    /* width: 0.5rem; Customize scrollbar width */
-/* } */
-
-/* .ticket-table-container::-webkit-scrollbar-thumb { */
-    /* background-color: #ccc; Customize scrollbar color */
-    /* border-radius: 0.25rem; Customize scrollbar roundness */
-/* } */
-
-
 
 
 /* Status indicators within the ticket table */
@@ -371,8 +346,6 @@ table thead {
 /* } */
 
 
-
-
 /* Maintenance requests section styling */
 .maintenance-requests {
     /* position: sticky;
@@ -390,8 +363,8 @@ table thead {
     /* height: 9%; */
     position: sticky;
     top: 0;
-    min-height: 5%;
-    max-height: 5%;
+    min-height: 6%;
+    max-height: 6%;
     overflow-y: auto;
     overflow-x: hidden;
 }

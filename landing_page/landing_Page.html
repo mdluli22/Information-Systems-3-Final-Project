@@ -5,83 +5,150 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ResQue</title>
     <link rel="icon" type="image/x-icon" href="pictures/resque-logo.png">
-    <!-- Link to external CSS file -->
+    <link rel="icon" type="image/x-icon" href="images/resque-logo.png">
     <link rel="stylesheet" href="landing_Page.css">
+    <!-- <link rel="stylesheet" href="login_page.css"> -->
 </head>
 <body>
-    <!-- Header Section: Contains the navigation menu and auth buttons -->
     <header id="header-pic" class="header">
         <div id="logo-nav">
             <div class="logo">
-                <h1>ResQue</h1> <!-- Logo text -->
+                <h1>ResQue</h1>
             </div>
             <nav class="nav">
                 <ul>
-                    <!-- Navigation links -->
                     <li><a href="#">FAQ</a></li>
                     <li><a href="#">About Us</a></li>
                     <li><a href="#">Help</a></li>
-                    <li><a href="#">Resources &nbsp;<img id="down-chevron" src="images/drop-down.png" width="18px" height="14px" alt="down-chevron"></a></li>
+                    <li><a href="#">Resources &nbsp;<img id="down-chevron" src="pictures/drop-down.png" width="18px" height="14px" alt="down-chevron"></a></li>
                 </ul>
             </nav>
         </div>
-        <!-- Authentication buttons (Login and Sign Up) -->
         <div class="auth-buttons">
-            <a href="../login_page/login_page.html" class="login-btn">Login</a>
-            <a href="#" class="signup-btn">Sign up</a>
+            <!-- Trigger the login modal -->
+            <a href="#" class="login-btn" id="login-btn">Login</a>
+            <!-- Trigger the sign-up modal -->
+            <a href="#" class="signup-btn" id="signup-btn">Sign up</a>
         </div>
     </header>
     <div id="background-gradient">
-        <!-- Hero Section: Main content area with a headline, description, and logo image -->
         <section class="hero">
             <div class="hero-content">
-                <!-- Main headline text -->
                 <h2>Saving Your Day, One Fix at a Time</h2>
-                <!-- Subtext describing the service -->
                 <p>Easily report your maintenance issues and have them resolved without any hassle.</p>
-                <!-- "Learn More" button -->
                 <a href="#" id="learn-more-btn">Learn More</a>
             </div>
             <div class="hero-image">
-                <!-- logo image -->
-                <img src="images/resque-logo.png" alt="ResQue Logo"> <!--width="808px" height="678px">-->
+                <img src="pictures/resque-logo.png" alt="ResQue Logo">
             </div>
         </section>
         
         <div class="fixed-at-bottom">
-            <!-- Features Section: Displays the three main features of the service -->
             <section class="features">
                 <div class="feature">
-                    <!-- Feature: Average Response Time -->
                     <h3>Avg Response Time</h3>
                     <p>Quick response to minimize downtime for residents.</p>
                 </div>
                 <div class="feature">
-                    <!-- Feature: Credibility -->
                     <h3>Credibility</h3>
                     <p>Trusted, reliable service by skilled professionals ensuring quality repairs.</p>
                 </div>
                 <div class="feature">
-                    <!-- Feature: Availability -->
                     <h3>Availability</h3>
                     <p>Maintenance services available anytime for any issue.</p>
                 </div>
             </section>
             
             <div class="hr"><hr id="hr"></div>
-            <!-- Footer Section: Contains links to legal and policy information -->
             <footer class="footer">
-                <!-- Footer links for legal and compliance information -->
                 <div class="footer-links">
                     <a href="../footer_links/links.html#integrity-and-constraints">Integrity & Compliance</a>
                     <a href="../footer_links/links.html#legal">Legal</a>
                     <a href="../footer_links/links.html#manage-cookies">Manage Cookies</a>
                     <a href="../footer_links/links.html#privacy-policy">Privacy Policy</a>
                 </div>
-                <!-- Copyright information -->
                 <p>&copy; ResQue <time datetime="">2024</time></p>
             </footer>
         </div>
     </div>
+
+    <!-- Login Modal Structure -->
+    <div class="login-body">
+        <div id="login-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <div class="container">
+                    <div class="login-image">
+                        <img src="images/login_image.svg" alt="Resque Logo and Character">
+                    </div>
+
+                    <div class="login-form">
+                        <h1>Welcome Back 👋</h1>
+                        <p>Enter your login credentials. Please ensure that login credentials are typed correctly.</p>
+                        <form action="login.php" method="post">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" name="username" placeholder="Username" required maxlength="8">
+                            
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" placeholder="Password" required>
+                            
+                            <a href="#" class="forgot-password">Forgot Password?</a>
+                            
+                            <input type="submit" id="login-submit-btn" name="submit" value="Sign in">
+                        </form>
+                        <p>Don't have an account? <a href="../landing_page/landing_Page.html">Sign up</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign-Up Modal Structure -->
+    <div class="signup-body">
+        <div id="signup-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn1">&times;</span>
+                <div class="container">
+                    <div class="signup-image">
+                        <img src="images/login_image.svg" alt="Resque Logo and Character">
+                    </div>
+                    
+                    <div class="signup-form">
+                        <h1>Welcome 👋</h1>
+                        <p>Please enter your credentials. 
+                            Please ensure that the credentials are typed correctly.</p>
+                        <form action="signup.php" method="post">
+
+
+                            <label for="fname">First Name</label>
+                            <input type="text" id="fname" placeholder="John" name = "fname" required>
+
+                            <label for="lname">Surname</label>
+                            <input type="text" id="lname" placeholder="Smith" name = "lname" required>
+
+                            <label for="email">Email</label>
+                            <input type="email" id="email" placeholder="g12s3456@campus.ru.ac.za" name = "email" required>
+
+                            <label for="roomNumber">Room Number</label>
+                            <input type="text" id="roomNumber" placeholder="123" name = "roomNumber" pattern="\d{1,3}" required>
+
+                            <label for="username">Username</label>
+                            <input type="text" id="username" placeholder="g12s3456" name= "username" required maxlength="8">
+                            
+                            <label for="password">Password</label> 
+                            <input type="password" id="password" placeholder="*******" name = "password" required>
+                        
+
+                            <!-- <button type="submit">Sign in</button> -->
+                            <input type="submit" id="submit-btn" name="submit" value="Sign up">
+                        </form>
+                        <p>Already have an account? <a href="login_page.html">Login in</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="landing_Page.js"></script>
 </body>
 </html>

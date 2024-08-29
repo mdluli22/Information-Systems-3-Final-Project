@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hall Secretary Dashboard</title>
+    <title>House Warden</title>
     <link rel="icon" type="image/x-icon" href="pictures/resque-logo.png">
     <!-- Link to the external CSS file -->
-    <link rel="stylesheet" href="hall_secretary_dashboard.css">
+    <link rel="stylesheet" href="house_warden.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Link to the FontAwesome library for icons -->
     <script src="https://kit.fontawesome.com/ddbf4d6190.js" crossorigin="anonymous"></script>
@@ -39,9 +39,11 @@
         $result = $connection->query($sql);
 
         $pending_query = 
-            "select concat(f_Name, ' ', l_Name) as 'full_name', t.resName, room_number, priority
-            from student s join ticket t on s.S_userName = t.userName;";
+            "SELECT concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority
+            FROM student s JOIN ticket t ON s.S_userName = t.userName
+            WHERE lower(ticket_status) = 'pending'";
         $pending_result = $connection->query($pending_query);
+
 
         // Check if query successfull
         if ($result === FALSE || $pending_result === FALSE) {
@@ -86,8 +88,8 @@
                 </div>
                 <!-- Profile information area -->
                 <div class="profile-info">
-                    <span id="user-name" class="username"><?php echo "Derrick Aboagye"?></span><br>
-                    <span class="role"><?php echo "Hall Secretary"?></span>
+                    <span id="user-name" class="username"><?php echo "Amogelang Mphela"?></span><br>
+                    <span class="role"><?php echo "Warden"?></span>
                 </div>
                 <!-- Logout button with icon -->
                 <div id="sidebar-log-out">
@@ -105,12 +107,12 @@
             </header>
 
             <!-- House selection links -->
-            <nav class="houses">
+            <!-- <nav class="houses">
                 <a href="#" class="house-link active">Cory House</a>
                 <a href="#" class="house-link">Botha House</a>
                 <a href="#" class="house-link">Matthews House</a>
                 <a href="#" class="house-link">College House</a>
-            </nav>
+            </nav> -->
 
             <!-- Ticket table section -->
             <section class="ticket-table scrollbar">
@@ -131,22 +133,22 @@
                         <?php
                             while ($row = $result->fetch_assoc())
                             {
-                                echo "<tr><td>#{$row['ticketID']}</td>";
-                                echo "<td>{$row['ticket_description']}</td>";
-                                // if ($row['ticket_status'] == "Processing") {
-                                echo "<td><span class='status processing'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
-                                // }
-                                echo "<td>" . date("D h:ia", strtotime($row['ticketDate'])) . "</td>";
-                                echo "<td>{$row['category']}</td>";
-                                switch (strtolower($row['priority'])) {
-                                    case "high":
-                                        echo "<td><span class='priority high-risk'><span class='circle'></span>&nbsp;&nbsp;High</span></td></tr>";
-                                        break;
-                                    case "medium":
-                                        echo "<td><span class='priority medium-risk'><span class='circle'></span>&nbsp;&nbsp;Medium</span></td></tr>";
-                                        break;
-                                    default:
-                                        echo "<td><span class='priority low-risk'><span class='circle'></span>&nbsp;&nbsp;Low</span></td></tr>";
+                                if ($row['ticket_status'] != "Pending") {
+                                    echo "<tr><td>#{$row['ticketID']}</td>";
+                                    echo "<td>{$row['ticket_description']}</td>";
+                                    echo "<td><span class='status processing'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
+                                    echo "<td>" . date("D h:ia", strtotime($row['ticketDate'])) . "</td>";
+                                    echo "<td>{$row['category']}</td>";
+                                    switch (strtolower($row['priority'])) {
+                                        case "high":
+                                            echo "<td><span class='priority high-risk'><span class='circle'></span>&nbsp;&nbsp;High</span></td></tr>";
+                                            break;
+                                        case "medium":
+                                            echo "<td><span class='priority medium-risk'><span class='circle'></span>&nbsp;&nbsp;Medium</span></td></tr>";
+                                            break;
+                                        default:
+                                            echo "<td><span class='priority low-risk'><span class='circle'></span>&nbsp;&nbsp;Low</span></td></tr>";
+                                    }
                                 }
                             }
                         ?>

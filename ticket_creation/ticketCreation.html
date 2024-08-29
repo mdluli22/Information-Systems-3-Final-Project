@@ -54,14 +54,14 @@
                 <!-- div is to ensure that the title page and res name are beneath each other -->
                 <div>
                     <h1>Maintenance requisition form</h1>
-                    <p class="fade-out" id="residence">Botha Residence</p>
+                    <p class="fade-out" id="residence"><?php echo htmlspecialchars($resName); ?></p>
                 </div>
                 <!-- Fix the logo size -->
                 <img src="pictures/resque-logo.png" alt="Logo" width="150" height="110">
             </header>
             <section>
                 <!-- the actual form for fault -->
-                <form class="requisition-form" method="post" enctype="multipart/form-data">
+                <form action="ticketCreation.php" method="post" enctype="multipart/form-data" class="requisition-form">
                     <div class="form-header">
                         <h3>Requisition Details</h3>
                         <p class="fade-out">Please fill in the form below</p>
@@ -78,7 +78,11 @@
                                 <option value="Plumbing">Plumbing</option>
                                 <option value="Furniture">Furniture</option>
                                 <option value="Heater">Heater</option>
+<<<<<<< HEAD
                                 <option value="Other">Other</option> <!-- when this option is chosen then descri is a must -->
+=======
+                                <option value="Other">Other</option> <!-- when this option is chosen then description is a must -->
+>>>>>>> 8b0a90c322b834165c3ecf20a5109d2bd27df835
                             </select>
                         </div>
                     </div>
@@ -87,7 +91,7 @@
                         <label for="description">Description</label>
                         <div class="form-extra-info"><small>Please provide any additional information or instructions related to the requisition</small></div>
                         <div class="form-input"> <!-- to ensure that the dropdown is in line with the label -->
-                            <textarea id="description"></textarea>
+                            <textarea id="description" name="description" required></textarea>
                         </div>
                     </div>
 

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+    <link rel="icon" type="image/x-icon" href="login_page/images/resque-logo.png">
+    <link rel="stylesheet" href="signup.css">
+</head>
+<body>
+    <div class="container">
+        <div class="signup-image">
+            <img src="images/login_image.svg" alt="Resque Logo and Character">
+        </div>
+        
+        <div class="signup-form">
+            <h1>Welcome 👋</h1>
+            <p>Please enter your credentials. 
+                Please ensure that the credentials are typed correctly.</p>
+            <form action="signup.php" method="post">
+
+
+                <label for="fname">First Name</label>
+                <input type="text" id="fname" placeholder="John" name = "fname" required>
+
+                <label for="lname">Surname</label>
+                <input type="text" id="lname" placeholder="Smith" name = "lname" required>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="g12s3456@campus.ru.ac.za" name = "email" required>
+
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="g12s3456" name= "name" required maxlength="8">
+                
+                <label for="password">Password</label> 
+                <input type="password" id="password" placeholder="*******" name = "pass" required>
+               
+
+                <!-- <button type="submit">Sign in</button> -->
+                <input type="submit" id="submit-btn" name="submit" value="Sign up">
+            </form>
+            <p>Already have an account? <a href="login_page.html">Login in</a></p>
+        </div>
+    </div>
+</body>
+</html>

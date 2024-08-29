@@ -103,9 +103,15 @@
                 </div>
             </div>
         </div>
-        <div class="charts">
-            <canvas id="ticketsChart"></canvas>
+        <div class="chartlayout">
+            <div class="charts">
+                <canvas id="ticketsChart"></canvas>
+            </div>
+            <div class="charts">
+                <canvas id="ticketStatusChart"></canvas>
+            </div>
         </div>
+
         
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -179,8 +185,49 @@
                 }
             });
 
+            const thechart = document.getElementById('ticketStatusChart').getContext('2d');
+            const ticketStatusChart = new Chart(thechart, {
+                type: 'doughnut', // Use 'doughnut' for the circular chart
+                data: {
+                    labels: ['Open', 'Closed', 'Resolved'],
+                    datasets: [{
+                        data: [38.6, 22.5, 30.8], // Data points
+                        backgroundColor: ['#444444', '#A2D9CE', '#85C1E9'], // Colors for each section
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right', // Position legend to the right
+                            labels: {
+                                usePointStyle: true, // Use dots as legend markers
+                                boxWidth: 10,
+                                padding: 20,
+                                color: '#000'
+                            }
+                        },
+                        title: {
+                            display: true,  
+                            text: 'Distribution of Current Tickets',  
+                            align: 'start',  
+                            font: {
+                            size: 18,  
+                            weight: 'bold'  
+                            },
+                            padding: {
+                                top: 10,
+                                bottom: 30
+                            }
+                        }
+                    }
+                }
+            });
           </script>
-    </main>
+          
+        </main>
     </div>
 </body>
 </html>

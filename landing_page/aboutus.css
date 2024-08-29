@@ -29,6 +29,11 @@ header h2 {
     margin-left: 30px;
 }
 
+h2{
+    margin-bottom: 0; /* Removes any space below the heading */
+    padding-bottom: 0; /* Ensures no extra padding below the heading */
+}
+
 /* hover on the heading */
 header h1:hover {
     color: purple;
@@ -70,6 +75,12 @@ td p {
     color: #333;
     margin: 0;
     font-family: 'Inter', sans-serif;
+    margin-top: 0; /* Removes any space above the paragraph */
 }
 
+footer {text-align: center;/* Center-align text */
+padding: 2% 0;/* Responsive padding */
+color: #000929;/* Text color */
+margin-top: -1.1rem;/* Space above the footer */
+}
 

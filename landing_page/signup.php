@@ -25,7 +25,7 @@
         $email = $_REQUEST['email'];
         $roomNumber = $_REQUEST['roomNumber'];
         $username = $_REQUEST['username'];
-        $password = $_REQUEST['pass'];
+        $password = $_REQUEST['password'];
         
 
     //include database credentials 
@@ -47,9 +47,11 @@
         header("Location: ../landing_page/landing_Page.html");
         exit();
     } else {
-        // Password is incorrect
+
+        //user already exists
+        $hashed_password = password_hash($password, PASSWORD_BCRYPT); // Hash the password
         $sql2 = "INSERT INTO user(userName, user_password, user_role, email)
-             VALUES ('$username', '$password', 'student', '$email')";
+             VALUES ('$username', '$hashed_password', 'student', '$email')";
         $result = $conn->query($sql2);
 
         if ($result === FALSE) {
@@ -58,22 +60,24 @@
             echo "<p class=\"success\">User added successfully!</p>";
             header("Location: ../ticket_creation/ticketCreation.html"); // Redirect to the next page
             exit(); // Ensure the script stops executing after redirection
-    }
+        }
     }
     
-    //issue query instructions
-    $sql2 = "INSERT INTO user(userName, user_password, user_role, email)
-            VALUE('$username', '$password', 'student', '$email')";
-            // "INSERT INTO student(S_username, f_Name,l_Name)
-            // VALUE ('$username', '$fname', '$lname')";
-    $result = $conn->query($sql2);
+    // $hashed_password = password_hash($password, PASSWORD_BCRYPT); // Hash the password
 
-    //check if the query is successful 
-    if ($result === FALSE){
-        die("<p class= \"error\" >Unable to add User!</p>");
-    } else {
-        echo "<p class=\"success\">User added successfully!</p>";
-    }
+    // //issue query instructions
+    // $sql2 = "INSERT INTO user(userName, user_password, user_role, email)
+    //         VALUE('$username', '$hashed_password', 'student', '$email')";
+    //         // "INSERT INTO student(S_username, f_Name,l_Name)
+    //         // VALUE ('$username', '$fname', '$lname')";
+    // $result = $conn->query($sql2);
+
+    // //check if the query is successful 
+    // if ($result === FALSE){
+    //     die("<p class= \"error\" >Unable to add User!</p>");
+    // } else {
+    //     echo "<p class=\"success\">User added successfully!</p>";
+    // }
 }
 
     // Check if the username already exists

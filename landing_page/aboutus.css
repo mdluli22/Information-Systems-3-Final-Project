@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* body {
+=======
+body {
+>>>>>>> 17b6288de3c7a85215a4fd72552d744afc78e125
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -11,15 +15,24 @@
 
 header {
     text-align: center;
+<<<<<<< HEAD
     margin-top: 50px;
     margin-bottom: 30px;
+=======
+    margin-top: 3.125rem;
+    margin-bottom: 1.875rem;
+>>>>>>> 17b6288de3c7a85215a4fd72552d744afc78e125
 }
 
 h1 {
     font-size: 2.5em;
     font-weight: bold;
     color: #333;
+<<<<<<< HEAD
     margin-bottom: 10px;
+=======
+    margin-bottom: 0.625rem;
+>>>>>>> 17b6288de3c7a85215a4fd72552d744afc78e125
 }
 
 h2 {
@@ -28,6 +41,7 @@ h2 {
     color: #666;
 }
 
+<<<<<<< HEAD
 .team-container {
     display: flex;
     flex-wrap: wrap;
@@ -35,10 +49,20 @@ h2 {
     max-width: 1200px;
     width: 100%;
     padding: 20px;
+=======
+.img-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 75rem;
+    width: 100%;
+    padding: 1.25rem;
+>>>>>>> 17b6288de3c7a85215a4fd72552d744afc78e125
 }
 
 .team-member {
     text-align: center;
+<<<<<<< HEAD
     margin-bottom: 20px;
 }
 
@@ -46,6 +70,19 @@ h2 {
     width: 200px;
     height: 200px;
     margin-bottom: 10px;
+=======
+    margin-bottom: 1.25rem;
+}
+.team-member-th{
+    content: a;
+}
+
+
+.image-container {
+    width: 12.5rem;
+    height: 12.5rem;
+    margin-bottom: 0.625rem;
+>>>>>>> 17b6288de3c7a85215a4fd72552d744afc78e125
     position: relative;
 }
 
@@ -55,8 +92,15 @@ h2 {
     object-fit: cover;
     border-radius: 10px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+<<<<<<< HEAD
 }
 
+=======
+    
+}
+
+
+>>>>>>> 17b6288de3c7a85215a4fd72552d744afc78e125
 .image-container:hover img {
     transform: scale(1.05);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
@@ -81,11 +125,15 @@ p {
 p span {
     font-weight: bold;
 } 
+<<<<<<< HEAD
  */
+=======
+>>>>>>> 17b6288de3c7a85215a4fd72552d744afc78e125
 
 
 
 
+<<<<<<< HEAD
 
 body {
     font-family: Arial, sans-serif;
@@ -168,3 +216,6 @@ header {
 
 
 
+=======
+ 
+>>>>>>> 17b6288de3c7a85215a4fd72552d744afc78e125

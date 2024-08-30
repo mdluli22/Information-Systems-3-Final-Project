@@ -41,10 +41,10 @@
     }
 
     //query to check if the user exists in the database
-    $sql = "SELECT * FROM user WHERE userName = '$username' AND user_password = '$password'";
+    $sql = "SELECT * FROM user WHERE userName = '$username'";
     $result = $conn->query($sql);
 
-    if ($result->num_rows == 1) {
+    if ($result->num_rows > 0) {
         $_SESSION['access'] = "yes";
         header("Location: ../landing_page/landing_Page.html");
         exit();
@@ -58,10 +58,9 @@
         if ($conn->query($sql2) === TRUE) {
             
             //insert into the student table using the username
-            $sql3 = "INSERT INTO student(S_username, f_Name, l_Name, resName, roomNumber)
-                     VALUES ('$username', '$fname', '$lname', $resname, '$roomNumber')";
+            $sql3 = "INSERT INTO student(f_Name, l_Name, resName, userName, room_number)
+                     VALUES ('$fname', '$lname', '$resname', '$username', '$roomNumber')";
         
-
             if ($conn->query($sql3) === TRUE) {
                 echo "<p class=\"success\">User and Student added successfully!</p>";
                 header("Location: ../ticket_creation/ticketCreation.html");

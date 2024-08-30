@@ -205,7 +205,7 @@ nav ul li a:hover {
 .card {
     display: flex;
     flex-direction: row;
-    width: 11.5rem; /* 300px converted to rem */
+    width: 20.5rem; /* 300px converted to rem */
     padding: 1.25rem; /* 20px converted to rem */
     background-color: #f9fafb;
     border-radius: 0.625rem; /* 10px border radius converted to rem */

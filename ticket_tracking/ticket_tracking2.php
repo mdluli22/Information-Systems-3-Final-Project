@@ -52,5 +52,12 @@
         // Close connection
         $connection->close();
     ?>
+
+    <h3>Your Tickets</h3>
+    <table class="ticket-table">
+        <?php echo $tickets_html; ?>
+    </table>
+
+
 </body>
 </html>

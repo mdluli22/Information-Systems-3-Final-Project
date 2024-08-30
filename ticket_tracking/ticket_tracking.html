@@ -28,7 +28,7 @@
             <nav>
                 <ul>
                     <!-- Navigation links with icons -->
-                    <li id="log-faults"><a class="sidebar-links" href="#"><img src="pictures/receipt-add.png" alt="Log faults">Log Faults</a></li>
+                    <li id="log-faults"><a class="sidebar-links" href="../ticket_creation/ticketCreation.html"><img src="pictures/receipt-add.png" alt="Log faults">Log Faults</a></li>
                     <li id="all-tickets"><a class="sidebar-links" href="#"><img src="pictures/receipt-icon.png" alt="All tickets">All Tickets</a></li>
                     <li id="open-tickets"><a class="sidebar-links" href="#"><img src="pictures/layer.png" alt="layer">Open Tickets</a></li>
                     <li id="closed-tickets"><a class="sidebar-links" href="#"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
@@ -66,12 +66,24 @@
                 </div>
             </header>
 
+            <!-- TEMPORARY Form for userID input -->
+            <section class="user-id-input">
+                <h3>Enter User ID to View Tickets</h3>
+                <form action="ticket_tracking2.php" method="POST">
+                    <label for="userID">User ID:</label>
+                    <input type="text" id="userID" name="userID" required>
+                    <button type="submit">Submit</button>
+                </form>
+            </section>
+            <br><br>
+
             <!-- Flex container for the ticket list and ticket detail -->
             <div class="content-wrapper">
                 <!-- Section for the list of tickets -->
                 <section class="ticket-list">
-                    <button class="add-ticket">+ Add New Ticket</button>
+                    <a href="../ticket_creation/ticketCreation.html"><button class="add-ticket">+ Add New Ticket</button></a>
                     <br>
+                    <h3>Your Tickets</h3>
                     <table class="ticket-table">
                         <!-- Ticket Row 1 -->
                         <tr class="ticket-card">
@@ -86,7 +98,10 @@
                             <td><span class="status processing"><span class="circle"></span>&nbsp;&nbsp;Processing</span></td>
                             <td><button class="details-button" onclick="showDetails('734959')">View Details</button></td>
                         </tr>
-                
+                    </table>
+
+                    <h3>Residence Tickets</h3>
+                    <table class="ticket-table">
                         <!-- Ticket Row 3 -->
                         <tr class="ticket-card">
                             <td class="ticket-number"><img src="pictures/clipboard-tick.png" alt="clipboard-tick" style="margin-right: 10px;">#734959</td>

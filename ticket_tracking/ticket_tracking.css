@@ -119,6 +119,12 @@ nav ul li a {
     width: 13.4375rem; /* Matches the width of the search bar */
 }
 
+/* Style for the active class */
+nav ul li a.active {
+    background-color: #A020F0; /* Purple background when active */
+    color: #fff; /* White text when active */
+}
+
 nav ul li a img{
     margin-right: 0.5rem;  /* 8px converted to rem */
     width: 1.5rem;    /* 24px converted to rem */
@@ -216,6 +222,7 @@ h1 {
     cursor: pointer;  /* Pointer cursor on hover */
     font-size: 16px;  /* Font size */
     transition: background-color 0.3s ease;  /* Smooth background transition */
+    width: 100%;
 }
 .add-ticket:hover {
     background-color: #A020F0;  /* Darker purple on hover */

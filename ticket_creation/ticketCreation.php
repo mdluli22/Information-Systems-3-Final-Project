@@ -23,7 +23,7 @@
         if (isset($_REQUEST['submit'])) {
              //for the res name on top
             $resName = $_REQUEST['residence'];
-            $studentID =$_REQUEST['username'];
+            $studentID = $_REQUEST['username'];
             $fault = $_REQUEST['fault-category'];
             $description = $_REQUEST['description']; 
 
@@ -35,14 +35,14 @@
             die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
         }
 
-        // query instructions
-        // Prepare and execute the query
-        //for the res name on top
-        $sql1 = "SELECT resName FROM student WHERE studentID = $studentID ";
-        $stmt1 = $conn->prepare($sql2);
-        $stmt1-> bind_param("i", $studentID); // Bind the student ID as an integer
-        $stmt1-> execute();
-        $result = $stmt->get_result();
+        $sql = "SELECT resName FROM student WHERE userName = $studentID ";
+        $result = $conn->query($sql);
+
+        // $sql1 = "SELECT resName FROM student WHERE studentID = $studentID ";
+        // $stmt1 = $conn->prepare($sql2);
+        // $stmt1-> bind_param("i", $studentID); // Bind the student ID as an integer
+        // $stmt1-> execute();
+        // $result = $stmt->get_result();
 
         // Check if query successfull
         if ($result === FALSE) {

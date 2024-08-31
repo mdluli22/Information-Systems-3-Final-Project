@@ -40,7 +40,7 @@
 
         $pending_query = 
             "select concat(f_Name, ' ', l_Name) as 'full_name', t.resName, room_number, priority
-            from student s join ticket t on s.S_userName = t.userName;";
+            from student s join ticket t on s.userName = t.userName;";
         $pending_result = $connection->query($pending_query);
 
         // Check if query successfull

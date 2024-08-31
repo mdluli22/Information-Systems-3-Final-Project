@@ -39,10 +39,9 @@
         $result = $connection->query($sql);
 
         $pending_query = 
-            "SELECT concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority
-            FROM student s JOIN ticket t ON s.S_userName = t.userName
-            WHERE lower(ticket_status) = 'pending'";
-        $pending_result = $connection->query($pending_query);
+        "select concat(f_Name, ' ', l_Name) as 'full_name', t.resName, room_number, priority
+        from student s join ticket t on s.userName = t.userName;";
+    $pending_result = $connection->query($pending_query);
 
 
         // Check if query successfull
@@ -74,7 +73,7 @@
                     <li id="all-tickets"><a class="sidebar-links" href="#"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
                     <li id="open-tickets"><a class="sidebar-links" href="#"><img src="pictures/layer.png" alt="layer">Open Tickets</a></li>
                     <li id="closed-tickets"><a class="sidebar-links" href="#"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
-                    <li id="statistics"><a class="sidebar-links" href="#"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
+                    <li id="statistics"><a class="sidebar-links" href="index.php"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
                 </ul>
             </nav>
     
@@ -84,11 +83,11 @@
             <div class="profile">
                 <!-- Profile picture area -->
                 <div class="profile-pic">
-                    <?php echo "AM";?>
+                    <?php echo "TT";?>
                 </div>
                 <!-- Profile information area -->
                 <div class="profile-info">
-                    <span id="user-name" class="username"><?php echo "Amogelang Mphela"?></span><br>
+                    <span id="user-name" class="username"><?php echo "Thokozile Tshabalala"?></span><br>
                     <span class="role"><?php echo "Warden"?></span>
                 </div>
                 <!-- Logout button with icon -->
@@ -102,7 +101,7 @@
         <main class="content">
             <header class="page-header">
                 <!-- Welcome message -->
-                <h1>Welcome, <span class="username"><?php echo "Amogelang"?></span></h1>
+                <h1>Welcome, <span class="username"><?php echo "Thokozile"?></span></h1>
                 <p>Access & Manage maintenance requisitions efficiently.</p>
             </header>
 
@@ -160,7 +159,7 @@
             <section class="maintenance-requests maintenance-scrollbar">
                 <header id="maintenance-requests-header">
                     <!-- Header with title and view all button -->
-                    <h2 id="h2">Maintenance Requests</h2>
+                    <h2 id="h2">Tickets Pending Approval</h2>
                     <!-- <button class="view-all">View all</button> -->
                 </header>
 

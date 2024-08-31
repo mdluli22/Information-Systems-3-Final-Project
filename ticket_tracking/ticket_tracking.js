@@ -20,3 +20,15 @@ sidebarLinks.forEach(link => {
         this.classList.add('active');
     });
 });
+
+/* function showDetails(ticketId) {
+    // Logic to display details for the ticket
+    console.log("Show details for ticket ID:", ticketId);
+    // Example: toggle visibility of a details section
+    var detailsSection = document.getElementById('details-' + ticketId);
+    if (detailsSection.style.display === 'none') {
+        detailsSection.style.display = 'block';
+    } else {
+        detailsSection.style.display = 'none';
+    }
+} */

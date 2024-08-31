@@ -262,8 +262,8 @@ h1 {
     padding: 5px 10px;
     border-radius: 20px;
     font-size: 14px;
-    color: #37b24d; /* green text color */
-    border: 0.03125rem solid #37b24d; /* green border for processing status */
+    color: royalblue; /* green text color */
+    border: 0.03125rem solid royalblue; /* green border for processing status */
 }
 
 .status.pending {
@@ -282,9 +282,17 @@ h1 {
     border: 0.03125rem solid red; /* red border for processing status */
 }
 
+.status.completed {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 14px;
+    color: #37b24d; /* green text color */
+    border: 0.03125rem solid #37b24d; /* green border for processing status */
+}
+
 /* Colors for processing status circle */
 .status.processing .circle {
-    background-color: #37b24d; /* green color for processing status circle */
+    background-color: royalblue; /* green color for processing status circle */
 }
 
 /* Colors for pending status circle */
@@ -295,6 +303,11 @@ h1 {
 /* Colors for rejected status circle */
 .status.rejected .circle {
     background-color: red; /* red color for processing status circle */
+}
+
+/* Colors for completed status circle */
+.status.status.completed .circle {
+    background-color: #37b24d; /* green color for processing status circle */
 }
 
 /* Small circular indicators */

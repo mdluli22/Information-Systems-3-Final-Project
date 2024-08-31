@@ -112,7 +112,7 @@ if ($connection->connect_error) {
                     <?php
 
                         //query instructions for the student's tickets
-                        $sql = "SELECT ticketID, resName, ticket_status FROM systemsurgeons.ticket where userName = '$userID' and ( (ticket_status = 'Closed') or (ticket_status = 'Rejected'))";
+                        $sql = "SELECT ticketID, resName, ticket_status FROM systemsurgeons.ticket where userName = '$userID' and ( (ticket_status = 'Completed') or (ticket_status = 'Rejected'))";
                         $result = $connection -> query($sql); //execute query
 
                         // Check if query successfull
@@ -153,7 +153,7 @@ if ($connection->connect_error) {
                     echo "<h3>$residence Tickets</h3>";
 
                         //query instructions for all tickets within the same residence
-                        $sql = "SELECT ticketID, resName, ticket_status FROM systemsurgeons.ticket where resName = '$residence' and ( (ticket_status = 'Closed') or (ticket_status = 'Rejected'))";
+                        $sql = "SELECT ticketID, resName, ticket_status FROM systemsurgeons.ticket where resName = '$residence' and ( (ticket_status = 'Completed') or (ticket_status = 'Rejected'))";
                         $result = $connection -> query($sql); //execute query
 
                         // Check if query successfull
@@ -202,7 +202,7 @@ if ($connection->connect_error) {
                                 $ticketID = $_GET['ticketID'];
 
                             //query instructions for the student's tickets
-                            $sql = "SELECT ticketID, resName, ticket_status, ticketDate, ticket_description, category, priority  FROM systemsurgeons.ticket where ticketID = '$ticketID' and ( ticket_status = 'Closed' or 'Rejected')";
+                            $sql = "SELECT ticketID, resName, ticket_status, ticketDate, ticket_description, category, priority  FROM systemsurgeons.ticket where ticketID = '$ticketID' and ( ticket_status = 'Completed' or 'Rejected')";
                             $result = $connection -> query($sql); //execute query
 
                             // Check if query successfull

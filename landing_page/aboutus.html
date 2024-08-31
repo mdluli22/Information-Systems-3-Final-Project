@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,79 +8,87 @@
     <link rel="icon" type="image/x-icon" href="pictures/resque-logo.png">
     <link rel="stylesheet" href="aboutus.css">
 </head>
+
 <body>
-     <header>
+    <header>
         <h1>Meet Our Fully Remote Team</h1>
         <h2>Ready to Save Your Day, One Fix at a Time.
             It takes a group of passionate operators to run the system
         </h2>
     </header>
-    
-    <!-- table that helped position the content nicely -->
-    <table style="width: 100%;">
-        <!-- Thoko image -->
-        <tr>
-            <td>
-                <img src="images/resque-logo.png" alt="Thokozile" id="thokoimg"> 
-            </td>
-            <td>
-                <p><h2>Thokozile</h2><br>Founder of System Surgeons that developed Rhodes Maintenance System. 
-                    Early staff at Singular Systems and Entelect. Thokozile was part of the 
-                many projects Singular System developed such as the Nedbank one, being the Project Manager
-            in the team. Holding a Master in Data Analytics from Univeristy of Munich</p>
-            </td>
-        </tr>
+
+    <!-- thoko -->
+    <div class="team-container">
+        <div class="team-member" id="member-1">
+            <img src="pictures/yuki.jpeg" alt="Thokozile Tshabalala">
+            <h3>Thokozile Tshabalala</h3>
+            <p>Position: Project Manager</p>
+        </div>
+        
+
+        <!-- derrick  -->
+        <div class="team-member highlighted" id="member-2">
+            <img src="pictures/derrick.avif" alt="Derrick Abogaye">
+            <h3>Derrick Abogaye</h3>
+            <p>Position: Software Engineer</p>
+        </div>
 
 
-        <!-- Akhona image -->
-        <tr>
-            <td>
-                <p><h2>Akhona</h2><br>AI Prompt expert. former lead data analyst at Capitec. 
-                After obtaining her honours in Computer Science at RU, Akhona went on to write the code for a new 
-            AI operator called Gemini, which she sells for trillions to Google</p>  
-            </td>
-            <td>
-                <img src="images/resque-logo.png" alt="akhona">  
-            </td>
-        </tr>
+        <!-- yuki -->
+        <div class="team-member" id="member-3">
+            <img src="pictures/thoko.avif" alt="Yeukai Runyowa">
+            <h3>Yeukai Runyowa</h3>
+            <p>Position: Software Quality Expert</p>
+        </div>
 
 
-        <!-- Yeukai image -->
-        <tr>
-            <td>
-                <img src="images/resque-logo.png" alt="Yeukhai">
-            </td>
-            <td>
-                <p><h2>Yeukai</h2><br>Software Quality Engineer. 
-                    Having obtained Masters in Robotics engineering, at the young age of 20 at Harvard University</p> 
-            </td>
-        </tr>
+        <!-- amo -->
+        <div class="team-member" id="member-4">
+            <img src="pictures/derrick and amo.jpg" alt="Amogelang Mphela">
+            <h3>Amogelang Mphela</h3>
+            <p>Position: UI/UX Expert</p>
+        </div>
 
 
-        <!-- Derrick image -->
-        <tr>
-            <td>
-                <p><h2>Derrick</h2><br>Full-stack Developer. Having obtained PhD in Machine Learning</p>
-            </td>
-            <td>
-                <img src="images/resque-logo.png" alt="Derrick">
-            </td>
-        </tr>
+        <!-- akhona -->
+        <div class="team-member" id="member-5">
+            <img src="pictures/akhona.jpg" alt="Akhona Mdluli">
+            <h3>Akhona Mdluli</h3>
+            <p>Position: AI prompt expert</p>
+        </div>
+    </div>
 
+    <div class="buttons">
+        <button onclick="prevMember()">Previous</button>
+        <button onclick="nextMember()">Next</button>
+    </div>
 
-        <!-- Amo image -->
-         <tr>
-            <td>
-                <img src="images/resque-logo.png" alt="Amogelang"> 
-            </td>
-            <td>
-                <p><h2>Amogelang</h2><br>UI/UX designer. Having obtained Masters Cum laude in Computer Science. 
-                    Thesis was based on "do users take UI/UX as serious as developers</p>
-            </td>
-         </tr>
-    </table>
+    <script>
+        let currentMember = 2; // Starting with Thokozile Tshabalala highlighted
+
+        function highlightMember(memberId) {
+            // Remove highlight from the current member
+            document.querySelector('.highlighted').classList.remove('highlighted');
+
+            // Highlight the new member
+            document.getElementById(`member-${memberId}`).classList.add('highlighted');
+        }
+
+        function prevMember() {
+            currentMember = (currentMember - 1 < 1) ? 5 : currentMember - 1;
+            highlightMember(currentMember);
+        }
+
+        function nextMember() {
+            currentMember = (currentMember + 1 > 5) ? 1 : currentMember + 1;
+            highlightMember(currentMember);
+        }
+
+    </script>
+
     <footer>
         <p>&copy; ResQue <time datetime="">2024</time></p>
     </footer>
 </body>
+
 </html>

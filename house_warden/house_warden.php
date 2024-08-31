@@ -89,7 +89,7 @@
                 <!-- Profile information area -->
                 <div class="profile-info">
                     <span id="user-name" class="username"><?php echo "Amogelang Mphela"?></span><br>
-                    <span class="role"><?php echo "Hall Secretary"?></span>
+                    <span class="role"><?php echo "Warden"?></span>
                 </div>
                 <!-- Logout button with icon -->
                 <div id="sidebar-log-out">
@@ -157,35 +157,37 @@
             </section>
 
             <!-- Maintenance requests section -->
-            <section class="maintenance-requests">
+            <section class="maintenance-requests maintenance-scrollbar">
                 <header id="maintenance-requests-header">
                     <!-- Header with title and view all button -->
                     <h2 id="h2">Maintenance Requests</h2>
                     <!-- <button class="view-all">View all</button> -->
                 </header>
 
-                <!-- populate maintenance faults pending approval from warden -->
-                
-                <?php 
-                    while ($row = $pending_result->fetch_assoc())
-                    {
-                        echo "<article class='request'>
-                                <div class='request-top-btns request-btns'>
-                                    <!-- Buttons for commenting and deleting a request -->
-                                    <button class='comment-btn'><i class='fa-solid fa-pen'></i>&nbsp;&nbsp;&nbsp;Comment</button>
-                                    <button class='delete-btn'><i class='fa-solid fa-trash' style='color: #e53e3e;'></i>&nbsp;&nbsp;&nbsp;Delete</button>
-                                </div>
-                                <!-- Request information -->
-                                <div class='request-info'>";
-                        echo "<p><strong>{$row['full_name']}<strong></p>";
-                        echo "<p>Residence: <strong>{$row['resName']}<strong></p>";
-                        echo "<p>Room Number: <strong>{$row['room_number']}<strong></p>";
-                        echo "<p>Priority: <strong>{$row['priority']}<strong>";
-                        echo "<button class='approve-btn request-btns'><i class='fa-solid fa-plus' style='color: #a020f0;'></i>&nbsp;&nbsp;&nbsp;Approve Request</button></p>";
-                        echo "</div></article>";
-                    }
-                ?>
-<!-- 
+                <!-- populate maintenance faults pending approval -->
+                <div class="requests">
+                    <?php 
+                        while ($row = $pending_result->fetch_assoc())
+                        {
+                            echo "<article class='request'>
+                                    <div class='request-top-btns request-btns'>
+                                        <!-- Buttons for commenting and deleting a request -->
+                                        <button class='comment-btn'><i class='fa-solid fa-pen'></i>&nbsp;&nbsp;&nbsp;Comment</button>
+                                        <button class='delete-btn'><i class='fa-solid fa-trash' style='color: #e53e3e;'></i>&nbsp;&nbsp;&nbsp;Delete</button>
+                                    </div>
+                                    <!-- Request information -->
+                                    <div class='request-info'>";
+                            echo    "<p><strong>{$row['full_name']}<strong></p>";
+                            echo       "<p>Residence: <strong>{$row['resName']}<strong></p>";
+                            echo       "<p>Room Number: <strong>{$row['room_number']}<strong></p>";
+                            echo       "<p>Priority: <strong>{$row['priority']}<strong>";
+                            echo       "<button class='approve-btn request-btns'><i class='fa-solid fa-plus' style='color: #a020f0;'></i>&nbsp;&nbsp;&nbsp;Approve Request</button></p>";
+                            echo    "</div></article>";
+                        }
+                    ?>
+                </div>
+                <!-- Example maintenance request -->
+                <!-- 
                 <article class="request">
                     <div class="request-top-btns request-btns">-->
                         <!-- Buttons for commenting and deleting a request -->

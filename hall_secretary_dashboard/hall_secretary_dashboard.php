@@ -35,12 +35,12 @@
         }
 
         // query instructions
-        $sql = "SELECT * FROM ticket;-- WHERE ticket_status = 'Processing'";
+        $sql = "SELECT * FROM ticket;";
         $result = $connection->query($sql);
 
         $pending_query = 
-            "select concat(f_Name, ' ', l_Name) as 'full_name', t.resName, room_number, priority
-            from student s join ticket t on s.S_userName = t.userName;";
+            "SELECT concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority
+            FROM student s JOIN ticket t ON s.userName = t.userName;";
         $pending_result = $connection->query($pending_query);
 
         // Check if query successfull

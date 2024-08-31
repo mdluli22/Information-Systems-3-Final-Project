@@ -69,6 +69,7 @@ td img:hover {
     box-shadow: 0rem 0.625rem 1.25rem rgba(0, 0, 0, 0.3);
 }
 
+
 /* the words next to the images */
 td p {
     font-size: 1.25em;
@@ -84,3 +85,5 @@ color: #000929;/* Text color */
 margin-top: -1.1rem;/* Space above the footer */
 }
 
+
+  

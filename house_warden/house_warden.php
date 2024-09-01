@@ -20,7 +20,7 @@
         }
     </style>
 </head>
-<body>
+<body>  
 
     <?php
         // include database details from config.php file

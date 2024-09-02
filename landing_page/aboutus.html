@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,137 +8,87 @@
     <link rel="icon" type="image/x-icon" href="pictures/resque-logo.png">
     <link rel="stylesheet" href="aboutus.css">
 </head>
+
 <body>
-<<<<<<< HEAD
-    <!-- <header>
-=======
-     <header>
->>>>>>> 17b6288de3c7a85215a4fd72552d744afc78e125
+    <header>
         <h1>Meet Our Fully Remote Team</h1>
-        <h2>Ready to Save Your Day, One Fix at a Time</h2>
+        <h2>Ready to Save Your Day, One Fix at a Time.
+            It takes a group of passionate operators to run the system
+        </h2>
     </header>
-    
-<<<<<<< HEAD
+
+    <!-- thoko -->
     <div class="team-container">
-        <div class="team-member">
-            <div class="image-container">
-                <img src="thokozile.jpg" alt="Thokozile">
-            </div>
-            <p>Thokozile<br>Founder of System Surgeons. Early staff at Singular Systems and Entelect</p>
+        <div class="team-member" id="member-1">
+            <img src="pictures/yuki.jpeg" alt="Thokozile Tshabalala">
+            <h3>Thokozile Tshabalala</h3>
+            <p>Position: Project Manager</p>
         </div>
-    
-        <div class="team-member">
-            <div class="image-container">
-                <img src="akhona.jpg" alt="akhona">
-            </div>
-            <p>Akhona<br>AI Prompt expert. Early founder of Gemini, and lead data analyst at Capitec</p>
+        
+
+        <!-- derrick  -->
+        <div class="team-member highlighted" id="member-2">
+            <img src="pictures/derrick.avif" alt="Derrick Abogaye">
+            <h3>Derrick Abogaye</h3>
+            <p>Position: Software Engineer</p>
         </div>
-    
-        <div class="team-member">
-            <div class="image-container">
-                <img src="yeukhai.jpg" alt="Yeukhai">
-            </div>
-            <p>Yeukhai<br>Software Quality Engineer. Early staff at Nedbank onboarding</p>
+
+
+        <!-- yuki -->
+        <div class="team-member" id="member-3">
+            <img src="pictures/thoko.avif" alt="Yeukai Runyowa">
+            <h3>Yeukai Runyowa</h3>
+            <p>Position: Software Quality Expert</p>
         </div>
-    
-        <div class="team-member">
-            <div class="image-container">
-                <img src="Derrick.jpg" alt="Derrick">
-            </div>
-            <p>Derrick<br>Full-stack Developer, having obtained PhD in machine learning</p>
+
+
+        <!-- amo -->
+        <div class="team-member" id="member-4">
+            <img src="pictures/derrick and amo.jpg" alt="Amogelang Mphela">
+            <h3>Amogelang Mphela</h3>
+            <p>Position: UI/UX Expert</p>
         </div>
-    
-        <div class="team-member">
-            <div class="image-container">
-                <img src="Amogelang.jpg" alt="Amogelang">
-            </div>
-            <p>Amogelang<br>UI/EX designer. Early staff at Capitec card design department</p>
+
+
+        <!-- akhona -->
+        <div class="team-member" id="member-5">
+            <img src="pictures/akhona.jpg" alt="Akhona Mdluli">
+            <h3>Akhona Mdluli</h3>
+            <p>Position: AI prompt expert</p>
         </div>
-    </div> -->
+    </div>
 
-    <div class="team-container">
-        <header>
-        <h1>MEET OUR FULLY REMOTE TEAM</h1>
-        <h2>READY TO SAVE YOUR DAY, ONE FIX AT A TIME</h2>
-    </header>
-    
-        <table class="team-table">
-            <tr>
-                <td class="image-cell"><div class="image-box"></div></td>
-                <td class="text-cell"><p>Thokozile<br>Founder of System Surgeons. Early staff at Singular Systems and Entelect</p></td>
-                <td class="image-cell"><div class="image-box"></div></td>
-                <td class="text-cell"><p>Akhona<br>Full-stack Developer, having obtained PhD in machine learning</p></td>
-            </tr>
-            <tr>
-                <td class="text-cell"><p>Derrick<br>AI Prompt expert. Early founder of Gemini, and lead data analyst at Capitec</p></td>
-                <td class="image-cell"><div class="image-box"></div></td>
-                <td class="text-cell"><p>Yeukhai<br>Software Quality Engineer. Early staff at Nedbank onboarding</p></td>
-                <td class="image-cell"><div class="image-box"></div></td>
-            </tr>
-            <tr>
-                <td class="image-cell"><div class="image-box"></div></td>
-                <td class="text-cell"><p>Amogelang<br>UI/EX designer. Early staff at Capitec card design department</p></td>
-            </tr>
-        </table>
-    </div> 
+    <div class="buttons">
+        <button onclick="prevMember()">Previous</button>
+        <button onclick="nextMember()">Next</button>
+    </div>
 
-   
-=======
-    <table style="width: 100%;">
-        <!-- Thoko image -->
-        <tr>
-            <td>
-                <img src="thoko.png" alt="Thokozile"> 
-            </td>
-            <td>
-                Thokozile<br>Founder of System Surgeons. Early staff at Singular Systems and Entelect
-            </td>
-        </tr>
+    <script>
+        let currentMember = 2; // Starting with Thokozile Tshabalala highlighted
 
+        function highlightMember(memberId) {
+            // Remove highlight from the current member
+            document.querySelector('.highlighted').classList.remove('highlighted');
 
-        <!-- Akhona image -->
-        <tr>
-            <td>
-                <p>Akhona<br>AI Prompt expert. Early founder of Gemini, and lead data analyst at Capitec</p>  
-            </td>
-            <td>
-                <img src="akhona.png" alt="akhona">  
-            </td>
-        </tr>
+            // Highlight the new member
+            document.getElementById(`member-${memberId}`).classList.add('highlighted');
+        }
 
+        function prevMember() {
+            currentMember = (currentMember - 1 < 1) ? 5 : currentMember - 1;
+            highlightMember(currentMember);
+        }
 
-        <!-- Yeukai image -->
-        <tr>
-            <td>
-                <img src="yeukhai.jpg" alt="Yeukhai">
-            </td>
-            <td>
-                <p>Yeukhai<br>Software Quality Engineer. Early staff at Nedbank onboarding</p> 
-            </td>
-        </tr>
+        function nextMember() {
+            currentMember = (currentMember + 1 > 5) ? 1 : currentMember + 1;
+            highlightMember(currentMember);
+        }
 
+    </script>
 
-        <!-- Derrick image -->
-        <tr>
-            <td>
-                <p>Derrick<br>Full-stack Developer, having obtained PhD in machine learning</p>
-            </td>
-            <td>
-                <img src="Derrick.jpg" alt="Derrick">
-            </td>
-        </tr>
-
-
-        <!-- Amo image -->
-         <tr>
-            <td>
-                <img src="Amogelang.jpg" alt="Amogelang"> 
-            </td>
-            <td>
-                <p>Amogelang<br>UI/UX designer. Early staff at Capitec card design department</p>
-            </td>
-         </tr>
-    </table>
->>>>>>> 17b6288de3c7a85215a4fd72552d744afc78e125
+    <footer>
+        <p>&copy; ResQue <time datetime="">2024</time></p>
+    </footer>
 </body>
+
 </html>

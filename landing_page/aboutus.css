@@ -1,221 +1,116 @@
-<<<<<<< HEAD
-/* body {
-=======
-body {
->>>>>>> 17b6288de3c7a85215a4fd72552d744afc78e125
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+
 
 header {
     text-align: center;
-<<<<<<< HEAD
-    margin-top: 50px;
-    margin-bottom: 30px;
-=======
-    margin-top: 3.125rem;
-    margin-bottom: 1.875rem;
->>>>>>> 17b6288de3c7a85215a4fd72552d744afc78e125
-}
-
-h1 {
-    font-size: 2.5em;
-    font-weight: bold;
-    color: #333;
-<<<<<<< HEAD
-    margin-bottom: 10px;
-=======
-    margin-bottom: 0.625rem;
->>>>>>> 17b6288de3c7a85215a4fd72552d744afc78e125
-}
-
-h2 {
-    font-size: 1.5em;
-    font-weight: normal;
-    color: #666;
-}
-
-<<<<<<< HEAD
-.team-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    max-width: 1200px;
-    width: 100%;
-    padding: 20px;
-=======
-.img-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    max-width: 75rem;
-    width: 100%;
     padding: 1.25rem;
->>>>>>> 17b6288de3c7a85215a4fd72552d744afc78e125
 }
 
-.team-member {
-    text-align: center;
-<<<<<<< HEAD
-    margin-bottom: 20px;
-}
-
-.image-container {
-    width: 200px;
-    height: 200px;
-    margin-bottom: 10px;
-=======
-    margin-bottom: 1.25rem;
-}
-.team-member-th{
-    content: a;
-}
-
-
-.image-container {
-    width: 12.5rem;
-    height: 12.5rem;
-    margin-bottom: 0.625rem;
->>>>>>> 17b6288de3c7a85215a4fd72552d744afc78e125
-    position: relative;
-}
-
-.image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-<<<<<<< HEAD
-}
-
-=======
-    
-}
-
-
->>>>>>> 17b6288de3c7a85215a4fd72552d744afc78e125
-.image-container:hover img {
-    transform: scale(1.05);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-.image-container:hover::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-}
-
-p {
-    font-size: 1em;
+header h1 {
+    font-size: 3.75em;
     color: #333;
-}
-
-p span {
-    font-weight: bold;
-} 
-<<<<<<< HEAD
- */
-=======
->>>>>>> 17b6288de3c7a85215a4fd72552d744afc78e125
-
-
-
-
-<<<<<<< HEAD
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    margin: 0;
-    padding: 20px;
+    text-shadow: 0.125rem 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
     text-align: center;
+    /* for this to run well had to make it px and not rem */
+    margin-left: 30px;  
 }
 
-/* the other page css */
+header h2 {
+    font-size: 1.5em;
+    color: #555;
+    margin-top: 0;
+    text-align: center;
+     /* for this to run well had to make it px and not rem */
+    margin-left: 30px;
+}
+
+h2{
+    margin-bottom: 0; /* Removes any space below the heading */
+    padding-bottom: 0; /* Ensures no extra padding below the heading */
+}
+
+/* hover on the heading */
+header h1:hover {
+    color: purple;
+    transform: scale(1.05);
+}
+
 body {
     font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f5f5f5;
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
+
+/* the cool feature there */
 .team-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    background-color: #ffffff;
-    padding: 20px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 120px 0;
+    overflow: visible;
+}
+    
+.team-member {
+    position: relative;
+    margin: 0 20px;
+    transition: transform 0.3s ease;
 }
 
-h1 {
-    font-size: 2em;
-    margin-bottom: 10px;
-}
-
-h2 {
-    font-size: 1.5em;
-    margin-bottom: 30px;
-    color: #555;
-}
-
-/* the other page  */
-header {
-    text-align: center;
-    margin-top: 50px;
-    margin-bottom: 30px;
-}
-
-.team-table {
-    width: 100%;
-    border-spacing: 20px;
-}
-
-.image-cell, .text-cell {
-    vertical-align: top;
-}
-
-.image-box {
+.team-member img {
     width: 150px;
     height: 150px;
-    background-color: #d3d3d3;
-    margin: 0 auto;
+    border-radius: 100%;
     transition: transform 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.image-box:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-}
-
-.text-cell p {
-    font-size: 1em;
+.team-member h3 {
+    margin: 10px 0 0;
+    font-size: 1.2em;
     color: #333;
-    text-align: left;
 }
 
-.text-cell p br {
-    margin-bottom: 10px;
-} 
+.team-member p {
+    font-size: 0.9em;
+    color: #777;
+}
 
+.highlighted {
+    transform: scale(1.2);
+    z-index: 10;
+}
 
+/* button design */
+.buttons {
+    margin-top: -30px;
+}
 
-=======
+.buttons button {
+    background-color: #A020F0;
+    color: white;       
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 0.125rem 0.25rem #000929;
+    border-radius: 0.3125rem;
+}
+
+/* when the user hovers on the button */
+.buttons button:hover {
+    background-color: purple;
+}
  
->>>>>>> 17b6288de3c7a85215a4fd72552d744afc78e125
+
+footer {text-align: center;/* Center-align text */
+padding: 2% 0;/* Responsive padding */
+color: grey;/* Text color */
+margin-top: -1.1rem;/* Space above the footer */
+}
+
+
+  

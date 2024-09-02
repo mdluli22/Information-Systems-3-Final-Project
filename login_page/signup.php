@@ -54,9 +54,9 @@ if ($stmt->num_rows > 0) {
 
     // Insert the new user into the database
     $stmt = $mysqli->prepare("INSERT INTO users (userName, user_password, email)
-        VALUE('$username', '$password', '$email')";
+        VALUE('$username', '$password', '$email')");
         "INSERT INTO student(S_username, f_name,l_name)
-        VALUE ('$username', '$fname', '$lname')";);
+        VALUE ('$username', '$fname', '$lname')";
     $stmt->bind_param("ss", $input_username, $hashed_password);
 
     if ($stmt->execute()) {

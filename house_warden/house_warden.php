@@ -20,7 +20,7 @@
         }
     </style>
 </head>
-<body>
+<body>  
 
     <?php
         // include database details from config.php file
@@ -84,11 +84,11 @@
             <div class="profile">
                 <!-- Profile picture area -->
                 <div class="profile-pic">
-                    <?php echo "AM";?>
+                    <?php echo "TT";?>
                 </div>
                 <!-- Profile information area -->
                 <div class="profile-info">
-                    <span id="user-name" class="username"><?php echo "Amogelang Mphela"?></span><br>
+                    <span id="user-name" class="username"><?php echo "Thokozile Tshabalala"?></span><br>
                     <span class="role"><?php echo "Warden"?></span>
                 </div>
                 <!-- Logout button with icon -->
@@ -102,7 +102,7 @@
         <main class="content">
             <header class="page-header">
                 <!-- Welcome message -->
-                <h1>Welcome, <span class="username"><?php echo "Amogelang"?></span></h1>
+                <h1>Welcome, <span class="username"><?php echo "Thokozile"?></span></h1>
                 <p>Access & Manage maintenance requisitions efficiently.</p>
             </header>
 
@@ -160,7 +160,7 @@
             <section class="maintenance-requests maintenance-scrollbar">
                 <header id="maintenance-requests-header">
                     <!-- Header with title and view all button -->
-                    <h2 id="h2">Maintenance Requests</h2>
+                    <h2 id="h2">Tickets Pending Approval</h2>
                     <!-- <button class="view-all">View all</button> -->
                 </header>
 

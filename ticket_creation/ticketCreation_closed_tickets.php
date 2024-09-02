@@ -96,17 +96,17 @@
             <div class="logo">ResQue</div>
             
             <!-- search bar -->
-            <form action="" class="search">
+            <form action="ticketCreation_closed_tickets.php" class="search">
                 <span class="search-icon material-symbols-outlined">search</span>
                 <input class="search-input" type="search" name="search-field" id="search-field" placeholder="Search">
             </form>
             
             <nav>
                 <ul>
-                    <li id="logFaults"><a href="#"><img src="pictures/receipt-add.png" alt="receipt-add">Log faults</a></li> <!--style="background-color: #A020F0;" -->
-                    <li id="allTickets"><a href="#"><img src="pictures/receipt-icon.png" alt="receipt-icon">All Tickets</a></li>
-                    <li id="openTickets"><a href="#"><img src="pictures/layer.png" alt="layer">Open Tickets</a></li>
-                    <li id="closedTickets"><a href="#"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
+                    <li id="logFaults"><a class="sidebar-links" href="ticketCreation_log_faults.php"><img src="pictures/receipt-add.png" alt="receipt-add">Log Faults</a></li> <!--style="background-color: #A020F0;" -->
+                    <li id="allTickets"><a class="sidebar-links" href="ticketCreation_all_tickets.php"><img src="pictures/receipt-icon.png" alt="receipt-icon">All Tickets</a></li>
+                    <li id="openTickets"><a class="sidebar-links" href="ticketCreation_opened_tickets.php"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
+                    <li id="closedTickets"><a class="sidebar-links active" href="ticketCreation_closed_tickets.php"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
                     <!-- <li id="statistics"><a class="sidebar-links" href="#"><img src="images/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>height="18px" -->
                 </ul>
             </nav>

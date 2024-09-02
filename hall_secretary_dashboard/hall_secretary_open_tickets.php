@@ -62,8 +62,7 @@
             
             // close connection
             $connection->close();
-        // } 
-        
+        // }
     ?>
     <div class="container">
         <!-- Sidebar section for navigation -->
@@ -84,7 +83,7 @@
                 <ul id="sidebar-nav">
                     <!-- Navigation links with icons -->
                     <li id="all-tickets"><a class="sidebar-links" href="<?php echo "hall_secretary_all_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
-                    <li id="open-tickets"><a class="sidebar-links" href="<?php echo "hall_secretary_open_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"; ?>"><img src="pictures/layer.png" alt="layer">Open Tickets</a></li>
+                    <li id="open-tickets"><a class="sidebar-links active" href="<?php echo "hall_secretary_open_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"; ?>"><img src="pictures/layer.png" alt="layer">Open Tickets</a></li>
                     <li id="closed-tickets"><a class="sidebar-links" href="<?php echo "hall_secretary_closed_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"; ?>"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
                     <li id="statistics"><a class="sidebar-links" href="<?php echo "../Statistics/Stats_hallsec.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
                 </ul>
@@ -135,11 +134,11 @@
             </nav>
 
             <!-- Ticket table section -->
-            <section class="ticket-table scrollbar">
+            <!-- <section class="ticket-table scrollbar">
                 <table>
-                    <thead>
+                    <thead> -->
                         <!-- Table headers -->
-                        <tr>
+                        <!-- <tr>
                             <th>Ticket Number</th>
                             <th>Description</th>
                             <th>Status</th>
@@ -148,36 +147,36 @@
                             <th>Priority</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody> -->
                         <!-- populate dashboard board with tickets from database -->
                         <?php
-                            while ($row = $result->fetch_assoc())
-                            {
-                                echo "<tr><td>#{$row['ticketID']}</td>";
-                                echo "<td>{$row['ticket_description']}</td>";
-                                // if ($row['ticket_status'] == "Processing") {
-                                echo "<td><span class='status processing'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
-                                // }
-                                echo "<td>" . date("D h:ia", strtotime($row['ticketDate'])) . "</td>";
-                                echo "<td>{$row['category']}</td>";
-                                switch (strtolower($row['priority'])) {
-                                    case "high":
-                                        echo "<td><span class='priority high-risk'><span class='circle'></span>&nbsp;&nbsp;High</span></td></tr>";
-                                        break;
-                                    case "medium":
-                                        echo "<td><span class='priority medium-risk'><span class='circle'></span>&nbsp;&nbsp;Medium</span></td></tr>";
-                                        break;
-                                    default:
-                                        echo "<td><span class='priority low-risk'><span class='circle'></span>&nbsp;&nbsp;Low</span></td></tr>";
-                                }
-                            }
+                            // while ($row = $result->fetch_assoc())
+                            // {
+                            //     echo "<tr><td>#{$row['ticketID']}</td>";
+                            //     echo "<td>{$row['ticket_description']}</td>";
+                            //     // if ($row['ticket_status'] == "Processing") {
+                            //     echo "<td><span class='status processing'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
+                            //     // }
+                            //     echo "<td>" . date("D h:ia", strtotime($row['ticketDate'])) . "</td>";
+                            //     echo "<td>{$row['category']}</td>";
+                            //     switch (strtolower($row['priority'])) {
+                            //         case "high":
+                            //             echo "<td><span class='priority high-risk'><span class='circle'></span>&nbsp;&nbsp;High</span></td></tr>";
+                            //             break;
+                            //         case "medium":
+                            //             echo "<td><span class='priority medium-risk'><span class='circle'></span>&nbsp;&nbsp;Medium</span></td></tr>";
+                            //             break;
+                            //         default:
+                            //             echo "<td><span class='priority low-risk'><span class='circle'></span>&nbsp;&nbsp;Low</span></td></tr>";
+                            //     }
+                            // }
                         ?>
-                    </tbody>
+                    <!-- </tbody>
                 </table>
-            </section>
+            </section> -->
 
             <!-- Maintenance requests section -->
-            <section class="maintenance-requests maintenance-scrollbar">
+            <section class="maintenance-requests"> <!--maintenance-scrollbar">-->
                 <header id="maintenance-requests-header">
                     <!-- Header with title and view all button -->
                     <h2 id="h2">Maintenance Requests</h2>

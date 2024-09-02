@@ -21,6 +21,12 @@ body {
     height: 100vh; /* Sidebar spans full viewport height */
 }
 
+/* Styling for active links within the sidebar-links section */
+.sidebar-links.active {
+    background-color: #A020F0;
+    color: #fff;
+}
+
 /* Profile section within the sidebar */
 .sidebar .profile {
     position: absolute;

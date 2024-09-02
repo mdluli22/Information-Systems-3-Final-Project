@@ -13,7 +13,7 @@
 <body>
 <?php
         // Get passed fields from user
-        $hall_sec_userName = $_REQUEST['hall_sec_userName'];
+        $warden_userName = $_REQUEST['warden_userName'];
         $hall_name = $_REQUEST['hall_name'];
 
         // include database details from config.php file
@@ -45,10 +45,10 @@
         <nav>
             <ul id="sidebar-nav">
                 <!-- Navigation links with icons -->
-                <li id="all-tickets"><a class="sidebar-links" href="<?php echo "../house_warden/house_warden_all_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
-                <li id="open-tickets"><a class="sidebar-links" href="<?php echo "../house_warden/house_warden_open_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"; ?>"><img src="pictures/layer.png" alt="layer">Open Tickets</a></li>
-                <li id="closed-tickets"><a class="sidebar-links" href="<?php echo "../house_warden/house_warden_closed_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"; ?>"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
-                <li id="statistics"><a class="sidebar-links" href="<?php echo "Stats_warden.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
+                <li id="all-tickets"><a class="sidebar-links" href="<?php echo "../house_warden/house_warden_all_tickets.php?warden_userName=$warden_userName&hall_name=$hall_name"?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
+                <li id="open-tickets"><a class="sidebar-links" href="<?php echo "../house_warden/house_warden_open_tickets.php?warden_userName=$warden_userName&hall_name=$hall_name"; ?>"><img src="pictures/layer.png" alt="layer">Open Tickets</a></li>
+                <li id="closed-tickets"><a class="sidebar-links" href="<?php echo "../house_warden/house_warden_closed_tickets.php?warden_userName=$warden_userName&hall_name=$hall_name"; ?>"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
+                <li id="statistics"><a class="sidebar-links" href="<?php echo "Stats_warden.php?warden_userName=$warden_userName&hall_name=$hall_name"?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
             </ul>
         </nav>
 

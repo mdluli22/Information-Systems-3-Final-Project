@@ -20,9 +20,13 @@
         }
     </style>
 </head>
-<body>
+<body>  
 
     <?php
+        // get hall name from login page/pop-up
+        $warden_userName = "w07k1234";
+        $resName = "Adamson House";// $_REQUEST['resName'];
+
         // include database details from config.php file
         require_once("config.php");
 
@@ -69,12 +73,12 @@
             
             <!-- Navigation menu in the sidebar -->
             <nav>
-                <ul id="sidebar-nav">
+                 <ul id="sidebar-nav">
                     <!-- Navigation links with icons -->
-                    <li id="all-tickets"><a class="sidebar-links" href="#"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
-                    <li id="open-tickets"><a class="sidebar-links" href="#"><img src="pictures/layer.png" alt="layer">Open Tickets</a></li>
-                    <li id="closed-tickets"><a class="sidebar-links" href="#"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
-                    <li id="statistics"><a class="sidebar-links" href="../Statistics\index.php"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
+                    <li id="all-tickets"><a class="sidebar-links" href="<?php echo "house_warden.php?warden_userName=$warden_userName&hall_name=$resName"?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
+                    <li id="open-tickets"><a class="sidebar-links" href="<?php echo "house_warden_open_tickets.php?warden_userName=$warden_userName&hall_name=$resName"; ?>"><img src="pictures/layer.png" alt="layer">Open Tickets</a></li>
+                    <li id="closed-tickets"><a class="sidebar-links" href="<?php echo "house_warden_closed_tickets.php?warden_userName=$warden_userName&hall_name=$resName"; ?>"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
+                    <li id="statistics"><a class="sidebar-links" href="<?php echo "../Statistics/Stats_warden.php?warden_userName=$warden_userName&hall_name=$resName"?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
                 </ul>
             </nav>
     
@@ -84,11 +88,11 @@
             <div class="profile">
                 <!-- Profile picture area -->
                 <div class="profile-pic">
-                    <?php echo "AM";?>
+                    <?php echo "TT";?>
                 </div>
                 <!-- Profile information area -->
                 <div class="profile-info">
-                    <span id="user-name" class="username"><?php echo "Amogelang Mphela"?></span><br>
+                    <span id="user-name" class="username"><?php echo "Thokozile Tshabalala"?></span><br>
                     <span class="role"><?php echo "Warden"?></span>
                 </div>
                 <!-- Logout button with icon -->
@@ -102,7 +106,7 @@
         <main class="content">
             <header class="page-header">
                 <!-- Welcome message -->
-                <h1>Welcome, <span class="username"><?php echo "Amogelang"?></span></h1>
+                <h1>Welcome, <span class="username"><?php echo "Thokozile"?></span></h1>
                 <p>Access & Manage maintenance requisitions efficiently.</p>
             </header>
 
@@ -160,7 +164,7 @@
             <section class="maintenance-requests maintenance-scrollbar">
                 <header id="maintenance-requests-header">
                     <!-- Header with title and view all button -->
-                    <h2 id="h2">Maintenance Requests</h2>
+                    <h2 id="h2">Tickets Pending Approval</h2>
                     <!-- <button class="view-all">View all</button> -->
                 </header>
 
@@ -227,7 +231,6 @@
         </main>
     </div>
     <!-- Link to external JavaScript file -->
-    <script src="hall_secretary_dashboard.js"></script>
-
+    <script src="house_warden.js"></script>
 </body>
 </html>

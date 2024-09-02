@@ -129,8 +129,6 @@
                             continue;
                         }
                         echo "<a href='#' class='house-link'>{$residence['residences']}</a>";
-                        // $hall_sec_name = $residence['hall_secretary_name'];
-                        // var_dump($residence);
                     }
                 ?>
             </nav>

@@ -129,8 +129,6 @@
                             continue;
                         }
                         echo "<a href='#' class='house-link'>{$residence['residences']}</a>";
-                        // $hall_sec_name = $residence['hall_secretary_name'];
-                        // var_dump($residence);
                     }
                 ?>
             </nav>
@@ -207,43 +205,6 @@
                         }
                     ?>
                 </div>
-                <!-- Example maintenance request -->
-                <!-- 
-                <article class="request">
-                    <div class="request-top-btns request-btns">-->
-                        <!-- Buttons for commenting and deleting a request -->
-                        <!-- <button class="comment-btn"><i class="fa-solid fa-pen"></i>&nbsp;&nbsp;&nbsp;Comment</button>
-                        <button class="delete-btn"><i class="fa-solid fa-trash" style="color: #e53e3e;"></i>&nbsp;&nbsp;&nbsp;Delete</button>
-                    </div> -->
-                    <!-- Request information -->
-                    <!-- <div class="request-info"> -->
-                        <!-- <p><strong>Oliver Liam</strong></p>
-                        <p>Residence: <strong>Cory House</strong></p>
-                        <p>Room Number: <strong>39</strong></p>
-                        <p> -->
-                            <!-- Priority: <strong>High</strong> -->
-                            <!-- Button to approve the request -->
-                            <!-- <button class="approve-btn request-btns"><i class="fa-solid fa-plus" style="color: #a020f0;"></i>&nbsp;&nbsp;&nbsp;Approve Request</button>
-                        </p> -->
-                    <!-- </div>
-                </article> -->
-
-                <!-- Another example maintenance request -->
-                <!-- <article class="request">
-                    <div class="request-top-btns request-btns">
-                        <button class="comment-btn"><i class="fa-solid fa-pen"></i>&nbsp;&nbsp;&nbsp;Comment</button>
-                        <button class="delete-btn"><i class="fa-solid fa-trash" style="color: #e53e3e;"></i>&nbsp;&nbsp;&nbsp;Delete</button>
-                    </div>
-                    <div class="request-info">
-                        <p><strong>Oliver Liam</strong></p>
-                        <p>Residence: <strong>Botha House</strong></p>
-                        <p>Room Number: <strong>22</strong></p>
-                        <p>
-                            Priority: <strong>Low</strong>
-                            <button class="approve-btn request-btns"><i class="fa-solid fa-plus" style="color: #a020f0;"></i>&nbsp;&nbsp;&nbsp;Approve Request</button>
-                        </p>
-                    </div>
-                </article> -->
             </section>
         </main>
     </div>

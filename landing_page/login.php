@@ -36,7 +36,8 @@
         die("<p class=\"error\">Connection to the database failed!</p>");
     }
 
-    $sql = "SELECT * FROM user WHERE userName = '$username' AND user_password = '$password'";
+    // Query to select the user based on the username
+    $sql = "SELECT user_password FROM user WHERE userName = '$username'";
     $result = $conn->query($sql);
 
     if ($result === FALSE) {
@@ -45,11 +46,20 @@
 
     // Check if the user exists in the database
     if ($result->num_rows == 1) {
-        $_SESSION['access'] = "yes";
-        header("Location: ../ticket_creation/ticketCreation.html");
+        $row = $result->fetch_assoc();
+        $hashed_password = $row['user_password'];
+
+        // Verify the entered password against the hashed password
+        if (password_verify($password, $hashed_password)) {
+            $_SESSION['access'] = "yes";
+            header("Location: ../ticket_creation/ticketCreation.html");
+            exit();
+        } else {
+            echo "<p class=\"error\">Password is incorrect!</p>";
+        }
     } else {
-        // Password is incorrect
-        header("Location: landing.html");
+        // Username doesn't exist
+        echo "<p class=\"error\">Username does not exist!</p>";
     }
 
     // Close connection to the database

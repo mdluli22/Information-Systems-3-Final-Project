@@ -1,68 +1,80 @@
-<?php
-// Database connection
-$conn = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<style>
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+    </style>
+    <?php
+    // Start the session
+    session_start();
+    
+    // come from a form submission
+    if (isset($_REQUEST['submit'])){
+        $fname = $_REQUEST['fname'];
+        $lname = $_REQUEST['lname'];
+        $email = $_REQUEST['email'];
+        $resname = $_REQUEST['resName'];
+        $roomNumber = $_REQUEST['roomNumber'];
+        $username = $_REQUEST['username'];
+        $password = $_REQUEST['password'];
+        
 
-//include database credentials 
-require_once("config.php");
+    //include database credentials 
+    require_once("config.php");
 
-//check if the query is successful
-if ($mysqli->connect_error) {
-    die("Connection failed: " . $mysqli->connect_error);
-}
+    // Database connection
+    $conn = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
 
-// come from a form submission
-if (isset($_REQUEST['submit'])){
-$fname = $_REQUEST['fname'];
-$lname = $_REQUEST['lname'];
-$email = $_REQUEST['email'];
-$username = $_REQUEST['username'];
-$password = $_REQUEST['pass'];
-}
-
-//check if the connection is successful 
-if ($conn->connect_error) {
-    die("<p class=\"error\"> Connection to database failed!!</p>");
-}
-
-//issue query instructions
-$sql = "INSERT INTO users (userName, user_password, email)
-        VALUE('$username', '$password', '$email')";
-        "INSERT INTO student(S_username, f_name,l_name)
-        VALUE ('$username', '$fname', '$lname')";
-
-//check if the query is successful 
-if ($sql === FALSE){
-    die("<p class= \"error\" >Unable to add User </p>");
-}
-
-// Check if the username already exists
-$stmt = $mysqli->prepare("SELECT userName FROM users WHERE userName = ?");
-$stmt->bind_param("s", $username);
-$stmt->execute();
-$stmt->store_result();
-
-if ($stmt->num_rows > 0) {
-    // Username already exists
-    echo "Username already taken!";
-} else {
-    // Username is available, proceed to register the user
-    $hashed_password = password_hash($password, PASSWORD_BCRYPT); // Hash the password
-
-    // Insert the new user into the database
-    // $stmt = $mysqli->prepare("INSERT INTO users (userName, user_password, email)
-    //     VALUE('$username', '$password', '$email')";
-    //     "INSERT INTO student(S_username, f_name,l_name)
-    //     VALUE ('$username', '$fname', '$lname')";);
-    // $stmt->bind_param("ss", $input_username, $hashed_password);
-
-    if ($stmt->execute()) {
-        echo "Registration successful! You can now log in.";
-    } else {
-        echo "Error: Could not register user.";
+    //check if the query is successful
+    if ($conn->connect_error) {
+        die("<p class=\"error\">Connection to the database failed!</p>" . $conn->connect_error);
     }
-}
 
-$stmt->close();
-$mysqli->close();
-//close the connection to the database
-$conn ->close();
+    //query to check if the user exists in the database
+    $sql = "SELECT * FROM user WHERE userName = '$username'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        $_SESSION['access'] = "yes";
+        header("Location: ../landing_page/landing_Page.html");
+        exit();
+    } else {
+
+        //user already exists
+        $hashed_password = password_hash($password, PASSWORD_BCRYPT); // Hash the password
+        $sql2 = "INSERT INTO user(userName, user_password, user_role, email)
+             VALUES ('$username', '$hashed_password', 'student', '$email')";
+
+        if ($conn->query($sql2) === TRUE) {
+            
+            //insert into the student table using the username
+            $sql3 = "INSERT INTO student(f_Name, l_Name, resName, userName, room_number)
+                     VALUES ('$fname', '$lname', '$resname', '$username', '$roomNumber')";
+        
+            if ($conn->query($sql3) === TRUE) {
+                echo "<p class=\"success\">User and Student added successfully!</p>";
+                header("Location: ../ticket_creation/ticketCreation.html");
+                exit();
+            } else {
+                die("<p class=\"error\">Error adding student: " . $conn->error . "</p>");
+            }
+        } else {
+            die("<p class=\"error\">Unable to add User! Error: " . $conn->error . "</p>");
+        }
+    }
+    $conn ->close();
+    }
+    ?>
+</body>
+
+</html>

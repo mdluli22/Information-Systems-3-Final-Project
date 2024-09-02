@@ -42,7 +42,7 @@
         <nav>
             <ul id="sidebar-nav">
                 <!-- Navigation links with icons -->
-                <li id="all-tickets"><a class="sidebar-links" href="#"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
+                <li id="all-tickets"><a class="sidebar-links" href="../hall_secretary_dashboard\hall_secretary_dashboard.php"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
                 <li id="open-tickets"><a class="sidebar-links" href="#"><img src="pictures/layer.png" alt="layer">Open Tickets</a></li>
                 <li id="closed-tickets"><a class="sidebar-links" href="#"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
                 <li id="statistics"><a class="sidebar-links" href="#"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>

@@ -38,15 +38,9 @@
             die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
         }
 
-        // query instructions
-        $sql = "SELECT * FROM ticket;-- WHERE ticket_status = 'Processing'";
+        // query instructions for rejected and completed tickets
+        $sql = "SELECT * FROM ticket WHERE lower(ticket_status) IN ('rejected', 'completed');";
         $result = $connection->query($sql);
-
-        $pending_query = 
-            "SELECT concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority
-            FROM student s JOIN ticket t ON s.userName = t.userName
-            WHERE lower(ticket_status) = 'pending'";
-        $pending_result = $connection->query($pending_query);
 
 
         // Check if query successfull
@@ -75,7 +69,7 @@
             <nav>
                  <ul id="sidebar-nav">
                     <!-- Navigation links with icons -->
-                    <li id="all-tickets"><a class="sidebar-links" href="<?php echo "house_warden.php?warden_userName=$warden_userName&hall_name=$resName"?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
+                    <li id="all-tickets"><a class="sidebar-links" href="<?php echo "house_warden_all_tickets.php?warden_userName=$warden_userName&hall_name=$resName" ?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
                     <li id="open-tickets"><a class="sidebar-links" href="<?php echo "house_warden_open_tickets.php?warden_userName=$warden_userName&hall_name=$resName"; ?>"><img src="pictures/layer.png" alt="layer">Open Tickets</a></li>
                     <li id="closed-tickets"><a class="sidebar-links" href="<?php echo "house_warden_closed_tickets.php?warden_userName=$warden_userName&hall_name=$resName"; ?>"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
                     <li id="statistics"><a class="sidebar-links" href="<?php echo "../Statistics/Stats_warden.php?warden_userName=$warden_userName&hall_name=$resName"?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
@@ -110,16 +104,10 @@
                 <p>Access & Manage maintenance requisitions efficiently.</p>
             </header>
 
-            <!-- House selection links -->
-            <!-- <nav class="houses">
-                <a href="#" class="house-link active">Cory House</a>
-                <a href="#" class="house-link">Botha House</a>
-                <a href="#" class="house-link">Matthews House</a>
-                <a href="#" class="house-link">College House</a>
-            </nav> -->
+        
 
             <!-- Ticket table section -->
-            <section class="ticket-table scrollbar">
+            <section class="ticket-table">
                 <table>
                     <thead>
                         <!-- Table headers -->
@@ -160,76 +148,7 @@
                 </table>
             </section>
 
-            <!-- Maintenance requests section -->
-            <section class="maintenance-requests maintenance-scrollbar">
-                <header id="maintenance-requests-header">
-                    <!-- Header with title and view all button -->
-                    <h2 id="h2">Tickets Pending Approval</h2>
-                    <!-- <button class="view-all">View all</button> -->
-                </header>
-
-                <!-- populate maintenance faults pending approval -->
-                <div class="requests">
-                    <?php 
-                        while ($row = $pending_result->fetch_assoc())
-                        {
-                            echo "<article class='request'>
-                                    <div class='request-top-btns request-btns'>
-                                        <!-- Buttons for commenting and deleting a request -->
-                                        <button class='comment-btn'><i class='fa-solid fa-pen'></i>&nbsp;&nbsp;&nbsp;Comment</button>
-                                        <button class='delete-btn'><i class='fa-solid fa-trash' style='color: #e53e3e;'></i>&nbsp;&nbsp;&nbsp;Delete</button>
-                                    </div>
-                                    <!-- Request information -->
-                                    <div class='request-info'>";
-                            echo    "<p><strong>{$row['full_name']}<strong></p>";
-                            echo       "<p>Residence: <strong>{$row['resName']}<strong></p>";
-                            echo       "<p>Room Number: <strong>{$row['room_number']}<strong></p>";
-                            echo       "<p>Priority: <strong>{$row['priority']}<strong>";
-                            echo       "<button class='approve-btn request-btns'><i class='fa-solid fa-plus' style='color: #a020f0;'></i>&nbsp;&nbsp;&nbsp;Approve Request</button></p>";
-                            echo    "</div></article>";
-                        }
-                    ?>
-                </div>
-                <!-- Example maintenance request -->
-                <!-- 
-                <article class="request">
-                    <div class="request-top-btns request-btns">-->
-                        <!-- Buttons for commenting and deleting a request -->
-                        <!-- <button class="comment-btn"><i class="fa-solid fa-pen"></i>&nbsp;&nbsp;&nbsp;Comment</button>
-                        <button class="delete-btn"><i class="fa-solid fa-trash" style="color: #e53e3e;"></i>&nbsp;&nbsp;&nbsp;Delete</button>
-                    </div> -->
-                    <!-- Request information -->
-                    <!-- <div class="request-info"> -->
-                        <!-- <p><strong>Oliver Liam</strong></p>
-                        <p>Residence: <strong>Cory House</strong></p>
-                        <p>Room Number: <strong>39</strong></p>
-                        <p> -->
-                            <!-- Priority: <strong>High</strong> -->
-                            <!-- Button to approve the request -->
-                            <!-- <button class="approve-btn request-btns"><i class="fa-solid fa-plus" style="color: #a020f0;"></i>&nbsp;&nbsp;&nbsp;Approve Request</button>
-                        </p> -->
-                    <!-- </div>
-                </article> -->
-
-                <!-- Another example maintenance request -->
-                <!-- <article class="request">
-                    <div class="request-top-btns request-btns">
-                        <button class="comment-btn"><i class="fa-solid fa-pen"></i>&nbsp;&nbsp;&nbsp;Comment</button>
-                        <button class="delete-btn"><i class="fa-solid fa-trash" style="color: #e53e3e;"></i>&nbsp;&nbsp;&nbsp;Delete</button>
-                    </div>
-                    <div class="request-info">
-                        <p><strong>Oliver Liam</strong></p>
-                        <p>Residence: <strong>Botha House</strong></p>
-                        <p>Room Number: <strong>22</strong></p>
-                        <p>
-                            Priority: <strong>Low</strong>
-                            <button class="approve-btn request-btns"><i class="fa-solid fa-plus" style="color: #a020f0;"></i>&nbsp;&nbsp;&nbsp;Approve Request</button>
-                        </p>
-                    </div>
-                </article> -->
-            </section>
         </main>
-    </div>
     <!-- Link to external JavaScript file -->
     <script src="house_warden.js"></script>
 </body>

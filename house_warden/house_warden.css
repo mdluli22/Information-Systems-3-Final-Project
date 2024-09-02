@@ -225,7 +225,7 @@ table thead {
 }
 
 /* Styling for ticket table */
-.ticket-table table, .scrollbar {
+.ticket-table table {
     border-collapse: collapse; /* Collapses table borders */
     border-radius: 0.9375rem; /* Rounded corners for table */
     background-color: #fff; /* Background color for table */

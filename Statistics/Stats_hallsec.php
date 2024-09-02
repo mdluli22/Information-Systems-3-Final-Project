@@ -81,15 +81,25 @@
             </div>
         </header>
         <nav class="houses">
-                <a href="#" class="house-link active">Cory House</a>
-                <a href="#" class="house-link">Botha House</a>
-                <a href="#" class="house-link">Matthews House</a>
-                <a href="#" class="house-link">College House</a>
+                <a href="Stats_hallsec.php?house_name=cory house" class="house-link" >Cory House</a>
+                <a href="Stats_hallsec.php?house_name=botha house" class="house-link" >Botha House</a>
+                <a href="Stats_hallsec.php?house_name=Matthews House" class="house-link" >Matthews House</a>
+                <a href="Stats_hallsec.php?house_name=College House" class="house-link" >College House</a>
         </nav>
-        
-        <div class="stats-overview">
+                
+        <div class="stats-overview active">
             <?php 
-             
+
+                if(isset($_REQUEST['house_name'])){
+                    $housename = $_REQUEST['house_name'];
+                    echo "<h1> $housename </h1>";   
+                }
+                else{
+                    $housename = "Cory House";
+                    echo "<h1> $housename </h1>"; 
+                }
+
+                
                 $ticket_status = array("Pending", "Processing", "Completed");
                 $icons = array("pictures/layer.svg", "pictures/clipboard-tick.svg", "pictures/task.svg");
                 $class_names = array("card-icon", "card-icon1", "card-icon2");
@@ -127,7 +137,6 @@
                     echo       "</div>";
 
                     echo "</div>";
-
                     $ticketTotals[$index] = $result -> num_rows;
                     $index++;
                     $total += $result -> num_rows;
@@ -146,7 +155,9 @@
                 </div>
             </div>
 
-            </div>
+        </div>
+
+        
 
         <div class="chartlayout">
             <div class="charts">
@@ -346,5 +357,7 @@
           <script src="script.js"></script>
         </main>
     </div>
+
+
 </body>
 </html>

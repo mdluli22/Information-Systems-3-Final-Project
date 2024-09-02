@@ -119,6 +119,12 @@ nav ul li a {
     width: 13.4375rem; /* Matches the width of the search bar */
 }
 
+/* Style for the active class */
+nav ul li a.active {
+    background-color: #A020F0; /* Purple background when active */
+    color: #fff; /* White text when active */
+}
+
 nav ul li a img{
     margin-right: 0.5rem;  /* 8px converted to rem */
     width: 1.5rem;    /* 24px converted to rem */
@@ -216,6 +222,7 @@ h1 {
     cursor: pointer;  /* Pointer cursor on hover */
     font-size: 16px;  /* Font size */
     transition: background-color 0.3s ease;  /* Smooth background transition */
+    width: 100%;
 }
 .add-ticket:hover {
     background-color: #A020F0;  /* Darker purple on hover */
@@ -255,8 +262,8 @@ h1 {
     padding: 5px 10px;
     border-radius: 20px;
     font-size: 14px;
-    color: #37b24d; /* green text color */
-    border: 0.03125rem solid #37b24d; /* green border for processing status */
+    color: royalblue; /* green text color */
+    border: 0.03125rem solid royalblue; /* green border for processing status */
 }
 
 .status.pending {
@@ -275,9 +282,17 @@ h1 {
     border: 0.03125rem solid red; /* red border for processing status */
 }
 
+.status.completed {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 14px;
+    color: #37b24d; /* green text color */
+    border: 0.03125rem solid #37b24d; /* green border for processing status */
+}
+
 /* Colors for processing status circle */
 .status.processing .circle {
-    background-color: #37b24d; /* green color for processing status circle */
+    background-color: royalblue; /* green color for processing status circle */
 }
 
 /* Colors for pending status circle */
@@ -288,6 +303,11 @@ h1 {
 /* Colors for rejected status circle */
 .status.rejected .circle {
     background-color: red; /* red color for processing status circle */
+}
+
+/* Colors for completed status circle */
+.status.status.completed .circle {
+    background-color: #37b24d; /* green color for processing status circle */
 }
 
 /* Small circular indicators */
@@ -306,6 +326,7 @@ h1 {
     border: none;
     border-radius: 20px;
     cursor: pointer;
+    text-decoration: none; /* Removes the underline */
 }
 /* Details button */
 .details-button:hover {

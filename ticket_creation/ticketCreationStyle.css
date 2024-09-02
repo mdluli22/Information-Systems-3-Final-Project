@@ -180,109 +180,132 @@ h1 {
 }
 
 .requisition-form {
-    width: 100%; /* Fixed width for the form */
-    background-color: #fff;
-    padding: 1.875rem; /* 30px converted to rem */
-    border-radius: 0.5rem; /* 8px converted to rem */
-    box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.1); /* 0 2px 10px converted to rem */
-    box-sizing: border-box; /* Include padding in width and height */
-    overflow: auto; /* Add scrollbars if content overflows */
+    width: 100%; /* Form takes up the full width of its container */
+    background-color: #fff; /* White background for the form */
+    padding: 1.875rem; /* Padding inside the form to create space around the content */
+    border-radius: 0.5rem; /* Rounded corners for the form */
+    box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.1); /* Adds a subtle shadow around the form for depth */
+    box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+    overflow: auto; /* Adds scrollbars if the form content overflows */
 }
 
 .form-header {
-    margin-bottom: 1.25rem; /* 20px converted to rem */
-    border-bottom: 0.0625rem solid #ddd; /* 1px converted to rem */
-    padding-bottom: 0.625rem; /* 10px converted to rem */
-    margin-bottom: 0.625rem; /* 10px converted to rem */
+    margin-bottom: 1.25rem; /* Space below the header section */
+    border-bottom: 0.0625rem solid #ddd; /* A thin border below the header to separate it from the rest of the form */
+    padding-bottom: 0.625rem; /* Space below the header text */
 }
 
-/* for the form labels */
-/* Added a faint thin line to separate sections */
 .form-group {
-    display: flex;
-    align-items: center; /* Center align items vertically */
-    margin-bottom: 1.25rem; /* 20px converted to rem */
-    border-bottom: 0.0625rem solid #ddd; /* 1px converted to rem */
-    padding-bottom: 0.625rem; /* 10px converted to rem */
+    display: flex; /* Aligns the label and input elements side by side */
+    align-items: center; /* Vertically centers the label and input elements */
+    margin-bottom: 1.25rem; /* Space below each form group (label and input pair) */
+    border-bottom: 0.0625rem solid #ddd; /* A thin border below each form group for separation */
+    padding-bottom: 0.625rem; /* Space below the form group content */
+    /* flex: 1; */
+    /* flex-direction: column; */
 }
 
-.form-extra-info {
-    margin-bottom: 0.625rem; /* 10px converted to rem */
+.form-extra-info, #fault-cat {
+    margin-bottom: 0.625rem; /* Space below any additional information like small text */
+    max-width: 30%; /* Limits the width of the labels */
+    /* padding: 0 2rem; Adds padding inside the label to create space around the content */
+    overflow-wrap: break-word; /* Ensures text breaks within the label if it’s too long */
 }
 
 .form-group small {
-    color: #666; /* Optional: Lighten the small text */
+    color: #666; /* Light grey color for any small text in the form */
 }
 
-/* for the drop-downs, textarea and input */
 .form-group select,
 .form-group textarea,
 .form-group input[type="file"] {
-    width: 32rem; /* 512px converted to rem */
-    padding: 0.625rem; /* 10px converted to rem */
-    border: 0.0625rem solid #ddd; /* 1px converted to rem */
-    border-radius: 0.25rem; /* 4px converted to rem */
-    font-size: 1rem; /* 16px */
-    background-color: #fff; /* Set background color to white */
-    color: #333; /* Ensure text color is readable */
-    box-sizing: border-box; /* Include padding in width */
-    display: block; /* Ensure elements are block-level for full-width alignment */
-    margin: 0 auto; /* Center the elements within the form group */
+    width: 32rem; /* Specifies a fixed width for dropdowns, text areas, and file inputs */
+    padding: 0.625rem; /* Padding inside the input fields to create space around the content */
+    border: 0.0625rem solid #ddd; /* A thin border around the input fields */
+    border-radius: 0.25rem; /* Slightly rounded corners for the input fields */
+    font-size: 1rem; /* Sets the font size inside the input fields */
+    background-color: #fff; /* White background for input fields */
+    color: #333; /* Dark grey text color for readability */
+    box-sizing: border-box; /* Ensures padding and border are included in the element's total width */
+    display: block; /* Makes input elements block-level, taking up the full width specified */
+    margin: 0 auto; /* Centers the input elements within the form group */
 }
 
 .form-group textarea {
-    height: auto;
-    resize: vertical; /* Allow vertical resizing */
+    height: auto; /* Allows the textarea to grow in height based on content */
+    resize: vertical; /* Enables vertical resizing of the textarea by the user */
 }
 
 .form-actions {
-    display: flex;
-    justify-content: space-between;
+    display: flex; /* Aligns the cancel and submit buttons side by side */
+    justify-content: space-between; /* Distributes space evenly between the buttons, pushing them to the far left and right */
+    margin-top: 1.875rem; /* Adds space above the action buttons */
 }
 
 .cancel-btn {
-    width: 25.25rem; /* 404px converted to rem */
-    height: auto; /* Height adjusts based on content */
-    background-color: #DA0707;
-    color: #fff;
-    border: none;
-    padding: 0.625rem 1.25rem; /* 10px 20px converted to rem */
-    font-size: 1rem; /* 16px */
-    border-radius: 0.25rem; /* 4px converted to rem */
-    cursor: pointer;
+    width: 100%; /* Button takes up the full width of its container */
+    background-color: #DA0707; /* Red background color for the cancel button */
+    color: #fff; /* White text color for the cancel button */
+    border: none; /* Removes the border around the button */
+    padding: 0.625rem 1.25rem; /* Padding inside the button for spacing */
+    font-size: 1rem; /* Sets the font size for the button text */
+    border-radius: 0.25rem; /* Slightly rounded corners for the button */
+    cursor: pointer; /* Changes the cursor to a pointer when hovering over the button */
 }
 
 .submit-btn {
-    width: 25.25rem; /* 404px converted to rem */
-    height: auto; /* Height adjusts based on content */
-    background-color: #A020F0;
-    color: #fff;
-    border: none;
-    padding: 0.625rem 1.25rem; /* 10px 20px converted to rem */
-    font-size: 1rem; /* 16px */
-    border-radius: 0.25rem; /* 4px converted to rem */
-    cursor: pointer;
+    width: 100%; /* Button takes up the full width of its container */
+    background-color: #A020F0; /* Purple background color for the submit button */
+    color: #fff; /* White text color for the submit button */
+    border: none; /* Removes the border around the button */
+    padding: 0.625rem 1.25rem; /* Padding inside the button for spacing */
+    font-size: 1rem; /* Sets the font size for the button text */
+    border-radius: 0.25rem; /* Slightly rounded corners for the button */
+    cursor: pointer; /* Changes the cursor to a pointer when hovering over the button */
 }
 
 .cancel-btn:hover,
 .submit-btn:hover {
-    opacity: 0.8;
+    opacity: 0.8; /* Slightly reduces the opacity on hover to create a visual effect */
+    padding-left: 2rem;
 }
 
-/* Style for labels to have a fixed width */
 .form-group label {
-    flex: 0 0 12.5rem; /* 200px converted to rem */
-    margin-right: 1.25rem; /* 20px converted to rem */
-    text-align: right; /* Align text to the right */
+    flex: 0 0 12.5rem; /* Sets a fixed width for the labels, keeping them aligned and consistent */
+    margin-right: 1.25rem; /* Space to the right of the label to separate it from the input field */
+    /* text-align: center; Aligns the label text to the center */
 }
 
-/* Style for inputs to take up the remaining space */
 .form-input {
-    flex: 1; /* Take up the remaining space */
+    flex: 1; /* Allows the input field to take up the remaining space next to the label */
 }
 
-/* Style for textarea */
 .form-input textarea {
-    height: 6.25rem; /* 100px converted to rem */
-    resize: vertical; /* Allow vertical resizing only */
+    height: 6.25rem; /* Sets a fixed height for text areas */
+    resize: vertical; /* Allows users to resize text areas vertically */
+}
+
+/* Adjustments to make Fault Category and Severity float left */
+/* #fault-cat,
+#severity {
+    padding-left: 2rem;
+    width: 30%;
+} */
+
+.form-header,
+.form-extra-info {
+    padding: 0 2rem; /* Adds padding around the content in the form header and extra information */
+    overflow-wrap: break-word; /* Ensures text breaks within the content if it’s too long */
+}
+
+/* Ensuring buttons look consistent */
+.cancel-btn,
+.submit-btn {
+    display: inline-block; /* Makes the buttons inline-block elements to align them side by side */
+    width: 48%; /* Adjusts the width to allow the buttons to fit side by side */
+    margin-right: 2%; /* Adds space between the buttons */
+}
+
+.cancel-btn:last-child {
+    margin-right: 0; /* Removes the right margin from the last button */
 }

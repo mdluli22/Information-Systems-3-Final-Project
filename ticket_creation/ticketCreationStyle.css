@@ -286,11 +286,11 @@ h1 {
 }
 
 /* Adjustments to make Fault Category and Severity float left */
-/* #fault-cat,
-#severity {
+.fault-cat,
+.severity {
     padding-left: 2rem;
     width: 30%;
-} */
+}
 
 .form-header,
 .form-extra-info {

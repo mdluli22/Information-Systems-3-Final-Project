@@ -92,15 +92,18 @@
         </header>
         <nav class="houses">
                 <?php
+                    
                     $active = 0;
                     while ($residence = $residences_result->fetch_assoc()) {
+                        
                         if ($active == 0) {
-                            echo "<a href='Stats_hallsec.php?house_name={$residence['residences']}' class='house-link active'>{$residence['residences']}</a>";
                             $active++;
                             $defaulthouse = $residence['residences'];
-                            continue;
                         }
-                        echo "<a href='Stats_hallsec.php?house_name={$residence['residences']}' class='house-link'>{$residence['residences']}</a>";
+
+                        $activeHouse = isset($_REQUEST['house_name']) ? $_REQUEST['house_name'] : $defaulthouse;
+                        $isActive = ($residence['residences'] === $activeHouse) ? 'active' : '';
+                        echo "<a href='Stats_hallsec.php?house_name={$residence['residences']}' class='house-link {$isActive}'>{$residence['residences']}</a>";
                     }
                 ?>
         </nav>

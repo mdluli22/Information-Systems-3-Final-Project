@@ -178,11 +178,12 @@ nav ul li a:hover {
     border-radius: 0.3125rem; /* 5px border radius converted to rem */
 }
 
-.stats-overview {
+.stats-overview{
     display: flex;
     justify-content: space-around;
     margin-bottom: 1.875rem; /* 30px converted to rem */
 }
+
 
 .stat-item {
     background-color: #edf2f7;
@@ -290,7 +291,37 @@ nav ul li a:hover {
     height: 100%;
 }
 
+#Barchart {
+    max-width: 600px;
+    max-height: 400px;
+}
+
 .chartlayout {
     display: flex;
     flex-direction: row;
 }
+
+.houses {
+    margin-bottom: 1.875rem; /* Margin below the houses section */
+}
+
+/* Styling for links within the houses section */
+.houses .house-link {
+    background-color: inherit; /* Inherits background color */
+    color: inherit; /* Inherits text color */
+    text-decoration: none; /* Removes underline from links */
+    font-weight: bold; /* Bold text for links */
+    border: none; /* No border for links */
+    padding: 0.625rem 0.4375rem; /* Padding inside the link */
+    margin-right: 0.3125rem; /* Margin to the right of the link */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+/* Styling for active links within the houses section */
+.houses .house-link.active {
+    color: #A020F0; /* Purple color for active links */
+    border-bottom: 0.3125rem solid #A020F0; /* Purple bottom border for active state */
+}
+
+
+

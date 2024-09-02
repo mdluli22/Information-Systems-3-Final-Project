@@ -26,9 +26,8 @@
         if ($connection->connect_error) {
             die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
         }
- 
-
     ?>
+
     <div class="container">
     <aside class="sidebar">
         <!-- Logo section at the top of the sidebar -->
@@ -45,12 +44,12 @@
         <!-- Navigation menu in the sidebar -->
         <nav>
             <ul id="sidebar-nav">
-                    <!-- Navigation links with icons -->
-                    <li id="all-tickets"><a class="sidebar-links" href="<?php echo "../hall_secretary_dashboard/hall_secretary_all_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
-                    <li id="open-tickets"><a class="sidebar-links" href="<?php echo "../hall_secretary_dashboard/hall_secretary_open_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"; ?>"><img src="pictures/layer.png" alt="layer">Open Tickets</a></li>
-                    <li id="closed-tickets"><a class="sidebar-links" href="<?php echo "../hall_secretary_dashboard/hall_secretary_closed_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"; ?>"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
-                    <li id="statistics"><a class="sidebar-links" href="<?php echo "index.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
-                </ul>
+                <!-- Navigation links with icons -->
+                <li id="all-tickets"><a class="sidebar-links" href="<?php echo "../house_warden/house_warden_all_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
+                <li id="open-tickets"><a class="sidebar-links" href="<?php echo "../house_warden/house_warden_open_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"; ?>"><img src="pictures/layer.png" alt="layer">Open Tickets</a></li>
+                <li id="closed-tickets"><a class="sidebar-links" href="<?php echo "../house_warden/house_warden_closed_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"; ?>"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
+                <li id="statistics"><a class="sidebar-links" href="<?php echo "Stats_warden.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
+            </ul>
         </nav>
 
         <!-- <hr id="sidebar-hr"> -->

@@ -121,7 +121,6 @@
             <!-- House selection links -->
             <nav class="houses">
                 <?php
-                    $residence = array();
                     $active = 0;
                     while ($residence = $residences_result->fetch_assoc()) {
                         if ($active == 0) {

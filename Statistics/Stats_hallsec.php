@@ -343,7 +343,7 @@
         });
 
           </script>
-          
+          <script src="script.js"></script>
         </main>
     </div>
 </body>

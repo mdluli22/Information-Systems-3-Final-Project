@@ -1,22 +1,14 @@
-function openTab(tabId, hallName) {
-    // Hide all tab contents
-    const contents = document.querySelectorAll('.stats-overview');
-    contents.forEach(content => {
-        content.classList.remove('active');
+document.querySelectorAll('.sidebar-links').forEach(link => {
+    link.addEventListener('click', function() {
+        document.querySelectorAll('.sidebar-links').forEach(el => el.classList.remove('active'));
+        this.classList.add('active');
     });
+});
 
-    // Remove active class from all tabs
-    const tabs = document.querySelectorAll('.tab-link');
-    tabs.forEach(tab => {
-        tab.classList.remove('active');
+document.querySelectorAll('.house-link').forEach(link => {
+    link.addEventListener('click', function() {
+        document.querySelectorAll('.house-link').forEach(el => el.classList.remove('active'));
+        this.classList.add('active');
     });
-
-    // Show the selected tab content
-    document.getElementById(tabId).classList.add('active');
-
-    // Add active class to the clicked tab
-    event.currentTarget.classList.add('active');
-
-
-}
+});
 

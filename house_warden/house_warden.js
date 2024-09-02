@@ -1,14 +1,11 @@
 
-document.querySelectorAll('.sidebar-links').forEach(link => {
-    link.addEventListener('click', function() {
-        document.querySelectorAll('.sidebar-links').forEach(el => el.classList.remove('active'));
-        this.classList.add('active');
-    });
-});
+document.addEventListener("DOMContentLoaded", function() {
+    const currentPath = house_warden_all_tickets.php;
+    const sidebarLinks = document.querySelectorAll('.sidebar a');
 
-document.querySelectorAll('.house-link').forEach(link => {
-    link.addEventListener('click', function() {
-        document.querySelectorAll('.house-link').forEach(el => el.classList.remove('active'));
-        this.classList.add('active');
+    sidebarLinks.forEach(link => {
+        if (link.getAttribute('href') === currentPath.substring(currentPath.lastIndexOf('/'))) {
+            link.classList.add('active');
+        }
     });
 });

@@ -43,6 +43,12 @@
             $sql = "SELECT * FROM ticket;";
             $result = $connection->query($sql);
 
+            // Get resnames of hall overseen by the hall secretary
+            $residences = 
+                "SELECT DISTINCT concat(hall_secretary.f_Name, ' ', hall_secretary.l_name) AS 'hall_secretary_name', house_warden.resName AS 'residences'
+                FROM house_warden JOIN hall_secretary ON hall_secretary.HS_userName = house_warden.HS_userName";
+            $residences_result = $connection->query($residences);
+
             $pending_query = 
                 "SELECT concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority
                 FROM student s JOIN ticket t ON s.userName = t.userName;";
@@ -67,7 +73,7 @@
             </div>
             
             <!-- Search bar in the sidebar -->
-            <form action="hall_secretary_dashboard.php" method="post" class="search">
+            <form action="hall_secretary_closed_tickets.php" method="post" class="search">
                 <span id="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
                 <input class="search-input" type="search" name="search-field" id="search-field" placeholder="Search">
             </form>
@@ -113,10 +119,20 @@
 
             <!-- House selection links -->
             <nav class="houses">
-                <a href="#" class="house-link active">Cory House</a>
-                <a href="#" class="house-link">Botha House</a>
-                <a href="#" class="house-link">Matthews House</a>
-                <a href="#" class="house-link">College House</a>
+                <?php
+                    $residence = array();
+                    $active = 0;
+                    while ($residence = $residences_result->fetch_assoc()) {
+                        if ($active == 0) {
+                            echo "<a href='#' class='house-link active'>{$residence['residences']}</a>";
+                            $active++;
+                            continue;
+                        }
+                        echo "<a href='#' class='house-link'>{$residence['residences']}</a>";
+                        // $hall_sec_name = $residence['hall_secretary_name'];
+                        // var_dump($residence);
+                    }
+                ?>
             </nav>
 
             <!-- Ticket table section -->

@@ -153,11 +153,20 @@
                             {
                                 echo "<tr><td>#{$row['ticketID']}</td>";
                                 echo "<td>{$row['ticket_description']}</td>";
-                                // if ($row['ticket_status'] == "Processing") {
-                                echo "<td><span class='status processing'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
-                                // }
+                                // display ticket status
+                                switch (strtolower($row['ticket_status'])) {
+                                    case "completed":
+                                        echo "<td><span id='completed'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
+                                        break;
+                                    case "rejected":
+                                        echo "<td><span id='rejected'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
+                                        break;
+                                    default:
+                                        echo "<td><span class='status processing'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
+                                }
                                 echo "<td>" . date("D h:ia", strtotime($row['ticketDate'])) . "</td>";
                                 echo "<td>{$row['category']}</td>";
+                                // display ticket priority
                                 switch (strtolower($row['priority'])) {
                                     case "high":
                                         echo "<td><span class='priority high-risk'><span class='circle'></span>&nbsp;&nbsp;High</span></td></tr>";

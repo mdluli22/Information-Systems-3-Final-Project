@@ -198,7 +198,7 @@
             <section class="maintenance-requests"> <!--maintenance-scrollbar">-->
                 <header id="maintenance-requests-header">
                     <!-- Header with title and view all button -->
-                    <h2 id="h2">Maintenance Requests</h2>
+                    <h2 id="h2">Tickets Pending Approval</h2>
                     <!-- <button class="view-all">View all</button> -->
                 </header>
 

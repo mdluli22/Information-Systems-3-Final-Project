@@ -153,9 +153,12 @@
                             {
                                 echo "<tr><td>#{$row['ticketID']}</td>";
                                 echo "<td>{$row['ticket_description']}</td>";
-                                // if ($row['ticket_status'] == "Processing") {
-                                echo "<td><span class='status processing'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
-                                // }
+                                if (strtolower($row['ticket_status']) == "completed") {
+                                    echo "<td><span id='completed'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
+                                }
+                                else {
+                                    echo "<td><span id='rejected'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
+                                }
                                 echo "<td>" . date("D h:ia", strtotime($row['ticketDate'])) . "</td>";
                                 echo "<td>{$row['category']}</td>";
                                 switch (strtolower($row['priority'])) {

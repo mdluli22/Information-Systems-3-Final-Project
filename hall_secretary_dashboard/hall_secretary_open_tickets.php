@@ -39,11 +39,23 @@
                 die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
             }
 
+            // Remove approved requests from maintenance requests list
+            if (isset(($_REQUEST['approve_request']))) {
+                $ticketID = $_REQUEST['ticketID'];
+                $remove_request = "UPDATE ticket SET ticket_status = 'Processing' WHERE ticketID = $ticketID";
+                $remove_request_result = $connection->query($remove_request);
+                
+                // Check if request removal was successful
+                if ($remove_request_result === FALSE) {
+                    die("<p class=\"error\">Request removal was Unsuccessful!</p>");
+                }
+            }
+
             // query instructions
             $sql = "SELECT * FROM ticket;";
             $result = $connection->query($sql);
 
-            // Get resnames of hall overseen by the hall secretary
+            // Get res names of hall overseen by the hall secretary
             $residences = 
                 "SELECT DISTINCT concat(hall_secretary.f_Name, ' ', hall_secretary.l_name) AS 'hall_secretary_name', house_warden.resName AS 'residences'
                 FROM house_warden JOIN hall_secretary ON hall_secretary.HS_userName = house_warden.HS_userName
@@ -51,11 +63,12 @@
             $residences_result = $connection->query($residences);
 
             $pending_query = 
-                "SELECT concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority
-                FROM student s JOIN ticket t ON s.userName = t.userName;";
+                "SELECT ticketID, concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority
+                FROM student s JOIN ticket t ON s.userName = t.userName
+                WHERE ticket_status = 'Pending';";
             $pending_result = $connection->query($pending_query);
 
-            // Check if query successfull
+            // Check if query successful
             if ($result === FALSE || $pending_result === FALSE) {
                 die("<p class=\"error\">Query was Unsuccessful!</p>");
             }
@@ -174,6 +187,12 @@
                     <!-- </tbody>
                 </table>
             </section> -->
+            
+            <?php
+                if (isset($ticketID) && !empty($ticketID)) {
+                    echo "<div class='success'>Successfully Approved Request!</div>";
+                }
+            ?>
 
             <!-- Maintenance requests section -->
             <section class="maintenance-requests"> <!--maintenance-scrollbar">-->
@@ -184,27 +203,38 @@
                 </header>
 
                 <!-- populate maintenance faults pending approval -->
-                <div class="requests">
-                    <?php 
-                        while ($row = $pending_result->fetch_assoc())
-                        {
-                            echo "<article class='request'>
-                                    <div class='request-top-btns request-btns'>
-                                        <!-- Buttons for commenting and deleting a request -->
-                                        <button class='comment-btn'><i class='fa-solid fa-pen'></i>&nbsp;&nbsp;&nbsp;Comment</button>
-                                        <button class='delete-btn'><i class='fa-solid fa-trash' style='color: #e53e3e;'></i>&nbsp;&nbsp;&nbsp;Delete</button>
-                                    </div>
-                                    <!-- Request information -->
-                                    <div class='request-info'>";
-                            echo    "<p><strong>{$row['full_name']}<strong></p>";
-                            echo       "<p>Residence: <strong>{$row['resName']}<strong></p>";
-                            echo       "<p>Room Number: <strong>{$row['room_number']}<strong></p>";
-                            echo       "<p>Priority: <strong>{$row['priority']}<strong>";
-                            echo       "<button class='approve-btn request-btns'><i class='fa-solid fa-plus' style='color: #a020f0;'></i>&nbsp;&nbsp;&nbsp;Approve Request</button></p>";
-                            echo    "</div></article>";
-                        }
-                    ?>
-                </div>
+                 <div class="requests">
+                <?php
+                    // $x = 0;
+                    while ($row = $pending_result->fetch_assoc()) {
+                        echo "<article class='request'>
+                                <div class='request-top-btns request-btns'>
+                                    <!-- Buttons for commenting and deleting a request -->
+                                    <button class='comment-btn'><i class='fa-solid fa-pen'></i>&nbsp;&nbsp;&nbsp;Comment</button>
+                                    <button class='delete-btn'><i class='fa-solid fa-trash' style='color: #e53e3e;'></i>&nbsp;&nbsp;&nbsp;Delete</button>
+                                </div>
+                                <!-- Request information -->
+                                <div class='request-info'>
+                                    <p><strong>{$row['full_name']}</strong></p>
+                                    <p>Residence: <strong>{$row['resName']}</strong></p>
+                                    <p>Room Number: <strong>{$row['room_number']}</strong></p>
+                                    <form class='request-form' action='hall_secretary_open_tickets.php' method='get'>
+                                        <input type='hidden' name='ticketID' value='{$row['ticketID']}'>
+                                        <button type='submit' name='approve_request' class='approve-btn request-btns'>
+                                            <i class='fa-solid fa-plus' style='color: #a020f0;'></i>&nbsp;&nbsp;&nbsp;Approve Request
+                                        </button>
+                                    </form>
+                                    <p>Priority: <strong>{$row['priority']}</strong></p>
+                                    
+                                </div>
+                            </article>";
+                        // $x++;
+                    }
+                    // echo $x;
+                ?>
+            </div>
+
+                
             </section>
         </main>
     </div>

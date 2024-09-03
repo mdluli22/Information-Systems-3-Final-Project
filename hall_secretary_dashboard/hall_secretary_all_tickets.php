@@ -40,23 +40,29 @@
             }
 
             // query instructions
-            $sql = "SELECT * FROM ticket;";
+            $sql = "SELECT * FROM ticket ORDER BY ticketID DESC;";
             $result = $connection->query($sql);
+
+            // Get res names of hall overseen by the hall secretary
+            $residences = 
+                "SELECT DISTINCT concat(hall_secretary.f_Name, ' ', hall_secretary.l_name) AS 'hall_secretary_name', house_warden.resName AS 'residences'
+                FROM house_warden JOIN hall_secretary ON hall_secretary.HS_userName = house_warden.HS_userName
+                WHERE hall_secretary.HS_userName = '$hall_sec_userName';";
+            $residences_result = $connection->query($residences);
 
             $pending_query = 
                 "SELECT concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority
                 FROM student s JOIN ticket t ON s.userName = t.userName;";
             $pending_result = $connection->query($pending_query);
 
-            // Check if query successfull
+            // Check if query successful
             if ($result === FALSE || $pending_result === FALSE) {
                 die("<p class=\"error\">Query was Unsuccessful!</p>");
             }
             
             // close connection
             $connection->close();
-        // } 
-        
+        // }
     ?>
     <div class="container">
         <!-- Sidebar section for navigation -->
@@ -67,7 +73,7 @@
             </div>
             
             <!-- Search bar in the sidebar -->
-            <form action="hall_secretary_dashboard.php" method="post" class="search">
+            <form action="hall_secretary_all_tickets.php" method="post" class="search">
                 <span id="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
                 <input class="search-input" type="search" name="search-field" id="search-field" placeholder="Search">
             </form>
@@ -76,8 +82,8 @@
             <nav>
                 <ul id="sidebar-nav">
                     <!-- Navigation links with icons -->
-                    <li id="all-tickets"><a class="sidebar-links" href="<?php echo "hall_secretary_all_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
-                    <li id="open-tickets"><a class="sidebar-links" href="<?php echo "hall_secretary_open_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"; ?>"><img src="pictures/layer.png" alt="layer">Open Tickets</a></li>
+                    <li id="all-tickets"><a class="sidebar-links active" href="<?php echo "hall_secretary_all_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
+                    <li id="open-tickets"><a class="sidebar-links" href="<?php echo "hall_secretary_open_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"; ?>"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
                     <li id="closed-tickets"><a class="sidebar-links" href="<?php echo "hall_secretary_closed_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"; ?>"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
                     <li id="statistics"><a class="sidebar-links" href="<?php echo "../Statistics/Stats_hallsec.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
                 </ul>
@@ -107,20 +113,27 @@
         <main class="content">
             <header class="page-header">
                 <!-- Welcome message -->
-                <h1>Welcome, <span class="username"><?php echo "Amogelang"?></span></h1>
+                <h1>Welcome, <span class="username"><?php echo '$hall_sec_name'?></span></h1>
                 <p>Access & Manage maintenance requisitions efficiently.</p>
             </header>
 
             <!-- House selection links -->
             <nav class="houses">
-                <a href="#" class="house-link active">Cory House</a>
-                <a href="#" class="house-link">Botha House</a>
-                <a href="#" class="house-link">Matthews House</a>
-                <a href="#" class="house-link">College House</a>
+                <?php
+                    $active = 0;
+                    while ($residence = $residences_result->fetch_assoc()) {
+                        if ($active == 0) {
+                            echo "<a href='#' class='house-link active'>{$residence['residences']}</a>";
+                            $active++;
+                            continue;
+                        }
+                        echo "<a href='#' class='house-link'>{$residence['residences']}</a>";
+                    }
+                ?>
             </nav>
 
             <!-- Ticket table section -->
-            <section class="ticket-table scrollbar">
+            <section class="ticket-table"> <!--scrollbar"> -->
                 <table>
                     <thead>
                         <!-- Table headers -->
@@ -140,11 +153,20 @@
                             {
                                 echo "<tr><td>#{$row['ticketID']}</td>";
                                 echo "<td>{$row['ticket_description']}</td>";
-                                // if ($row['ticket_status'] == "Processing") {
-                                echo "<td><span class='status processing'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
-                                // }
+                                // display ticket status
+                                switch (strtolower($row['ticket_status'])) {
+                                    case "completed":
+                                        echo "<td><span id='completed'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
+                                        break;
+                                    case "rejected":
+                                        echo "<td><span id='rejected'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
+                                        break;
+                                    default:
+                                        echo "<td><span class='status processing'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
+                                }
                                 echo "<td>" . date("D h:ia", strtotime($row['ticketDate'])) . "</td>";
                                 echo "<td>{$row['category']}</td>";
+                                // display ticket priority
                                 switch (strtolower($row['priority'])) {
                                     case "high":
                                         echo "<td><span class='priority high-risk'><span class='circle'></span>&nbsp;&nbsp;High</span></td></tr>";
@@ -162,73 +184,36 @@
             </section>
 
             <!-- Maintenance requests section -->
-            <section class="maintenance-requests maintenance-scrollbar">
-                <header id="maintenance-requests-header">
+            <!-- <section class="maintenance-requests maintenance-scrollbar">
+                <header id="maintenance-requests-header">-->
                     <!-- Header with title and view all button -->
-                    <h2 id="h2">Maintenance Requests</h2>
+                    <!-- <h2 id="h2">Maintenance Requests</h2> -->
                     <!-- <button class="view-all">View all</button> -->
-                </header>
+                <!-- </header> -->
 
-                <!-- populate maintenance faults pending approval -->
-                <div class="requests">
-                    <?php 
-                        while ($row = $pending_result->fetch_assoc())
-                        {
-                            echo "<article class='request'>
-                                    <div class='request-top-btns request-btns'>
-                                        <!-- Buttons for commenting and deleting a request -->
-                                        <button class='comment-btn'><i class='fa-solid fa-pen'></i>&nbsp;&nbsp;&nbsp;Comment</button>
-                                        <button class='delete-btn'><i class='fa-solid fa-trash' style='color: #e53e3e;'></i>&nbsp;&nbsp;&nbsp;Delete</button>
-                                    </div>
-                                    <!-- Request information -->
-                                    <div class='request-info'>";
-                            echo    "<p><strong>{$row['full_name']}<strong></p>";
-                            echo       "<p>Residence: <strong>{$row['resName']}<strong></p>";
-                            echo       "<p>Room Number: <strong>{$row['room_number']}<strong></p>";
-                            echo       "<p>Priority: <strong>{$row['priority']}<strong>";
-                            echo       "<button class='approve-btn request-btns'><i class='fa-solid fa-plus' style='color: #a020f0;'></i>&nbsp;&nbsp;&nbsp;Approve Request</button></p>";
-                            echo    "</div></article>";
-                        }
+                <!-- populate maintenance faults pending approval
+                <div class="requests"> -->
+                    <?php
+                        // while ($row = $pending_result->fetch_assoc())
+                        // {
+                        //     echo "<article class='request'>
+                        //             <div class='request-top-btns request-btns'>
+                        //                 <!-- Buttons for commenting and deleting a request -->
+                        //                 <button class='comment-btn'><i class='fa-solid fa-pen'></i>&nbsp;&nbsp;&nbsp;Comment</button>
+                        //                 <button class='delete-btn'><i class='fa-solid fa-trash' style='color: #e53e3e;'></i>&nbsp;&nbsp;&nbsp;Delete</button>
+                        //             </div>
+                        //             <!-- Request information -->
+                        //             <div class='request-info'>";
+                        //     echo    "<p><strong>{$row['full_name']}<strong></p>";
+                        //     echo       "<p>Residence: <strong>{$row['resName']}<strong></p>";
+                        //     echo       "<p>Room Number: <strong>{$row['room_number']}<strong></p>";
+                        //     echo       "<p>Priority: <strong>{$row['priority']}<strong>";
+                        //     echo       "<button class='approve-btn request-btns'><i class='fa-solid fa-plus' style='color: #a020f0;'></i>&nbsp;&nbsp;&nbsp;Approve Request</button></p>";
+                        //     echo    "</div></article>";
+                        // }
                     ?>
-                </div>
-                <!-- Example maintenance request -->
-                <!-- 
-                <article class="request">
-                    <div class="request-top-btns request-btns">-->
-                        <!-- Buttons for commenting and deleting a request -->
-                        <!-- <button class="comment-btn"><i class="fa-solid fa-pen"></i>&nbsp;&nbsp;&nbsp;Comment</button>
-                        <button class="delete-btn"><i class="fa-solid fa-trash" style="color: #e53e3e;"></i>&nbsp;&nbsp;&nbsp;Delete</button>
-                    </div> -->
-                    <!-- Request information -->
-                    <!-- <div class="request-info"> -->
-                        <!-- <p><strong>Oliver Liam</strong></p>
-                        <p>Residence: <strong>Cory House</strong></p>
-                        <p>Room Number: <strong>39</strong></p>
-                        <p> -->
-                            <!-- Priority: <strong>High</strong> -->
-                            <!-- Button to approve the request -->
-                            <!-- <button class="approve-btn request-btns"><i class="fa-solid fa-plus" style="color: #a020f0;"></i>&nbsp;&nbsp;&nbsp;Approve Request</button>
-                        </p> -->
-                    <!-- </div>
-                </article> -->
-
-                <!-- Another example maintenance request -->
-                <!-- <article class="request">
-                    <div class="request-top-btns request-btns">
-                        <button class="comment-btn"><i class="fa-solid fa-pen"></i>&nbsp;&nbsp;&nbsp;Comment</button>
-                        <button class="delete-btn"><i class="fa-solid fa-trash" style="color: #e53e3e;"></i>&nbsp;&nbsp;&nbsp;Delete</button>
-                    </div>
-                    <div class="request-info">
-                        <p><strong>Oliver Liam</strong></p>
-                        <p>Residence: <strong>Botha House</strong></p>
-                        <p>Room Number: <strong>22</strong></p>
-                        <p>
-                            Priority: <strong>Low</strong>
-                            <button class="approve-btn request-btns"><i class="fa-solid fa-plus" style="color: #a020f0;"></i>&nbsp;&nbsp;&nbsp;Approve Request</button>
-                        </p>
-                    </div>
-                </article> -->
-            </section>
+                <!-- </div>
+            </section> --> 
         </main>
     </div>
     <!-- Link to external JavaScript file -->

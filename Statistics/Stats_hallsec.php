@@ -26,7 +26,17 @@
         if ($connection->connect_error) {
             die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
         }
- 
+        
+        $residences = 
+        "SELECT DISTINCT concat(hall_secretary.f_Name, ' ', hall_secretary.l_name) AS 'hall_secretary_name', house_warden.resName AS 'residences'
+        FROM house_warden JOIN hall_secretary ON hall_secretary.HS_userName = house_warden.HS_userName
+        WHERE hall_secretary.HS_userName = '$hall_sec_userName';";
+
+        $residences_result = $connection->query($residences);
+
+        if ($residences_result === FALSE) {
+            die("<p class=\"error\">Query was Unsuccessful!</p>");
+        }
 
     ?>
     <div class="container">
@@ -47,9 +57,9 @@
                 <ul id="sidebar-nav">
                     <!-- Navigation links with icons -->
                     <li id="all-tickets"><a class="sidebar-links" href="<?php echo "../hall_secretary_dashboard/hall_secretary_all_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
-                    <li id="open-tickets"><a class="sidebar-links" href="<?php echo "../hall_secretary_dashboard/hall_secretary_open_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"; ?>"><img src="pictures/layer.png" alt="layer">Open Tickets</a></li>
+                    <li id="open-tickets"><a class="sidebar-links" href="<?php echo "../hall_secretary_dashboard/hall_secretary_open_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"; ?>"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
                     <li id="closed-tickets"><a class="sidebar-links" href="<?php echo "../hall_secretary_dashboard/hall_secretary_closed_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"; ?>"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
-                    <li id="statistics"><a class="sidebar-links" href="<?php echo "Stats_hallsec.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
+                    <li id="statistics"><a class="sidebar-links active" href="<?php echo "Stats_hallsec.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
                 </ul>
             </nav>
 
@@ -81,15 +91,34 @@
             </div>
         </header>
         <nav class="houses">
-                <a href="#" class="house-link active">Cory House</a>
-                <a href="#" class="house-link">Botha House</a>
-                <a href="#" class="house-link">Matthews House</a>
-                <a href="#" class="house-link">College House</a>
+                <?php
+                    
+                    $active = 0;
+                    while ($residence = $residences_result->fetch_assoc()) {
+                        
+                        if ($active == 0) {
+                            $active++;
+                            $defaulthouse = $residence['residences'];
+                        }
+
+                        $activeHouse = isset($_REQUEST['house_name']) ? $_REQUEST['house_name'] : $defaulthouse;
+                        $isActive = ($residence['residences'] === $activeHouse) ? 'active' : '';
+                        echo "<a href='Stats_hallsec.php?house_name={$residence['residences']}' class='house-link {$isActive}'>{$residence['residences']}</a>";
+                    }
+                ?>
         </nav>
-        
-        <div class="stats-overview">
+                
+        <div class="stats-overview active">
             <?php 
-             
+
+                if(isset($_REQUEST['house_name'])){
+                    $housename = $_REQUEST['house_name'];  
+                }
+                else{
+                    $housename = "Cory House";
+                }
+
+                
                 $ticket_status = array("Pending", "Processing", "Completed");
                 $icons = array("pictures/layer.svg", "pictures/clipboard-tick.svg", "pictures/task.svg");
                 $class_names = array("card-icon", "card-icon1", "card-icon2");
@@ -100,12 +129,19 @@
                 
                //for each loop for rendering the Pending, Processing, Closed and Total tickets
                 foreach($ticket_status as $status){
-                    $sql = "SELECT * FROM ticket WHERE ticket_status = '$status'";
+                    if(isset($_REQUEST['house_name'])){
+                        $resname = $_REQUEST['house_name'];
+                        $sql = "SELECT * FROM ticket WHERE ticket_status = '$status' AND resName = '$resname' ";
+                    }
+                    else{
+                        $sql = "SELECT * FROM ticket WHERE ticket_status = '$status' AND resName = '$defaulthouse'";
+                    }
+
                     $result = $connection->query($sql);
 
                     // Check if query successfull
                     if ($result === FALSE) {
-                        die("<p class=\"error\">Query was Unsuccessful!</p>");
+                        die("<p class=\"error\">Query was Unsuccessful this one!</p>");
                     }
                     
                     echo "<div class=\"card\" >";
@@ -127,7 +163,6 @@
                     echo       "</div>";
 
                     echo "</div>";
-
                     $ticketTotals[$index] = $result -> num_rows;
                     $index++;
                     $total += $result -> num_rows;
@@ -146,7 +181,9 @@
                 </div>
             </div>
 
-            </div>
+        </div>
+
+        
 
         <div class="chartlayout">
             <div class="charts">
@@ -155,7 +192,6 @@
             <div class="charts">
                 <canvas id="ticketStatusChart"></canvas>
             </div>
-
         </div>
 
         
@@ -176,7 +212,13 @@
                             <?php
                                 $num = 1;
                                 while($num <= 9){
-                                    $sql = "SELECT * FROM ticket WHERE MONTH(ticketDate) = '$num'";
+                                    if(isset($_REQUEST['house_name'])){
+                                        $resname = $_REQUEST['house_name'];
+                                        $sql = "SELECT * FROM ticket WHERE MONTH(ticketDate) = '$num' AND resName = '$resname' ";
+                                    }
+                                    else{
+                                        $sql = "SELECT * FROM ticket WHERE MONTH(ticketDate) = '$num' AND resName = '$defaulthouse' ";
+                                    }
                                     $result = $connection -> query($sql);
 
                                     // Check if query successfull
@@ -303,48 +345,49 @@
             });
             
             //javascript for the bargraph
-            const thebarchart = document.getElementById('Barchart').getContext('2d');
-            const Barchart = new Chart(thebarchart, {
-            type: 'bar',
-            data: {
-                labels: ['Linux', 'Mac', 'iOS', 'Windows', 'Android', 'Other'],
-                datasets: [{
-                    label: 'Requisitions per Weekday',
-                    data: [15, 25, 20, 30, 10, 20],
-                    backgroundColor: [
-                        'rgba(93, 102, 255, 0.6)', // Linux
-                        'rgba(168, 235, 179, 0.6)', // Mac
-                        'rgba(38, 38, 38, 0.9)',    // iOS
-                        'rgba(144, 202, 249, 0.6)', // Windows
-                        'rgba(155, 177, 196, 0.6)', // Android
-                        'rgba(121, 217, 182, 0.6)'  // Other
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 50,
-                        title: {
-                            display: true,
-                            text: 'Requisitions',
-                        }
-                    },
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Platforms',
+            var thebar = document.getElementById('myBarChart').getContext('2d');
+            var myBarChart = new Chart(thebar, {
+                type: 'bar',
+                data: {
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                    datasets: [{
+                        label: 'Sales',
+                        data: [65, 59, 80, 81, 56, 55, 40],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(75, 192, 192, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(75, 192, 192, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
                         }
                     }
                 }
-            }
-        });
+            });
 
           </script>
-          
+          <script src="script.js"></script>
         </main>
     </div>
+
+
 </body>
 </html>

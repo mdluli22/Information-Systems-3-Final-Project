@@ -127,6 +127,12 @@ nav ul li a:hover {
     background-color: #A020F0;
 }
 
+/* Styling for active links within the sidebar-links section */
+.sidebar-links.active {
+    background-color: #A020F0;
+    color: #fff;
+}
+
 .profile {
     text-align: left;
     margin-top: auto;

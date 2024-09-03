@@ -204,37 +204,35 @@
 
                 <!-- populate maintenance faults pending approval -->
                  <div class="requests">
-                <?php
-                    // $x = 0;
-                    while ($row = $pending_result->fetch_assoc()) {
-                        echo "<article class='request'>
-                                <div class='request-top-btns request-btns'>
-                                    <!-- Buttons for commenting and deleting a request -->
-                                    <button class='comment-btn'><i class='fa-solid fa-pen'></i>&nbsp;&nbsp;&nbsp;Comment</button>
-                                    <button class='delete-btn'><i class='fa-solid fa-trash' style='color: #e53e3e;'></i>&nbsp;&nbsp;&nbsp;Delete</button>
-                                </div>
-                                <!-- Request information -->
-                                <div class='request-info'>
-                                    <p><strong>{$row['full_name']}</strong></p>
-                                    <p>Residence: <strong>{$row['resName']}</strong></p>
-                                    <p>Room Number: <strong>{$row['room_number']}</strong></p>
-                                    <form class='request-form' action='hall_secretary_open_tickets.php' method='get'>
-                                        <input type='hidden' name='ticketID' value='{$row['ticketID']}'>
-                                        <button type='submit' name='approve_request' class='approve-btn request-btns'>
-                                            <i class='fa-solid fa-plus' style='color: #a020f0;'></i>&nbsp;&nbsp;&nbsp;Approve Request
-                                        </button>
-                                    </form>
-                                    <p>Priority: <strong>{$row['priority']}</strong></p>
-                                    
-                                </div>
-                            </article>";
-                        // $x++;
-                    }
-                    // echo $x;
-                ?>
-            </div>
-
-                
+                    <?php
+                        // $x = 0;
+                        while ($row = $pending_result->fetch_assoc()) {
+                            echo "<article class='request'>
+                                    <div class='request-top-btns request-btns'>
+                                        <!-- Buttons for commenting and deleting a request -->
+                                        <button class='comment-btn'><i class='fa-solid fa-pen'></i>&nbsp;&nbsp;&nbsp;Comment</button>
+                                        <button class='delete-btn'><i class='fa-solid fa-trash' style='color: #e53e3e;'></i>&nbsp;&nbsp;&nbsp;Delete</button>
+                                    </div>
+                                    <!-- Request information -->
+                                    <div class='request-info'>
+                                        <p><strong>{$row['full_name']}</strong></p>
+                                        <p>Residence: <strong>{$row['resName']}</strong></p>
+                                        <p>Room Number: <strong>{$row['room_number']}</strong></p>
+                                        <form class='request-form' action='hall_secretary_open_tickets.php' method='get'>
+                                            <input type='hidden' name='ticketID' value='{$row['ticketID']}'>
+                                            <button type='submit' name='approve_request' class='approve-btn request-btns'>
+                                                <i class='fa-solid fa-plus' style='color: #a020f0;'></i>&nbsp;&nbsp;&nbsp;Approve Request
+                                            </button>
+                                        </form>
+                                        <p>Priority: <strong>{$row['priority']}</strong></p>
+                                        
+                                    </div>
+                                  </article>";
+                            // $x++;
+                        }
+                        // echo $x;
+                    ?>
+                </div>
             </section>
         </main>
     </div>

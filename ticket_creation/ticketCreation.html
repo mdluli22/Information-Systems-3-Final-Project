@@ -1,3 +1,7 @@
+<?php
+    session_start();
+    echo "Session username: " . $_SESSION['username'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,11 +57,12 @@
             <header class="page-header">
                 <!-- div is to ensure that the title page and res name are beneath each other -->
                 <div>
-                    <h1>Maintenance requisition form</h1>
-                        
-                    <h1>SORT OUT THE PHP for the houses' links below</h1>
+                    <h1>Maintenance requisition form</h1>   
+                    <!-- <h1></h1> -->
 
-                    <p class="fade-out" id="residence"><?php echo htmlspecialchars($resName); ?></p>
+                    <p class="fade-out" id="residence">
+                        <?php echo htmlspecialchars($resName); ?>
+                    </p>
                 </div>
                 <!-- Fix the logo size -->
                 <img src="pictures/resque-logo.png" alt="Logo" width="150" height="110">

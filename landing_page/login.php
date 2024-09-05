@@ -52,7 +52,7 @@
         // Verify the entered password against the hashed password
         if (password_verify($password, $hashed_password)) {
             $_SESSION['access'] = "yes";
-            header("Location: ../ticket_creation/ticketCreation.html");
+            header("Location: ../ticket_creation/ticketCreation.php");
             exit();
         } else {
             echo "<p class=\"error\">Password is incorrect!</p>";

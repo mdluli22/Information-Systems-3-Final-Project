@@ -104,15 +104,8 @@
                 ?>
         </nav>
                 
-        <div class="stats-overview active">
+        <div class="stats-overview">
             <?php 
-
-                if(isset($_REQUEST['house_name'])){
-                    $housename = $_REQUEST['house_name'];  
-                }
-                else{
-                    $housename = "Cory House";
-                }
 
                 
                 $ticket_status = array("Pending", "Processing", "Completed");

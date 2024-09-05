@@ -1,5 +1,12 @@
 <?php
 require_once("secure.php");
+
+if (isset($_SESSION['username'])) {
+    // echo 'Session Username: ' . $_SESSION['username'];
+    $studentID = $_SESSION['username'];
+}else {
+    die("User is not logged in.");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,23 +35,15 @@ require_once("secure.php");
 <body>
 <?php
     session_start();
-
-    if (isset($_SESSION['username'])) {
-        $studentID = $_SESSION['username'];
-    }else {
-        die("User is not logged in.");
-    }
     
     // include database details from config.php file
     require_once("config.php");
 
-    //for fault category
-    // if (isset($_REQUEST['submit'])) {
-    //         //for the res name on top
-    //     $resName = $_REQUEST['residence'];
-    //     $studentID =$_REQUEST['username'];
-    //     $fault = $_REQUEST['fault-category'];
-    //     $description = $_REQUEST['description']; 
+    if (isset($_REQUEST['submit'])) {
+        //$resName = $_REQUEST['residence'];
+        $studentID =$_REQUEST['username'];
+        $fault = $_REQUEST['fault-category'];
+        $description = $_REQUEST['description']; 
 
     // attempt to make database connection
     $conn = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
@@ -54,35 +53,16 @@ require_once("secure.php");
         die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
     }
 
-    //for the res name on top
-    $sql1 = "SELECT resName FROM student WHERE userName = $studentID ";
-    $result = $conn->query($sql1);
+    $sql = "INSERT INTO ticket (category) VALUES (?)";
+    $stmt2 = $conn -> prepare($sql3);
+    $stmt2 ->bind_param("s", $fault);
 
-    if($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $resName = $row['resName'];
+    //design an error pop up
+    if ($stmt->execute()) {
+        echo "<p class=\"success\">Fault category successfully inserted into the database!</p>";
     } else {
-        $resName = "Residence not found";
+        echo "<p class=\"error\">Failed to insert fault category!</p>";
     }
-
-    // Check if query successfull
-    // if ($result === FALSE) {
-    //     die("<p class=\"error\">Query was Unsuccessful!</p>");
-    // }
-
-    // $sql3 = "INSERT INTO ticket (category) VALUES (?)";
-    // $stmt2 = $conn -> prepare($sql3);
-    // $stmt2 ->bind_param("s", $fault);
-
-    // //echo $category;
-
-
-    // //design an error pop up
-    // if ($stmt->execute()) {
-    //     echo "<p class=\"success\">Fault category successfully inserted into the database!</p>";
-    // } else {
-    //     echo "<p class=\"error\">Failed to insert fault category!</p>";
-    // }
     
     // $sql3 = "INSERT INTO ticket (description) VALUES (?)";
     // $stmt3 = $connection->prepare($sql);
@@ -100,7 +80,7 @@ require_once("secure.php");
     // $stmt2->close();
     // $stmt3->close();
     $conn->close();
-// }
+}
 ?>
 </body>
 </html>

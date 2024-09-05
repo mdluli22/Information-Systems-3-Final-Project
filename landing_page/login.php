@@ -51,8 +51,9 @@
 
         // Verify the entered password against the hashed password
         if (password_verify($password, $hashed_password)) {
+            $_SESSION['username'] = $username;  // Set the username in the session
             $_SESSION['access'] = "yes";
-            header("Location: ../ticket_creation/ticketCreation.php");
+            header("Location: ticketCreationFinal.php");
             exit();
         } else {
             echo "<p class=\"error\">Password is incorrect!</p>";

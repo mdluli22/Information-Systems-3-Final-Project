@@ -82,7 +82,7 @@ if ($connection->connect_error) {
         <main class="content">
             <header>
                 <div>
-                    <h1>Ticket Tracking<br></h1>
+                    <h1>Ticket Tracking: <span class="ticket_type">All Tickets</span></h1>
                     <p class="fade-out">View and make comments on all your logged tickets. View all your residence's tickets.</p>
                 </div>
                 <!-- Fix the logo size -->
@@ -91,16 +91,6 @@ if ($connection->connect_error) {
                 </div>
             </header>
 
-            <!--  TEMPORARY Form for userID input  -->
-            <section class="user-id-input">
-                <h3>Enter User ID to View Tickets</h3>
-                <form action="ticket_tracking_all.php" method="POST">
-                    <label for="userID">User ID:</label>
-                    <input type="text" id="userID" name="userID" required>
-                    <button type="submit">Submit</button>
-                </form>
-            </section>
-            <br><br>
 
             <!-- Flex container for the ticket list and ticket detail -->
             <div class="content-wrapper">
@@ -108,9 +98,21 @@ if ($connection->connect_error) {
                 <section class="ticket-list">
                     <!-- <a href="../ticket_creation/ticketCreation.html"><button class="add-ticket">+ Add New Ticket</button></a>
                     <br> -->
+                    
+                    <!--  TEMPORARY Form for userID input  -->
+                    <section class="user-id-input">
+                        <h3>Enter User ID to View Tickets</h3>
+                        <form action="ticket_tracking_all.php" method="POST">
+                            <label for="userID">User ID:</label>
+                            <input type="text" id="userID" name="userID" required>
+                            <button type="submit">Submit</button>
+                        </form>
+                    </section>
+                    <br>
+                    <!--  TEMPORARY Form for userID input  -->
+
                     <h3>Your Tickets</h3>
                     <?php
-
                         //query instructions for the student's tickets
                         $sql = "SELECT ticketID, resName, ticket_status FROM systemsurgeons.ticket where userName = '$userID'";
                         $result = $connection -> query($sql); //execute query
@@ -121,6 +123,7 @@ if ($connection->connect_error) {
                         }
                     
                         //display the student's tickets
+                        echo "<section class='scrollbar'>";
                         echo "<table class='ticket-table'>";
                         while($row = $result->fetch_assoc()) {
                             echo "<tr class='ticket-card'>";
@@ -147,14 +150,16 @@ if ($connection->connect_error) {
                             echo "</tr>";
                         } //end table
                         echo "</table>";
+                        echo "</section";
                     ?>
 
                     <?php
-                    echo "<h3>$residence Tickets</h3>";
+                        echo "<h3>$residence Tickets</h3>";
 
                         //query instructions for all tickets within the same residence
                         $sql = "SELECT ticketID, resName, ticket_status FROM systemsurgeons.ticket where resName = '$residence'";
                         $result = $connection -> query($sql); //execute query
+                        
 
                         // Check if query successfull
                         if ($result === FALSE) {
@@ -162,6 +167,7 @@ if ($connection->connect_error) {
                         }
 
                         //dynamically display all tickets within that residence
+                        echo "<section class='scrollbar'>";
                         echo "<table class='ticket-table'>";
                         while($row = $result->fetch_assoc()) {
                             echo "<tr class='ticket-card'>";
@@ -185,6 +191,7 @@ if ($connection->connect_error) {
                             echo "</tr>";
                         } //end table
                         echo "</table>";
+                        echo "</section>";
                     ?>
 
                 </section>

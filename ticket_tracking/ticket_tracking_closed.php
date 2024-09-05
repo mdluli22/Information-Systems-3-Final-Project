@@ -82,7 +82,7 @@ if ($connection->connect_error) {
         <main class="content">
             <header>
                 <div>
-                    <h1>Ticket Tracking: Closed Tickets<br></h1>
+                    <h1>Ticket Tracking: <span class="ticket_type">Closed Tickets</span></h1>
                     <p class="fade-out">View tickets that have been closed or rejected</p>
                 </div>
                 <!-- Fix the logo size -->
@@ -106,7 +106,7 @@ if ($connection->connect_error) {
             <div class="content-wrapper">
                 <!-- Section for the list of tickets -->
                 <section class="ticket-list">
-                    <!-- <a href="../ticket_creation/ticketCreation.html"><button class="add-ticket">+ Add New Ticket</button></a>
+<!--                     <a href="../ticket_creation/ticketCreation.html"><button class="add-ticket">+ Add New Ticket</button></a>
                     <br> -->
                     <h3>Your Tickets</h3>
                     <?php

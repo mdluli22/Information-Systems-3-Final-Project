@@ -82,7 +82,7 @@ if ($connection->connect_error) {
         <main class="content">
             <header>
                 <div>
-                    <h1>Ticket Tracking: Open Tickets<br></h1>
+                    <h1>Ticket Tracking: <span class="ticket_type">Open Tickets</span></h1>
                     <p class="fade-out">View tickets that are being processed as well as tickets pending approval.</p>
                 </div>
                 <!-- Fix the logo size -->

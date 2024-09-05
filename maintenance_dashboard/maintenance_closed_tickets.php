@@ -69,7 +69,7 @@
                 <li id="all-tickets"><a class="sidebar-links" href="maintenance_all_tickets.php"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
                 <li id="open-tickets"><a class="sidebar-links" href="maintenance_opened_tickets.php"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
                 <li id="closed-tickets"><a class="sidebar-links active" href="maintenance_closed_tickets.php"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
-                <!-- <li id="statistics"><a class="sidebar-links" href="#"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li> -->
+                <li id="statistics"><a class="sidebar-links" href="../Statistics/Stats_maintenance.php"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li> 
             </ul>
         </nav>
 

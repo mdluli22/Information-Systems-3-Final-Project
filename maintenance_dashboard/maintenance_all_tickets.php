@@ -44,6 +44,14 @@
         if ($result === FALSE) {
             die("<p class=\"error\">Query was Unsuccessful!</p>");
         }
+
+        $halls = "SELECT DISTINCT hall_name FROM hall_secretary";
+
+        $residences_result = $connection->query($halls);
+
+        if ($residences_result === FALSE) {
+            die("<p class=\"error\">Query was Unsuccessful!</p>");
+        }
         
         // close connection
         $connection->close();
@@ -69,7 +77,7 @@
                 <li id="all-tickets"><a class="sidebar-links active" href="maintenance_all_tickets.php"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
                 <li id="open-tickets"><a class="sidebar-links" href="maintenance_opened_tickets.php"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
                 <li id="closed-tickets"><a class="sidebar-links" href="maintenance_closed_tickets.php"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
-                <!-- <li id="statistics"><a class="sidebar-links" href="#"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li> -->
+                <li id="statistics"><a class="sidebar-links" href="#"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li> 
             </ul>
         </nav>
 
@@ -103,10 +111,21 @@
 
         <!-- House selection links -->
         <nav class="houses">
-            <a href="#" class="house-link active">Cory House</a>
-            <a href="#" class="house-link">Botha House</a>
-            <a href="#" class="house-link">Matthews House</a>
-            <a href="#" class="house-link">College House</a>
+                <?php
+                    
+                    $active = 0;
+                    while ($residence = $residences_result->fetch_assoc()) {
+                        
+                        if ($active == 0) {
+                            $active++;
+                            $defaulthouse = $residence['hall_name'];
+                        }
+
+                        $activeHouse = isset($_REQUEST['house_name']) ? $_REQUEST['house_name'] : $defaulthouse;
+                        $isActive = ($residence['hall_name'] === $activeHouse) ? 'active' : '';
+                        echo "<a href='maintenance_all_tickets.php?house_name={$residence['hall_name']}' class='house-link {$isActive}'>{$residence['hall_name']}</a>";
+                    }
+                ?>
         </nav>
 
         <!-- Ticket table section -->

@@ -15,6 +15,7 @@ body {
     /* background: linear-gradient(135deg, #ececec, #d1cfd1); Background gradient */
     color: #333;
     /* Default text color */
+    background-color:#CFDDE9 ;
 }
 
 /* Header styles: Top navigation bar */
@@ -34,7 +35,7 @@ body {
 
 /* insert header pic */
 #header-pic {
-    background-image: url("images/header-pic.jpg");
+   background-color:#12222E ;
     width: 100%;
     height: 5.8125rem;
 }
@@ -52,15 +53,17 @@ body {
 /* Logo styles */
 .header .logo h1 {
     font-size: 1.75rem;
-    color: #333;
-    /* Dark text color */
+    color: white;
+    /* white text color */
     margin: 0;
     /* Remove default margin */
 }
 
-.header .logo {
+.header .logo img {
     display: flex;
     /* Use flex to ensure the logo container behaves properly */
+    size-adjust: small;
+
 }
 
 /* Navigation menu styles */
@@ -86,15 +89,15 @@ body {
     line-height: 150%;
     /* identical to box height, or 30px */
 
-    /* Main Color/Black */
-    color: #000929;
+    /* Main Color white */
+    color: white;
 }
 
 /* Links inside the navigation menu */
 .header .nav ul li a {
     text-decoration: none;
     /* Removes underline */
-    color: #333;
+    color: white;
     /* Dark text color */
     /* font-weight: 600; Bold text */
 }
@@ -131,22 +134,19 @@ body {
 /* Specific style for the "Sign up" button */
 .header .auth-buttons .signup-btn {
     color: white;
-    background-color: #A020F0;
+    background-color: #B45C3D;
     /* Different color for the signup button */
     box-shadow: 0 0.125rem 0.25rem #000929;
 }
 
 /* Specific style for the "Login" button */
 .header .auth-buttons .login-btn {
-    color: #333;
-    background-color: white;
+    color: white;
+    background-color: #B45C3D;
     box-shadow: 0 0.125rem 0.25rem #000929;
 }
 
-/* background-gradient */
-#background-gradient {
-    background: linear-gradient(180deg, rgba(174, 92, 220, 0.2) 0%, rgba(95, 63, 112, 0) 100%);
-}
+
 
 /* Hero section: Main content area */
 .hero {
@@ -178,6 +178,7 @@ body {
     letter-spacing: -0.005em;
 }
 
+
 h2 {
     font-family: 'Inter', sans-serif;
     font-style: normal;
@@ -191,7 +192,32 @@ h2 {
     margin-bottom: 60%;
     /*to move a bit lower*/
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    /* cool animation */
+    display: inline-block;
+  position: relative;
+  overflow: hidden;
 }
+/* animation */
+h2, p, .hero-image{
+    display: block;
+    opacity: 0;
+    transform: translateY(100%);
+    animation: pull-up 1s forwards;
+  }
+  
+  h2,p, .hero-image:nth-child(1) { animation-delay: 0.1s; }
+  h2,p, .hero-image:nth-child(2) { animation-delay: 0.2s; }
+  h2,p, .hero-image:nth-child(3) { animation-delay: 0.3s; }
+  /* Add more delays if necessary */
+  
+  @keyframes pull-up {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
 
 .hero-content {
     flex: 1;
@@ -229,7 +255,7 @@ h2 {
     /* Removes underline */
     color: #fff;
     /* White text color */
-    background-color: #A020F0;
+    background-color: #12222E;
     /* Button background color */
     padding: 1rem 2rem;
     /* Responsive button padding */
@@ -248,21 +274,14 @@ h2 {
     font-feature-settings: 'ss06' on, 'ss04' on, 'liga' off;
 }
 
-.hero .hero-image {
+ .hero-image {
     flex: 1;
     display: flex;
     justify-content: center;
-    /* Center the image horizontally */
-    /* margin-top: 2rem; Add space above image for small screens */
-    /* max-height: 80%; */
-}
-
-.hero .hero-image img {
-    max-width: 100%;
-    /* Image scales with its container */
-    /* height: auto; Maintain aspect ratio */
-    /* max-height: 80%; Ensures the image stays within its container */
-}
+    width: 28.125rem;
+    height: 28.125rem;
+    padding-left: 80px;
+ }
 
 
 /* Features section: Three-column layout for features */
@@ -311,7 +330,7 @@ h2 {
 }
 
 /* Feature description */
-.features .feature p {
+.features .feature  {
     font-size: 1rem;
     /* Responsive text size */
     color: #555;
@@ -328,25 +347,27 @@ h2 {
 
 }
 
-/* Horizontal rule: Divider between features and footer */
-.hr {
-    width: 100%;
-    /* Ensure it spans across the container */
-    display: flex;
-    justify-content: center;
-    /* Center the horizontal rule */
-    margin-top: -4rem;
-}
+.avail, .cred, .avg{
+    border-spacing: 0;
+    border-radius: 15px;
+    padding: 20px;
+    background-color: #000929;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    color: white;
+    font-size: larger;
+    /* the table color */
+    padding: 10px;
+    -webkit-background-clip: text;
+    color: transparent;
 
-#hr {
-    border: none;
-    width: 82%;
-    /* Width of the horizontal line */
-    border-top: 0.3rem solid #A020F0;
-    /* Line style and color */
+/* the sizing next to each other */
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
+ 
 
-/* Footer section: Contains legal and policy links */
+/* Footer section: Contains company policies */
 .footer {
     text-align: center;
     /* Center-align text */
@@ -380,10 +401,6 @@ h2 {
     /* Space between links */
     font-size: 1rem;
     /* Responsive text size */
-}
-
-.footer p {
-    margin-bottom: -1.25rem;
 }
 
 /* Container for the bottom section */
@@ -468,7 +485,7 @@ h2 {
 
 /* H1: Main heading inside the form */
 h1 {
-    color: #333; /* Dark text color */
+    color: white; /* white text color */
     margin-bottom: 0.625rem; /* 10px space below the heading */
 }
 

@@ -42,6 +42,7 @@ if (isset($_SESSION['username'])) {
     if($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $resName = $row['resName'];
+        //echo "Residence: " . $resName;
     } else {
         $resName = "Residence not found";
     }
@@ -114,7 +115,6 @@ if (isset($_SESSION['username'])) {
                         <div class="form-input"> <!-- to ensure that the dropdown is in line with the label -->
                             <select id="fault-category" name="fault-category" required>
                                 <option value="" >Please enter fault category</option>
-                                <!-- Add more options as needed -->
                                 <option value="Electrical">Electrical</option>
                                 <option value="Plumbing">Plumbing</option>
                                 <option value="Furniture">Furniture</option>

@@ -52,6 +52,8 @@
         // Verify the entered password against the hashed password
         if (password_verify($password, $hashed_password)) {
             $_SESSION['username'] = $username;  // Set the username in the session
+            $_SESSION['hall'] = $hall;
+            $_SESSION['resName'] = $resname;
             $_SESSION['access'] = "yes";
             header("Location: ticketCreationFinal.php");
             exit();

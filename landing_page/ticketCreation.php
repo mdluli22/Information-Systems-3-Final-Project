@@ -4,6 +4,8 @@ require_once("secure.php");
 if (isset($_SESSION['username'])) {
     // echo 'Session Username: ' . $_SESSION['username'];
     $studentID = $_SESSION['username'];
+    $hall = $_SESSION['hall'];
+    //$resName = $_SESSION['resName'];
 }else {
     die("User is not logged in.");
 }
@@ -38,10 +40,33 @@ if (isset($_SESSION['username'])) {
     
     // include database details from config.php file
     require_once("config.php");
+    
+    // database connection
+    $conn = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
 
-    //  $_REQUEST['submit']
-        $resName = $_REQUEST['residence'];
-        $studentID = $_SESSION['username'];
+    // Check if connection was successful
+    if ($conn -> connect_error) {
+        die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
+    }
+        
+    //for the res name on top
+    $sql1 = "SELECT resName FROM student WHERE userName = '$studentID'";
+    $result = $conn->query($sql1);
+
+    if($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $resName = $row['resName'];
+        //echo "Residence: " . $resName;
+    } else {
+        $resName = "Residence not found";
+    }
+
+        //$resName = $_SESSION['resName'];
+        // echo 'Session res name: ' . $_SESSION['resName'];
+        //$resName = $_REQUEST['residence'];
+        //$hall = $_SESSION['hall'];
+        //$hall = $_REQUEST['hall'];
+        //$studentID = $_SESSION['username'];
         //$studentID = $_REQUEST['username'];
         $fault = $_REQUEST['fault-category'];
         $description = $_REQUEST['description'];
@@ -51,41 +76,49 @@ if (isset($_SESSION['username'])) {
         
         $ticket_status = "Pending";
         $ticketDate = date("Y-m-d H:i:s");
+
+        //since no rating is provided, we set it to NULL for now
         $rating = NULL;
 
         $destination = "pictures/" . $picture;
         move_uploaded_file($_FILES['picture']['tmp_name'], $destination);
 
-    // attempt to make database connection
-    $conn = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
 
-    // Check if connection was successful
-    if ($conn -> connect_error) {
-        die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
-    }
+    // Ensure the resName exists in the residence table
+    // $sqlCheckResName = "SELECT * FROM residence WHERE resName = '$resName'";
+    // $resultCheckResName = $conn->query($sqlCheckResName);
+
+    // if ($resultCheckResName->num_rows === 0) {
+    //     // resName does not exist, so insert it into residence
+    //     $sqlInsertResidence = "INSERT INTO residence(resName, hall_name) VALUES ('$resName', '$hall')";
+        
+    //     if ($conn->query($sqlInsertResidence) !== TRUE) {
+    //         die("<p class=\"error\">Failed to add residence: " . $conn->error . "</p>");
+    //     }
+    // }
 
     $sql = "INSERT INTO ticket (userName, resName, ticket_status, ticketDate, ticket_description, category, rating, priority) 
-                VALUES ('$studentID', '$resName', '$ticket_status', '$ticketDate', '$description', '$fault', '$rating', '$priority')";
+                VALUES ('$studentID', '$resName', '$ticket_status', '$ticketDate', '$description', '$fault', NULL, '$priority')";
     $result = $conn->query($sql);
 
     //design an error pop up
     if ($result === true) {
         echo "<p class=\"success\">Fault category successfully inserted into the database!</p>";
-        $ticketValue = "SELECT ticketID FROM ticket";
+        //$ticketValue = "SELECT ticketID FROM ticket";
+        $ticketValue = $conn->insert_id;
+
+        //for uploading the pictures
+        $uploadPicture = "INSERT INTO photos (ticketID, photo) VALUES ('$ticketValue', '$picture')";
+        $results = $conn->query($uploadPicture);
+
+        if ($conn->query($uploadPicture) === TRUE) {
+            echo "<p class=\"success\">Picture uploaded successfully!</p>";
+        } else {
+            echo "<p class=\"error\">Failed to upload picture: " . $conn->error . "</p>";
+        }
     } else {
-        echo "<p class=\"error\">Failed to insert fault category!</p>";
+        echo "<p class=\"error\">Failed to insert the ticket: " . $conn->error . "</p>";
     }
-
-    //for uploading the pictures
-    $uploadPicture = "INSERT INTO photos (ticketID, photo) VALUES ('$ticketValue', '$picture')";
-    $results = $conn->query($uploadPicture);
-
-    if ($results === false) {
-        die("<p class=\"error\">Failed to upload picture!</p>");
-    }
-
-    
-    
     $conn->close();
 // }
 ?>

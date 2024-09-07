@@ -185,23 +185,13 @@ nav ul li a:hover {
 }
 
 .stats-overview{
+    width: 60rem;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     margin-bottom: 1.875rem; /* 30px converted to rem */
 }
 
 
-.stat-item {
-    background-color: #edf2f7;
-    padding: 1.25rem; /* 20px converted to rem */
-    border-radius: 0.625rem; /* 10px border radius converted to rem */
-    text-align: left;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 20%;
-    font-weight: bold;
-}
 
 .sta-img {
     background-color: black;
@@ -220,6 +210,7 @@ nav ul li a:hover {
     text-align: center;
     font-family: Arial, sans-serif;
     align-items: center;
+    margin-right: 0.5rem;
 }
 
 .card-icon {
@@ -287,7 +278,7 @@ nav ul li a:hover {
     height: 30rem; /* 480px height converted to rem */
     background: #fff;
     padding: 1.25rem; /* 20px padding converted to rem */
-    margin-left: 0.9375rem; /* 15px margin-left converted to rem */
+    margin-left: 0.30rem; /* 15px margin-left converted to rem */
     border-radius: 0.5rem; /* 8px border radius converted to rem */
     box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); /* 4px 8px shadow converted to rem */
 }

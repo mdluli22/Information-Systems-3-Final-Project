@@ -93,7 +93,7 @@ if (isset($_SESSION['username'])) {
                     <h1>Maintenance requisition form</h1>   
                     <!-- <h1></h1> -->
 
-                    <p class="fade-out" id="residence">
+                    <p class="fade-out" id="residence" name="residence">
                         <?php echo htmlspecialchars($resName); ?>
                     </p>
                 </div>
@@ -112,7 +112,7 @@ if (isset($_SESSION['username'])) {
                     <div class="form-group">
                         <label for="fault-category">Fault Category *</label>
                         <div class="form-input"> <!-- to ensure that the dropdown is in line with the label -->
-                            <select id="fault-category" required>
+                            <select id="fault-category" name="fault-category" required>
                                 <option value="" >Please enter fault category</option>
                                 <!-- Add more options as needed -->
                                 <option value="Electrical">Electrical</option>
@@ -133,9 +133,9 @@ if (isset($_SESSION['username'])) {
                     </div>
 
                     <div class="form-group">
-                        <label for="severity">Priority *</label>
+                        <label for="priority">Priority *</label>
                         <div class="form-input"> <!-- to ensure that the dropdown is in line with the label -->
-                            <select id="severity" required>
+                            <select id="priority" name="priority" required>
                                 <option value="">Please indicate severity of fault</option>
                                 <option value="1">Low</option>
                                 <option value="2">Medium</option>
@@ -145,15 +145,17 @@ if (isset($_SESSION['username'])) {
                     </div>
 
                     <div class="form-group">
-                        <label for="upload">Upload an Image</label>
+                        <label for="picture">Upload an Image</label>
                         <div class="form-input"> <!-- to ensure that the dropdown is in line with the label -->
-                            <input type="file" id="upload" placeholder="Choose file">
+                            <input type="file" id="picture" name="picture" placeholder="Choose file" multiple required>
                             <!-- <small>Upload an image to provide context for the maintenance requisition</small> -->
                         </div>
                     </div>
                     <div class="form-actions">
+                        <input type="hidden" id="resName" name="residence" value="<?php $resName; ?>">
                         <button type="reset" class="cancel-btn">Cancel</button>
-                        <button type="submit" class="submit-btn">Submit</button>
+                        <input type="submit" value="Submit" >
+                        
                     </div>
                 </form>
             </section>

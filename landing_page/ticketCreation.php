@@ -34,16 +34,27 @@ if (isset($_SESSION['username'])) {
 </head>
 <body>
 <?php
-    session_start();
+    //session_start();
     
     // include database details from config.php file
     require_once("config.php");
 
-    if (isset($_REQUEST['submit'])) {
-        //$resName = $_REQUEST['residence'];
-        $studentID =$_REQUEST['username'];
+    //  $_REQUEST['submit']
+        $resName = $_REQUEST['residence'];
+        $studentID = $_SESSION['username'];
+        //$studentID = $_REQUEST['username'];
         $fault = $_REQUEST['fault-category'];
-        $description = $_REQUEST['description']; 
+        $description = $_REQUEST['description'];
+        $priority = $_REQUEST['priority'];
+        
+        $picture = time() . $_FILES['picture']['name'];
+        
+        $ticket_status = "Pending";
+        $ticketDate = date("Y-m-d H:i:s");
+        $rating = NULL;
+
+        $destination = "pictures/" . $picture;
+        move_uploaded_file($_FILES['picture']['tmp_name'], $destination);
 
     // attempt to make database connection
     $conn = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
@@ -53,34 +64,30 @@ if (isset($_SESSION['username'])) {
         die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
     }
 
-    $sql = "INSERT INTO ticket (category) VALUES (?)";
-    $stmt2 = $conn -> prepare($sql3);
-    $stmt2 ->bind_param("s", $fault);
+    $sql = "INSERT INTO ticket (userName, resName, ticket_status, ticketDate, ticket_description, category, rating, priority) 
+                VALUES ('$studentID', '$resName', '$ticket_status', '$ticketDate', '$description', '$fault', '$rating', '$priority')";
+    $result = $conn->query($sql);
 
     //design an error pop up
-    if ($stmt->execute()) {
+    if ($result === true) {
         echo "<p class=\"success\">Fault category successfully inserted into the database!</p>";
+        $ticketValue = "SELECT ticketID FROM ticket";
     } else {
         echo "<p class=\"error\">Failed to insert fault category!</p>";
     }
-    
-    // $sql3 = "INSERT INTO ticket (description) VALUES (?)";
-    // $stmt3 = $connection->prepare($sql);
-    // $stmt3 -> bind_param("s", $description);
-    
-    // // Execute and check success
-    // if ($stmt3->execute()) {
-    //     echo "<p class=\"success\">Description successfully inserted into the database!</p>";
-    // } else {
-    //     echo "<p class=\"error\">Failed to insert description!</p>";
-    // }
 
-    // // Close statements and connection
-    // $stmt1->close();
-    // $stmt2->close();
-    // $stmt3->close();
+    //for uploading the pictures
+    $uploadPicture = "INSERT INTO photos (ticketID, photo) VALUES ('$ticketValue', '$picture')";
+    $results = $conn->query($uploadPicture);
+
+    if ($results === false) {
+        die("<p class=\"error\">Failed to upload picture!</p>");
+    }
+
+    
+    
     $conn->close();
-}
+// }
 ?>
 </body>
 </html>

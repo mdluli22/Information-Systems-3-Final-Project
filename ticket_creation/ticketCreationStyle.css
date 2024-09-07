@@ -127,6 +127,12 @@ nav ul li a:hover {
     background-color: #A020F0;
 }
 
+/* Styling for active links within the sidebar-links section */
+.sidebar-links.active {
+    background-color: #A020F0;
+    color: #fff;
+}
+
 .profile {
     text-align: left;
     margin-top: auto;
@@ -286,11 +292,11 @@ h1 {
 }
 
 /* Adjustments to make Fault Category and Severity float left */
-/* #fault-cat,
-#severity {
+.fault-cat,
+.severity {
     padding-left: 2rem;
     width: 30%;
-} */
+}
 
 .form-header,
 .form-extra-info {

@@ -21,6 +21,12 @@ body {
     height: 100vh; /* Sidebar spans full viewport height */
 }
 
+/* Styling for active links within the sidebar-links section */
+.sidebar-links.active {
+    background-color: #A020F0;
+    color: #fff;
+}
+
 /* Profile section within the sidebar */
 .sidebar .profile {
     position: absolute;
@@ -322,6 +328,8 @@ nav ul li a:hover {
     color: #A020F0; /* Purple color for active links */
     border-bottom: 0.3125rem solid #A020F0; /* Purple bottom border for active state */
 }
+
+
 
 
 

@@ -25,8 +25,8 @@
     <?php
         // if (isset(($_REQUEST['submit']))) {
             // get hall name from login page/pop-up
-            $hall_sec_userName = "h01b5432";
-            $hall_name = "Solomon Kalushi Mahlangu Hall";// $_REQUEST['hall_name'];
+            $hall_sec_userName = "h01b5432";    // $_REQUEST['username'];
+            $hall_name = "Solomon Kalushi Mahlangu Hall";   // $_REQUEST['hall_name'];
 
             // include database details from config.php file
             require_once("config.php");
@@ -43,13 +43,20 @@
             $sql = "SELECT * FROM ticket;";
             $result = $connection->query($sql);
 
+            // Get resnames of hall overseen by the hall secretary
+            $residences = 
+                "SELECT DISTINCT concat(hall_secretary.f_Name, ' ', hall_secretary.l_name) AS 'hall_secretary_name', house_warden.resName AS 'residences'
+                FROM house_warden JOIN hall_secretary ON hall_secretary.HS_userName = house_warden.HS_userName";
+            $residences_result = $connection->query($residences);
+
+            // Get ticket information
             $pending_query = 
                 "SELECT concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority
                 FROM student s JOIN ticket t ON s.userName = t.userName;";
             $pending_result = $connection->query($pending_query);
 
             // Check if query successfull
-            if ($result === FALSE || $pending_result === FALSE) {
+            if ($result === FALSE || $pending_result === FALSE || $residences_result === FALSE) {
                 die("<p class=\"error\">Query was Unsuccessful!</p>");
             }
             
@@ -107,16 +114,23 @@
         <main class="content">
             <header class="page-header">
                 <!-- Welcome message -->
-                <h1>Welcome, <span class="username"><?php echo "Amogelang"?></span></h1>
+                <h1>Welcome, <span class="username"><?php echo '$hall_sec_name';?></span></h1>
                 <p>Access & Manage maintenance requisitions efficiently.</p>
             </header>
-
+                
             <!-- House selection links -->
             <nav class="houses">
-                <a href="#" class="house-link active">Cory House</a>
-                <a href="#" class="house-link">Botha House</a>
-                <a href="#" class="house-link">Matthews House</a>
-                <a href="#" class="house-link">College House</a>
+                <?php
+                    $active = 0;
+                    while ($residence = $residences_result->fetch_assoc()) {
+                        if ($active == 0) {
+                            echo "<a href='#' class='house-link active'>{$residence['residences']}</a>";
+                            $active++;
+                            continue;
+                        }
+                        echo "<a href='#' class='house-link'>{$residence['residences']}</a>";
+                    }
+                ?>
             </nav>
 
             <!-- Ticket table section -->
@@ -191,43 +205,6 @@
                         }
                     ?>
                 </div>
-                <!-- Example maintenance request -->
-                <!-- 
-                <article class="request">
-                    <div class="request-top-btns request-btns">-->
-                        <!-- Buttons for commenting and deleting a request -->
-                        <!-- <button class="comment-btn"><i class="fa-solid fa-pen"></i>&nbsp;&nbsp;&nbsp;Comment</button>
-                        <button class="delete-btn"><i class="fa-solid fa-trash" style="color: #e53e3e;"></i>&nbsp;&nbsp;&nbsp;Delete</button>
-                    </div> -->
-                    <!-- Request information -->
-                    <!-- <div class="request-info"> -->
-                        <!-- <p><strong>Oliver Liam</strong></p>
-                        <p>Residence: <strong>Cory House</strong></p>
-                        <p>Room Number: <strong>39</strong></p>
-                        <p> -->
-                            <!-- Priority: <strong>High</strong> -->
-                            <!-- Button to approve the request -->
-                            <!-- <button class="approve-btn request-btns"><i class="fa-solid fa-plus" style="color: #a020f0;"></i>&nbsp;&nbsp;&nbsp;Approve Request</button>
-                        </p> -->
-                    <!-- </div>
-                </article> -->
-
-                <!-- Another example maintenance request -->
-                <!-- <article class="request">
-                    <div class="request-top-btns request-btns">
-                        <button class="comment-btn"><i class="fa-solid fa-pen"></i>&nbsp;&nbsp;&nbsp;Comment</button>
-                        <button class="delete-btn"><i class="fa-solid fa-trash" style="color: #e53e3e;"></i>&nbsp;&nbsp;&nbsp;Delete</button>
-                    </div>
-                    <div class="request-info">
-                        <p><strong>Oliver Liam</strong></p>
-                        <p>Residence: <strong>Botha House</strong></p>
-                        <p>Room Number: <strong>22</strong></p>
-                        <p>
-                            Priority: <strong>Low</strong>
-                            <button class="approve-btn request-btns"><i class="fa-solid fa-plus" style="color: #a020f0;"></i>&nbsp;&nbsp;&nbsp;Approve Request</button>
-                        </p>
-                    </div>
-                </article> -->
             </section>
         </main>
     </div>

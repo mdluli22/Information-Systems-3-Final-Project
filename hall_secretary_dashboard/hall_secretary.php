@@ -40,7 +40,7 @@
             }
 
             // query instructions
-            $sql = "SELECT * FROM ticket WHERE ticket_status IN ('Rejected', 'Completed') ORDER BY ticketID DESC;";
+            $sql = "SELECT * FROM ticket ORDER BY ticketID DESC;";
             $result = $connection->query($sql);
 
             // Get res names of hall overseen by the hall secretary
@@ -73,7 +73,7 @@
             </div>
             
             <!-- Search bar in the sidebar -->
-            <form action="hall_secretary_closed_tickets.php" method="post" class="search">
+            <form action="hall_secretary_all_tickets.php" method="post" class="search">
                 <span id="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
                 <input class="search-input" type="search" name="search-field" id="search-field" placeholder="Search">
             </form>
@@ -82,10 +82,26 @@
             <nav>
                 <ul id="sidebar-nav">
                     <!-- Navigation links with icons -->
-                    <li id="all-tickets"><a class="sidebar-links" href="<?php echo "hall_secretary_all_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
-                    <li id="open-tickets"><a class="sidebar-links" href="<?php echo "hall_secretary_open_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"; ?>"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
-                    <li id="closed-tickets"><a class="sidebar-links active" href="<?php echo "hall_secretary_closed_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"; ?>"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
-                    <li id="statistics"><a class="sidebar-links" href="<?php echo "../Statistics/Stats_hallsec.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
+
+                    <?php
+                        $sidebar_links = array("All Tickets", "Opened Tickets", "Closed Tickets", "Statistics");
+                        $side_id = array("all-tickets", "open-tickets", "closed-tickets", "statistics" );
+                        $side_image =  array("pictures/receipt-icon.png", "pictures/layer.png", "pictures/clipboard-tick.png","pictures/bar-chart-icon.png" );
+                        $index = 0;
+
+                        foreach ($sidebar_links as $link) {
+                            
+                            if ($index == 0) {
+                                $default_link = $link;
+                            }
+
+                            $active_link = isset($_REQUEST['link_name']) ? $_REQUEST['link_name'] : $default_link;
+                            $isActive = ($link === $active_link) ? 'active' : '';
+                            echo "<li id={$side_id[$index]}><a class= 'sidebar-links {$isActive}' href='hall_secretary.php?link_name={$sidebar_links[$index]}'><img src={$side_image[$index]} alt='icon'>{$sidebar_links[$index]}</a></li>";
+                            $index++;
+                        }
+                    ?>
+
                 </ul>
             </nav>
     
@@ -133,7 +149,7 @@
             </nav>
 
             <!-- Ticket table section -->
-            <section class="ticket-table"> <!--scrollbar">-->
+            <section class="ticket-table"> <!--scrollbar"> -->
                 <table>
                     <thead>
                         <!-- Table headers -->
@@ -153,14 +169,20 @@
                             {
                                 echo "<tr><td>#{$row['ticketID']}</td>";
                                 echo "<td>{$row['ticket_description']}</td>";
-                                if (strtolower($row['ticket_status']) == "completed") {
-                                    echo "<td><span id='completed'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
-                                }
-                                else {
-                                    echo "<td><span id='rejected'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
+                                // display ticket status
+                                switch (strtolower($row['ticket_status'])) {
+                                    case "completed":
+                                        echo "<td><span id='completed'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
+                                        break;
+                                    case "rejected":
+                                        echo "<td><span id='rejected'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
+                                        break;
+                                    default:
+                                        echo "<td><span class='status processing'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
                                 }
                                 echo "<td>" . date("D h:ia", strtotime($row['ticketDate'])) . "</td>";
                                 echo "<td>{$row['category']}</td>";
+                                // display ticket priority
                                 switch (strtolower($row['priority'])) {
                                     case "high":
                                         echo "<td><span class='priority high-risk'><span class='circle'></span>&nbsp;&nbsp;High</span></td></tr>";
@@ -177,17 +199,17 @@
                 </table>
             </section>
 
-            <!-- Maintenance requests section
-            <section class="maintenance-requests maintenance-scrollbar">
-                <header id="maintenance-requests-header"> -->
+            <!-- Maintenance requests section -->
+            <!-- <section class="maintenance-requests maintenance-scrollbar">
+                <header id="maintenance-requests-header">-->
                     <!-- Header with title and view all button -->
                     <!-- <h2 id="h2">Maintenance Requests</h2> -->
                     <!-- <button class="view-all">View all</button> -->
                 <!-- </header> -->
 
-                <!-- populate maintenance faults pending approval -->
-                <!-- <div class="requests"> -->
-                    <?php 
+                <!-- populate maintenance faults pending approval
+                <div class="requests"> -->
+                    <?php
                         // while ($row = $pending_result->fetch_assoc())
                         // {
                         //     echo "<article class='request'>
@@ -207,7 +229,7 @@
                         // }
                     ?>
                 <!-- </div>
-            </section> -->
+            </section> --> 
         </main>
     </div>
     <!-- Link to external JavaScript file -->

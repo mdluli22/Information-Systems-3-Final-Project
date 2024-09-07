@@ -144,6 +144,12 @@ nav ul li a:hover {
     position: relative; /* Position relative to use pseudo-elements */
 }
 
+/* Styling for active links within the sidebar-links section */
+.sidebar-links.active {
+    background-color: #A020F0;
+    color: #fff;
+}
+
 .role {
     color: #666;
 }

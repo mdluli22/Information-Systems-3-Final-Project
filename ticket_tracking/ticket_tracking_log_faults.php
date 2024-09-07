@@ -53,9 +53,9 @@ if ($connection->connect_error) {
             <nav>
                 <ul>
                     <!-- Navigation links with icons -->
-                    <li id="log-faults"><a class="sidebar-links" href="../ticket_creation/ticketCreation.html"><img src="pictures/receipt-add.png" alt="Log faults">Log Faults</a></li>
+                    <li id="log-faults"><a class="sidebar-links active" href="../ticket_creation/ticketCreation_log_faults.php"><img src="pictures/receipt-add.png" alt="Log faults">Log Faults</a></li>
                     <li id="all-tickets"><a class="sidebar-links" href="ticket_tracking_all.php"><img src="pictures/receipt-icon.png" alt="All tickets">All Tickets</a></li>
-                    <li id="open-tickets"><a class="sidebar-links active" href="ticket_tracking_open.php"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
+                    <li id="open-tickets"><a class="sidebar-links" href="ticket_tracking_open.php"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
                     <li id="closed-tickets"><a class="sidebar-links" href="ticket_tracking_closed.php"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
                 </ul>
             </nav>
@@ -82,8 +82,8 @@ if ($connection->connect_error) {
         <main class="content">
             <header>
                 <div>
-                    <h1>Ticket Tracking: <span class="ticket_type">Open Tickets</span></h1>
-                    <p class="fade-out">View tickets that are being processed as well as tickets pending approval.</p>
+                    <h1>Ticket Tracking<br></h1>
+                    <p class="fade-out">View and make comments on all your logged tickets. View all your residence's tickets.</p>
                 </div>
                 <!-- Fix the logo size -->
                  <div class="logo-container">
@@ -94,7 +94,7 @@ if ($connection->connect_error) {
             <!--  TEMPORARY Form for userID input  -->
             <section class="user-id-input">
                 <h3>Enter User ID to View Tickets</h3>
-                <form action="ticket_tracking_open.php" method="POST">
+                <form action="ticket_tracking_all.php" method="POST">
                     <label for="userID">User ID:</label>
                     <input type="text" id="userID" name="userID" required>
                     <button type="submit">Submit</button>
@@ -112,7 +112,7 @@ if ($connection->connect_error) {
                     <?php
 
                         //query instructions for the student's tickets
-                        $sql = "SELECT ticketID, resName, ticket_status FROM systemsurgeons.ticket where userName = '$userID' and ( ticket_status = 'Pending' or 'Processing')";
+                        $sql = "SELECT ticketID, resName, ticket_status FROM systemsurgeons.ticket where userName = '$userID'";
                         $result = $connection -> query($sql); //execute query
 
                         // Check if query successfull
@@ -143,7 +143,7 @@ if ($connection->connect_error) {
                             $residence = $row['resName'];
 
                             echo "<td><span class='{$statusClass}'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
-                            echo "<td><a href='ticket_tracking_open.php?ticketID={$row['ticketID']}' class='details-button'>View Details</button></a></td>";
+                            echo "<td><a href='ticket_tracking_all.php?ticketID={$row['ticketID']}' class='details-button'>View Details</button></a></td>";
                             echo "</tr>";
                         } //end table
                         echo "</table>";
@@ -153,7 +153,7 @@ if ($connection->connect_error) {
                     echo "<h3>$residence Tickets</h3>";
 
                         //query instructions for all tickets within the same residence
-                        $sql = "SELECT ticketID, resName, ticket_status FROM systemsurgeons.ticket where resName = '$residence' and ( ticket_status = 'Pending' or 'Processing')";
+                        $sql = "SELECT ticketID, resName, ticket_status FROM systemsurgeons.ticket where resName = '$residence'";
                         $result = $connection -> query($sql); //execute query
 
                         // Check if query successfull
@@ -181,7 +181,7 @@ if ($connection->connect_error) {
                                 }
 
                             echo "<td><span class='{$statusClass}'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
-                            echo "<td><a href='ticket_tracking_open.php?ticketID={$row['ticketID']}' class='details-button'>View Details</button></a></td>";
+                            echo "<td><a href='ticket_tracking_all.php?ticketID={$row['ticketID']}' class='details-button'>View Details</button></a></td>";
                             echo "</tr>";
                         } //end table
                         echo "</table>";
@@ -202,7 +202,7 @@ if ($connection->connect_error) {
                                 $ticketID = $_GET['ticketID'];
 
                             //query instructions for the student's tickets
-                            $sql = "SELECT ticketID, resName, ticket_status, ticketDate, ticket_description, category, priority  FROM systemsurgeons.ticket where ticketID = '$ticketID' and ( ticket_status = 'Pending' or 'Processing')";
+                            $sql = "SELECT ticketID, resName, ticket_status, ticketDate, ticket_description, category, priority  FROM systemsurgeons.ticket where ticketID = '$ticketID'";
                             $result = $connection -> query($sql); //execute query
 
                             // Check if query successfull

@@ -194,7 +194,6 @@ if ($connection->connect_error) {
                 <section class="ticket-detail">
                     <article class="ticket-info">
                         <img src="pictures/leak.jpg" alt="Ticket Image">
-                        <h3>Ticket Details</h3>
                         <?php
 
                             // Check if a ticketID is provided via GET request
@@ -214,8 +213,6 @@ if ($connection->connect_error) {
                                 $ticket = $result->fetch_assoc(); //get related ticket details
 
                             //display the ticket details for the specific ticket
-                            echo "<table class='ticket-table'>";
-
                             echo "<table class='info-table'>";
                             echo "<tr>";
                             echo "<td class='info-cell' colspan='3'>";
@@ -260,8 +257,6 @@ if ($connection->connect_error) {
                 </section>
             </div>
         </main>
-
-
     </div>
     <!-- Link to external JavaScript file -->
     <script src="ticket_tracking.js"></script>

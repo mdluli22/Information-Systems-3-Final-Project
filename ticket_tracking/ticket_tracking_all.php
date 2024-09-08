@@ -263,23 +263,26 @@ if ($connection->connect_error) {
 
                             if ($comments_result->num_rows > 0) {
                                 echo "<h3>Comments</h3>";
-                                echo "<ul class='comment-list'>";
+                                echo "<dl class='comment-list'>";
                                 while ($comment = $comments_result->fetch_assoc()) {
-                                    echo "<li><strong>" . htmlspecialchars($comment['userName']) . ":</strong> " . htmlspecialchars($comment['comment_description']) . "</li>";
+                                    echo "<div class='comment-bubble'>";
+                                    echo "<dt class='commentor'>" . htmlspecialchars($comment['userName']) . ":</dt><dd class='comment-msg'> " . htmlspecialchars($comment['comment_description']) . "</dd>";
+                                    echo "</div>";
+                                    echo "<br>";
                                 }
-                                echo "</ul>";
+                                echo "</dl>";
                             } else {
+                                echo "<h3>Comments</h3>";
                                 echo "<span class='info-label'>No comments yet. Be the first to comment!</span>";
-                                echo "<br>";
+                                //echo "<br>";
                             }
 
                             // Form to submit a new comment
                             echo "<form action='submit_comment.php' method='POST'>
                                 <input type='hidden' name='ticketID' value='$ticketID'>
                                 <input type='hidden' name='userID' value='$userID'>
-                                <label for='comment'><span class='info-label'>Leave a Comment</span></label><br>
-                                <textarea name='comment_description' id='comment' rows='4' cols='50' required></textarea><br>
-                                <button type='submit'>Submit Comment</button>
+                                <textarea name='comment_description' id='comment' rows='2' cols='50' placeholder='Leave a Comment' required></textarea><br>
+                                <button type='submit' class='comment-button'>Submit Comment</button>
                             </form>";
                         }
                         else {

@@ -53,7 +53,7 @@ if ($connection->connect_error) {
             <nav>
                 <ul>
                     <!-- Navigation links with icons -->
-                    <li id="log-faults"><a class="sidebar-links" href="../ticket_creation/ticketCreation_log_faults.php"><img src="pictures/receipt-add.png" alt="Log faults">Log Faults</a></li>
+                    <li id="log-faults"><a class="sidebar-links" href="../ticket_creation/ticketCreation.html"><img src="pictures/receipt-add.png" alt="Log faults">Log Faults</a></li>
                     <li id="all-tickets"><a class="sidebar-links active" href="ticket_tracking_all.php"><img src="pictures/receipt-icon.png" alt="All tickets">All Tickets</a></li>
                     <li id="open-tickets"><a class="sidebar-links" href="ticket_tracking_open.php"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
                     <li id="closed-tickets"><a class="sidebar-links" href="ticket_tracking_closed.php"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
@@ -151,10 +151,11 @@ if ($connection->connect_error) {
                         } //end table
                         echo "</table>";
                         echo "</section";
+                        
                     ?>
-
+                    <br>
                     <?php
-                        echo "<h3>$residence Tickets</h3>";
+                    echo "<h3> $residence Tickets</h3>";
 
                         //query instructions for all tickets within the same residence
                         $sql = "SELECT ticketID, resName, ticket_status FROM systemsurgeons.ticket where resName = '$residence'";
@@ -165,6 +166,7 @@ if ($connection->connect_error) {
                         if ($result === FALSE) {
                             die("<p class=\"error\">Residence Tickets Query was Unsuccessful!</p>");
                         }
+                      
 
                         //dynamically display all tickets within that residence
                         echo "<section class='scrollbar'>";
@@ -201,13 +203,14 @@ if ($connection->connect_error) {
                 <section class="ticket-detail">
                     <article class="ticket-info">
                         <img src="pictures/leak.jpg" alt="Ticket Image">
-                        <h3>Ticket Details</h3>
                         <?php
 
                             // Check if a ticketID is provided via GET request
                             if (isset($_GET['ticketID'])) {
                                 $ticketID = $_GET['ticketID'];
-
+                        
+                            //echo "<h3>Ticket   #$ticketID</h3>"; //ticket heading
+                    
                             //query instructions for the student's tickets
                             $sql = "SELECT ticketID, resName, ticket_status, ticketDate, ticket_description, category, priority  FROM systemsurgeons.ticket where ticketID = '$ticketID'";
                             $result = $connection -> query($sql); //execute query
@@ -221,43 +224,63 @@ if ($connection->connect_error) {
                                 $ticket = $result->fetch_assoc(); //get related ticket details
 
                             //display the ticket details for the specific ticket
-                            echo "<table class='ticket-table'>";
+                            //echo "<table class='ticket-table'>";
 
                             echo "<table class='info-table'>";
-                            echo "<tr>";
-                            echo "<td class='info-cell' colspan='3'>";
-                                echo "<span class='info-label'>Description:</span>";
-                                echo "<span class='info-data'>{$ticket['ticket_description']}</span>";
-                            echo "</td>";
-                        echo "</tr>";
-                            echo "<tr>";
-                            echo "<td class='info-cell'>";
-                                echo "<span class='info-label'>Ticket Number:</span>";
-                                echo "<span class='info-data'>#{$ticket['ticketID']}</span>";
-                            echo "</td>";
-                            echo "<td class='info-cell'>";
-                                echo "<span class='info-label'>Residence:</span>";
-                                echo "<span class='info-data'>{$ticket['resName']}</span>";
-                            echo "</td>";
-                            echo "<td class='info-cell'>";
-                                echo "<span class='info-label'>Category:</span>";
-                                echo "<span class='info-data'>{$ticket['category']}</span>";
-                            echo "</td>";
-                            echo "<tr>";
-                            echo "<td class='info-cell'>";
-                                echo "<span class='info-label'>Date Logged:</span>";
-                                echo "<span class='info-data'>{$ticket['ticketDate']}</span>";
-                            echo "</td>";
-                            echo "<td class='info-cell'>";
-                                echo "<span class='info-label'>Priority:</span>";
-                                echo "<span class='info-data'>{$ticket['priority']}</span>";
-                            echo "</td>";
-                        echo "</tr>";
-                        echo "</table>";
+                                echo "<tr><td><span class='info-data'><h3>Details for Ticket #$ticketID</h3></span></td></tr>";
+                            echo "</table>";
+                            echo "<table class='info-table'>";
+                                echo "<tr>";
+                                    echo "<td class='info-cell'>";
+                                        echo "<span class='info-label'>Date Logged:</span>";
+                                        // Convert the date from the database to the desired format
+                                        $date = date_create($ticket['ticketDate']); // Create a DateTime object
+                                        echo "<span class='info-data'>" . date_format($date, 'j F Y') . "</span>"; // Format the date
+                                    echo "</td>";
+                                    echo "<td class='info-cell'>";
+                                        echo "<span class='info-label'>Priority:</span>";
+                                        echo "<span class='info-data'>{$ticket['priority']}</span>";
+                                    echo "</td>";
+                                    echo "<td class='info-cell'>";
+                                        echo "<span class='info-label'>Category:</span>";
+                                        echo "<span class='info-data'>{$ticket['category']}</span>";
+                                echo "</td>";
+                                echo "<tr>";
+                                    echo "<td class='info-cell' colspan='3'>";
+                                        echo "<span class='info-label'>Description:</span>";
+                                        echo "<span class='info-data'>{$ticket['ticket_description']}</span>";
+                                    echo "</td>";
+                                echo "</tr>";
+                            echo "</table>";
                             }
                             else {
                                 echo "<p>No details found for this ticket.</p>";
                             }
+
+                            // Query to get the comments related to this ticket
+                            $sql_comments = "SELECT userName, comment_description FROM systemsurgeons.comment WHERE ticketID = '$ticketID'";
+                            $comments_result = $connection->query($sql_comments); // Execute query for comments
+
+                            if ($comments_result->num_rows > 0) {
+                                echo "<h3>Comments</h3>";
+                                echo "<ul class='comment-list'>";
+                                while ($comment = $comments_result->fetch_assoc()) {
+                                    echo "<li><strong>" . htmlspecialchars($comment['userName']) . ":</strong> " . htmlspecialchars($comment['comment_description']) . "</li>";
+                                }
+                                echo "</ul>";
+                            } else {
+                                echo "<span class='info-label'>No comments yet. Be the first to comment!</span>";
+                                echo "<br>";
+                            }
+
+                            // Form to submit a new comment
+                            echo "<form action='submit_comment.php' method='POST'>
+                                <input type='hidden' name='ticketID' value='$ticketID'>
+                                <input type='hidden' name='userID' value='$userID'>
+                                <label for='comment'><span class='info-label'>Leave a Comment</span></label><br>
+                                <textarea name='comment_description' id='comment' rows='4' cols='50' required></textarea><br>
+                                <button type='submit'>Submit Comment</button>
+                            </form>";
                         }
                         else {
                             echo "<p>Please select a ticket to view its details.</p>";

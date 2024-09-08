@@ -112,7 +112,7 @@ if ($connection->connect_error) {
                     <?php
 
                         //query instructions for the student's tickets
-                        $sql = "SELECT ticketID, resName, ticket_status FROM systemsurgeons.ticket where userName = '$userID' and ( ticket_status = 'Pending' or 'Processing')";
+                        $sql = "SELECT ticketID, resName, ticket_status FROM systemsurgeons.ticket where userName = '$userID' and ( (ticket_status = 'Pending') or (ticket_status ='Processing'))";
                         $result = $connection -> query($sql); //execute query
 
                         // Check if query successfull
@@ -153,7 +153,7 @@ if ($connection->connect_error) {
                     echo "<h3>$residence Tickets</h3>";
 
                         //query instructions for all tickets within the same residence
-                        $sql = "SELECT ticketID, resName, ticket_status FROM systemsurgeons.ticket where resName = '$residence' and ( ticket_status = 'Pending' or 'Processing')";
+                        $sql = "SELECT ticketID, resName, ticket_status FROM systemsurgeons.ticket where resName = '$residence' and ( (ticket_status = 'Pending') or (ticket_status ='Processing'));";
                         $result = $connection -> query($sql); //execute query
 
                         // Check if query successfull
@@ -186,7 +186,6 @@ if ($connection->connect_error) {
                         } //end table
                         echo "</table>";
                     ?>
-
                 </section>
                 
 
@@ -201,7 +200,7 @@ if ($connection->connect_error) {
                                 $ticketID = $_GET['ticketID'];
 
                             //query instructions for the student's tickets
-                            $sql = "SELECT ticketID, resName, ticket_status, ticketDate, ticket_description, category, priority  FROM systemsurgeons.ticket where ticketID = '$ticketID' and ( ticket_status = 'Pending' or 'Processing')";
+                            $sql = "SELECT ticketID, resName, ticket_status, ticketDate, ticket_description, category, priority  FROM systemsurgeons.ticket where ticketID = '$ticketID' and (( ticket_status = 'Pending') or (ticket_status ='Processing'))";
                             $result = $connection -> query($sql); //execute query
 
                             // Check if query successfull
@@ -214,36 +213,32 @@ if ($connection->connect_error) {
 
                             //display the ticket details for the specific ticket
                             echo "<table class='info-table'>";
-                            echo "<tr>";
-                            echo "<td class='info-cell' colspan='3'>";
-                                echo "<span class='info-label'>Description:</span>";
-                                echo "<span class='info-data'>{$ticket['ticket_description']}</span>";
-                            echo "</td>";
-                        echo "</tr>";
-                            echo "<tr>";
-                            echo "<td class='info-cell'>";
-                                echo "<span class='info-label'>Ticket Number:</span>";
-                                echo "<span class='info-data'>#{$ticket['ticketID']}</span>";
-                            echo "</td>";
-                            echo "<td class='info-cell'>";
-                                echo "<span class='info-label'>Residence:</span>";
-                                echo "<span class='info-data'>{$ticket['resName']}</span>";
-                            echo "</td>";
-                            echo "<td class='info-cell'>";
-                                echo "<span class='info-label'>Category:</span>";
-                                echo "<span class='info-data'>{$ticket['category']}</span>";
-                            echo "</td>";
-                            echo "<tr>";
-                            echo "<td class='info-cell'>";
-                                echo "<span class='info-label'>Date Logged:</span>";
-                                echo "<span class='info-data'>{$ticket['ticketDate']}</span>";
-                            echo "</td>";
-                            echo "<td class='info-cell'>";
-                                echo "<span class='info-label'>Priority:</span>";
-                                echo "<span class='info-data'>{$ticket['priority']}</span>";
-                            echo "</td>";
-                        echo "</tr>";
-                        echo "</table>";
+                            echo "<tr><td><span class='info-data'>Details for Ticket #$ticketID</span></td></tr>";
+                            echo "</table>";
+                            echo "<table class='info-table'>";
+                                echo "<tr>";
+                                    echo "<td class='info-cell'>";
+                                        echo "<span class='info-label'>Date Logged:</span>";
+                                        // Convert the date from the database to the desired format
+                                        $date = date_create($ticket['ticketDate']); // Create a DateTime object
+                                        echo "<span class='info-data'>" . date_format($date, 'j F Y') . "</span>"; // Format the date
+                                    echo "</td>";
+                                    echo "<td class='info-cell'>";
+                                        echo "<span class='info-label'>Priority:</span>";
+                                        echo "<span class='info-data'>{$ticket['priority']}</span>";
+                                    echo "</td>";
+                                    echo "<td class='info-cell'>";
+                                        echo "<span class='info-label'>Category:</span>";
+                                        echo "<span class='info-data'>{$ticket['category']}</span>";
+                                    echo "</td>";
+                                echo "</tr>";
+                                echo "<tr>";
+                                    echo "<td class='info-cell' colspan='3'>";
+                                        echo "<span class='info-label'>Description:</span>";
+                                        echo "<span class='info-data'>{$ticket['ticket_description']}</span>";
+                                    echo "</td>";
+                                echo "</tr>";
+                            echo "</table>";
                             }
                             else {
                                 echo "<p>No details found for this ticket.</p>";

@@ -26,7 +26,7 @@
         // if (isset(($_REQUEST['submit']))) {
             // get hall name from login page/pop-up
             $hall_sec_userName = "h01b5432";
-            $hall_name = "Solomon Kalushi Mahlangu Hall";// $_REQUEST['hall_name'];
+            $hall_name = "Solomon Mahlangu Hall";// $_REQUEST['hall_name'];
 
             // include database details from config.php file
             require_once("config.php");
@@ -57,8 +57,8 @@
 
             // Get res names of hall overseen by the hall secretary
             $residences = 
-                "SELECT DISTINCT concat(hall_secretary.f_Name, ' ', hall_secretary.l_name) AS 'hall_secretary_name', house_warden.resName AS 'residences'
-                FROM house_warden JOIN hall_secretary ON hall_secretary.HS_userName = house_warden.HS_userName
+                "SELECT DISTINCT concat(hall_secretary.f_Name, ' ', hall_secretary.l_name) AS 'hall_secretary_name', resName AS 'residences'
+                FROM residence JOIN hall_secretary ON hall_secretary.hall_name = residence.hall_name
                 WHERE hall_secretary.HS_userName = '$hall_sec_userName';";
             $residences_result = $connection->query($residences);
 

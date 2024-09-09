@@ -146,48 +146,6 @@
                 ?>
             </nav>
 
-            <!-- Ticket table section -->
-            <!-- <section class="ticket-table scrollbar">
-                <table>
-                    <thead> -->
-                        <!-- Table headers -->
-                        <!-- <tr>
-                            <th>Ticket Number</th>
-                            <th>Description</th>
-                            <th>Status</th>
-                            <th>Date</th>
-                            <th>Category</th>
-                            <th>Priority</th>
-                        </tr>
-                    </thead>
-                    <tbody> -->
-                        <!-- populate dashboard board with tickets from database -->
-                        <?php
-                            // while ($row = $result->fetch_assoc())
-                            // {
-                            //     echo "<tr><td>#{$row['ticketID']}</td>";
-                            //     echo "<td>{$row['ticket_description']}</td>";
-                            //     // if ($row['ticket_status'] == "Processing") {
-                            //     echo "<td><span class='status processing'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
-                            //     // }
-                            //     echo "<td>" . date("D h:ia", strtotime($row['ticketDate'])) . "</td>";
-                            //     echo "<td>{$row['category']}</td>";
-                            //     switch (strtolower($row['priority'])) {
-                            //         case "high":
-                            //             echo "<td><span class='priority high-risk'><span class='circle'></span>&nbsp;&nbsp;High</span></td></tr>";
-                            //             break;
-                            //         case "medium":
-                            //             echo "<td><span class='priority medium-risk'><span class='circle'></span>&nbsp;&nbsp;Medium</span></td></tr>";
-                            //             break;
-                            //         default:
-                            //             echo "<td><span class='priority low-risk'><span class='circle'></span>&nbsp;&nbsp;Low</span></td></tr>";
-                            //     }
-                            // }
-                        ?>
-                    <!-- </tbody>
-                </table>
-            </section> -->
-            
             <?php
                 if (isset($ticketID) && !empty($ticketID)) {
                     echo "<div class='success'>Successfully Approved Request!</div>";
@@ -205,7 +163,6 @@
                 <!-- populate maintenance faults pending approval -->
                  <div class="requests">
                     <?php
-                        // $x = 0;
                         while ($row = $pending_result->fetch_assoc()) {
                             echo "<article class='request'>
                                     <div class='request-top-btns request-btns'>
@@ -227,10 +184,11 @@
                                         <p>Priority: <strong>{$row['priority']}</strong></p>
                                         
                                     </div>
+                                    <div class='comment-section'>
+                                        
+                                    </div>
                                   </article>";
-                            // $x++;
                         }
-                        // echo $x;
                     ?>
                 </div>
             </section>

@@ -65,40 +65,6 @@ require_once("secure.php");
         $resName = "Residence not found";
     }
 
-    // Check if query successfull
-    // if ($result === FALSE) {
-    //     die("<p class=\"error\">Query was Unsuccessful!</p>");
-    // }
-
-    // $sql3 = "INSERT INTO ticket (category) VALUES (?)";
-    // $stmt2 = $conn -> prepare($sql3);
-    // $stmt2 ->bind_param("s", $fault);
-
-    // //echo $category;
-
-
-    // //design an error pop up
-    // if ($stmt->execute()) {
-    //     echo "<p class=\"success\">Fault category successfully inserted into the database!</p>";
-    // } else {
-    //     echo "<p class=\"error\">Failed to insert fault category!</p>";
-    // }
-    
-    // $sql3 = "INSERT INTO ticket (description) VALUES (?)";
-    // $stmt3 = $connection->prepare($sql);
-    // $stmt3 -> bind_param("s", $description);
-    
-    // // Execute and check success
-    // if ($stmt3->execute()) {
-    //     echo "<p class=\"success\">Description successfully inserted into the database!</p>";
-    // } else {
-    //     echo "<p class=\"error\">Failed to insert description!</p>";
-    // }
-
-    // // Close statements and connection
-    // $stmt1->close();
-    // $stmt2->close();
-    // $stmt3->close();
     $conn->close();
 // }
 ?>

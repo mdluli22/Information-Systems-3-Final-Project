@@ -137,9 +137,9 @@ if (isset($_SESSION['username'])) {
                         <div class="form-input"> <!-- to ensure that the dropdown is in line with the label -->
                             <select id="priority" name="priority" required>
                                 <option value="">Please indicate severity of fault</option>
-                                <option value="1">Low</option>
-                                <option value="2">Medium</option>
-                                <option value="3">High</option>
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
                             </select>
                         </div>
                     </div>
@@ -147,7 +147,7 @@ if (isset($_SESSION['username'])) {
                     <div class="form-group">
                         <label for="picture">Upload an Image</label>
                         <div class="form-input"> <!-- to ensure that the dropdown is in line with the label -->
-                            <input type="file" id="picture" name="picture" placeholder="Choose file" multiple required>
+                            <input type="file" name="picture[]" id="picture" placeholder="Choose file" multiple>
                             <!-- <small>Upload an image to provide context for the maintenance requisition</small> -->
                         </div>
                     </div>

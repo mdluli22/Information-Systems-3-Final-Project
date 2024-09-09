@@ -50,7 +50,7 @@ if (isset($_SESSION['username'])) {
     }
         
     //for the res name on top
-    $sql1 = "SELECT resName FROM student WHERE userName = '$studentID'";
+    $sql1 = "SELECT resName FROM student WHERE userName = '$studentID';";
     $result = $conn->query($sql1);
 
     if($result->num_rows > 0) {
@@ -60,19 +60,11 @@ if (isset($_SESSION['username'])) {
     } else {
         $resName = "Residence not found";
     }
-
-        //$resName = $_SESSION['resName'];
-        // echo 'Session res name: ' . $_SESSION['resName'];
-        //$resName = $_REQUEST['residence'];
-        //$hall = $_SESSION['hall'];
-        //$hall = $_REQUEST['hall'];
-        //$studentID = $_SESSION['username'];
-        //$studentID = $_REQUEST['username'];
         $fault = $_REQUEST['fault-category'];
         $description = $_REQUEST['description'];
         $priority = $_REQUEST['priority'];
         
-        $picture = time() . $_FILES['picture']['name'];
+        //$picture = time() . $_FILES['picture']['name'];
         
         $ticket_status = "Pending";
         $ticketDate = date("Y-m-d H:i:s");
@@ -80,25 +72,12 @@ if (isset($_SESSION['username'])) {
         //since no rating is provided, we set it to NULL for now
         $rating = NULL;
 
-        $destination = "pictures/" . $picture;
-        move_uploaded_file($_FILES['picture']['tmp_name'], $destination);
+        // $destination = "pictures/" . $picture;
+        // move_uploaded_file($_FILES['picture']['tmp_name'], $destination);
 
-
-    // Ensure the resName exists in the residence table
-    // $sqlCheckResName = "SELECT * FROM residence WHERE resName = '$resName'";
-    // $resultCheckResName = $conn->query($sqlCheckResName);
-
-    // if ($resultCheckResName->num_rows === 0) {
-    //     // resName does not exist, so insert it into residence
-    //     $sqlInsertResidence = "INSERT INTO residence(resName, hall_name) VALUES ('$resName', '$hall')";
-        
-    //     if ($conn->query($sqlInsertResidence) !== TRUE) {
-    //         die("<p class=\"error\">Failed to add residence: " . $conn->error . "</p>");
-    //     }
-    // }
 
     $sql = "INSERT INTO ticket (userName, resName, ticket_status, ticketDate, ticket_description, category, rating, priority) 
-                VALUES ('$studentID', '$resName', '$ticket_status', '$ticketDate', '$description', '$fault', NULL, '$priority')";
+                VALUES ('$studentID', '$resName', '$ticket_status', '$ticketDate', '$description', '$fault', NULL, '$priority');";
     $result = $conn->query($sql);
 
     //design an error pop up
@@ -107,15 +86,26 @@ if (isset($_SESSION['username'])) {
         //$ticketValue = "SELECT ticketID FROM ticket";
         $ticketValue = $conn->insert_id;
 
-        //for uploading the pictures
-        $uploadPicture = "INSERT INTO photos (ticketID, photo) VALUES ('$ticketValue', '$picture')";
-        $results = $conn->query($uploadPicture);
+        $countFiles = count($_FILES['picture']['name']);   // Get the number of uploaded files 
+        for ($i=0; $i < $countFiles; $i++) { 
+            $picture = time() . "_" . basename($_FILES['picture']['name'][$i]);
+            $destination = "pictures/" . $picture;
 
-        if ($conn->query($uploadPicture) === TRUE) {
-            echo "<p class=\"success\">Picture uploaded successfully!</p>";
-        } else {
-            echo "<p class=\"error\">Failed to upload picture: " . $conn->error . "</p>";
+            if (move_uploaded_file($_FILES['picture']['tmp_name'][$i], $destination)) {
+                //for uploading the pictures
+                $uploadPicture = "INSERT INTO photos (ticketID, photo) VALUES ('$ticketValue', '$picture');";
+                //$results = $conn->query($uploadPicture);
+
+                if ($conn->query($uploadPicture) === TRUE) {
+                    echo "<p class=\"success\">Picture " . basename($_FILES['picture']['name'][$i]) . " uploaded successfully!</p>";
+                } else {
+                    echo "<p class=\"error\">Failed to upload picture: " . $conn->error . "</p>";
+                }
+            } else {
+                echo "<p class=\"error\">Error uploading file " . basename($_FILES['picture']['name'][$i]) . ".</p>";
+            }
         }
+        
     } else {
         echo "<p class=\"error\">Failed to insert the ticket: " . $conn->error . "</p>";
     }

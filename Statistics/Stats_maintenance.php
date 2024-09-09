@@ -104,15 +104,8 @@
                 ?>
         </nav>
                 
-        <div class="stats-overview active">
+        <div class="stats-overview">
             <?php 
-
-                if(isset($_REQUEST['house_name'])){
-                    $housename = $_REQUEST['house_name'];  
-                }
-                else{
-                    $housename = "Cory House";
-                }
 
                 
                 $ticket_status = array("Pending", "Processing", "Completed");
@@ -127,10 +120,10 @@
                 foreach($ticket_status as $status){
                     if(isset($_REQUEST['house_name'])){
                         $resname = $_REQUEST['house_name'];
-                        $sql = "SELECT * FROM ticket WHERE ticket_status = '$status' AND resName = '$resname' ";
+                        $sql = "SELECT * FROM ticket join residence on ticket.resName = residence.resName where hall_name = '$resname' AND ticket_status = '$status' ";
                     }
                     else{
-                        $sql = "SELECT * FROM ticket WHERE ticket_status = '$status' AND resName = '$defaulthouse'";
+                        $sql = "SELECT * FROM ticket join residence on ticket.resName = residence.resName where hall_name = '$defaulthouse' AND ticket_status = '$status' ";
                     }
 
                     $result = $connection->query($sql);
@@ -210,10 +203,10 @@
                                 while($num <= 9){
                                     if(isset($_REQUEST['house_name'])){
                                         $resname = $_REQUEST['house_name'];
-                                        $sql = "SELECT * FROM ticket WHERE MONTH(ticketDate) = '$num' AND resName = '$resname' ";
+                                        $sql = "SELECT * FROM ticket join residence on ticket.resName = residence.resName where hall_name = '$resname' AND MONTH(ticketDate) = '$num' ";
                                     }
                                     else{
-                                        $sql = "SELECT * FROM ticket WHERE MONTH(ticketDate) = '$num' AND resName = '$defaulthouse' ";
+                                        $sql = "SELECT * FROM ticket join residence on ticket.resName = residence.resName where hall_name = '$defaulthouse' AND MONTH(ticketDate) = '$num' ";
                                     }
                                     $result = $connection -> query($sql);
 

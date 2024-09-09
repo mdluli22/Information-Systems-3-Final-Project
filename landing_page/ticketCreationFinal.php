@@ -1,5 +1,12 @@
 <?php
 require_once("secure.php");
+
+if (isset($_SESSION['username'])) {
+    // echo 'Session Username: ' . $_SESSION['username'];
+    $studentID = $_SESSION['username'];
+}else {
+    die("User is not logged in.");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,6 +22,34 @@ require_once("secure.php");
     <script src="scriptTC.js "></script>
 </head>
 <body>
+<?php
+    
+    // include database details from config.php file
+    require_once("config.php");
+
+    // attempt to make database connection
+    $conn = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
+
+    // Check if connection was successful
+    if ($conn -> connect_error) {
+        die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
+    }
+
+    //for the res name on top
+    $sql1 = "SELECT resName FROM student WHERE userName = '$studentID'";
+    $result = $conn->query($sql1);
+
+    if($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $resName = $row['resName'];
+        //echo "Residence: " . $resName;
+    } else {
+        $resName = "Residence not found";
+    }
+
+    $conn->close();
+// }
+?>
     <div class="container">
         <!-- the white left side of the page -->
         <aside class="sidebar">
@@ -59,7 +94,7 @@ require_once("secure.php");
                     <h1>Maintenance requisition form</h1>   
                     <!-- <h1></h1> -->
 
-                    <p class="fade-out" id="residence">
+                    <p class="fade-out" id="residence" name="residence">
                         <?php echo htmlspecialchars($resName); ?>
                     </p>
                 </div>
@@ -78,9 +113,8 @@ require_once("secure.php");
                     <div class="form-group">
                         <label for="fault-category">Fault Category *</label>
                         <div class="form-input"> <!-- to ensure that the dropdown is in line with the label -->
-                            <select id="fault-category" required>
+                            <select id="fault-category" name="fault-category" required>
                                 <option value="" >Please enter fault category</option>
-                                <!-- Add more options as needed -->
                                 <option value="Electrical">Electrical</option>
                                 <option value="Plumbing">Plumbing</option>
                                 <option value="Furniture">Furniture</option>
@@ -99,9 +133,9 @@ require_once("secure.php");
                     </div>
 
                     <div class="form-group">
-                        <label for="severity">Severity *</label>
+                        <label for="priority">Priority *</label>
                         <div class="form-input"> <!-- to ensure that the dropdown is in line with the label -->
-                            <select id="severity" required>
+                            <select id="priority" name="priority" required>
                                 <option value="">Please indicate severity of fault</option>
                                 <option value="1">Low</option>
                                 <option value="2">Medium</option>
@@ -111,15 +145,17 @@ require_once("secure.php");
                     </div>
 
                     <div class="form-group">
-                        <label for="upload">Upload an Image</label>
+                        <label for="picture">Upload an Image</label>
                         <div class="form-input"> <!-- to ensure that the dropdown is in line with the label -->
-                            <input type="file" id="upload" placeholder="Choose file">
+                            <input type="file" id="picture" name="picture" placeholder="Choose file" multiple required>
                             <!-- <small>Upload an image to provide context for the maintenance requisition</small> -->
                         </div>
                     </div>
                     <div class="form-actions">
+                        <input type="hidden" id="resName" name="residence" value="<?php $resName; ?>">
                         <button type="reset" class="cancel-btn">Cancel</button>
-                        <button type="submit" class="submit-btn">Submit</button>
+                        <input type="submit" value="Submit" >
+                        
                     </div>
                 </form>
             </section>

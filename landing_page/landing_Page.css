@@ -1,4 +1,571 @@
+<<<<<<< HEAD
 /* Resetting margins and paddings for consistency across browsers */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Global styles for the body */
+body {
+    font-family: Arial, sans-serif;
+    /* Sets the font */
+    line-height: 1.6rem;
+    /* Improves readability */
+    /* background-color: #A020F0; Light background color*/
+    /* background: linear-gradient(135deg, #ececec, #d1cfd1); Background gradient */
+    color: #333;
+    /* Default text color */
+}
+
+/* Header styles: Top navigation bar */
+.header {
+    display: flex;
+    /* Flexbox layout for alignment */
+    justify-content: space-between;
+    /* Space between logo, nav, and buttons */
+    align-items: center;
+    /* Vertically align items */
+    padding: 0rem 7%;
+    background-color: #fff;
+    /* White background */
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+    /* Subtle shadow for depth */
+}
+
+/* insert header pic */
+#header-pic {
+    background-image: url("images/header-pic.jpg");
+    width: 100%;
+    height: 5.8125rem;
+}
+
+/* Space between logo text and nav links */
+#logo-nav {
+    display: flex;
+    /* Use display: flex instead of flexbox */
+    align-items: center;
+    /* Vertically align logo and nav on the same line */
+    /* justify-content: space-between; Space between the logo and nav links */
+    width: 70%;
+}
+
+/* Logo styles */
+.header .logo h1 {
+    font-size: 1.75rem;
+    color: #333;
+    /* Dark text color */
+    margin: 0;
+    /* Remove default margin */
+}
+
+.header .logo {
+    display: flex;
+    /* Use flex to ensure the logo container behaves properly */
+}
+
+/* Navigation menu styles */
+.header .nav ul {
+    list-style: none;
+    /* Removes bullet points */
+    display: flex;
+    /* Horizontal layout */
+    margin: 0;
+    /* Reset margin */
+    padding: 0;
+    /* Reset padding */
+}
+
+.header .nav ul li {
+    margin-left: 60px;
+    /* Space between nav items */
+
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.25rem;
+    line-height: 150%;
+    /* identical to box height, or 30px */
+
+    /* Main Color/Black */
+    color: #000929;
+}
+
+/* Links inside the navigation menu */
+.header .nav ul li a {
+    text-decoration: none;
+    /* Removes underline */
+    color: #333;
+    /* Dark text color */
+    /* font-weight: 600; Bold text */
+}
+
+/* Authentication buttons (Login and Sign Up) */
+.header .auth-buttons {
+    font-weight: bold;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    /* Horizontal layout */
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    gap: 0.625rem;
+    box-sizing: border-box;
+}
+
+.header .auth-buttons a {
+    text-decoration: none;
+    /* Removes underline */
+    color: #fff;
+    /* White text color */
+    background-color: #6C63FF;
+    /* Default background color */
+    padding: 0.625rem 1.25rem;
+    /* Button padding */
+    border-radius: 0.3125rem;
+    /* Rounded corners */
+    margin-left: 0.625rem;
+    /* Space between buttons */
+}
+
+/* Specific style for the "Sign up" button */
+.header .auth-buttons .signup-btn {
+    color: white;
+    background-color: #A020F0;
+    /* Different color for the signup button */
+    box-shadow: 0 0.125rem 0.25rem #000929;
+}
+
+/* Specific style for the "Login" button */
+.header .auth-buttons .login-btn {
+    color: #333;
+    background-color: white;
+    box-shadow: 0 0.125rem 0.25rem #000929;
+}
+
+/* background-gradient */
+#background-gradient {
+    background: linear-gradient(180deg, rgba(174, 92, 220, 0.2) 0%, rgba(95, 63, 112, 0) 100%);
+}
+
+/* Hero section: Main content area */
+.hero {
+    display: flex;
+    /* Two-column layout */
+    justify-content: center;
+    /* Center the content horizontally */
+    align-items: center;
+    /* Vertically align content */
+    padding: 0% 2%;
+    /* Responsive padding */
+    text-align: left;
+    margin: 0% auto;
+    max-width: 100%;
+    /* Allow the section to take full width */
+    flex-wrap: wrap;
+    /* Ensure content wraps on smaller screens */
+ 
+    padding-top: 0.5rem;
+    margin-left: 3.125rem;
+
+    /* font edits */
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 160%;
+    /* or 38px */
+    letter-spacing: -0.005em;
+}
+
+h2 {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 4rem;
+    line-height: 110%;
+    /* or 70px */
+    letter-spacing: -0.01em;
+    color: #000929;
+    /* Main Color/Black */
+    margin-bottom: 60%;
+    /*to move a bit lower*/
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+}
+h2:nth-child(1){
+    animation-delay: 0.5s;
+}
+
+h2:nth-child(2){
+    animation-delay: 1s;
+}
+h2:nth-child(3){
+    animation-delay: 1.5s;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-content {
+    flex: 1;
+    margin: 0 5%;
+    /* Adjust margin for spacing between text and image */
+    text-align: left;
+    /* align-items: start; */
+}
+
+/* Hero section headline */
+.hero .hero-content h2 {
+    font-size: 3.5rem;
+    /* Responsive text size */
+    color: #333;
+    /* Dark text color */
+    margin-bottom: 1rem;
+    /* Space below the headline */
+    line-height: normal;
+    /* word-spacing: 100px; */
+}
+
+/* Hero section description text */
+.hero .hero-content p {
+    font-size: 1.5rem;
+    /* Responsive text size */
+    color: #555;
+    /* Slightly lighter text color */
+    margin-bottom: 2rem;
+    /* Space below the description */
+}
+
+/* "Learn More" button in the hero section */
+.hero #learn-more-btn {
+    text-decoration: none;
+    /* Removes underline */
+    color: #fff;
+    /* White text color */
+    background-color: #A020F0;
+    /* Button background color */
+    padding: 1rem 2rem;
+    /* Responsive button padding */
+    border-radius: 0.5rem;
+    /* Rounded corners */
+    font-size: 1rem;
+    /* Responsive text size */
+    
+    /* font edits */
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 150%;
+    text-align: center;
+    font-feature-settings: 'ss06' on, 'ss04' on, 'liga' off;
+}
+
+.hero .hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    /* Center the image horizontally */
+    /* margin-top: 2rem; Add space above image for small screens */
+    /* max-height: 80%; */
+}
+
+.hero .hero-image img {
+    max-width: 100%;
+    /* Image scales with its container */
+    /* height: auto; Maintain aspect ratio */
+    /* max-height: 80%; Ensures the image stays within its container */
+}
+
+
+/* Features section: Three-column layout for features */
+.features {
+    display: flex;
+    /* Horizontal layout */
+    justify-content: space-around;
+    /* Evenly distribute space */
+    padding: 5% 2%;
+    /* Responsive padding */
+    margin: 0 5%;
+    /* Margin to ensure content doesn't touch the edges */
+    text-align: center;
+    /* Center-align text */
+    flex-wrap: wrap;
+    /* Wrap the content on smaller screens */
+}
+
+/* Individual feature box */
+.features .feature {
+    flex: 1;
+    /* Each feature takes equal space */
+    text-align: left;
+    margin: 0 3%;
+    /* Space between features */
+    min-width: 25%;
+    /* Ensure features don't get too small */
+}
+
+/* Feature headline */
+.features .feature h3 {
+    font-size: 1.8rem;
+    /* Responsive text size */
+    margin-bottom: 1rem;
+    /* Space below the headline */
+
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 150%;
+    /* identical to box height, or 36px */
+    letter-spacing: -0.01em;
+
+    color: #000929;
+}
+
+/* Feature description */
+.features .feature p {
+    font-size: 1rem;
+    /* Responsive text size */
+    color: #555;
+    /* Slightly lighter text color */
+
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 160%;
+    /* or 26px */
+
+    color: #000929;
+
+}
+
+/* Horizontal rule: Divider between features and footer */
+.hr {
+    width: 100%;
+    /* Ensure it spans across the container */
+    display: flex;
+    justify-content: center;
+    /* Center the horizontal rule */
+    margin-top: -4rem;
+}
+
+#hr {
+    border: none;
+    width: 82%;
+    /* Width of the horizontal line */
+    border-top: 0.3rem solid #A020F0;
+    /* Line style and color */
+}
+
+/* Footer section: Contains legal and policy links */
+.footer {
+    text-align: center;
+    /* Center-align text */
+    padding: 2% 0;
+    /* Responsive padding */
+    color: #000929;
+    /* Text color */
+    margin-top: -1.1rem;
+    /* Space above the footer */
+}
+
+/* Footer links */
+.footer .footer-links {
+    display: flex;
+    /* Horizontal layout */
+    justify-content: center;
+    /* Center-align links */
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+    /* Wrap links on smaller screens */
+    font-family: 'Inter', sans-serif;
+}
+
+/* Individual footer link */
+.footer .footer-links a {
+    text-decoration: none;
+    /* Removes underline */
+    color: inherit;
+    /* Inherit text color */
+    padding: 0 1.5%;
+    /* Space between links */
+    font-size: 1rem;
+    /* Responsive text size */
+}
+
+.footer p {
+    margin-bottom: -1.25rem;
+}
+
+/* Container for the bottom section */
+.fixed-at-bottom {
+    /* position: relative; */
+    position: absolute;
+    width: 100%;
+    /* Full width */
+    bottom: 0%;
+    background-color: inherit;
+    /* Inherit background */
+}
+
+/* Modal styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); /* Black background with opacity */
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Adjust the width */
+    max-width: 500px;
+    border-radius: 10px;
+}
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* The area for Log in and sign up */
+/* Container: Main container that holds the login image and form */
+.container {
+    display: flex; /* Flexbox layout to place image and form side by side */
+    /* background-color: white; */
+    border-radius: 1.25rem; /* 20px rounded corners */
+    box-shadow: 0 0 1.25rem rgba(0, 0, 0, 0.1); /* 20px subtle shadow for depth */
+    overflow: hidden; /* Hide any content that overflows the container */
+    
+}
+
+/* Login Image: Styling for the side of the container that holds the image */
+.login-image,
+.signup-image {
+    background-color: #e4d1f3; /* Light purple background */
+    padding: 2.5rem; /* 40px padding around the image */
+}
+
+/* Image inside the Login Image container */
+.login-image img,
+.signup-image img {
+    max-width: 100%; /* Ensure the image doesn’t exceed the container’s width */
+    height: auto; /* Maintain aspect ratio of the image */
+}
+
+/* Login Form: Styling for the side of the container that holds the form */
+.login-form,
+.signup-form {
+    padding: 2.5rem; /* 40px padding inside the form container */
+    width: 100%; /* Full width to take up remaining space */
+}
+
+/* H1: Main heading inside the form */
+h1 {
+    color: #333; /* Dark text color */
+    margin-bottom: 0.625rem; /* 10px space below the heading */
+}
+
+/* P: Paragraphs inside the form */
+p {
+    color: #666; /* Medium-dark text color */
+    margin-bottom: 1.25rem; /* 20px space below the paragraph */
+}
+
+/* Form: Layout for the form fields and buttons */
+form {
+    display: flex; /* Flexbox for vertical stacking of form elements */
+    flex-direction: column; /* Stack items vertically */
+}
+
+/* Label: Styling for form labels */
+label {
+    margin-bottom: 0.3125rem; /* 5px space below each label */
+    color: #333; /* Dark text color */
+}
+
+/* Input: Styling for text fields in the form */
+input {
+    padding: 0.625rem; /* 10px padding inside text fields */
+    margin-bottom: 1.25rem; /* 20px space below each input */
+    border-radius: 0.3125rem; /* 5px rounded corners for inputs */
+    border: 0.0625rem solid #ccc; /* 1px solid border with light grey color */
+    font-size: 1rem; /* 16px font size for input text */
+}
+
+/* Input: Focus state for text fields */
+input:focus {
+    outline: none; /* Remove default outline on focus */
+    border-color: #7d3ac1; /* Change border color to purple on focus */
+}
+
+/* Forgot Password: Styling for the "Forgot Password?" link */
+.forgot-password {
+    color: #7d3ac1; /* Purple text color */
+    text-decoration: none; /* Remove underline */
+    font-size: 0.875rem; /* 14px font size */
+    align-self: flex-end; /* Align to the right */
+    margin-bottom: 1.25rem; /* 20px space below the link */
+}
+
+/* Button: Styling for the submit button */
+/* button  */
+#submit-btn {
+    background-color: #7d3ac1; /* Purple background color */
+    color: white; /* White text color */
+    padding: 0.625rem; /* 10px padding inside the button */
+    border: none; /* Remove default border */
+    border-radius: 0.3125rem; /* 5px rounded corners */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    font-size: 1rem; /* 16px font size for button text */
+}
+
+/* Button: Hover state for the submit button */
+/* button:hover  */
+#submit-btn:hover {
+    background-color: #6930a4; /* Darker purple background on hover */
+}
+
+/* P A: Styling for links inside paragraphs */
+p a {
+    color: #7d3ac1; /* Purple text color */
+    text-decoration: none; /* Remove underline */
+}
+
+/* P A: Hover state for links inside paragraphs */
+p a:hover {
+    text-decoration: underline; /* Add underline on hover */
+=======
+x/* Resetting margins and paddings for consistency across browsers */
 * {
     margin: 0;
     padding: 0;
@@ -541,4 +1108,5 @@ p a {
 /* P A: Hover state for links inside paragraphs */
 p a:hover {
     text-decoration: underline; /* Add underline on hover */
+>>>>>>> 4c96158ce1366f538be10164164c89c903e73785
 }

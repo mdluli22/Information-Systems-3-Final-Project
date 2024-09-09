@@ -135,6 +135,24 @@
                             <label for="resName">Resident Name</label>
                             <input type="text" id="resName" placeholder="res name" name="resName" required>
 
+                            <label for="hall">Hall Name</label>
+                            <select name="hall" id="hall" required>
+                                <option value="">Please enter fault category</option>
+                                <option value="Miriam Makeba Hall">Miriam Makeba Hall</option>
+                                <option value="Mandela Hall">Mandela Hall</option>
+                                <option value="Solomon Kalushi Mahlangu">Solomon Kalushi Mahlangu</option>
+                                <option value="Lillian Ngoyi Hall">Lillian Ngoyi Hall</option>
+                                <option value="Courtenay-Latimer Hall">Courtenay-Latimer Hall</option>
+                                <option value="Kimberly Hall">Kimberly Hall</option>
+                                <option value="Allan Webb Hall">Allan Webb Hall</option>
+                                <option value="St Mary Hall">St Mary Hall</option>
+                                <option value="Hobson Hall">Hobson Hall</option>
+                                <option value="Desmond Tutu">Desmond Tutu</option>
+                                <option value="Drostdy Hall">Drostdy Hall</option>
+                                <option value="Founders Hall">Founders Hall</option>
+                                <option value="Hugh Masekela Hall">Hugh Masekela Hall</option>
+                            </select>
+                            
                             <label for="roomNumber">Room Number</label>
                             <input type="text" id="roomNumber" placeholder="123" name = "roomNumber" pattern="\d{1,3}" required>
 

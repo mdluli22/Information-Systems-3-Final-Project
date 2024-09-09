@@ -19,7 +19,7 @@
     session_start();
     
     // come from a form submission
-    if (isset($_REQUEST['submit'])){
+    //if (isset($_REQUEST['submit'])){
         $fname = $_REQUEST['fname'];
         $lname = $_REQUEST['lname'];
         $email = $_REQUEST['email'];
@@ -27,6 +27,7 @@
         $roomNumber = $_REQUEST['roomNumber'];
         $username = $_REQUEST['username'];
         $password = $_REQUEST['password'];
+        $hall = $_REQUEST['hall'];	
         
 
     //include database credentials 
@@ -45,36 +46,40 @@
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
+        $_SESSION['username'] = $username;  // Set the username in the session
+        $_SESSION['hall'] = $hall;
+        $_SESSION['resName'] = $resname;
         $_SESSION['access'] = "yes";
         header("Location: ../landing_page/landing_Page.html");
         exit();
     } else {
 
-        //user already exists
+        //user doesn't already exists
         $hashed_password = password_hash($password, PASSWORD_BCRYPT); // Hash the password
         $sql2 = "INSERT INTO user(userName, user_password, user_role, email)
              VALUES ('$username', '$hashed_password', 'student', '$email')";
 
         if ($conn->query($sql2) === TRUE) {
-            
-            //insert into the student table using the username
-            $sql3 = "INSERT INTO student(f_Name, l_Name, resName, userName, room_number)
-                     VALUES ('$fname', '$lname', '$resname', '$username', '$roomNumber')";
-        
-            if ($conn->query($sql3) === TRUE) {
-                echo "<p class=\"success\">User and Student added successfully!</p>";
-                header("Location: ../ticket_creation/ticketCreation.html");
-                exit();
+            //inserting into res table first
+            $sql4 = "INSERT INTO residence (resName, hall_name) VALUES ('$resname', '$hall')";
+            if ($conn->query($sql4) === TRUE) {
+                //insert into the student table using the username
+                $sql3 = "INSERT INTO student(f_Name, l_Name, resName, userName, room_number)
+                VALUES ('$fname', '$lname', '$resname', '$username', '$roomNumber')";
+                if ($conn->query($sql3) === TRUE) {
+                    echo "<p class=\"success\">User and Student added successfully!</p>";
+                    header("Location: ticketCreationFinal.php");
+                    exit();
+                } else {
+                    die("<p class=\"error\">Error adding student: " . $conn->error . "</p>");
+                }
             } else {
-                die("<p class=\"error\">Error adding student: " . $conn->error . "</p>");
-            }
-        } else {
-            die("<p class=\"error\">Unable to add User! Error: " . $conn->error . "</p>");
+            die("<p class=\"error\">Error adding residence: " . $conn->error . "</p>");
         }
     }
     $conn ->close();
     }
-    ?>
+//}
+?>
 </body>
-
 </html>

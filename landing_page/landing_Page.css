@@ -35,7 +35,8 @@ body {
 
 /* insert header pic */
 #header-pic {
-    background-color: #12222E;
+    /* the dark blue colour for back-colour */
+    background-color: #12222E; 
     width: 100%;
     height: 5.8125rem;
 }
@@ -142,6 +143,7 @@ body {
 /* Specific style for the "Login" button */
 .header .auth-buttons .login-btn {
     color: white;
+    /* rust brown for the background color */
     background-color: #B45C3D;
     box-shadow: 0 0.125rem 0.25rem #000929;
 }

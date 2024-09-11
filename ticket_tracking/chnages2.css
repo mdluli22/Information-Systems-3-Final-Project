@@ -1,3 +1,9 @@
+/*  */
+/* :root{
+    --color-1:#f8f9fa;
+    --color-2:#fff;
+} */
+
 html, body {
     font-family: 'Inter', sans-serif;
     margin: 0;
@@ -13,7 +19,7 @@ html, body {
 
 /* the whole left side section */
 .sidebar {
-    background-color: #fff;
+    background-color: #12222E;
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -35,7 +41,7 @@ html, body {
 
 .profile-pic {
     background-color: #ddd;
-    color: #333;
+    color: white;
     width: 2.8125rem; /* 45px converted to rem */
     height: 2.8125rem; /* 45px converted to rem */
     border-radius: 50%;
@@ -78,7 +84,7 @@ html, body {
 .search-input{
     font-size: 1rem; /* 16px */
     font-family: 'Inter', sans-serif;
-    color: #333333;
+    color: white;
     margin-left: var(--padding);
     outline: none;
     border: none;
@@ -110,7 +116,7 @@ nav ul li {
 nav ul li a {
     align-items: center;
     text-decoration: none;  /* removes the underline */
-    color: #333;    /* sets the text color */
+    color: white;    /* sets the text color */
     font-size: 1.125rem;   /* 18px converted to rem */
     display: block; /* makes the link a block-level element */
     padding: 0.9375rem; /* 15px converted to rem */
@@ -121,7 +127,7 @@ nav ul li a {
 
 /* Style for the active class */
 nav ul li a.active {
-    background-color: #A020F0; /* Purple background when active */
+    background-color:  #B45C3D; /* Purple background when active */
     color: #fff; /* White text when active */
 }
 
@@ -133,7 +139,7 @@ nav ul li a img{
 }
 
 nav ul li a:hover {
-    background-color: #A020F0;
+    background-color:  #B45C3D;
 }
 
 .profile {
@@ -144,14 +150,8 @@ nav ul li a:hover {
     position: relative; /* Position relative to use pseudo-elements */
 }
 
-/* Styling for active links within the sidebar-links section */
-.sidebar-links.active {
-    background-color: #A020F0;
-    color: #fff;
-}
-
 .role {
-    color: #666;
+    color: white;
 }
 
 /* left section ends here */
@@ -178,7 +178,7 @@ nav ul li a:hover {
 .content {
     padding: 2rem;
     padding-right: 4.5rem;
-    background-color: #f0f0f0;
+    background-color: #CFDDE9;
     position: relative;
     margin-left: 17.5rem; /* Matches the width of the sidebar */
     flex-direction: column;
@@ -201,7 +201,7 @@ h1 {
 
 /* Styling for ticket type (open, closed or all) within the header */
 h1 .ticket_type {
-    color: #A020F0; /* Purple color for type text */
+    color:  #B45C3D; /* Purple color for type text */
 }
 
 .fade-out {
@@ -224,7 +224,7 @@ h1 .ticket_type {
 }
 
 .add-ticket {
-    background-color: #A020F0;  /* Purple background */
+    background-color:  #B45C3D;  /* Purple background */
     color: #fff;  /* White text */
     border: none;  /* No border */
     padding: 15px 20px;  /* Padding for size */
@@ -235,7 +235,7 @@ h1 .ticket_type {
     width: 100%;
 }
 .add-ticket:hover {
-    background-color: #A020F0;  /* Darker purple on hover */
+    background-color:  #B45C3D;  /* Darker purple on hover */
 }
 
 .ticket-list {
@@ -269,7 +269,7 @@ h1 .ticket_type {
 }
 
 .ticket-card:hover {
-    border-color: #A020F0;
+    border-color:  #B45C3D;
 }
 
 .ticket-number {
@@ -339,7 +339,7 @@ h1 .ticket_type {
 }
 
 /* Details button */
-.details-button, .comment-button {
+.details-button {
     background-color: grey; /* Purple color */
     color: white;
     padding: 5px 10px;
@@ -349,8 +349,8 @@ h1 .ticket_type {
     text-decoration: none; /* Removes the underline */
 }
 /* Details button */
-.details-button:hover, .comment-button:hover {
-    background-color: #A020F0; /* Darker purple on hover */
+.details-button:hover {
+    background-color:  #B45C3D; /* Darker purple on hover */
 }
 
 .ticket-table {
@@ -363,7 +363,7 @@ h1 .ticket_type {
 .ticket-table tr {
     display: flex;
     justify-content: space-between;
-    padding: 15px;
+    padding: 10px;
     border: 1px solid #e0e0e0;
     border-radius: 10px;
     margin-bottom: 10px;
@@ -429,35 +429,10 @@ h1 .ticket_type {
     color: #777; /* Light gray for labels */
 }
 
-.info-data, .commentor {
+.info-data {
     display: block;
-    font-size: 1.1rem; /* 20px */
+    font-size: 1.25rem; /* 20px */
     font-weight: bold;
-    color: #333; /* Dark grey for data */
+    color: #000; /* Black for data */
     margin-top: 0.25rem; /* Small space between label and data */
-}
-
-.comment-list {
-    margin-top: 20px;
-}
-
-.comment-bubble {
-    background-color: #f0f0f0;  /* Light grey background for the comment bubble */
-    padding: 10px;
-    border-radius: 10px;  /* Rounded corners to create the bubble effect */
-    margin-bottom: 10px;
-    max-width: 90%;  /* Ensure the bubble doesn't span too wide */
-    word-wrap: break-word;  /* Allow text to wrap within the bubble */
-    font-size: 14px;
-    color: #333;
-}
-
-.comment-bubble strong {
-    font-weight: 600;  /* Bold the user name */
-    margin-bottom: 5px;
-}
-
-.comment-bubble dd {
-    margin: 5px 0;
-    font-size: 1rem;
 }

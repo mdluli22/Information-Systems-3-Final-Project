@@ -9,32 +9,46 @@
     <title>ResQue</title>
     <link rel="icon" type="image/x-icon" href="pictures/resque-logo.png">
     <link rel="icon" type="image/x-icon" href="images/resque-logo.png">
-    <link rel="stylesheet" href="landing_Page.css">
-    <!-- <link rel="stylesheet" href="login_page.css"> -->
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <header id="header-pic" class="header">
-        <div id="logo-nav">
-            <div class="logo">
-                <h1>ResQue</h1>
-            </div>
-            <nav class="nav">
-                <ul>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Help</a></li>
-                    <li><a href="#">Resources &nbsp;<img id="down-chevron" src="pictures/drop-down.png" width="18px" height="14px" alt="down-chevron"></a></li>
-                </ul>
-            </nav>
-        </div>
-        <div class="auth-buttons">
-            <!-- Trigger the login modal -->
+    <div class="container">
+    <!-- header for with nav links -->
+    <header>
+        <img src="../" alt="">
+    
+        <nav class="nav">
+            <ul>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Help</a></li>
+                <li><a href="#">Resources</a></li>
+            </ul>
+            <div class="user-actions">
+
             <a href="#" class="login-btn" id="login-btn">Login</a>
-            <!-- Trigger the sign-up modal -->
             <a href="#" class="signup-btn" id="signup-btn">Sign up</a>
         </div>
+        </nav>
+        
+        <!-- for burger menu for mobile -->
+        <input type="checkbox" id="burger-toggle" />
+        <label for="burger-toggle" class="burger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </label>
+
+        <div class="mobile-menu">
+                <a href="index.html">FAQ</a>
+                <a href="about.html">About Us</a>
+                <a href="review.html">Help</a>
+                <a href="help.html">Resources</a>
+        </div>
     </header>
-    <div id="background-gradient">
+
+
+    <!-- <div id="background-gradient">
         <section class="hero">
             <div class="hero-content">
                 <h2>Saving Your Day, One Fix at a Time</h2>
@@ -73,10 +87,10 @@
                 <p>&copy; ResQue <time datetime="">2024</time></p>
             </footer>
         </div>
-    </div>
+    </div> -->
 
     <!-- Login Modal Structure -->
-    <div class="login-body">
+    <!-- <div class="login-body">
         <div id="login-modal" class="modal">
             <div class="modal-content">
                 <span class="close-btn">&times;</span>
@@ -104,10 +118,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Sign-Up Modal Structure -->
-    <div class="signup-body">
+    <!-- <div class="signup-body">
         <div id="signup-modal" class="modal">
             <div class="modal-content">
                 <span class="close-btn1">&times;</span>
@@ -121,7 +135,6 @@
                         <p>Please enter your credentials. 
                             Please ensure that the credentials are typed correctly.</p>
                         <form action="signup.php" method="post">
-
 
                             <label for="fname">First Name</label>
                             <input type="text" id="fname" placeholder="John" name = "fname" required>
@@ -161,18 +174,16 @@
                             
                             <label for="password">Password</label> 
                             <input type="password" id="password" placeholder="*******" name = "password" required>
-                        
 
-                            <!-- <button type="submit">Sign in</button> -->
+                            <button type="submit">Sign in</button>
                             <input type="submit" id="submit-btn" name="submit" value="Sign up">
                         </form>
-                        <p>Already have an account? <a href="login_page.html">Login in</a></p>
                     </div>
                 </div>
             </div>
         </div>
+    </div> -->
     </div>
-
     <script src="landing_Page.js"></script>
 </body>
 </html>

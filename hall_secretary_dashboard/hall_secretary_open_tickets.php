@@ -175,16 +175,15 @@
                                         <p><strong>{$row['full_name']}</strong></p>
                                         <p>Residence: <strong>{$row['resName']}</strong></p>
                                         <p>Room Number: <strong>{$row['room_number']}</strong></p>
+                                        <p>Priority: <strong>{$row['priority']}</strong></p>
                                         <form class='request-form' action='hall_secretary_open_tickets.php' method='get'>
                                             <input type='hidden' name='ticketID' value='{$row['ticketID']}'>
+                                            <textarea class='comment-section' name='comment' rows=5 cols=100 ></textarea>
+                                            
                                             <button type='submit' name='approve_request' class='approve-btn request-btns'>
                                                 <i class='fa-solid fa-plus' style='color: #a020f0;'></i>&nbsp;&nbsp;&nbsp;Approve Request
                                             </button>
                                         </form>
-                                        <p>Priority: <strong>{$row['priority']}</strong></p>
-                                        
-                                    </div>
-                                    <div class='comment-section'>
                                         
                                     </div>
                                   </article>";

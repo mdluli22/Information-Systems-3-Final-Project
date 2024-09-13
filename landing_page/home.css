@@ -6,6 +6,10 @@
 
 /* Body */
 body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensures the body takes up the full viewport height */
+    margin: 0;
     font-family: Arial, sans-serif;
     font-size: 1rem; /* Sets base size for rem units */
     background-size: cover;
@@ -18,6 +22,7 @@ body {
 
 /* Container */
 .container {
+    flex: 1; /* Makes the container grow and take up the remaining space */
     display: flex;
     flex-direction: column;
     width: 80%; /* Fluid grid: adjusts width based on screen size */
@@ -181,14 +186,15 @@ nav {
 /* SECTION 1 */
 /* Hero section: Main content area */
 .hero {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap; /* Ensures content wraps on smaller screens */
-    padding: 2% 5%; /* More fluid padding */
-    text-align: center;
-    margin: 0 auto; /* Centers the content */
-    max-width: 1200px; /* Limits the section width */
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    /*flex-wrap: wrap;  Ensures content wraps on smaller screens */
+    padding: 4rem 2rem;    
+    /* text-align: center; */
+    /* margin: 0 auto;  */
+    /*max-width: 1200px;  Limits the section width */
+    
 }
 
 h2 {
@@ -235,12 +241,12 @@ h2, .words, .hero-image:nth-child(3) {
     }
 }
 
-.hero-content {
-    flex: 1; /* Allows content to grow or shrink */
-    margin: 1rem 5%; /* Adds margin between content and image */
+/* .hero-content {
+    flex: 1;
+    margin: 1rem 7%;
     text-align: left;
-    max-width: 600px; /* Max width to prevent stretching on large screens */
-}
+    max-width: 65%; 
+} */
 
 /* Headline */
 .hero-content h2 {
@@ -275,8 +281,8 @@ h2, .words, .hero-image:nth-child(3) {
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: 100%; /* Ensure image is responsive */
-    padding-left: 2rem;
+    max-width: 100%;
+    padding-left: 4rem; /* Increase left padding for more spacing */
 }
 
 .hero-image img {
@@ -332,9 +338,9 @@ h2, .words, .hero-image:nth-child(3) {
     padding: 2rem 0; /* Padding for space inside the footer */
     text-align: center; /* Center the content */
     font-family: 'Inter', sans-serif;
-    position: relative;
-    bottom: 0;
     width: 100%;
+    position: relative;
+    margin-top: auto; /* Pushes the footer to the bottom if content is short */
 }
 
 /* Footer Links */
@@ -343,6 +349,7 @@ h2, .words, .hero-image:nth-child(3) {
     justify-content: center; /* Center the footer links */
     gap: 2rem; /* Space between the links */
     margin-bottom: 1rem; /* Space below the links */
+    
 }
 
 .footer-links a {

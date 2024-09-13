@@ -281,6 +281,7 @@ if ($connection->connect_error) {
                             echo "<form action='submit_comment.php' method='POST'>
                                 <input type='hidden' name='ticketID' value='$ticketID'>
                                 <input type='hidden' name='userID' value='$userID'>
+                                <input type='hidden' name='page' value='all'>
                                 <textarea name='comment_description' id='comment' rows='2' cols='50' placeholder='Leave a Comment' required></textarea><br>
                                 <button type='submit' class='comment-button'>Submit Comment</button>
                             </form>";

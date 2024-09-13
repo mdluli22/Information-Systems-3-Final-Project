@@ -244,6 +244,35 @@ if ($connection->connect_error) {
                             else {
                                 echo "<p>No details found for this ticket.</p>";
                             }
+
+                            // Query to get the comments related to this ticket
+                            $sql_comments = "SELECT userName, comment_description FROM systemsurgeons.comment WHERE ticketID = '$ticketID'";
+                            $comments_result = $connection->query($sql_comments); // Execute query for comments
+
+                            if ($comments_result->num_rows > 0) {
+                                echo "<h3>Comments</h3>";
+                                echo "<dl class='comment-list'>";
+                                while ($comment = $comments_result->fetch_assoc()) {
+                                    echo "<div class='comment-bubble'>";
+                                    echo "<dt class='commentor'>" . htmlspecialchars($comment['userName']) . ":</dt><dd class='comment-msg'> " . htmlspecialchars($comment['comment_description']) . "</dd>";
+                                    echo "</div>";
+                                    echo "<br>";
+                                }
+                                echo "</dl>";
+                            } else {
+                                echo "<h3>Comments</h3>";
+                                echo "<span class='info-label'>No comments yet. Be the first to comment!</span>";
+                                //echo "<br>";
+                            }
+
+                            // Form to submit a new comment
+                            echo "<form action='submit_comment.php' method='POST'>
+                                <input type='hidden' name='ticketID' value='$ticketID'>
+                                <input type='hidden' name='userID' value='$userID'>
+                                <input type='hidden' name='page' value='closed'>
+                                <textarea name='comment_description' id='comment' rows='2' cols='50' placeholder='Leave a Comment' required></textarea><br>
+                                <button type='submit' class='comment-button'>Submit Comment</button>
+                            </form>";
                         }
                         else {
                             echo "<p>Please select a ticket to view its details.</p>";

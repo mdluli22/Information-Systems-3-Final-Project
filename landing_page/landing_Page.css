@@ -15,6 +15,7 @@ body {
     /* background: linear-gradient(135deg, #ececec, #d1cfd1); Background gradient */
     color: #333;
     /* Default text color */
+    background-color: #CFDDE9;
 }
 
 /* Header styles: Top navigation bar */
@@ -34,7 +35,8 @@ body {
 
 /* insert header pic */
 #header-pic {
-    background-image: url("images/header-pic.jpg");
+    /* the dark blue colour for back-colour */
+    background-color: #12222E; 
     width: 100%;
     height: 5.8125rem;
 }
@@ -52,15 +54,17 @@ body {
 /* Logo styles */
 .header .logo h1 {
     font-size: 1.75rem;
-    color: #333;
-    /* Dark text color */
+    color: white;
+    /* white text color */
     margin: 0;
     /* Remove default margin */
 }
 
-.header .logo {
+.header .logo img {
     display: flex;
     /* Use flex to ensure the logo container behaves properly */
+    size-adjust: small;
+
 }
 
 /* Navigation menu styles */
@@ -86,15 +90,15 @@ body {
     line-height: 150%;
     /* identical to box height, or 30px */
 
-    /* Main Color/Black */
-    color: #000929;
+    /* Main Color white */
+    color: white;
 }
 
 /* Links inside the navigation menu */
 .header .nav ul li a {
     text-decoration: none;
     /* Removes underline */
-    color: #333;
+    color: white;
     /* Dark text color */
     /* font-weight: 600; Bold text */
 }
@@ -131,22 +135,20 @@ body {
 /* Specific style for the "Sign up" button */
 .header .auth-buttons .signup-btn {
     color: white;
-    background-color: #A020F0;
+    background-color: #B45C3D;
     /* Different color for the signup button */
     box-shadow: 0 0.125rem 0.25rem #000929;
 }
 
 /* Specific style for the "Login" button */
 .header .auth-buttons .login-btn {
-    color: #333;
-    background-color: white;
+    color: white;
+    /* rust brown for the background color */
+    background-color: #B45C3D;
     box-shadow: 0 0.125rem 0.25rem #000929;
 }
 
-/* background-gradient */
-#background-gradient {
-    background: linear-gradient(180deg, rgba(174, 92, 220, 0.2) 0%, rgba(95, 63, 112, 0) 100%);
-}
+
 
 /* Hero section: Main content area */
 .hero {
@@ -164,7 +166,7 @@ body {
     /* Allow the section to take full width */
     flex-wrap: wrap;
     /* Ensure content wraps on smaller screens */
- 
+
     padding-top: 0.5rem;
     margin-left: 3.125rem;
 
@@ -177,6 +179,7 @@ body {
     /* or 38px */
     letter-spacing: -0.005em;
 }
+
 
 h2 {
     font-family: 'Inter', sans-serif;
@@ -191,7 +194,50 @@ h2 {
     margin-bottom: 60%;
     /*to move a bit lower*/
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    /* cool animation */
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
 }
+
+/* animation */
+h2,
+p,
+.hero-image {
+    display: block;
+    opacity: 0;
+    transform: translateY(100%);
+    animation: pull-up 1s forwards;
+}
+
+h2,
+p,
+.hero-image:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+h2,
+p,
+.hero-image:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+h2,
+.words,
+.hero-image:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+/* Add more delays if necessary */
+
+@keyframes pull-up {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 
 .hero-content {
     flex: 1;
@@ -229,7 +275,7 @@ h2 {
     /* Removes underline */
     color: #fff;
     /* White text color */
-    background-color: #A020F0;
+    background-color: #12222E;
     /* Button background color */
     padding: 1rem 2rem;
     /* Responsive button padding */
@@ -237,7 +283,7 @@ h2 {
     /* Rounded corners */
     font-size: 1rem;
     /* Responsive text size */
-    
+
     /* font edits */
     font-family: 'Inter', sans-serif;
     font-style: normal;
@@ -248,20 +294,145 @@ h2 {
     font-feature-settings: 'ss06' on, 'ss04' on, 'liga' off;
 }
 
-.hero .hero-image {
+.hero-image {
     flex: 1;
     display: flex;
     justify-content: center;
-    /* Center the image horizontally */
-    /* margin-top: 2rem; Add space above image for small screens */
-    /* max-height: 80%; */
+    width: 28.125rem;
+    height: 28.125rem;
+    padding-left: 80px;
 }
 
-.hero .hero-image img {
-    max-width: 100%;
-    /* Image scales with its container */
-    /* height: auto; Maintain aspect ratio */
-    /* max-height: 80%; Ensures the image stays within its container */
+
+/* the fake play notifications, and what do we provide */
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 80%;
+    max-width: 11875%;
+    margin-left: 190px;
+    position: relative;
+    top: 80px;
+
+}
+
+.left-column {
+    flex: 1;
+    padding-right: 3rem;
+    /* 40px in rem */
+}
+
+.right-column {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    
+}
+
+.heading {
+    font-size: 3.4rem;
+    /* 3px in rem */
+    color: #333;
+    margin-bottom: 2.33rem;
+    /* 20px in rem */
+    padding: 20px;
+
+}
+
+.description {
+    font-size: 2rem;
+    /* 1.2rem in rem */
+    color: #666;
+    line-height: 1.1;
+    /* the wording to steer away from the text */
+    padding-left: 2%;
+    padding-bottom: 2%;
+}
+
+
+.notification-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.33rem;
+    /* 20px in rem */
+    padding-right: 12%;
+}
+
+.notification {
+    display: flex;
+    align-items: center;
+    background: #12222E;
+    padding: 1rem;
+    /* 15px in rem */
+    color: white;
+    border-radius: 0.75rem;
+    /* 12px in rem */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    /* 16px in rem */
+    line-height: 1.5;
+    transition: transform 0.2s ease-in-out;
+    animation: fadeInUp 0.8s ease-in-out forwards;
+    opacity: 0;
+    transform: translateY(1.875rem);
+    /* 30px in rem */
+    position: relative;
+    gap: 0.625rem;
+    /* 10px in rem */
+    max-width: 25rem;
+    /* 400px in rem */
+}
+
+.notification:hover {
+    transform: scale(1.03);
+}
+
+.notification::before {
+    content: attr(data-icon);
+    font-size: 1.5rem;
+    /* 24px in rem */
+    background: var(--color);
+    color: transparent;
+    padding: 0.625rem;
+    /* 10px in rem */
+    border-radius: 50%;
+}
+
+small {
+    font-size: 0.75rem;
+    /* 12px in rem */
+    color:whitesmoke;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(1.875rem);
+        /* 30px in rem */
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.notification:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.notification:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.notification:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+.notification:nth-child(4) {
+    animation-delay: 0.8s;
 }
 
 
@@ -290,6 +461,10 @@ h2 {
     /* Space between features */
     min-width: 25%;
     /* Ensure features don't get too small */
+    position: relative;
+    top: 750px;
+    margin-top: 200%;
+    display: flex;
 }
 
 /* Feature headline */
@@ -311,7 +486,7 @@ h2 {
 }
 
 /* Feature description */
-.features .feature p {
+.features .feature {
     font-size: 1rem;
     /* Responsive text size */
     color: #555;
@@ -328,25 +503,30 @@ h2 {
 
 }
 
-/* Horizontal rule: Divider between features and footer */
-.hr {
-    width: 100%;
-    /* Ensure it spans across the container */
-    display: flex;
-    justify-content: center;
-    /* Center the horizontal rule */
-    margin-top: -4rem;
+.avail,
+.cred,
+.avg {
+    border-spacing: 0;
+    border-radius: 15px;
+    padding: 20px;
+    background-color: #000929;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    color: white;
+    font-size: larger;
+    /* the table color */
+    padding: 10px;
+    -webkit-background-clip: text;
+    color: transparent;
+
+    /* the sizing next to each other */
+    padding-top: 20px;
+    padding-bottom: 20px;
+
 }
 
-#hr {
-    border: none;
-    width: 82%;
-    /* Width of the horizontal line */
-    border-top: 0.3rem solid #A020F0;
-    /* Line style and color */
-}
 
-/* Footer section: Contains legal and policy links */
+/* Footer section: Contains company policies */
 .footer {
     text-align: center;
     /* Center-align text */
@@ -356,6 +536,10 @@ h2 {
     /* Text color */
     margin-top: -1.1rem;
     /* Space above the footer */
+
+    /* magic movers */
+    top: 390px;
+    position: relative;
 }
 
 /* Footer links */
@@ -364,7 +548,7 @@ h2 {
     /* Horizontal layout */
     justify-content: center;
     /* Center-align links */
-    margin-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
     flex-wrap: wrap;
     /* Wrap links on smaller screens */
     font-family: 'Inter', sans-serif;
@@ -382,10 +566,6 @@ h2 {
     /* Responsive text size */
 }
 
-.footer p {
-    margin-bottom: -1.25rem;
-}
-
 /* Container for the bottom section */
 .fixed-at-bottom {
     /* position: relative; */
@@ -399,15 +579,19 @@ h2 {
 
 /* Modal styles */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4); /* Black background with opacity */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black background with opacity */
 }
 
 .modal-content {
@@ -415,7 +599,8 @@ h2 {
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Adjust the width */
+    width: 80%;
+    /* Adjust the width */
     max-width: 500px;
     border-radius: 10px;
 }
@@ -437,108 +622,149 @@ h2 {
 /* The area for Log in and sign up */
 /* Container: Main container that holds the login image and form */
 .container {
-    display: flex; /* Flexbox layout to place image and form side by side */
+    display: flex;
+    /* Flexbox layout to place image and form side by side */
     /* background-color: white; */
-    border-radius: 1.25rem; /* 20px rounded corners */
-    box-shadow: 0 0 1.25rem rgba(0, 0, 0, 0.1); /* 20px subtle shadow for depth */
-    overflow: hidden; /* Hide any content that overflows the container */
-    
+    border-radius: 1.25rem;
+    /* 20px rounded corners */
+    box-shadow: 0 0 1.25rem rgba(0, 0, 0, 0.1);
+    /* 20px subtle shadow for depth */
+    overflow: hidden;
+    /* Hide any content that overflows the container */
+
 }
 
 /* Login Image: Styling for the side of the container that holds the image */
 .login-image,
 .signup-image {
-    background-color: #e4d1f3; /* Light purple background */
-    padding: 2.5rem; /* 40px padding around the image */
+    background-color: #e4d1f3;
+    /* Light purple background */
+    padding: 2.5rem;
+    /* 40px padding around the image */
 }
 
 /* Image inside the Login Image container */
 .login-image img,
 .signup-image img {
-    max-width: 100%; /* Ensure the image doesn’t exceed the container’s width */
-    height: auto; /* Maintain aspect ratio of the image */
+    max-width: 100%;
+    /* Ensure the image doesn’t exceed the container’s width */
+    height: auto;
+    /* Maintain aspect ratio of the image */
 }
 
 /* Login Form: Styling for the side of the container that holds the form */
 .login-form,
 .signup-form {
-    padding: 2.5rem; /* 40px padding inside the form container */
-    width: 100%; /* Full width to take up remaining space */
+    padding: 2.5rem;
+    /* 40px padding inside the form container */
+    width: 100%;
+    /* Full width to take up remaining space */
 }
 
 /* H1: Main heading inside the form */
 h1 {
-    color: #333; /* Dark text color */
-    margin-bottom: 0.625rem; /* 10px space below the heading */
+    color: white;
+    /* white text color */
+    margin-bottom: 0.625rem;
+    /* 10px space below the heading */
 }
 
 /* P: Paragraphs inside the form */
 p {
-    color: #666; /* Medium-dark text color */
-    margin-bottom: 1.25rem; /* 20px space below the paragraph */
+    color: #666;
+    /* Medium-dark text color */
+    margin-bottom: 1.25rem;
+    /* 20px space below the paragraph */
 }
 
 /* Form: Layout for the form fields and buttons */
 form {
-    display: flex; /* Flexbox for vertical stacking of form elements */
-    flex-direction: column; /* Stack items vertically */
+    display: flex;
+    /* Flexbox for vertical stacking of form elements */
+    flex-direction: column;
+    /* Stack items vertically */
 }
 
 /* Label: Styling for form labels */
 label {
-    margin-bottom: 0.3125rem; /* 5px space below each label */
-    color: #333; /* Dark text color */
+    margin-bottom: 0.3125rem;
+    /* 5px space below each label */
+    color: #333;
+    /* Dark text color */
 }
 
 /* Input: Styling for text fields in the form */
 input {
-    padding: 0.625rem; /* 10px padding inside text fields */
-    margin-bottom: 1.25rem; /* 20px space below each input */
-    border-radius: 0.3125rem; /* 5px rounded corners for inputs */
-    border: 0.0625rem solid #ccc; /* 1px solid border with light grey color */
-    font-size: 1rem; /* 16px font size for input text */
+    padding: 0.625rem;
+    /* 10px padding inside text fields */
+    margin-bottom: 1.25rem;
+    /* 20px space below each input */
+    border-radius: 0.3125rem;
+    /* 5px rounded corners for inputs */
+    border: 0.0625rem solid #ccc;
+    /* 1px solid border with light grey color */
+    font-size: 1rem;
+    /* 16px font size for input text */
 }
 
 /* Input: Focus state for text fields */
 input:focus {
-    outline: none; /* Remove default outline on focus */
-    border-color: #7d3ac1; /* Change border color to purple on focus */
+    outline: none;
+    /* Remove default outline on focus */
+    border-color: #7d3ac1;
+    /* Change border color to purple on focus */
 }
 
 /* Forgot Password: Styling for the "Forgot Password?" link */
 .forgot-password {
-    color: #7d3ac1; /* Purple text color */
-    text-decoration: none; /* Remove underline */
-    font-size: 0.875rem; /* 14px font size */
-    align-self: flex-end; /* Align to the right */
-    margin-bottom: 1.25rem; /* 20px space below the link */
+    color: #7d3ac1;
+    /* Purple text color */
+    text-decoration: none;
+    /* Remove underline */
+    font-size: 0.875rem;
+    /* 14px font size */
+    align-self: flex-end;
+    /* Align to the right */
+    margin-bottom: 1.25rem;
+    /* 20px space below the link */
 }
 
 /* Button: Styling for the submit button */
 /* button  */
 #submit-btn {
-    background-color: #7d3ac1; /* Purple background color */
-    color: white; /* White text color */
-    padding: 0.625rem; /* 10px padding inside the button */
-    border: none; /* Remove default border */
-    border-radius: 0.3125rem; /* 5px rounded corners */
-    cursor: pointer; /* Change cursor to pointer on hover */
-    font-size: 1rem; /* 16px font size for button text */
+    background-color: #7d3ac1;
+    /* Purple background color */
+    color: white;
+    /* White text color */
+    padding: 0.625rem;
+    /* 10px padding inside the button */
+    border: none;
+    /* Remove default border */
+    border-radius: 0.3125rem;
+    /* 5px rounded corners */
+    cursor: pointer;
+    /* Change cursor to pointer on hover */
+    font-size: 1rem;
+    /* 16px font size for button text */
 }
 
 /* Button: Hover state for the submit button */
 /* button:hover  */
 #submit-btn:hover {
-    background-color: #6930a4; /* Darker purple background on hover */
+    background-color: #6930a4;
+    /* Darker purple background on hover */
 }
 
 /* P A: Styling for links inside paragraphs */
 p a {
-    color: #7d3ac1; /* Purple text color */
-    text-decoration: none; /* Remove underline */
+    color: #7d3ac1;
+    /* Purple text color */
+    text-decoration: none;
+    /* Remove underline */
 }
 
 /* P A: Hover state for links inside paragraphs */
 p a:hover {
-    text-decoration: underline; /* Add underline on hover */
+    text-decoration: underline;
+    /* Add underline on hover */
 }

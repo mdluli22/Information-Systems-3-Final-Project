@@ -36,15 +36,6 @@
             die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
         }
 
-        // query instructions
-        $sql = "SELECT * FROM ticket;-- WHERE ticket_status = 'Processing'";
-        $result = $connection->query($sql);
-
-        // Check if query successfull
-        if ($result === FALSE) {
-            die("<p class=\"error\">Query was Unsuccessful!</p>");
-        }
-
         $halls = "SELECT DISTINCT hall_name FROM hall_secretary";
 
         $residences_result = $connection->query($halls);
@@ -53,8 +44,6 @@
             die("<p class=\"error\">Query was Unsuccessful!</p>");
         }
         
-        // close connection
-        $connection->close();
     ?>
 <!-- <div class="container"> -->
     <!-- Sidebar section for navigation -->
@@ -77,7 +66,7 @@
                 <li id="all-tickets"><a class="sidebar-links active" href="maintenance_all_tickets.php"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
                 <li id="open-tickets"><a class="sidebar-links" href="maintenance_opened_tickets.php"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
                 <li id="closed-tickets"><a class="sidebar-links" href="maintenance_closed_tickets.php"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
-                <li id="statistics"><a class="sidebar-links" href="#"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li> 
+                <li id="statistics"><a class="sidebar-links" href="../Statistics/Stats_maintenance.php"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li> 
             </ul>
         </nav>
 
@@ -145,6 +134,22 @@
                 <tbody>
                     <!-- populate dashboard board with tickets from database -->
                     <?php
+
+                        if(isset($_REQUEST['house_name'])){
+                            $resname = $_REQUEST['house_name'];
+                            $sql = "SELECT * FROM ticket join residence on ticket.resName = residence.resName where hall_name = '$resname' ";
+                        }
+                        else{
+                            $sql = "SELECT * FROM ticket join residence on ticket.resName = residence.resName where hall_name = '$defaulthouse' ";
+                        }
+
+                        $result = $connection->query($sql);
+
+                        // Check if query successfull
+                        if ($result === FALSE) {
+                            die("<p class=\"error\">Query was Unsuccessful!</p>");
+                        }
+
                         while ($row = $result->fetch_assoc())
                         {
                             echo "<tr><td>#{$row['ticketID']}</td>";
@@ -165,6 +170,9 @@
                                     echo "<td><span class='priority low-risk'><span class='circle'></span>&nbsp;&nbsp;Low</span></td></tr>";
                             }
                         }
+
+                        // close connection
+                        $connection->close();
                     ?>
                 </tbody>
             </table>

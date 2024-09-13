@@ -12,7 +12,7 @@ body {
 
 /* Sidebar section with fixed position for navigation */
 .sidebar {
-    background-color: #fff;
+    background-color:#12222E;
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -23,8 +23,8 @@ body {
 
 /* Styling for active links within the sidebar-links section */
 .sidebar-links.active {
-    background-color: #A020F0;
-    color: #fff;
+    background-color:#B45C3D;
+    color:white;
 }
 
 /* Profile section within the sidebar */
@@ -121,7 +121,7 @@ nav ul li {
 nav ul li a {
     align-items: center; /* Aligns items within the link */
     text-decoration: none; /* Removes underline from links */
-    color: #333; /* Sets text color for links */
+    color: white; /* Sets text color for links */
     font-size: 1.125rem; /* Font size for navigation links */
     display: block; /* Makes link a block-level element */
     padding: 0.9375rem; /* Padding for spacing inside the link */
@@ -140,7 +140,7 @@ nav ul li a img {
 
 /* Hover state for navigation links */
 nav ul li a:hover {
-    background-color: #A020F0; /* Background color on hover */
+    background-color:#B45C3D; /* Background color on hover */
 }
 
 /* Profile section at the bottom of the sidebar */
@@ -150,11 +150,12 @@ nav ul li a:hover {
     padding: 0.5625rem; /* Padding around profile section */
     border-top: 0.0625rem solid #ddd; /* Top border for separation */
     position: relative; /* Allows for positioning of pseudo-elements */
+    color: white;
 }
 
 /* Styling for role text */
 .role {
-    color: #666; /* Color for role text */
+    color: white; /* Color for role text */
 }
 
 /* Main content area styling */
@@ -162,7 +163,7 @@ nav ul li a:hover {
     flex-grow: 1; /* Allows content area to fill available space */
     padding: 2.5rem; /* Padding inside the content area */
     padding-right: 5rem; /* Extra padding on the right */
-    background-color: #f0f0f0; /* Background color for content area */
+    background-color:#CFDDE9; /* Background color for content area */
     position: relative; /* Allows for positioning of child elements */
     margin-left: 17.5rem; /* Aligns content next to the sidebar */
 }
@@ -185,23 +186,13 @@ nav ul li a:hover {
 }
 
 .stats-overview{
+    width: 60rem;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     margin-bottom: 1.875rem; /* 30px converted to rem */
 }
 
 
-.stat-item {
-    background-color: #edf2f7;
-    padding: 1.25rem; /* 20px converted to rem */
-    border-radius: 0.625rem; /* 10px border radius converted to rem */
-    text-align: left;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 20%;
-    font-weight: bold;
-}
 
 .sta-img {
     background-color: black;
@@ -220,10 +211,11 @@ nav ul li a:hover {
     text-align: center;
     font-family: Arial, sans-serif;
     align-items: center;
+    margin-right: 0.5rem;
 }
 
 .card-icon {
-    background-color: #edf4ff;
+    background-color:#12222E;
     border-radius: 50%;
     padding: 0.625rem; /* 10px padding converted to rem */
     display: inline-block;
@@ -232,7 +224,7 @@ nav ul li a:hover {
 }
 
 .card-icon1 {
-    background-color: #fff7e0;
+    background-color:#12222E;
     border-radius: 50%;
     padding: 0.625rem; /* 10px padding converted to rem */
     display: inline-block;
@@ -241,7 +233,7 @@ nav ul li a:hover {
 }
 
 .card-icon2 {
-    background-color: #ffecec;
+    background-color: #12222E;
     border-radius: 50%;
     padding: 0.625rem; /* 10px padding converted to rem */
     display: inline-block;
@@ -250,7 +242,7 @@ nav ul li a:hover {
 }
 
 .card-icon3 {
-    background-color: #f0f0ff;
+    background-color: #12222E;
     border-radius: 50%;
     padding: 0.625rem; /* 10px padding converted to rem */
     display: inline-block;
@@ -287,7 +279,7 @@ nav ul li a:hover {
     height: 30rem; /* 480px height converted to rem */
     background: #fff;
     padding: 1.25rem; /* 20px padding converted to rem */
-    margin-left: 0.9375rem; /* 15px margin-left converted to rem */
+    margin-left: 0.30rem; /* 15px margin-left converted to rem */
     border-radius: 0.5rem; /* 8px border radius converted to rem */
     box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); /* 4px 8px shadow converted to rem */
 }
@@ -325,8 +317,8 @@ nav ul li a:hover {
 
 /* Styling for active links within the houses section */
 .houses .house-link.active {
-    color: #A020F0; /* Purple color for active links */
-    border-bottom: 0.3125rem solid #A020F0; /* Purple bottom border for active state */
+    color:#B45C3D; /* Purple color for active links */
+    border-bottom: 0.3125rem solid #B45C3D; /* Purple bottom border for active state */
 }
 
 

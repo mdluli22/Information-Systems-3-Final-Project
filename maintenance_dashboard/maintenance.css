@@ -12,7 +12,7 @@ body {
 
 /* Sidebar section with fixed position for navigation */
 .sidebar {
-    background-color: #fff;
+    background-color:#12222E;
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -72,7 +72,7 @@ body {
     align-items: center; /* Aligns items within the search bar */
     padding: var(--padding); /* Uses variable padding */
     border-radius: 0.5rem; /* Rounded corners for search bar */
-    background: #ddd; /* Background color for search bar */
+    background: white; /* Background color for search bar */
     width: 13.4375rem; /* Fixed width for search bar */
 }
 
@@ -91,7 +91,7 @@ body {
 
 /* Focus state for the search bar */
 .search:focus-within {
-    background: #f6f6f6; /* Background color on focus */
+    background: white; /* Background color on focus */
 }
 
 /* Placeholder and icon color within the search bar */
@@ -115,7 +115,7 @@ nav ul li {
 nav ul li a {
     align-items: center; /* Aligns items within the link */
     text-decoration: none; /* Removes underline from links */
-    color: #333; /* Sets text color for links */
+    color: white; /* Sets text color for links */
     font-size: 1.125rem; /* Font size for navigation links */
     display: block; /* Makes link a block-level element */
     padding: 0.9375rem; /* Padding for spacing inside the link */
@@ -134,12 +134,12 @@ nav ul li a img {
 
 /* Hover state for navigation links */
 nav ul li a:hover {
-    background-color: #A020F0; /* Background color on hover */
+    background-color:#B45C3D; /* Background color on hover */
 }
 
 /* Styling for active links within the sidebar-links section */
 .sidebar-links.active {
-    background-color: #A020F0;
+    background-color: #B45C3D;
     color: #fff;
 }
 
@@ -150,11 +150,12 @@ nav ul li a:hover {
     padding: 0.5625rem; /* Padding around profile section */
     border-top: 0.0625rem solid #ddd; /* Top border for separation */
     position: relative; /* Allows for positioning of pseudo-elements */
+    color: white;
 }
 
 /* Styling for role text */
 .role {
-    color: #666; /* Color for role text */
+    color: white; /* Color for role text */
 }
 
 /* Main content area styling */
@@ -162,7 +163,7 @@ nav ul li a:hover {
     flex-grow: 1; /* Allows content area to fill available space */
     padding: 2.5rem; /* Padding inside the content area */
     padding-right: 5rem; /* Extra padding on the right */
-    background-color: #f0f0f0; /* Background color for content area */
+    background-color:  #CFDDE9; /* Background color for content area */
     position: relative; /* Allows for positioning of child elements */
     margin-left: 17.5rem; /* Aligns content next to the sidebar */
 }
@@ -185,7 +186,7 @@ header h1 {
 
 /* Styling for username within the header */
 header h1 .username {
-    color: #A020F0; /* Purple color for username text */
+    color: black; /* Purple color for username text */
 }
 
 /* Adds space below the houses section */
@@ -207,8 +208,8 @@ header h1 .username {
 
 /* Styling for active links within the houses section */
 .houses .house-link.active {
-    color: #A020F0; /* Purple color for active links */
-    border-bottom: 0.3125rem solid #A020F0; /* Purple bottom border for active state */
+    color:#B45C3D; /* Purple color for active links */
+    border-bottom: 0.3125rem solid #B45C3D; /* Purple bottom border for active state */
 }
 
 /* Make scrollbar so that only 4 tickets are displayed at a time */
@@ -224,8 +225,9 @@ header h1 .username {
 table thead {
     position: sticky;
     top: 0;
-    background-color: lightgray; /* Ensure background is set to avoid transparency issues */
+    background-color: #12222E; /* Ensure background is set to avoid transparency issues */
     /* z-index: 1000; Ensure header stays above the other table content */
+    color: white;
 }
 
 /* Styling for ticket table */

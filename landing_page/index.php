@@ -46,9 +46,8 @@
                 <a href="help.html">Resources</a>
         </div>
     </header>
-
-
-    <!-- <div id="background-gradient">
+    
+    <div id="background-gradient">
         <section class="hero">
             <div class="hero-content">
                 <h2>Saving Your Day, One Fix at a Time</h2>

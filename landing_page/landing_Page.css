@@ -7,30 +7,36 @@
 
 /* Global styles for the body */
 body {
-    font-family: Arial, sans-serif; /* Sets the font */
+    font-family: Arial, sans-serif;
+    /* Sets the font */
     line-height: 1.6rem;
+    /* Improves readability */
+    /* background-color: #A020F0; Light background color*/
+    /* background: linear-gradient(135deg, #ececec, #d1cfd1); Background gradient */
     color: #333;
-    background-color: #CFDDE9;  /* Default text color */
-    padding-top: 5.8125rem;
+    /* Default text color */
+    background-color: #CFDDE9;
 }
 
 /* Header styles: Top navigation bar */
 .header {
-    display: flex;   /* Flexbox layout for alignment */
-    justify-content: space-between; /* Space between logo, nav, and buttons */
-    align-items: center;    /* Vertically align items */
+    display: flex;
+    /* Flexbox layout for alignment */
+    justify-content: space-between;
+    /* Space between logo, nav, and buttons */
+    align-items: center;
+    /* Vertically align items */
     padding: 0rem 7%;
-    background-color: #fff;  /* White background */
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);  /* Subtle shadow for depth */
-    position: fixed; /* Fixes the header at the top */
-    top: 0; /* Aligns the header at the top of the viewport */
-    width: 100%; /* Ensures the header spans the full width */
-    z-index: 1000; /* Keeps the header on top of other content */
+    background-color: #fff;
+    /* White background */
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+    /* Subtle shadow for depth */
 }
 
 /* insert header pic */
 #header-pic {
-    background-color: #12222E;
+    /* the dark blue colour for back-colour */
+    background-color: #12222E; 
     width: 100%;
     height: 5.8125rem;
 }
@@ -137,6 +143,7 @@ body {
 /* Specific style for the "Login" button */
 .header .auth-buttons .login-btn {
     color: white;
+    /* rust brown for the background color */
     background-color: #B45C3D;
     box-shadow: 0 0.125rem 0.25rem #000929;
 }

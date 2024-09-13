@@ -34,6 +34,7 @@
             <a href="#" class="signup-btn" id="signup-btn">Sign up</a>
         </div>
     </header>
+    
     <div id="background-gradient">
         <section class="hero">
             <div class="hero-content">

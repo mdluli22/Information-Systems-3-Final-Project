@@ -20,7 +20,7 @@
         }
     </style>
 </head>
-<body>
+<bo accesskey=""dy>
 
     <?php
         // if (isset(($_REQUEST['submit']))) {

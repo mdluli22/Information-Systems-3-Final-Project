@@ -12,7 +12,7 @@ body {
 
 /* Sidebar section with fixed position for navigation */
 .sidebar {
-    background-color: #fff;
+    background-color: #12222E;
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -36,7 +36,7 @@ body {
 /* Profile picture styling */
 .profile-pic {
     background-color: #ddd;
-    color: #333;
+    color: white;
     width: 2.8125rem; /* Fixed width for profile picture */
     height: 2.8125rem; /* Fixed height for profile picture */
     border-radius: 50%; /* Circular profile picture */
@@ -53,6 +53,7 @@ body {
     font-weight: bold; /* Bold font for profile information */
     flex-grow: 1; /* Allows profile info to grow and fill available space */
     line-height: 1.9375rem; /* Line height for readability */
+    color: white;
 }
 
 /* Styling for role text within profile info */
@@ -73,7 +74,7 @@ body {
     align-items: center; /* Aligns items within the search bar */
     padding: var(--padding); /* Uses variable padding */
     border-radius: 0.5rem; /* Rounded corners for search bar */
-    background: #ddd; /* Background color for search bar */
+    background: white; /* Background color for search bar */
     width: 13.4375rem; /* Fixed width for search bar */
 }
 
@@ -116,7 +117,7 @@ nav ul li {
 nav ul li a {
     align-items: center; /* Aligns items within the link */
     text-decoration: none; /* Removes underline from links */
-    color: #333; /* Sets text color for links */
+    color:white; /* Sets text color for links */
     font-size: 1.125rem; /* Font size for navigation links */
     display: block; /* Makes link a block-level element */
     padding: 0.9375rem; /* Padding for spacing inside the link */
@@ -135,18 +136,18 @@ nav ul li a img {
 
 /* Hover state for navigation links */
 nav ul li a:hover {
-    background-color: #A020F0; /* Background color on hover */
+    background-color:#B45C3D; /* Background color on hover */
 }
 
 /* Styling for active links within the sidebar-links section */
 .sidebar-links.active {
-    background-color: #A020F0;
+    background-color: #B45C3D;
     color: #fff;
 }
 
 
 /* Profile section at the bottom of the sidebar */
-.profile {
+.profile { 
     text-align: left;
     margin-top: auto; /* Pushes profile section to the bottom */
     padding: 0.5625rem; /* Padding around profile section */
@@ -156,7 +157,7 @@ nav ul li a:hover {
 
 /* Styling for role text */
 .role {
-    color: #666; /* Color for role text */
+    color: white; /* Color for role text */
 }
 
 /* Main content area styling */
@@ -164,7 +165,7 @@ nav ul li a:hover {
     flex-grow: 1; /* Allows content area to fill available space */
     padding: 2.5rem; /* Padding inside the content area */
     padding-right: 5rem; /* Extra padding on the right */
-    background-color: #f0f0f0; /* Background color for content area */
+    background-color:#CFDDE9; /* Background color for content area */
     position: relative; /* Allows for positioning of child elements */
     margin-left: 17.5rem; /* Aligns content next to the sidebar */
 }
@@ -187,7 +188,7 @@ header h1 {
 
 /* Styling for username within the header */
 header h1 .username {
-    color: #A020F0; /* Purple color for username text */
+    color:black; /* Purple color for username text */
 }
 
 /* Adds space below the houses section */
@@ -209,8 +210,8 @@ header h1 .username {
 
 /* Styling for active links within the houses section */
 .houses .house-link.active {
-    color: #A020F0; /* Purple color for active links */
-    border-bottom: 0.3125rem solid #A020F0; /* Purple bottom border for active state */
+    color:#B45C3D; /* rust like color for active links */
+    border-bottom: 0.3125rem solid #B45C3D; /* rust like   bottom border for active state */
 }
 
 /* Make scrollbar so that only 4 tickets are displayed at a time */
@@ -227,8 +228,9 @@ header h1 .username {
 table thead {
     position: sticky;
     top: 0;
-    background-color: lightgray; /* Ensure background is set to avoid transparency issues */
+    background-color:#12222E; /* Ensure background is set to avoid transparency issues */
     z-index: 1; /* Ensure header stays above the other table content */
+    color: white;
 }
 
 /* Styling for ticket table */

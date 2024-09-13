@@ -1,9 +1,9 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: Inter, sans-serif;
     margin: 0 10rem;
     padding: 0;
     /* background: linear-gradient(180deg, rgba(174, 92, 220, 0.2) 0%, rgba(95, 63, 112, 0) 100%); */
-    background-color: #f2e6f7;
+    background-color:#CFDDE9;
 }
 
 h2 {
@@ -20,26 +20,32 @@ h2 {
     margin-bottom: 0.625rem;
 }
 
-/* Adds vertical space around the header */
+
 header {
-    margin: 1.25rem 0px;
+    /* margin: 1.25rem 0px;
+    display: flex;
+    padding: 0rem 7%; */
+
+    background-color: #12222E;
+    width: 100%;
+    height: 5.8125rem;
+    padding-left: 10%;
+    margin-right: 10%;
+    
 }
 
 /* Styles the main header text with no margin and a large font size */
 header h1 {
     margin: 0;
     font-size: 2rem;
-    padding-left: 1.875rem;
+    /* padding-left: 1.875rem; */
+    color: white;
 }
 
-/* Styles a username span inside the header with a purple color */
-header h1 .username {
-    color: #A020F0;
- 
-}
+
 
 p {
-    color: lightslategray;
+    color:white;
     font-family: 'Inter', sans-serif;
     padding-left: 2rem;
 }
@@ -74,6 +80,8 @@ img {
     right: 0;
     width: 6.25rem; /* 100px / 16 = 6.25rem */
     height: auto; /* Maintain aspect ratio */
-    padding-right: 12rem;
+    padding-right: 15rem;
     /* padding-left: 7rem; */
+    float: right;
+    margin-top: 20px;
 }

@@ -1,11 +1,11 @@
 <?php
 
 session_start();
-if (isset($_SESSION['login'])) {
+if (isset($_SESSION['access'])) {
     // remove all session variables
     session_unset();
     // destroy the session
     session_destroy();
 }
 
-header("Location:landing_Pagibf.html");
+header("Location: home.php");

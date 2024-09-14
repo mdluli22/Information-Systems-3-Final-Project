@@ -28,8 +28,8 @@
         }
         
         $residences = 
-        "SELECT DISTINCT concat(hall_secretary.f_Name, ' ', hall_secretary.l_name) AS 'hall_secretary_name', house_warden.resName AS 'residences'
-        FROM house_warden JOIN hall_secretary ON hall_secretary.HS_userName = house_warden.HS_userName
+        "SELECT DISTINCT concat(hall_secretary.f_Name, ' ', hall_secretary.l_name) AS 'hall_secretary_name', resName AS 'residences'
+        FROM residence JOIN hall_secretary ON hall_secretary.hall_name = residence.hall_name
         WHERE hall_secretary.HS_userName = '$hall_sec_userName';";
 
         $residences_result = $connection->query($residences);

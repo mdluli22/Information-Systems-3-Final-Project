@@ -1,3 +1,14 @@
+<?php
+
+    require_once("secure.php");
+
+    if (isset($_SESSION['username'])) {
+        // echo 'Session Username: ' . $_SESSION['username'];
+        $MaintenanceID = $_SESSION['username'];
+    }else {
+        die("User is not logged in.");
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,6 +54,16 @@
         if ($residences_result === FALSE) {
             die("<p class=\"error\">Query was Unsuccessful!</p>");
         }
+
+        $sql = "SELECT concat(f_Name,  ' ', l_Name) as 'name' FROM maintenance_staff  WHERE userName = '$MaintenanceID'";
+        $thename = $connection -> query($sql);
+
+
+        if ($thename === FALSE) {
+            die("<p class=\"error\">Query was Unsuccessful!</p>");
+        }
+
+        $name = $thename->fetch_assoc();
         
     ?>
 <!-- <div class="container"> -->
@@ -66,7 +87,7 @@
                 <li id="all-tickets"><a class="sidebar-links active" href="maintenance_all_tickets.php"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
                 <li id="open-tickets"><a class="sidebar-links" href="maintenance_opened_tickets.php"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
                 <li id="closed-tickets"><a class="sidebar-links" href="maintenance_closed_tickets.php"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
-                <li id="statistics"><a class="sidebar-links" href="../Statistics/Stats_maintenance.php"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li> 
+                <li id="statistics"><a class="sidebar-links" href="Stats_maintenance.php"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li> 
             </ul>
         </nav>
 
@@ -80,7 +101,7 @@
             </div>
             <!-- Profile information area -->
             <div class="profile-info">
-                <span id="user-name" class="username"><?php echo "Staff Member"?></span><br>
+                <span id="user-name" class="username"><?php echo $name['name']?></span><br>
                 <span class="role"><?php echo "Maintenance"?></span>
             </div>
             <!-- Logout button with icon -->
@@ -94,11 +115,11 @@
     <main class="content">
         <header class="page-header">
             <!-- Welcome message -->
-            <h1>Welcome, <span class="username"><?php echo "Staff Member"?></span></h1>
+            <h1>Welcome, <span class="username"><?php echo $name['name']?></span></h1>
             <p>Access & Manage maintenance requisitions efficiently.</p>
         </header>
 
-        <!-- House selection links -->
+    
         <nav class="houses">
                 <?php
                     

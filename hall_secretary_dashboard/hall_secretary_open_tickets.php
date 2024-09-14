@@ -26,7 +26,7 @@
         // if (isset(($_REQUEST['submit']))) {
             // get hall name from login page/pop-up
             $hall_sec_userName = "h01b5432";
-            $hall_name = "Solomon Kalushi Mahlangu Hall";// $_REQUEST['hall_name'];
+            $hall_name = "Solomon Mahlangu Hall";// $_REQUEST['hall_name'];
 
             // include database details from config.php file
             require_once("config.php");
@@ -57,8 +57,8 @@
 
             // Get res names of hall overseen by the hall secretary
             $residences = 
-                "SELECT DISTINCT concat(hall_secretary.f_Name, ' ', hall_secretary.l_name) AS 'hall_secretary_name', house_warden.resName AS 'residences'
-                FROM house_warden JOIN hall_secretary ON hall_secretary.HS_userName = house_warden.HS_userName
+                "SELECT DISTINCT concat(hall_secretary.f_Name, ' ', hall_secretary.l_name) AS 'hall_secretary_name', resName AS 'residences'
+                FROM residence JOIN hall_secretary ON hall_secretary.hall_name = residence.hall_name
                 WHERE hall_secretary.HS_userName = '$hall_sec_userName';";
             $residences_result = $connection->query($residences);
 
@@ -146,48 +146,6 @@
                 ?>
             </nav>
 
-            <!-- Ticket table section -->
-            <!-- <section class="ticket-table scrollbar">
-                <table>
-                    <thead> -->
-                        <!-- Table headers -->
-                        <!-- <tr>
-                            <th>Ticket Number</th>
-                            <th>Description</th>
-                            <th>Status</th>
-                            <th>Date</th>
-                            <th>Category</th>
-                            <th>Priority</th>
-                        </tr>
-                    </thead>
-                    <tbody> -->
-                        <!-- populate dashboard board with tickets from database -->
-                        <?php
-                            // while ($row = $result->fetch_assoc())
-                            // {
-                            //     echo "<tr><td>#{$row['ticketID']}</td>";
-                            //     echo "<td>{$row['ticket_description']}</td>";
-                            //     // if ($row['ticket_status'] == "Processing") {
-                            //     echo "<td><span class='status processing'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
-                            //     // }
-                            //     echo "<td>" . date("D h:ia", strtotime($row['ticketDate'])) . "</td>";
-                            //     echo "<td>{$row['category']}</td>";
-                            //     switch (strtolower($row['priority'])) {
-                            //         case "high":
-                            //             echo "<td><span class='priority high-risk'><span class='circle'></span>&nbsp;&nbsp;High</span></td></tr>";
-                            //             break;
-                            //         case "medium":
-                            //             echo "<td><span class='priority medium-risk'><span class='circle'></span>&nbsp;&nbsp;Medium</span></td></tr>";
-                            //             break;
-                            //         default:
-                            //             echo "<td><span class='priority low-risk'><span class='circle'></span>&nbsp;&nbsp;Low</span></td></tr>";
-                            //     }
-                            // }
-                        ?>
-                    <!-- </tbody>
-                </table>
-            </section> -->
-            
             <?php
                 if (isset($ticketID) && !empty($ticketID)) {
                     echo "<div class='success'>Successfully Approved Request!</div>";
@@ -205,7 +163,6 @@
                 <!-- populate maintenance faults pending approval -->
                  <div class="requests">
                     <?php
-                        // $x = 0;
                         while ($row = $pending_result->fetch_assoc()) {
                             echo "<article class='request'>
                                     <div class='request-top-btns request-btns'>
@@ -218,19 +175,19 @@
                                         <p><strong>{$row['full_name']}</strong></p>
                                         <p>Residence: <strong>{$row['resName']}</strong></p>
                                         <p>Room Number: <strong>{$row['room_number']}</strong></p>
+                                        <p>Priority: <strong>{$row['priority']}</strong></p>
                                         <form class='request-form' action='hall_secretary_open_tickets.php' method='get'>
                                             <input type='hidden' name='ticketID' value='{$row['ticketID']}'>
+                                            <textarea class='comment-section' name='comment' rows=5 cols=100 ></textarea>
+                                            
                                             <button type='submit' name='approve_request' class='approve-btn request-btns'>
                                                 <i class='fa-solid fa-plus' style='color: #a020f0;'></i>&nbsp;&nbsp;&nbsp;Approve Request
                                             </button>
                                         </form>
-                                        <p>Priority: <strong>{$row['priority']}</strong></p>
                                         
                                     </div>
                                   </article>";
-                            // $x++;
                         }
-                        // echo $x;
                     ?>
                 </div>
             </section>

@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $comment_description = $_POST['comment_description'];
     $userName = $_POST['userID']; // Replace this with the actual user session value
     $page = $_POST['page']; //the page the processor must go back to to return the data
+    $currentDate = (new DateTime())->format('Y-m-d H:i:s'); // Automatically capture the current date
 
     // attempt to make database connection
     $connection = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
@@ -19,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Insert the comment into the comment table
-    $sql_insert = "INSERT INTO systemsurgeons.comment (ticketID, userName, comment_description) VALUES ('$ticketID', '$userName', '$comment_description')";
+    $sql_insert = "INSERT INTO systemsurgeons.comment (ticketID, userName, comment_description, comment_date, soft_delete_comment) VALUES ('$ticketID', '$userName', '$comment_description', '$currentDate', false)";
 
     if ($connection->query($sql_insert) === TRUE) {
         // Redirect back to the ticket page

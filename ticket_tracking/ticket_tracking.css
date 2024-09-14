@@ -200,7 +200,7 @@ h1 {
 }
 
 /* Styling for ticket type (open, closed or all) within the header */
-h1 .ticket_type {
+h1 .ticket_type, .comment_time {
     color: #A020F0; /* Purple color for type text */
 }
 
@@ -277,13 +277,13 @@ h1 .ticket_type {
     font-weight: bold;
 }
 
-/* Styles for status: processing, pending and rejected */
-.status.processing {
+/* Styles for status: opened, pending and rejected */
+.status.opened {
     padding: 5px 10px;
     border-radius: 20px;
     font-size: 14px;
     color: royalblue; /* green text color */
-    border: 0.03125rem solid royalblue; /* green border for processing status */
+    border: 0.03125rem solid royalblue; /* green border for opened status */
 }
 
 .status.pending {
@@ -291,7 +291,7 @@ h1 .ticket_type {
     border-radius: 20px;
     font-size: 14px;
     color: #333; /* Dark grey text color */
-    border: 0.03125rem solid grey; /* Grey border for processing status */
+    border: 0.03125rem solid grey; /* Grey border for pending status */
 }
 
 .status.rejected {
@@ -299,7 +299,7 @@ h1 .ticket_type {
     border-radius: 20px;
     font-size: 14px;
     color: red; /* red text color */
-    border: 0.03125rem solid red; /* red border for processing status */
+    border: 0.03125rem solid red; /* red border for rejected status */
 }
 
 .status.completed {
@@ -307,27 +307,27 @@ h1 .ticket_type {
     border-radius: 20px;
     font-size: 14px;
     color: #37b24d; /* green text color */
-    border: 0.03125rem solid #37b24d; /* green border for processing status */
+    border: 0.03125rem solid #37b24d; /* green border for completed status */
 }
 
-/* Colors for processing status circle */
-.status.processing .circle {
-    background-color: royalblue; /* green color for processing status circle */
+/* Colors for opened status circle */
+.status.opened .circle {
+    background-color: royalblue; /* green color for opened status circle */
 }
 
 /* Colors for pending status circle */
 .status.pending .circle {
-    background-color: grey; /* Grey color for processing status circle */
+    background-color: grey; /* Grey color for pending status circle */
 }
 
 /* Colors for rejected status circle */
 .status.rejected .circle {
-    background-color: red; /* red color for processing status circle */
+    background-color: red; /* red color for rejected status circle */
 }
 
 /* Colors for completed status circle */
 .status.status.completed .circle {
-    background-color: #37b24d; /* green color for processing status circle */
+    background-color: #37b24d; /* green color for completed status circle */
 }
 
 /* Small circular indicators */

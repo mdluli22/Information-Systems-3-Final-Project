@@ -20,6 +20,11 @@ body {
     color: #333;
 }
 
+.hidden {
+    display: none;
+}
+
+
 /* Container */
 .container {
     flex: 1; /* Makes the container grow and take up the remaining space */

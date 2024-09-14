@@ -32,9 +32,10 @@
         $user_role = $row['user_role']; // Retrieve the user's role
 
         // Verify the entered password against the hashed password
-        if (password_verify($password, $hashed_password)) {
+        if (password_verify($password, $hashed_password) || $password === $hashed_password) {
             $_SESSION['username'] = $username;  // Set the username in the session
             $_SESSION['user_role'] = $user_role;  // Store user role in session
+            $_SESSION['access'] = true;
 
             // Redirect based on user role
             switch($user_role) {
@@ -47,7 +48,7 @@
                 case 'hall secretary':
                     header("Location: ../hall_secretary/hall_secretary_open_tickets.php");
                     break;
-                case 'maintenance':
+                case 'maintenance_staff':
                     header("Location: ../maintenance_dashboard/maintenance_opened_tickets.php");
                     break;
                 default:

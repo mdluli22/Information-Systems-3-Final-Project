@@ -81,8 +81,16 @@
             </div>
         </div>
 
-
         <!-- Sign-up section -->
+        <label for="role">Role</label>
+        <select name="role" id="role" required>
+            <option value="">Select Role</option>
+            <option value="student">Student</option>
+            <option value="houseWarden">House Warden</option>
+            <option value="hallSec">Hall Secretary</option>
+            <option value="maintenancePersonnel">Maintenance Personnel</option>
+        </select>
+
         <div id="signup-section" class="signup-section">
             <span class="close-btn1">&times;</span>
             <div class="container">
@@ -99,29 +107,32 @@
                     <label for="email">Email</label>
                     <input type="email" id="email" placeholder="g12s3456@campus.ru.ac.za" name="email" required>
 
-                    <label for="resName">Resident Name</label>
-                    <input type="text" id="resName" placeholder="res name" name="resName" required>
+                    <div id="studentFields" style="display: none;">
+                        
+                        <label for="resName">Resident Name</label>
+                        <input type="text" id="resName" placeholder="res name" name="resName" required>
 
-                    <label for="hall">Hall Name</label>
-                    <select name="hall" id="hall" required>
-                        <option value="">Please enter fault category</option>
-                        <option value="Miriam Makeba Hall">Miriam Makeba Hall</option>
-                        <option value="Mandela Hall">Mandela Hall</option>
-                        <option value="Solomon Kalushi Mahlangu">Solomon Kalushi Mahlangu</option>
-                        <option value="Lillian Ngoyi Hall">Lillian Ngoyi Hall</option>
-                        <option value="Courtenay-Latimer Hall">Courtenay-Latimer Hall</option>
-                        <option value="Kimberly Hall">Kimberly Hall</option>
-                        <option value="Allan Webb Hall">Allan Webb Hall</option>
-                        <option value="St Mary Hall">St Mary Hall</option>
-                        <option value="Hobson Hall">Hobson Hall</option>
-                        <option value="Desmond Tutu">Desmond Tutu</option>
-                        <option value="Drostdy Hall">Drostdy Hall</option>
-                        <option value="Founders Hall">Founders Hall</option>
-                        <option value="Hugh Masekela Hall">Hugh Masekela Hall</option>
-                    </select>
+                        <label for="hall">Hall Name</label>
+                        <select name="hall" id="hall" required>
+                            <option value="">Please enter fault category</option>
+                            <option value="Miriam Makeba Hall">Miriam Makeba Hall</option>
+                            <option value="Mandela Hall">Mandela Hall</option>
+                            <option value="Solomon Kalushi Mahlangu">Solomon Kalushi Mahlangu</option>
+                            <option value="Lillian Ngoyi Hall">Lillian Ngoyi Hall</option>
+                            <option value="Courtenay-Latimer Hall">Courtenay-Latimer Hall</option>
+                            <option value="Kimberly Hall">Kimberly Hall</option>
+                            <option value="Allan Webb Hall">Allan Webb Hall</option>
+                            <option value="St Mary Hall">St Mary Hall</option>
+                            <option value="Hobson Hall">Hobson Hall</option>
+                            <option value="Desmond Tutu">Desmond Tutu</option>
+                            <option value="Drostdy Hall">Drostdy Hall</option>
+                            <option value="Founders Hall">Founders Hall</option>
+                            <option value="Hugh Masekela Hall">Hugh Masekela Hall</option>
+                        </select>
 
-                    <label for="roomNumber">Room Number</label>
-                    <input type="text" id="roomNumber" placeholder="123" name="roomNumber" pattern="\d{1,3}" required>
+                        <label for="roomNumber">Room Number</label>
+                        <input type="text" id="roomNumber" placeholder="123" name="roomNumber" pattern="\d{1,3}" required>
+                    </div>
 
                     <label for="username">Username</label>
                     <input type="text" id="username" placeholder="g12s3456" name="username" required maxlength="8">
@@ -135,6 +146,66 @@
             </div>
         </div>
     </section>
+    <script>
+        // Role-based form handling
+        document.getElementById('role').addEventListener('change', function () {
+            let role = this.value;
+            
+            // Hide all conditional fields by default
+            document.getElementById('studentFields').style.display = 'none';
+            
+            // Show specific fields based on role
+            if (role === 'student') {
+                document.getElementById('studentFields').style.display = 'block';
+            }
+            // Add more conditions for other roles if needed
+        });
+
+        // Toggle mobile menu
+        document.querySelector('.burger').addEventListener('click', function() {
+            document.querySelector('.mobile-menu').classList.toggle('active');
+        });
+
+        // Login modal functionality
+        const loginModal = document.getElementById("login-modal");
+        const loginBtn = document.getElementById("login-btn");
+        const closeBtn = document.querySelector(".close-btn");
+
+        loginBtn.onclick = function() {
+            loginModal.style.display = "block";
+        }
+
+        closeBtn.onclick = function() {
+            loginModal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == loginModal) {
+                loginModal.style.display = "none";
+            }
+        }
+
+        // Sign-up modal functionality
+        const signupModal = document.getElementById("signup-section");
+        const signupBtn = document.getElementById("sign-up-btn");
+        const closeSignupBtn = document.querySelector(".close-btn1");
+
+        signupBtn.onclick = function() {
+            signupModal.style.display = "block";
+        }
+
+        closeSignupBtn.onclick = function() {
+            signupModal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == signupModal) {
+                signupModal.style.display = "none";
+            }
+        }
+    </script>
+
+
 
     <!-- <div class="page-on-home">
         <article>

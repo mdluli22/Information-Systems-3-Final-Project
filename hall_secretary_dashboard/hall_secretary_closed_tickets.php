@@ -1,3 +1,6 @@
+<?php
+    require_once("secure.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,13 +24,11 @@
     </style>
 </head>
 <body>
-
     <?php
         // if (isset(($_REQUEST['submit']))) {
-            // get hall name from login page/pop-up
-            $hall_sec_userName = "h01b5432";
-            $hall_name = "Solomon Kalushi Mahlangu Hall";// $_REQUEST['hall_name'];
-
+            // get hall_sec username from login page/pop-up
+            $hall_sec_userName = $_SESSION['username'];
+    
             // include database details from config.php file
             require_once("config.php");
 
@@ -39,24 +40,27 @@
                 die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
             }
 
-            // query instructions
-            $sql = "SELECT * FROM ticket WHERE ticket_status IN ('Rejected', 'Completed') ORDER BY ticketID DESC;";
-            $result = $connection->query($sql);
+            // get information of Reject and Completed
+            $ticket_sql = "SELECT * FROM ticket WHERE ticket_status IN ('Rejected', 'Completed') ORDER BY ticketID DESC;";
+            $ticket_result = $connection->query($ticket_sql);
 
             // Get res names of hall overseen by the hall secretary
-            $residences = 
+            $residences_query = 
                 "SELECT DISTINCT concat(hall_secretary.f_Name, ' ', hall_secretary.l_name) AS 'hall_secretary_name', house_warden.resName AS 'residences'
                 FROM house_warden JOIN hall_secretary ON hall_secretary.HS_userName = house_warden.HS_userName
                 WHERE hall_secretary.HS_userName = '$hall_sec_userName';";
-            $residences_result = $connection->query($residences);
+            $residences_result = $connection->query($residences_query);
 
-            $pending_query = 
-                "SELECT concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority
-                FROM student s JOIN ticket t ON s.userName = t.userName;";
-            $pending_result = $connection->query($pending_query);
+
+            // COMMENTED OUT PENDING on CLOSED TICKETS PAGE
+
+            // $pending_query = 
+            //     "SELECT concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority
+            //     FROM student s JOIN ticket t ON s.userName = t.userName;";
+            // $pending_result = $connection->query($pending_query);
 
             // Check if query successful
-            if ($result === FALSE || $pending_result === FALSE) {
+            if ($ticket_result === FALSE || $residences_result === FALSE) { // || $pending_result === FALSE) {
                 die("<p class=\"error\">Query was Unsuccessful!</p>");
             }
             
@@ -82,10 +86,10 @@
             <nav>
                 <ul id="sidebar-nav">
                     <!-- Navigation links with icons -->
-                    <li id="all-tickets"><a class="sidebar-links" href="<?php echo "hall_secretary_all_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
-                    <li id="open-tickets"><a class="sidebar-links" href="<?php echo "hall_secretary_open_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"; ?>"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
-                    <li id="closed-tickets"><a class="sidebar-links active" href="<?php echo "hall_secretary_closed_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"; ?>"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
-                    <li id="statistics"><a class="sidebar-links" href="<?php echo "../Statistics/Stats_hallsec.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
+                    <li id="all-tickets"><a class="sidebar-links" href="<?php echo "hall_secretary_all_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}"?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
+                    <li id="open-tickets"><a class="sidebar-links" href="<?php echo "hall_secretary_open_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}"; ?>"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
+                    <li id="closed-tickets"><a class="sidebar-links active" href="<?php echo "hall_secretary_closed_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}"; ?>"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
+                    <li id="statistics"><a class="sidebar-links" href="<?php echo "../Statistics/Stats_hallsec.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}"?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
                 </ul>
             </nav>
     
@@ -149,7 +153,7 @@
                     <tbody>
                         <!-- populate dashboard board with tickets from database -->
                         <?php
-                            while ($row = $result->fetch_assoc())
+                            while ($row = $ticket_result->fetch_assoc())
                             {
                                 echo "<tr><td>#{$row['ticketID']}</td>";
                                 echo "<td>{$row['ticket_description']}</td>";

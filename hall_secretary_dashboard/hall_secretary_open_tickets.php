@@ -1,3 +1,6 @@
+<?php
+    require_once("secure.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,61 +24,70 @@
     </style>
 </head>
 <body>
-
     <?php
-        // if (isset(($_REQUEST['submit']))) {
-            // get hall name from login page/pop-up
-            $hall_sec_userName = "h01b5432";
-            $hall_name = "Solomon Mahlangu Hall";// $_REQUEST['hall_name'];
+    // if (isset(($_REQUEST['submit']))) {
+    // get hall_sec username from login page/pop-up
+    $hall_sec_userName = $_SESSION['username'];
+    
+    // include database details from config.php file
+    require_once("config.php");
 
-            // include database details from config.php file
-            require_once("config.php");
+    // attempt to make database connection
+    $connection = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
 
-            // attempt to make database connection
-            $connection = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
+    // Check if connection was successful
+    if ($connection->connect_error) {
+        die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
+    }
 
-            // Check if connection was successful
-            if ($connection->connect_error) {
-                die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
-            }
+    // Remove approved requests from maintenance requests list
+    if (isset(($_REQUEST['approve_request']))) {
+        $ticketID = $_REQUEST['ticketID'];
+        $remove_request = "UPDATE ticket SET ticket_status = 'Confirmed' WHERE ticketID = $ticketID";
+        $remove_request_result = $connection->query($remove_request);
 
-            // Remove approved requests from maintenance requests list
-            if (isset(($_REQUEST['approve_request']))) {
-                $ticketID = $_REQUEST['ticketID'];
-                $remove_request = "UPDATE ticket SET ticket_status = 'Processing' WHERE ticketID = $ticketID";
-                $remove_request_result = $connection->query($remove_request);
-                
-                // Check if request removal was successful
-                if ($remove_request_result === FALSE) {
-                    die("<p class=\"error\">Request removal was Unsuccessful!</p>");
-                }
-            }
+        // Check if request removal was successful
+        if ($remove_request_result === FALSE) {
+            die("<p class=\"error\">Request removal was Unsuccessful!</p>");
+        }
+    }
 
-            // query instructions
-            $sql = "SELECT * FROM ticket;";
-            $result = $connection->query($sql);
+    //  use hall_sec userName to hall name
+    $hall_name_sql = 
+      "SELECT hall_name FROM hall_secretary WHERE HS_userName = '$hall_sec_userName';";
+    $hall_name_result = $connection->query($hall_name_sql);
+    
+    // get ticket information
+    $ticket_sql = "SELECT * FROM ticket;";
+    $ticket_result = $connection->query($ticket_sql);
 
-            // Get res names of hall overseen by the hall secretary
-            $residences = 
-                "SELECT DISTINCT concat(hall_secretary.f_Name, ' ', hall_secretary.l_name) AS 'hall_secretary_name', resName AS 'residences'
+    // Get res names of hall overseen by the hall secretary
+    $residences =
+        "SELECT DISTINCT f_Name, CONCAT(hall_secretary.f_Name, ' ', hall_secretary.l_name) AS 'hall_secretary_name', CONCAT(LEFT(hall_secretary.f_Name, 1), LEFT(hall_secretary.l_Name, 1)) AS initials, resName AS 'residences'
                 FROM residence JOIN hall_secretary ON hall_secretary.hall_name = residence.hall_name
                 WHERE hall_secretary.HS_userName = '$hall_sec_userName';";
-            $residences_result = $connection->query($residences);
-
-            $pending_query = 
-                "SELECT ticketID, concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority
+    $residences_result = $connection->query($residences);
+    // get hall secretary name + initials
+    $residence = $residences_result->fetch_assoc();
+                            
+    $opened_tickets_query =
+        "SELECT ticketID, concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority
                 FROM student s JOIN ticket t ON s.userName = t.userName
-                WHERE ticket_status = 'Pending';";
-            $pending_result = $connection->query($pending_query);
+                WHERE ticket_status = 'Opened';";
+    $opened_tickets_result = $connection->query($opened_tickets_query);
 
-            // Check if query successful
-            if ($result === FALSE || $pending_result === FALSE) {
-                die("<p class=\"error\">Query was Unsuccessful!</p>");
-            }
-            
-            // close connection
-            $connection->close();
-        // }
+    // Check if query successful
+    if ($ticket_result === FALSE || !$hall_name_result || !$residences_result || !$opened_tickets_result) {
+        die("<p class=\"error\">Query was Unsuccessful!</p>");
+    }
+
+    // get hall name of hall_sec
+    // REPLACED $hall_name with $_SESSION['hall_name]
+    $_SESSION['hall_name'] = $hall_name_result->fetch_assoc()['hall_name'];
+
+    // close connection
+    $connection->close();
+    // }
     ?>
     <div class="container">
         <!-- Sidebar section for navigation -->
@@ -84,36 +96,41 @@
             <div class="logo">
                 <h2>ResQue</h2>
             </div>
-            
+
             <!-- Search bar in the sidebar -->
             <form action="hall_secretary_open_dashboard.php" method="post" class="search">
                 <span id="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
                 <input class="search-input" type="search" name="search-field" id="search-field" placeholder="Search">
             </form>
-            
+
             <!-- Navigation menu in the sidebar -->
             <nav>
                 <ul id="sidebar-nav">
                     <!-- Navigation links with icons -->
-                    <li id="all-tickets"><a class="sidebar-links" href="<?php echo "hall_secretary_all_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
-                    <li id="open-tickets"><a class="sidebar-links active" href="<?php echo "hall_secretary_open_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"; ?>"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
-                    <li id="closed-tickets"><a class="sidebar-links" href="<?php echo "hall_secretary_closed_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"; ?>"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
-                    <li id="statistics"><a class="sidebar-links" href="<?php echo "../Statistics/Stats_hallsec.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
+                    <li id="all-tickets"><a class="sidebar-links" href="<?php echo "hall_secretary_all_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}" ?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
+                    <li id="open-tickets"><a class="sidebar-links active" href="<?php echo "hall_secretary_open_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}"; ?>"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
+                    <li id="closed-tickets"><a class="sidebar-links" href="<?php echo "hall_secretary_closed_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}"; ?>"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
+                    <li id="statistics"><a class="sidebar-links" href="<?php echo "../Statistics/Stats_hallsec.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}" ?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
                 </ul>
             </nav>
-    
+
             <!-- <hr id="sidebar-hr"> -->
-    
+
             <!-- Profile section at the bottom of the sidebar -->
             <div class="profile">
                 <!-- Profile picture area -->
                 <div class="profile-pic">
-                    <?php echo "AM";?>
+                    <?php 
+                        // Get initials and full name
+                        $initials = $residence['initials'];
+                        $full_name = $residence['hall_secretary_name'];
+                        echo $initials;
+                    ?>
                 </div>
                 <!-- Profile information area -->
                 <div class="profile-info">
-                    <span id="user-name" class="username"><?php echo "Derrick Aboagye"?></span><br>
-                    <span class="role"><?php echo "Hall Secretary"?></span>
+                    <span id="user-name" class="username"><?php echo $full_name; ?></span><br>
+                    <span class="role"><?php echo "Hall Secretary" ?></span>
                 </div>
                 <!-- Logout button with icon -->
                 <div id="sidebar-log-out">
@@ -126,30 +143,39 @@
         <main class="content">
             <header class="page-header">
                 <!-- Welcome message -->
-                <h1>Welcome, <span class="username"><?php echo '$hall_sec_name'?></span></h1>
+                <h1>Welcome, 
+                    <span class="username">
+                        <?php 
+                            // get hall sec username
+                            $hall_sec_name = $residence['f_Name'];
+
+                            echo $hall_sec_name; 
+                        ?>
+                    </span>
+                </h1>
                 <p>Access & Manage maintenance requisitions efficiently.</p>
             </header>
 
             <!-- House selection links -->
             <nav class="houses">
                 <?php
-                    $residence = array();
-                    $active = 0;
-                    while ($residence = $residences_result->fetch_assoc()) {
-                        if ($active == 0) {
-                            echo "<a href='#' class='house-link active'>{$residence['residences']}</a>";
-                            $active++;
-                            continue;
-                        }
-                        echo "<a href='#' class='house-link'>{$residence['residences']}</a>";
+                // $residence = array();
+                $active = 0;
+                do {
+                    if ($active == 0) {
+                        echo "<a href='#' class='house-link active'>{$residence['residences']}</a>";
+                        $active++;
+                        continue;
                     }
+                    echo "<a href='#' class='house-link'>{$residence['residences']}</a>";
+                } while ($residence = $residences_result->fetch_assoc());
                 ?>
             </nav>
 
             <?php
-                if (isset($ticketID) && !empty($ticketID)) {
-                    echo "<div class='success'>Successfully Approved Request!</div>";
-                }
+            if (isset($ticketID) && !empty($ticketID)) {
+                echo "<div class='success'>Successfully Approved Request!</div>";
+            }
             ?>
 
             <!-- Maintenance requests section -->
@@ -161,13 +187,16 @@
                 </header>
 
                 <!-- populate maintenance faults pending approval -->
-                 <div class="requests">
+                <div class="requests">
+
+                    <!--*** N.B. FLIP form and Priority -->
+
                     <?php
-                        while ($row = $pending_result->fetch_assoc()) {
-                            echo "<article class='request'>
+                    while ($row = $opened_tickets_result->fetch_assoc()) {
+                        echo "<article class='request'>
                                     <div class='request-top-btns request-btns'>
                                         <!-- Buttons for commenting and deleting a request -->
-                                        <button class='comment-btn'><i class='fa-solid fa-pen'></i>&nbsp;&nbsp;&nbsp;Comment</button>
+                                        <button class='comment-btn' onclick><i class='fa-solid fa-pen'></i>&nbsp;&nbsp;&nbsp;Comment</button>
                                         <button class='delete-btn'><i class='fa-solid fa-trash' style='color: #e53e3e;'></i>&nbsp;&nbsp;&nbsp;Delete</button>
                                     </div>
                                     <!-- Request information -->
@@ -175,7 +204,6 @@
                                         <p><strong>{$row['full_name']}</strong></p>
                                         <p>Residence: <strong>{$row['resName']}</strong></p>
                                         <p>Room Number: <strong>{$row['room_number']}</strong></p>
-                                        <p>Priority: <strong>{$row['priority']}</strong></p>
                                         <form class='request-form' action='hall_secretary_open_tickets.php' method='get'>
                                             <input type='hidden' name='ticketID' value='{$row['ticketID']}'>
                                             <textarea class='comment-section' name='comment' rows=5 cols=100 ></textarea>
@@ -184,10 +212,11 @@
                                                 <i class='fa-solid fa-plus' style='color: #a020f0;'></i>&nbsp;&nbsp;&nbsp;Approve Request
                                             </button>
                                         </form>
+                                        <p>Priority: <strong>{$row['priority']}</strong></p>
                                         
                                     </div>
                                   </article>";
-                        }
+                    }
                     ?>
                 </div>
             </section>
@@ -195,6 +224,5 @@
     </div>
     <!-- Link to external JavaScript file -->
     <script src="hall_secretary_dashboard.js"></script>
-
 </body>
 </html>

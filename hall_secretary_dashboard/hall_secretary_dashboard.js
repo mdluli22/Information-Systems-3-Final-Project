@@ -5,3 +5,4 @@ document.querySelectorAll('.house-link').forEach(link => {
         this.classList.add('active');
     });
 });
+

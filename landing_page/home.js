@@ -56,3 +56,33 @@ document.addEventListener('scroll', function() {
         }
     });
 });
+
+document.getElementById('role').addEventListener('change', function () {
+    let role = this.value;
+
+    // Show general fields for all roles once a role is selected
+    document.getElementById('generalFields').classList.remove('hidden');
+
+    // Hide all role-specific fields initially
+    document.getElementById('studentFields').classList.add('hidden');
+
+    // Show fields based on the selected role
+    if (role === 'student') {
+        document.getElementById('studentFields').classList.remove('hidden');
+    }
+});
+
+// Initially, only show the role dropdown when the sign-up button is clicked
+signupButton.onclick = function() {
+    signupSection.classList.add('show'); // Show the sign-up section
+    document.getElementById('generalFields').classList.add('hidden');
+    document.getElementById('studentFields').classList.add('hidden');
+    // Add any other fields you want to hide initially
+
+    // Add a small delay to ensure the section is visible before scrolling
+    setTimeout(function() {
+        signupSection.scrollIntoView({ behavior: 'smooth' });
+    }, 100); // Delay for 100ms
+};
+
+

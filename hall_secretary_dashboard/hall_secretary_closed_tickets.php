@@ -99,11 +99,11 @@
             <div class="profile">
                 <!-- Profile picture area -->
                 <div class="profile-pic">
-                    <?php echo "AM";?>
+                    <?php echo $_SESSION['initials'];?>
                 </div>
                 <!-- Profile information area -->
                 <div class="profile-info">
-                    <span id="user-name" class="username"><?php echo "Derrick Aboagye"?></span><br>
+                    <span id="user-name" class="username"><?php echo $_SESSION['full_name']; ?></span><br>
                     <span class="role"><?php echo "Hall Secretary"?></span>
                 </div>
                 <!-- Logout button with icon -->
@@ -117,7 +117,9 @@
         <main class="content">
             <header class="page-header">
                 <!-- Welcome message -->
-                <h1>Welcome, <span class="username"><?php echo '$hall_sec_name'?></span></h1>
+                <h1>Welcome, 
+                    <span class="username"><?php echo $_SESSION['first_name']; ?></span>
+                </h1>
                 <p>Access & Manage maintenance requisitions efficiently.</p>
             </header>
 

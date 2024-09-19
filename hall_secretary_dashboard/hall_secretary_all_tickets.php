@@ -1,3 +1,6 @@
+<?php
+    require_once("secure.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +23,7 @@
         }
     </style>
 </head>
-<bo accesskey=""dy>
+<body><!--<bo accesskey=""dy>-->
 
     <?php
         // if (isset(($_REQUEST['submit']))) {
@@ -38,9 +41,9 @@
                 die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
             }
 
-            // query instructions
-            $sql = "SELECT * FROM ticket ORDER BY ticketID DESC;";
-            $result = $connection->query($sql);
+            // get ticket information
+            $ticket_sql = "SELECT * FROM ticket ORDER BY ticketID DESC;";
+            $ticket_result = $connection->query($ticket_sql);
 
             // Get res names of hall overseen by the hall secretary
             $residences = 
@@ -48,14 +51,14 @@
                 FROM house_warden JOIN hall_secretary ON hall_secretary.HS_userName = house_warden.HS_userName
                 WHERE hall_secretary.HS_userName = '$hall_sec_userName';";
             $residences_result = $connection->query($residences);
-
-            $pending_query = 
+            
+            $all_tickets_query = 
                 "SELECT concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority
                 FROM student s JOIN ticket t ON s.userName = t.userName;";
-            $pending_result = $connection->query($pending_query);
+            $all_tickets_query_results = $connection->query($all_tickets_query);
 
             // Check if query successful
-            if ($result === FALSE || $pending_result === FALSE) {
+            if ($ticket_result === FALSE || !$residences_result || !$all_tickets_query_results) {
                 die("<p class=\"error\">Query was Unsuccessful!</p>");
             }
             
@@ -94,11 +97,11 @@
             <div class="profile">
                 <!-- Profile picture area -->
                 <div class="profile-pic">
-                    <?php echo "AM";?>
+                    <?php echo $_SESSION['initials'];?>
                 </div>
                 <!-- Profile information area -->
                 <div class="profile-info">
-                    <span id="user-name" class="username"><?php echo "Derrick Aboagye"?></span><br>
+                    <span id="user-name" class="username"><?php echo $_SESSION['full_name']; ?></span><br>
                     <span class="role"><?php echo "Hall Secretary"?></span>
                 </div>
                 <!-- Logout button with icon -->
@@ -112,7 +115,9 @@
         <main class="content">
             <header class="page-header">
                 <!-- Welcome message -->
-                <h1>Welcome, <span class="username"><?php echo '$hall_sec_name'?></span></h1>
+                <h1>Welcome, 
+                    <span class="username"><?php echo $_SESSION['first_name']; ?></span>
+                </h1>
                 <p>Access & Manage maintenance requisitions efficiently.</p>
             </header>
 
@@ -148,7 +153,7 @@
                     <tbody>
                         <!-- populate dashboard board with tickets from database -->
                         <?php
-                            while ($row = $result->fetch_assoc())
+                            while ($row = $ticket_result->fetch_assoc())
                             {
                                 echo "<tr><td>#{$row['ticketID']}</td>";
                                 echo "<td>{$row['ticket_description']}</td>";
@@ -193,7 +198,7 @@
                 <!-- populate maintenance faults pending approval
                 <div class="requests"> -->
                     <?php
-                        // while ($row = $pending_result->fetch_assoc())
+                        // while ($row = $all_tickets_query_results->fetch_assoc())
                         // {
                         //     echo "<article class='request'>
                         //             <div class='request-top-btns request-btns'>

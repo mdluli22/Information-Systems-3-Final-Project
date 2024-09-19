@@ -67,8 +67,6 @@
                 FROM residence JOIN hall_secretary ON hall_secretary.hall_name = residence.hall_name
                 WHERE hall_secretary.HS_userName = '$hall_sec_userName';";
     $residences_result = $connection->query($residences);
-    // get hall secretary name + initials
-    $residence = $residences_result->fetch_assoc();
                             
     $opened_tickets_query =
         "SELECT ticketID, concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority
@@ -81,6 +79,9 @@
         die("<p class=\"error\">Query was Unsuccessful!</p>");
     }
 
+    // get hall secretary name + initials
+    $residence = $residences_result->fetch_assoc();
+    
     // get hall name of hall_sec
     // REPLACED $hall_name with $_SESSION['hall_name]
     $_SESSION['hall_name'] = $hall_name_result->fetch_assoc()['hall_name'];
@@ -122,14 +123,18 @@
                 <div class="profile-pic">
                     <?php 
                         // Get initials and full name
-                        $initials = $residence['initials'];
-                        $full_name = $residence['hall_secretary_name'];
-                        echo $initials;
+                        $_SESSION['initials'] = $residence['initials'];
+                        $_SESSION['full_name'] = $residence['hall_secretary_name'];
+                        
+                        // get hall sec first name
+                        $_SESSION['first_name'] = $residence['f_Name'];
+                        
+                        echo $_SESSION['initials'];
                     ?>
                 </div>
                 <!-- Profile information area -->
                 <div class="profile-info">
-                    <span id="user-name" class="username"><?php echo $full_name; ?></span><br>
+                    <span id="user-name" class="username"><?php echo $_SESSION['full_name']; ?></span><br>
                     <span class="role"><?php echo "Hall Secretary" ?></span>
                 </div>
                 <!-- Logout button with icon -->
@@ -144,14 +149,7 @@
             <header class="page-header">
                 <!-- Welcome message -->
                 <h1>Welcome, 
-                    <span class="username">
-                        <?php 
-                            // get hall sec username
-                            $hall_sec_name = $residence['f_Name'];
-
-                            echo $hall_sec_name; 
-                        ?>
-                    </span>
+                    <span class="username"><?php echo $_SESSION['first_name']; ?></span>
                 </h1>
                 <p>Access & Manage maintenance requisitions efficiently.</p>
             </header>

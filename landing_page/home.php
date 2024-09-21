@@ -88,7 +88,7 @@
                 <h1>Welcome 👋</h1>
                 <div><p>Please enter your credentials. Ensure that the credentials are typed correctly.</p></div>
 
-                <form action="signup.php" method="post">
+                <form action="signup.php" method="POST">
                     <label for="role">Role</label>
                     <select name="role" id="role" required>
                         <option value="">Select Role</option>
@@ -106,9 +106,6 @@
                         <label for="lname">Surname</label>
                         <input type="text" id="lname" placeholder="Smith" name="lname" required>
 
-                        <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="g12s3456@campus.ru.ac.za" name="email" required>
-
                         <label for="username">Username</label>
                         <input type="text" id="username" placeholder="g12s3456" name="username" required maxlength="8">
                         
@@ -116,9 +113,17 @@
                         <input type="password" id="password" placeholder="*******" name="password" required>
                     </div>
 
+                    <!-- the student area -->
                     <div id="studentFields">
+
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="g12s3456@campus.ru.ac.za" name="email" required>
+
                         <label for="resName">Resident Name</label>
                         <input type="text" id="resName" placeholder="Enter resident name" name="resName" required>
+
+                        <label for="roomNumber">Room Number</label>
+                        <input type="text" id="roomNumber" placeholder="Enter room number" name="roomNumber" pattern="\d{1,3}" required>
 
                         <label for="hall">Hall Name</label>
                         <select name="hall" id="hall" required>
@@ -138,27 +143,40 @@
                             <option value="Hugh Masekela Hall">Hugh Masekela Hall</option>
                         </select>
 
-                        <label for="roomNumber">Room Number</label>
-                        <input type="text" id="roomNumber" placeholder="Enter room number" name="roomNumber" pattern="\d{1,3}" required>
                     </div>
                 
                     <!-- House Warden Fields -->
-                <div id="houseWardenFields" class="hidden">
-                    <label for="hw-fname">First Name</label>
-                    <input type="text" id="hw-fname" placeholder="John" name="hw_fname" required>
+                    <div id="houseWardenFields" class="hidden">
+                        <!-- <label for="hw-fname">First Name</label>
+                        <input type="text" id="hw-fname" placeholder="John" name="hw_fname" required>
 
-                    <label for="hw-lname">Surname</label>
-                    <input type="text" id="hw-lname" placeholder="Smith" name="hw_lname" required>
+                        <label for="hw-lname">Surname</label>
+                        <input type="text" id="hw-lname" placeholder="Smith" name="hw_lname" required> -->
 
-                    <label for="hw-resName">Residence Name</label>
-                    <input type="text" id="hw-resName" placeholder="Enter resident name" name="hw_resName" required>
+                        <label for="hw-resName">Residence Name</label>
+                        <input type="text" id="hw-resName" placeholder="Enter resident name" name="hw_resName" required>
 
-                    <label for="hw-userName">Username</label>
-                    <input type="text" id="hw-userName" placeholder="g12s3456" name="hw_userName" required maxlength="8">
+                        <!-- <label for="hw-userName">Username</label>
+                        <input type="text" id="hw-userName" placeholder="g12s3456" name="hw_userName" required maxlength="8"> -->
 
-                    <label for="hs-userName">Hall Secretary Username</label>
-                    <input type="text" id="hs-userName" placeholder="Enter Hall Secretary's username" name="hs_userName" required maxlength="8">
-                </div>
+                        <label for="hs-userName">Hall Secretary Username</label>
+                        <input type="text" id="hs-userName" placeholder="Enter Hall Secretary's username" name="hs_userName" required maxlength="8">
+                    </div>
+
+                    <!-- Hall Secretary Fields -->
+                    <div id="hallSecretaryFields" class="hidden">
+                        <!-- <label for="hs-fname">First Name</label>
+                        <input type="text" id="hs-fname" placeholder="John" name="hs_fname" required>
+
+                        <label for="hs-lname">Surname</label>
+                        <input type="text" id="hs-lname" placeholder="Smith" name="hs_lname" required>
+
+                        <label for="hs-userName">Username</label>
+                        <input type="text" id="hs-userName" placeholder="g12s3456" name="hs_userName" required maxlength="8"> -->
+
+                        <label for="hall-name">Hall Name</label>
+                        <input type="text" id="hall-name" placeholder="Enter hall name" name="hall_name" required>
+                    </div>
 
                     <input type="submit" id="signup-submit-btn" name="submit" value="Sign up">
                 </form>

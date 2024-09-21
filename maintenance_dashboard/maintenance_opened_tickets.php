@@ -1,3 +1,15 @@
+<?php
+
+    require_once("secure.php");
+
+    if (isset($_SESSION['username'])) {
+        // echo 'Session Username: ' . $_SESSION['username'];
+        $MaintenanceID = $_SESSION['username'];
+    }else {
+        die("User is not logged in.");
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,18 +47,26 @@
         if ($connection->connect_error) {
             die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
         }
+        
+        $sql = "SELECT concat(f_Name,  ' ', l_Name) as 'name' FROM maintenance_staff  WHERE userName = '$MaintenanceID'";
+        $thename = $connection -> query($sql);
 
-        // query instructions
-        $sql = "SELECT * FROM ticket;-- WHERE ticket_status = 'Processing'";
-        $result = $connection->query($sql);
 
-        // Check if query successfull
-        if ($result === FALSE) {
+        if ($thename === FALSE) {
             die("<p class=\"error\">Query was Unsuccessful!</p>");
         }
+
+        $name = $thename->fetch_assoc();
+
         
-        // close connection
-        $connection->close();
+        $halls = "SELECT DISTINCT hall_name FROM hall_secretary";
+
+        $residences_result = $connection->query($halls);
+
+        if ($residences_result === FALSE) {
+            die("<p class=\"error\">Query was Unsuccessful!</p>");
+        }
+ 
     ?>
 <!-- <div class="container"> -->
     <!-- Sidebar section for navigation -->
@@ -69,7 +89,7 @@
                 <li id="all-tickets"><a class="sidebar-links" href="maintenance_all_tickets.php"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
                 <li id="open-tickets"><a class="sidebar-links active" href="maintenance_opened_tickets.php"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
                 <li id="closed-tickets"><a class="sidebar-links" href="maintenance_closed_tickets.php"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
-                <li id="statistics"><a class="sidebar-links" href="../Statistics/Stats_maintenance.php"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li> 
+                <li id="statistics"><a class="sidebar-links" href="Stats_maintenance.php"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li> 
             </ul>
         </nav>
 
@@ -83,12 +103,12 @@
             </div>
             <!-- Profile information area -->
             <div class="profile-info">
-                <span id="user-name" class="username"><?php echo "Staff Member"?></span><br>
+                <span id="user-name" class="username"><?php echo $name['name']?></span><br>
                 <span class="role"><?php echo "Maintenance"?></span>
             </div>
             <!-- Logout button with icon -->
             <div id="sidebar-log-out">
-                <a href="#"><i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i></a>
+                <a href="../landing_page/logout.php" onclick = " return confirm('Are you sure you want to log out')"><i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i></a>
             </div>
         </div>
     </aside>
@@ -97,16 +117,27 @@
     <main class="content">
         <header class="page-header">
             <!-- Welcome message -->
-            <h1>Welcome, <span class="username"><?php echo "Staff Member"?></span></h1>
+            <h1>Welcome, <span class="username"><?php echo $name['name'] ?></span></h1>
             <p>Access & Manage maintenance requisitions efficiently.</p>
         </header>
 
         <!-- House selection links -->
         <nav class="houses">
-            <a href="#" class="house-link active">Cory House</a>
-            <a href="#" class="house-link">Botha House</a>
-            <a href="#" class="house-link">Matthews House</a>
-            <a href="#" class="house-link">College House</a>
+                <?php
+                    
+                    $active = 0;
+                    while ($residence = $residences_result->fetch_assoc()) {
+                        
+                        if ($active == 0) {
+                            $active++;
+                            $defaulthouse = $residence['hall_name'];
+                        }
+
+                        $activeHouse = isset($_REQUEST['house_name']) ? $_REQUEST['house_name'] : $defaulthouse;
+                        $isActive = ($residence['hall_name'] === $activeHouse) ? 'active' : '';
+                        echo "<a href='maintenance_opened_tickets.php?house_name={$residence['hall_name']}' class='house-link {$isActive}'>{$residence['hall_name']}</a>";
+                    }
+                ?>
         </nav>
 
         <!-- Ticket table section -->
@@ -121,11 +152,27 @@
                         <th>Date</th>
                         <th>Category</th>
                         <th>Priority</th>
+                        <th>Update Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     <!-- populate dashboard board with tickets from database -->
                     <?php
+                        if(isset($_REQUEST['house_name'])){
+                            $resname = $_REQUEST['house_name'];
+                            $sql = "SELECT * FROM ticket join residence on ticket.resName = residence.resName where hall_name = '$resname' ";
+                        }
+                        else{
+                            $sql = "SELECT * FROM ticket join residence on ticket.resName = residence.resName where hall_name = '$defaulthouse' ";
+                        }
+
+                        $result = $connection->query($sql);
+
+                        // Check if query successfull
+                        if ($result === FALSE) {
+                            die("<p class=\"error\">Query was Unsuccessful!</p>");
+                        }
+
                         while ($row = $result->fetch_assoc())
                         {
                             echo "<tr><td>#{$row['ticketID']}</td>";
@@ -137,15 +184,19 @@
                             echo "<td>{$row['category']}</td>";
                             switch (strtolower($row['priority'])) {
                                 case "high":
-                                    echo "<td><span class='priority high-risk'><span class='circle'></span>&nbsp;&nbsp;High</span></td></tr>";
+                                    echo "<td><span class='priority high-risk'><span class='circle'></span>&nbsp;&nbsp;High</span></td>";
                                     break;
                                 case "medium":
-                                    echo "<td><span class='priority medium-risk'><span class='circle'></span>&nbsp;&nbsp;Medium</span></td></tr>";
+                                    echo "<td><span class='priority medium-risk'><span class='circle'></span>&nbsp;&nbsp;Medium</span></td>";
                                     break;
                                 default:
-                                    echo "<td><span class='priority low-risk'><span class='circle'></span>&nbsp;&nbsp;Low</span></td></tr>";
+                                    echo "<td><span class='priority low-risk'><span class='circle'></span>&nbsp;&nbsp;Low</span></td>";
                             }
+
+                            echo "<td> <a href = '#'>Ticket Resolved</a></td></tr>";
                         }
+                        // close connection
+                        $connection->close();
                     ?>
                 </tbody>
             </table>

@@ -1,3 +1,6 @@
+<?php
+    require_once("secure.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +14,7 @@
     <script src="https://kit.fontawesome.com/ddbf4d6190.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<?php
+    <?php
         // get hall name from login page/pop-up
         $hall_sec_userName = "h01b5432";
         $hall_name = "Solomon Kalushi Mahlangu Hall";// $_REQUEST['hall_name'];
@@ -66,19 +69,22 @@
         <!-- <hr id="sidebar-hr"> -->
 
         <!-- Profile section at the bottom of the sidebar -->
-        <div class="profile">
-            <!-- Profile picture area -->
-            <div class="profile-pic">AM</div>
-            <!-- Profile information area -->
-            <div class="profile-info">
-                <span id="user-name" class="username">Amogelang Mphela</span><br>
-                <span class="role">Hall Secretary</span>
+        <!-- Profile section at the bottom of the sidebar -->
+            <div class="profile">
+                <!-- Profile picture area -->
+                <div class="profile-pic">
+                    <?php echo $_SESSION['initials'];?>
+                </div>
+                <!-- Profile information area -->
+                <div class="profile-info">
+                    <span id="user-name" class="username"><?php echo $_SESSION['full_name']; ?></span><br>
+                    <span class="role"><?php echo "Hall Secretary"?></span>
+                </div>
+                <!-- Logout button with icon -->
+                <div id="sidebar-log-out">
+                    <a href="../landing_page/logout.php" onclick = " return confirm('Are you sure you want to log out')"><i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i></a>
+                </div>
             </div>
-            <!-- Logout button with icon -->
-            <div id="sidebar-log-out">
-                <a href="#"><i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i></a>
-            </div>
-        </div>
     </aside>
     <main class="content">
         <header class="header">

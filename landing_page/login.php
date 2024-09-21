@@ -46,7 +46,7 @@
                     header("Location: ../house_warden/house_warden_open_tickets.php");
                     break;
                 case 'hall secretary':
-                    header("Location: ../hall_secretary/hall_secretary_open_tickets.php");
+                    header("Location: ../hall_secretary_dashboard/hall_secretary_open_tickets.php");
                     break;
                 case 'maintenance_staff':
                     header("Location: ../maintenance_dashboard/maintenance_opened_tickets.php");

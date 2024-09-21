@@ -106,7 +106,7 @@
                 </div>
                 <!-- Logout button with icon -->
                 <div id="sidebar-log-out">
-                    <a href="#"><i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i></a>
+                    <a href="../landing_page/logout.php" onclick = " return confirm('Are you sure you want to log out')"><i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i></a>
                 </div>
             </div>
         </aside>

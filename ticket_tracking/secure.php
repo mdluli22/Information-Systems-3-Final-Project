@@ -9,7 +9,7 @@
     <?php
     session_start();
     if (!isset($_SESSION['access'])) {
-        header("Location: landing.html");
+        header("Location: ../landing_page/home.php");
     }
     ?>
 </body>

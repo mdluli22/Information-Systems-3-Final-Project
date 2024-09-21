@@ -1,10 +1,23 @@
 <?php
+require_once("secure.php");
+
+if (isset($_SESSION['username'])) {
+    // echo 'Session Username: ' . $_SESSION['username'];
+    $userID = $_SESSION['username']; //get userID for this 
+}else {
+    die("User is not logged in.");
+}
+?>
+
+<?php
+ 
+
 // Start the session
-session_start();
+//session_start();
 
 // Include database details from config.php file
 require_once("../config.php");
-
+/* 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Store the userID in the session
@@ -12,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 // Get userID from session or set default value
-$userID = isset($_SESSION['userID']) ? $_SESSION['userID'] : '';
+$userID = isset($_SESSION['userID']) ? $_SESSION['userID'] : ''; */
                     
 // attempt to make database connection
 $connection = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
@@ -21,6 +34,24 @@ $connection = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
 if ($connection->connect_error) {
     die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
 }
+
+//get the student information to use on the page
+//query instructions for the student's residence
+$sql = "SELECT * FROM systemsurgeons.student where userName = '$userID'";
+$result = $connection -> query($sql); //execute query
+
+if ($result && $result->num_rows > 0) {
+    // Fetch the student information from the result set
+    $row = $result->fetch_assoc();
+    $fname = $row['f_Name'];
+    $lname = $row['l_Name'];
+    $residence = $row['resName'];
+    $room = $row['room_number'];
+} else {
+    // Handle case where no student data was found
+    echo "<p class='error'>No student data found for the user.</p>";
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -91,7 +122,7 @@ if ($connection->connect_error) {
                 </div>
             </header>
 
-            <!--  TEMPORARY Form for userID input  -->
+<!--           TEMPORARY Form for userID input
             <section class="user-id-input">
                 <h3>Enter User ID to View Tickets</h3>
                 <form action="ticket_tracking_closed.php" method="POST">
@@ -100,7 +131,7 @@ if ($connection->connect_error) {
                     <button type="submit">Submit</button>
                 </form>
             </section>
-            <br><br>
+            <br><br> -->
 
             <!-- Flex container for the ticket list and ticket detail -->
             <div class="content-wrapper">
@@ -120,34 +151,42 @@ if ($connection->connect_error) {
                             die("<p class=\"error\">Your Tickets Query was Unsuccessful!</p>");
                         }
                     
-                        //display the student's tickets
-                        echo "<table class='ticket-table'>";
-                        while($row = $result->fetch_assoc()) {
-                            echo "<tr class='ticket-card'>";
-                            echo "<td class='ticket-number'><img src='pictures/clipboard-tick.png' alt='clipboard-tick' style='margin-right: 10px;'>#{$row['ticketID']}</td>";
-                                
-                                // Determine the CSS class based on the ticket_status so the correct color is produced
-                                if ($row['ticket_status'] == "Pending") {
-                                    $statusClass = "status pending";
-                                } elseif ($row['ticket_status'] == "Processing") {
-                                    $statusClass = "status processing";
-                                } elseif ($row['ticket_status'] == "Completed") {
-                                    $statusClass = "status completed";
-                                } elseif ($row['ticket_status'] == "Rejected") {
-                                    $statusClass = "status rejected";
-                                } else {
-                                    $statusClass = "status"; // Default class if needed
-                                }
-                                
-                            //store residence name to use in Residence Tickets section
-                            $residence = $row['resName'];
+                        //display the student's tickets or display a message if none are found
+                        echo "<section class='scrollbar'>";
+                        if ($result -> num_rows > 0) {
+                                echo "<table class='ticket-table'>";
+                                while($row = $result->fetch_assoc()) {
+                                    echo "<tr class='ticket-card'>";
+                                    echo "<td class='ticket-number'><img src='pictures/clipboard-tick.png' alt='clipboard-tick' style='margin-right: 10px;'>#{$row['ticketID']}</td>";
+                                    
+                                    // Determine the CSS class based on the ticket_status so the correct color is produced
+                                    if ($row['ticket_status'] == "Pending") {
+                                        $statusClass = "status pending";
+                                    } elseif ($row['ticket_status'] == "Processing") {
+                                        $statusClass = "status processing";
+                                    } elseif ($row['ticket_status'] == "Completed") {
+                                        $statusClass = "status completed";
+                                    } elseif ($row['ticket_status'] == "Rejected") {
+                                        $statusClass = "status rejected";
+                                    } else {
+                                        $statusClass = "status"; // Default class if needed
+                                    }
+                                    
+                                //store residence name to use in Residence Tickets section
+                                $residence = $row['resName'];
 
-                            echo "<td><span class='{$statusClass}'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
-                            echo "<td><a href='ticket_tracking_closed.php?ticketID={$row['ticketID']}' class='details-button'>View Details</button></a></td>";
-                            echo "</tr>";
-                        } //end table
-                        echo "</table>";
+                                echo "<td><span class='{$statusClass}'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
+                                echo "<td><a href='ticket_tracking_closed.php?ticketID={$row['ticketID']}' class='details-button'>View Details</button></a></td>";
+                                echo "</tr>";
+                            } //end table
+                            echo "</table>";
+                        }
+                    else {
+                        echo "<p class='info-label'>No closed tickets were found for you.</p>";
+                    }
+                    echo "</section";
                     ?>
+                    <br>
 
                     <?php
                     echo "<h3>$residence Tickets</h3>";
@@ -162,6 +201,7 @@ if ($connection->connect_error) {
                         }
 
                         //dynamically display all tickets within that residence
+                        if ($result -> num_rows > 0) {
                         echo "<table class='ticket-table'>";
                         while($row = $result->fetch_assoc()) {
                             echo "<tr class='ticket-card'>";
@@ -185,6 +225,11 @@ if ($connection->connect_error) {
                             echo "</tr>";
                         } //end table
                         echo "</table>";
+                    }
+                    else {
+                        echo "<p class='info-label'>No closed tickets were found for your residence.</p>";
+                    }
+                    echo "</section";
                     ?>
 
                 </section>
@@ -253,8 +298,32 @@ if ($connection->connect_error) {
                                 echo "<h3>Comments</h3>";
                                 echo "<dl class='comment-list'>";
                                 while ($comment = $comments_result->fetch_assoc()) {
+
+                                    //calculate how long ago a comment was made
+                                    $comment_time = new DateTime($comment['comment_date']); //date comment was made
+                                    $current_time = new DateTime(); //today's date
+                                    $interval = $comment_time->diff($current_time); //difference in the time
+
+                                    // Create a readable time difference (e.g., '2 hours ago')
+                                    if ($interval->y > 0) {
+                                        $time_ago = $interval->y . ' year' . ($interval->y > 1 ? 's' : '') . ' ago';
+                                    } elseif ($interval->m > 0) {
+                                        $time_ago = $interval->m . ' month' . ($interval->m > 1 ? 's' : '') . ' ago';
+                                    } elseif ($interval->d > 0) {
+                                        $time_ago = $interval->d . ' day' . ($interval->d > 1 ? 's' : '') . ' ago';
+                                    } elseif ($interval->h > 0) {
+                                        $time_ago = $interval->h . ' hour' . ($interval->h > 1 ? 's' : '') . ' ago';
+                                    } elseif ($interval->i > 0) {
+                                        $time_ago = $interval->i . ' minute' . ($interval->i > 1 ? 's' : '') . ' ago';
+                                    } else {
+                                        $time_ago = 'Just now';
+                                    }
+
+                                    //display the comment info
                                     echo "<div class='comment-bubble'>";
-                                    echo "<dt class='commentor'>" . htmlspecialchars($comment['userName']) . ":</dt><dd class='comment-msg'> " . htmlspecialchars($comment['comment_description']) . "</dd>";
+                                    echo "<dt class='commentor'>" . htmlspecialchars($comment['userName']) . ":</dt>";
+                                    echo "<dd class='comment-msg'> " . htmlspecialchars($comment['comment_description']) . "</dd>";
+                                    echo "<span class='comment_time'>" . htmlspecialchars($time_ago) . "</span>"; // Display time ago
                                     echo "</div>";
                                     echo "<br>";
                                 }
@@ -265,14 +334,16 @@ if ($connection->connect_error) {
                                 //echo "<br>";
                             }
 
-                            // Form to submit a new comment
-                            echo "<form action='submit_comment.php' method='POST'>
-                                <input type='hidden' name='ticketID' value='$ticketID'>
-                                <input type='hidden' name='userID' value='$userID'>
-                                <input type='hidden' name='page' value='closed'>
-                                <textarea name='comment_description' id='comment' rows='2' cols='50' placeholder='Leave a Comment' required></textarea><br>
-                                <button type='submit' class='comment-button'>Submit Comment</button>
-                            </form>";
+                            // Form to submit a new comment - only if they are the ticket creator
+                            if ($userID == $ticketowner){
+                                echo "<form action='submit_comment.php' method='POST'>
+                                    <input type='hidden' name='ticketID' value='$ticketID'>
+                                    <input type='hidden' name='userID' value='$userID'>
+                                    <input type='hidden' name='page' value='all'>
+                                    <textarea name='comment_description' id='comment' rows='2' cols='50' placeholder='Leave a Comment' required></textarea><br>
+                                    <button type='submit' class='comment-button'>Submit Comment</button>
+                                </form>";
+                            }
                         }
                         else {
                             echo "<p>Please select a ticket to view its details.</p>";

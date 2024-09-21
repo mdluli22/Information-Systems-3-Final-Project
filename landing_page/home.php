@@ -82,6 +82,15 @@
         </div>
 
         <!-- Sign-up section -->
+        <label for="role">Role</label>
+        <select name="role" id="role" required>
+            <option value="">Select Role</option>
+            <option value="student">Student</option>
+            <option value="houseWarden">House Warden</option>
+            <option value="hallSec">Hall Secretary</option>
+            <option value="maintenancePersonnel">Maintenance Personnel</option>
+        </select>
+
         <div id="signup-section" class="signup-section">
             <span class="close-btn1">&times;</span>
             <div class="container">
@@ -89,6 +98,7 @@
                 <div><p>Please enter your credentials. Ensure that the credentials are typed correctly.</p></div>
 
                 <form action="signup.php" method="post">
+<<<<<<< HEAD
                     <label for="role">Role</label>
                     <select name="role" id="role" required>
                         <option value="">Select Role</option>
@@ -102,6 +112,43 @@
                     <div id="generalFields" class="hidden">
                         <label for="fname">First Name</label>
                         <input type="text" id="fname" placeholder="John" name="fname" required>
+=======
+                    <label for="fname">First Name</label>
+                    <input type="text" id="fname" placeholder="John" name="fname" required>
+
+                    <label for="lname">Surname</label>
+                    <input type="text" id="lname" placeholder="Smith" name="lname" required>
+
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="g12s3456@campus.ru.ac.za" name="email" required>
+
+                    <div id="studentFields" style="display: none;">
+                        
+                        <label for="resName">Resident Name</label>
+                        <input type="text" id="resName" placeholder="res name" name="resName" required>
+
+                        <label for="hall">Hall Name</label>
+                        <select name="hall" id="hall" required>
+                            <option value="">Please enter fault category</option>
+                            <option value="Miriam Makeba Hall">Miriam Makeba Hall</option>
+                            <option value="Mandela Hall">Mandela Hall</option>
+                            <option value="Solomon Kalushi Mahlangu">Solomon Kalushi Mahlangu</option>
+                            <option value="Lillian Ngoyi Hall">Lillian Ngoyi Hall</option>
+                            <option value="Courtenay-Latimer Hall">Courtenay-Latimer Hall</option>
+                            <option value="Kimberly Hall">Kimberly Hall</option>
+                            <option value="Allan Webb Hall">Allan Webb Hall</option>
+                            <option value="St Mary Hall">St Mary Hall</option>
+                            <option value="Hobson Hall">Hobson Hall</option>
+                            <option value="Desmond Tutu">Desmond Tutu</option>
+                            <option value="Drostdy Hall">Drostdy Hall</option>
+                            <option value="Founders Hall">Founders Hall</option>
+                            <option value="Hugh Masekela Hall">Hugh Masekela Hall</option>
+                        </select>
+
+                        <label for="roomNumber">Room Number</label>
+                        <input type="text" id="roomNumber" placeholder="123" name="roomNumber" pattern="\d{1,3}" required>
+                    </div>
+>>>>>>> d3f642c1ac3e1568231764335c282a43bc22e431
 
                         <label for="lname">Surname</label>
                         <input type="text" id="lname" placeholder="Smith" name="lname" required>
@@ -167,6 +214,112 @@
             </div>
         </div>
     </section>
+<<<<<<< HEAD
+=======
+    <script>
+        // Role-based form handling
+        document.getElementById('role').addEventListener('change', function () {
+            let role = this.value;
+            
+            // Hide all conditional fields by default
+            document.getElementById('studentFields').style.display = 'none';
+            
+            // Show specific fields based on role
+            if (role === 'student') {
+                document.getElementById('studentFields').style.display = 'block';
+            }
+            // Add more conditions for other roles if needed
+        });
+
+        // Toggle mobile menu
+        document.querySelector('.burger').addEventListener('click', function() {
+            document.querySelector('.mobile-menu').classList.toggle('active');
+        });
+
+        // Login modal functionality
+        const loginModal = document.getElementById("login-modal");
+        const loginBtn = document.getElementById("login-btn");
+        const closeBtn = document.querySelector(".close-btn");
+
+        loginBtn.onclick = function() {
+            loginModal.style.display = "block";
+        }
+
+        closeBtn.onclick = function() {
+            loginModal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == loginModal) {
+                loginModal.style.display = "none";
+            }
+        }
+
+        // Sign-up modal functionality
+        const signupModal = document.getElementById("signup-section");
+        const signupBtn = document.getElementById("sign-up-btn");
+        const closeSignupBtn = document.querySelector(".close-btn1");
+
+        signupBtn.onclick = function() {
+            signupModal.style.display = "block";
+        }
+
+        closeSignupBtn.onclick = function() {
+            signupModal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == signupModal) {
+                signupModal.style.display = "none";
+            }
+        }
+    </script>
+
+
+
+    <!-- <div class="page-on-home">
+        <article>
+            <div class="left-column">
+                <h1 class="heading">What Does ResQue Do?</h1>
+                <p class="description">
+                    We create amazing experiences by leveraging innovative technologies to solve real-world problems.
+                    Our team focuses on delivering scalable, user-friendly, and robust solutions for our residents at Rhodes University.
+                </p>
+            </div>
+            <div class="right-column">
+                <div class="notification-list">
+                    <div class="notification" style="--color:#00C9A7;">💸 Residence confirmed · 15m ago<br><small>Chris Upfold</small></div>
+                    <div class="notification" style="--color:#FFB800;">👤 User signed up · 10m ago<br><small>Ingrid Sieborger</small></div>
+                    <div class="notification" style="--color:#FF3D71;">💬 House Warden approved · 5m ago<br><small>Jill Japp</small></div>
+                    <div class="notification" style="--color:#1E86FF;">🗞️ Fault resolved · 2m ago<br><small>Greg Foster</small></div>
+                </div>
+            </div>
+        </article>
+        <article class="features">
+            <div class="feature">
+                <table>
+                    <tr>
+                        <th class="avg"> Avg Response Time</th>
+                        <th class="cred">Credibility</th>
+                        <th class="avail">Availability</th>
+                    </tr>
+                    <tr>
+                        <td class="avg">
+                            Quick response to minimize downtime for residents.
+                        </td>
+                        <td class="cred">
+                            Trusted, reliable service by skilled professionals ensuring quality repairs.
+                        </td>
+                        <td class="avail">
+                            Maintenance services available anytime for any issue.
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </article>
+    </div> -->
+
+>>>>>>> d3f642c1ac3e1568231764335c282a43bc22e431
     </div>
 
     <footer class="footer">

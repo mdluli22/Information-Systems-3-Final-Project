@@ -44,6 +44,8 @@
     // Remove approved requests from maintenance requests list
     if (isset(($_REQUEST['approve_request']))) {
         $ticketID = $_REQUEST['ticketID'];
+        $student_name = $_REQUEST['student_name'];
+        $student_room_num = $_REQUEST['student_room_num'];
         $remove_request = "UPDATE ticket SET ticket_status = 'Confirmed' WHERE ticketID = $ticketID";
         $remove_request_result = $connection->query($remove_request);
 
@@ -173,13 +175,16 @@
                 } while ($residence = $residences_result->fetch_assoc());
                 ?>
             </nav>
-
             <?php
-            if (isset($ticketID) && !empty($ticketID)) {
-                echo "<div class='success'>Successfully Approved Request!</div>";
-            }
+                if (isset($ticketID) && !empty($ticketID)) {
+                    echo "<div id='success-message' class='success-message'>
+                            <h2>Request Approved!<i class='fas fa-times cancel-icon' onclick='remove_feedback()'></i></h2>
+                            <p>The maintenance request for <strong>$student_name</strong> in <strong>room $student_room_num</strong> has been approved successfully. The maintenance team will be notified shortly.</p>
+                        </div>
+                        ";
+                }
             ?>
-
+<input type="hidden" name="">
             <!-- Maintenance requests section -->
             <section class="maintenance-requests"> <!--maintenance-scrollbar">-->
                 <header id="maintenance-requests-header">
@@ -208,16 +213,16 @@
                                         <p>Room Number: <strong>{$row['room_number']}</strong></p>
                                         <form class='request-form' action='hall_secretary_open_tickets.php' method='get'>
                                             <input type='hidden' name='ticketID' value='{$row['ticketID']}'>
-                                            <textarea class='comment-section' name='comment' rows=5 cols=100 ></textarea>
-                                            
                                             <button type='submit' name='approve_request' class='approve-btn request-btns'>
                                                 <i class='fa-solid fa-plus' style='color: #a020f0;'></i>&nbsp;&nbsp;&nbsp;Approve Request
                                             </button>
+                                            <input type='hidden' name='student_name' value='{$row['full_name']}'>
+                                            <input type='hidden' name='student_room_num' value='{$row['room_number']}'>
                                         </form>
                                         <p>Priority: <strong>{$row['priority']}</strong></p>
                                         
                                     </div>
-                                  </article>";
+                                </article>";
                     }
                     ?>
                 </div>

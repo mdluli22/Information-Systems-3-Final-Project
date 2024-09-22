@@ -198,7 +198,7 @@
                                     echo "<td><span class='priority low-risk'><span class='circle'></span>&nbsp;&nbsp;Low</span></td>";
                             }
 
-                            echo "<td><a href='maintenance_opened_tickets.php?ticket_ID={$row['ticketID']} house_name={$activeHouse}' class='house-link {$isActive}'>Comments</a></td></tr>";
+                            echo "<td><a href='maintenance_opened_tickets.php?ticket_ID={$row['ticketID']} house_name={$activeHouse}' class='house-link {$isActive}'g>Comments</a></td></tr>";
 
                             
                         }

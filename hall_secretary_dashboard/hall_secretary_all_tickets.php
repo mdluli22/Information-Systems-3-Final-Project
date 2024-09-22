@@ -45,11 +45,12 @@
             $ticket_sql = "SELECT * FROM ticket ORDER BY ticketID DESC;";
             $ticket_result = $connection->query($ticket_sql);
 
-            // Get res names of hall overseen by the hall secretary
+            // Get res names of hall overseen by the hall secretary           
             $residences = 
-                "SELECT DISTINCT concat(hall_secretary.f_Name, ' ', hall_secretary.l_name) AS 'hall_secretary_name', house_warden.resName AS 'residences'
-                FROM house_warden JOIN hall_secretary ON hall_secretary.HS_userName = house_warden.HS_userName
-                WHERE hall_secretary.HS_userName = '$hall_sec_userName';";
+            "SELECT DISTINCT concat(hall_secretary.f_Name, ' ', hall_secretary.l_name) AS 'hall_secretary_name', resName AS 'residences'
+            FROM residence JOIN hall_secretary ON hall_secretary.hall_name = residence.hall_name
+            WHERE hall_secretary.HS_userName = '$hall_sec_userName';";
+
             $residences_result = $connection->query($residences);
             
             $all_tickets_query = 
@@ -123,15 +124,19 @@
 
             <!-- House selection links -->
             <nav class="houses">
-                <?php
+            <?php
+                    
                     $active = 0;
                     while ($residence = $residences_result->fetch_assoc()) {
+                        
                         if ($active == 0) {
-                            echo "<a href='#' class='house-link active'>{$residence['residences']}</a>";
                             $active++;
-                            continue;
+                            $defaulthouse = $residence['residences'];
                         }
-                        echo "<a href='#' class='house-link'>{$residence['residences']}</a>";
+
+                        $activeHouse = isset($_REQUEST['house_name']) ? $_REQUEST['house_name'] : $defaulthouse;
+                        $isActive = ($residence['residences'] === $activeHouse) ? 'active' : '';
+                        echo "<a href='hall_secretary_all_tickets.php?house_name={$residence['residences']}' class='house-link {$isActive}'>{$residence['residences']}</a>";
                     }
                 ?>
             </nav>

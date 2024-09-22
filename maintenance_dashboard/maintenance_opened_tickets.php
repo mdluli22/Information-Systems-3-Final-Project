@@ -125,7 +125,7 @@
         <nav class="houses">
 
                 <?php
-
+                    $activeHouse = "nohuese";
                     $active = 0;
                     while ($residence = $residences_result->fetch_assoc()) {
                         
@@ -176,8 +176,6 @@
 
                         while ($row = $result->fetch_assoc())
                         {
-                            $activeHouse = isset($_REQUEST['ticket_ID']) ? $_REQUEST['ticket_ID'] : "";
-                            $isActive = ($row['ticketID'] === $activeHouse) ? 'active' : '';
 
 
                             echo "<tr><td>#{$row['ticketID']}</td>";
@@ -198,7 +196,31 @@
                                     echo "<td><span class='priority low-risk'><span class='circle'></span>&nbsp;&nbsp;Low</span></td>";
                             }
 
-                            echo "<td><a href='maintenance_opened_tickets.php?ticket_ID={$row['ticketID']} house_name={$activeHouse}' class='house-link {$isActive}'g>Comments</a></td></tr>";
+                            echo "<td><a href='maintenance_opened_tickets.php?ticket_ID={$row['ticketID']}&house_name={$activeHouse} '>Comments</a></td></tr>";
+
+                            
+
+                            if(isset($_REQUEST['ticket_ID'])){
+                                if($_REQUEST['ticket_ID'] == $row['ticketID']){
+                                    $theticketID = $_REQUEST['ticket_ID'];
+
+                                    $sql = "SELECT * from comment where ticketID = '$theticketID' ";
+                                    $thecomments = $connection -> query($sql);
+
+                                    if ($thecomments === FALSE) {
+                                        die("<p class=\"error\">Query was Unsuccessful!</p>");
+                                    }
+
+                                    echo "<tr class = 'commentSection'>";
+                                    if($thecomments -> num_rows == 0){
+                                        echo "<td><p>No commments available</p> </td>";
+                                    }
+                                    while($comment = $thecomments -> fetch_assoc()){
+                                        echo "<td><p> {$comment['comment_description']} </p> </td>";
+                                    }
+                                    echo "</tr>";
+                                }
+                            }
 
                             
                         }

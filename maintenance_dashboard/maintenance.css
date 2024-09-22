@@ -282,6 +282,13 @@ thead :last-child {
     word-wrap: break-word;
 }
 
+.commentSection {
+    padding: 1.2rem; /*875rem; /* Padding inside table cells */
+    text-align: left; /* Aligns text to the left */
+    border-bottom: 0.0625rem solid #ddd; /* Light grey bottom border for cells */
+    max-width: 40%;
+    word-wrap: break-word;
+}
 
 /* Status indicators within the ticket table */
 .ticket-table .status {

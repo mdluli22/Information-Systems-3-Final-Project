@@ -123,8 +123,9 @@
 
         <!-- House selection links -->
         <nav class="houses">
+
                 <?php
-                    
+
                     $active = 0;
                     while ($residence = $residences_result->fetch_assoc()) {
                         
@@ -175,6 +176,10 @@
 
                         while ($row = $result->fetch_assoc())
                         {
+                            $activeHouse = isset($_REQUEST['ticket_ID']) ? $_REQUEST['ticket_ID'] : "";
+                            $isActive = ($row['ticketID'] === $activeHouse) ? 'active' : '';
+
+
                             echo "<tr><td>#{$row['ticketID']}</td>";
                             echo "<td>{$row['ticket_description']}</td>";
                             // if ($row['ticket_status'] == "Processing") {
@@ -193,7 +198,9 @@
                                     echo "<td><span class='priority low-risk'><span class='circle'></span>&nbsp;&nbsp;Low</span></td>";
                             }
 
-                            echo "<td> <a href = '#'>Ticket Resolved</a></td></tr>";
+                            echo "<td><a href='maintenance_opened_tickets.php?ticket_ID={$row['ticketID']} house_name={$activeHouse}' class='house-link {$isActive}'>Comments</a></td></tr>";
+
+                            
                         }
                         // close connection
                         $connection->close();

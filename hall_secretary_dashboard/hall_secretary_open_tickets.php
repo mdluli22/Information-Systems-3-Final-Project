@@ -161,12 +161,15 @@
                 // $residence = array();
                 $active = 0;
                 do {
+                        
                     if ($active == 0) {
-                        echo "<a href='#' class='house-link active'>{$residence['residences']}</a>";
                         $active++;
-                        continue;
+                        $defaulthouse = $residence['residences'];
                     }
-                    echo "<a href='#' class='house-link'>{$residence['residences']}</a>";
+
+                    $activeHouse = isset($_REQUEST['house_name']) ? $_REQUEST['house_name'] : $defaulthouse;
+                    $isActive = ($residence['residences'] === $activeHouse) ? 'active' : '';
+                    echo "<a href='hall_secretary_open_tickets.php?house_name={$residence['residences']}' class='house-link {$isActive}'>{$residence['residences']}</a>";
                 } while ($residence = $residences_result->fetch_assoc());
                 ?>
             </nav>

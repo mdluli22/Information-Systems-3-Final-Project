@@ -1,3 +1,6 @@
+<?php
+    require_once("secure.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +15,8 @@
 </head>
 <body>
 <?php
-        $warden = "w23t1898";
+        // get house_warden username from login page/pop-up
+        $warden_userName = $_SESSION['username'];
         
         // include database details from config.php file
         require_once("config.php");
@@ -25,7 +29,7 @@
             die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
         }
 
-        $warden_res_query = "SELECT resName FROM house_warden WHERE userName = '$warden';";
+        $warden_res_query = "SELECT resName FROM house_warden WHERE userName = '$warden_userName';";
         $warden_res_query_result = $connection->query($warden_res_query);
 
         if ($warden_res_query_result === FALSE) {
@@ -52,9 +56,9 @@
         <nav>
             <ul id="sidebar-nav">
                 <!-- Navigation links with icons -->
-                <li id="all-tickets"><a class="sidebar-links" href="<?php echo "../house_warden/house_warden_all_tickets.php?warden_userName=$warden_userName&res_name={$_SESSION['res_name']}"; ?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
-                <li id="open-tickets"><a class="sidebar-links" href="<?php echo "../house_warden\house_warden_open_tickets.php?warden_userName=$warden_userName&res_name={$_SESSION['res_name']}"; ?>"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
-                <li id="closed-tickets"><a class="sidebar-links" href="<?php echo "../house_warden\house_warden_closed_tickets.php?warden_userName=$warden_userName&res_name={$_SESSION['res_name']}"; ?>"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
+                <li id="all-tickets"><a class="sidebar-links" href="<?php echo "../house_warden/house_warden_all_tickets.php?warden_userName=$warden_userName&res_name={$_SESSION['res_name']}";?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
+                <li id="open-tickets"><a class="sidebar-links" href="<?php echo "../house_warden\house_warden_open_tickets.php?warden_userName=$warden_userName&res_name={$_SESSION['res_name']}";?>"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
+                <li id="closed-tickets"><a class="sidebar-links" href="<?php echo "../house_warden\house_warden_closed_tickets.php?warden_userName=$warden_userName&res_name={$_SESSION['res_name']}";?>"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
                 <li id="statistics"><a class="sidebar-links active" href="<?php echo "Stats_warden.php?warden_userName=$warden_userName&res_name={$_SESSION['res_name']}";?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
             </ul>
         </nav>

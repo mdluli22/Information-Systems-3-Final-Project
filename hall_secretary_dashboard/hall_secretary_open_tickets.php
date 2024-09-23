@@ -71,8 +71,6 @@
                 FROM residence JOIN hall_secretary ON hall_secretary.hall_name = residence.hall_name
                 WHERE hall_secretary.HS_userName = '$hall_sec_userName';";
     $residences_result = $connection->query($residences);
-    
-
 
     // Check if query successful
     if ($ticket_result === FALSE || !$hall_name_result || !$residences_result) {

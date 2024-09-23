@@ -250,7 +250,7 @@
                         }
                     }
                     else {
-                        echo "<p><strong>There are currently no Opened tickets!</strong></p>";
+                        echo "<tr><td> <p> No Tickets Available </p></td></tr>";
                     }
                     echo "COUNT = $count";
                     echo "";

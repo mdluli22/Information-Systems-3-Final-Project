@@ -173,8 +173,6 @@
                     $index++;
                     $total += $result -> num_rows;
                 }
-
-             
             ?>
 
             <div class="card">

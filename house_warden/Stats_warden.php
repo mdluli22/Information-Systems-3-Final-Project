@@ -82,7 +82,7 @@
         </div>
     </aside>
     <main class="content">
-        <header class="header">
+        <header class="header"> 
             <h2>Statistics</h2>
             <div class="filters">
                 <span>From</span>
@@ -96,10 +96,10 @@
 
             <?php 
              
-                $ticket_status = array("Pending", "Processing", "Completed");
+                $ticket_status = array("Opened", "Confirmed", "Closed");
                 $icons = array("pictures/layer.svg", "pictures/clipboard-tick.svg", "pictures/task.svg");
                 $class_names = array("card-icon", "card-icon1", "card-icon2");
-                $names = array("Pending Tickets", "Processing Tickets", "Completed Tickets");
+                $names = array("Opened Tickets", "Confirmed Tickets", "Closed Tickets");
                 $ticketTotals = array(0,0,0);
                 $index = 0;
                 $total = 0;
@@ -179,9 +179,15 @@
                             <?php
                                 $num = 1;
                                 while($num <= 9){
-                                    $sql = "SELECT * FROM ticket WHERE MONTH(ticketDate) = '$num'";
+                                    if(isset($_REQUEST['res_name'])){
+                                        $resname = $_REQUEST['res_name'];
+                                        $sql = "SELECT * FROM ticket WHERE MONTH(ticketDate) = '$num' AND resName = '$resname' ";
+                                    }
+                                    else{
+                                        $sql = "SELECT * FROM ticket WHERE MONTH(ticketDate) = '$num' AND resName = '$defaulthouse' ";
+                                        
+                                    }
                                     $result = $connection -> query($sql);
-
                                     // Check if query successfull
                                     if ($result === FALSE) {
                                         die("<p class=\"error\">Query was Unsuccessful!</p>");

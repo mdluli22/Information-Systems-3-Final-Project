@@ -12,7 +12,6 @@ body {
 
 
 .hero {
-
     padding: 60px 0;
     text-align: center;
     color: #fff;
@@ -20,6 +19,160 @@ body {
 
 .hero h1 {
     font-size: 3rem;
+}
+
+/* Everything regarding the header section of the page obtained from the landing page/com sci*/
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0% 2rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #12222E;
+    box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
+    height: 5.5rem;
+    z-index: 1000; /* Ensure it stays on top of other content */
+}
+
+/* styling of the logo */
+header .logo {
+    height: 100px; /* Adjust the height as needed */
+    max-width: 100%; /* Ensure logo is responsive */
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.875rem;
+    justify-content: center;
+    flex: 2;
+}
+
+.nav-links li a {
+    padding: 0.625rem 1.25rem;
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 1.25rem; /* Set border-radius initially to avoid layout shift */
+}
+
+.nav-links li a:hover {
+    background-color: #B45C3D;
+    color: white;
+    cursor: pointer;
+}
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.9375rem;
+    justify-content: flex-end;
+}
+
+.heading {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+.login-btn,
+.signup-btn {
+    padding: 0.625rem 1.25rem;
+    border: none;
+    background-color: #B45C3D;
+    color: white;
+    border-radius: 1.25rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.sign-in-btn:hover,
+.sign-up-btn:hover {
+    background-color: #5a6268;
+}
+
+.back-home{
+    padding: 0.625rem 1.25rem;
+    border: none;
+    background-color: #B45C3D;
+    color: white;
+    border-radius: 1.25rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    justify-content: flex-start;
+    cursor: pointer;
+}
+
+/* Burger Menu */
+.burger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    margin-right: 1.25rem;
+}
+
+.burger div {
+    width: 25px;
+    height: 3px;
+    background-color: #ff5a3c;
+    margin: 4px;
+}
+
+/* Hide Checkbox */
+#burger-toggle {
+    display: none;
+}
+
+/* Mobile Menu */
+.mobile-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 100%;
+    background-color: white;
+    flex-direction: column;
+    padding: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-menu a {
+    padding: 1rem 0;
+    color: #ff5a3c;
+    text-align: center;
+    text-decoration: none;
+}
+
+/* Show Mobile Menu When Checkbox is Checked obtained from the landing page*/
+#burger-toggle:checked ~ .mobile-menu {
+    display: flex;
+}
+
+#burger-toggle:checked ~ nav ul {
+    display: none;
+}
+
+/* Media Query for Responsive Navigation obtained from the landing page */
+@media (max-width: 1200px) {
+    .nav-links {
+        display: none;
+    }
+
+    .burger {
+        display: flex;
+    }
 }
 
 .faq {
@@ -55,9 +208,41 @@ body {
     font-family:'Inter', sans-serif;
 }
 
-footer {
-   
-    color: black;
-    padding: 10px;
-    text-align: center;
+/* Footer obtained from the landing page*/
+.footer {
+    background-color: #12222E; /* Same color as the header */
+    color: white;
+    padding: 2rem 0; /* Padding for space inside the footer */
+    text-align: center; /* Center the content */
+    font-family: 'Inter', sans-serif;
+    width: 100%;
+    position: relative;
+    margin-top: auto; /* Pushes the footer to the bottom if content is short */
+}
+
+/* Footer Links */
+.footer-links {
+    display: flex;
+    justify-content: center; /* Center the footer links */
+    gap: 2rem; /* Space between the links */
+    margin-bottom: 1rem; /* Space below the links */
+    
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 500;
+    transition: color 0.3s ease-in-out;
+}
+
+.footer-links a:hover {
+    color: #B45C3D; /* Same hover effect as other links */
+}
+
+/* Footer text (copyright) */
+.footer p {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: #ddd; /* Lighter text for the copyright */
 }

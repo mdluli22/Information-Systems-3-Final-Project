@@ -383,6 +383,7 @@ h2, .words, .hero-image:nth-child(3) {
     }
 }
 
+
 /* Sign-up section hidden by default */
 .signup-section {
     display: none; /* Hidden by default */
@@ -467,6 +468,7 @@ h2, .words, .hero-image:nth-child(3) {
     font-weight: bold;
     cursor: pointer;
 }
+
 
 /* Login Form */
 .login-form h1 {

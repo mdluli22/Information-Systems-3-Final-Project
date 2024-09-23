@@ -40,16 +40,15 @@
                 die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
             }
 
-            // get information of Reject and Completed
-            $ticket_sql = "SELECT * FROM ticket WHERE ticket_status IN ('Rejected', 'Completed') ORDER BY ticketID DESC;";
-            $ticket_result = $connection->query($ticket_sql);
+
 
             // Get res names of hall overseen by the hall secretary
-            $residences_query = 
-                "SELECT DISTINCT concat(hall_secretary.f_Name, ' ', hall_secretary.l_name) AS 'hall_secretary_name', house_warden.resName AS 'residences'
-                FROM house_warden JOIN hall_secretary ON hall_secretary.HS_userName = house_warden.HS_userName
-                WHERE hall_secretary.HS_userName = '$hall_sec_userName';";
-            $residences_result = $connection->query($residences_query);
+            $residences = 
+            "SELECT DISTINCT concat(hall_secretary.f_Name, ' ', hall_secretary.l_name) AS 'hall_secretary_name', resName AS 'residences'
+            FROM residence JOIN hall_secretary ON hall_secretary.hall_name = residence.hall_name
+            WHERE hall_secretary.HS_userName = '$hall_sec_userName';";
+
+            $residences_result = $connection->query($residences);
 
 
             // COMMENTED OUT PENDING on CLOSED TICKETS PAGE
@@ -60,12 +59,11 @@
             // $pending_result = $connection->query($pending_query);
 
             // Check if query successful
-            if ($ticket_result === FALSE || $residences_result === FALSE) { // || $pending_result === FALSE) {
+            if ($residences_result === FALSE) { // || $pending_result === FALSE) {
                 die("<p class=\"error\">Query was Unsuccessful!</p>");
             }
             
-            // close connection
-            $connection->close();
+
         // }
     ?>
     <div class="container">
@@ -126,14 +124,18 @@
             <!-- House selection links -->
             <nav class="houses">
                 <?php
+                    $defaulthouse = '';
                     $active = 0;
                     while ($residence = $residences_result->fetch_assoc()) {
+                        
                         if ($active == 0) {
-                            echo "<a href='#' class='house-link active'>{$residence['residences']}</a>";
                             $active++;
-                            continue;
+                            $defaulthouse = $residence['residences'];
                         }
-                        echo "<a href='#' class='house-link'>{$residence['residences']}</a>";
+
+                        $activeHouse = isset($_REQUEST['house_name']) ? $_REQUEST['house_name'] : $defaulthouse;
+                        $isActive = ($residence['residences'] === $activeHouse) ? 'active' : '';
+                        echo "<a href='hall_secretary_closed_tickets.php?house_name={$residence['residences']}' class='house-link {$isActive}'>{$residence['residences']}</a>";
                     }
                 ?>
             </nav>
@@ -155,29 +157,51 @@
                     <tbody>
                         <!-- populate dashboard board with tickets from database -->
                         <?php
-                            while ($row = $ticket_result->fetch_assoc())
-                            {
-                                echo "<tr><td>#{$row['ticketID']}</td>";
-                                echo "<td>{$row['ticket_description']}</td>";
-                                if (strtolower($row['ticket_status']) == "completed") {
-                                    echo "<td><span id='completed'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
-                                }
-                                else {
-                                    echo "<td><span id='rejected'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
-                                }
-                                echo "<td>" . date("D h:ia", strtotime($row['ticketDate'])) . "</td>";
-                                echo "<td>{$row['category']}</td>";
-                                switch (strtolower($row['priority'])) {
-                                    case "high":
-                                        echo "<td><span class='priority high-risk'><span class='circle'></span>&nbsp;&nbsp;High</span></td></tr>";
-                                        break;
-                                    case "medium":
-                                        echo "<td><span class='priority medium-risk'><span class='circle'></span>&nbsp;&nbsp;Medium</span></td></tr>";
-                                        break;
-                                    default:
-                                        echo "<td><span class='priority low-risk'><span class='circle'></span>&nbsp;&nbsp;Low</span></td></tr>";
+                            if(isset($_REQUEST['house_name'])){
+                                $housename = $_REQUEST['house_name'];
+                                // get information of Reject and Completed
+                                $ticket_sql = "SELECT * FROM ticket WHERE ticket_status = 'Closed' AND resName = '$housename' ORDER BY ticketID DESC;";
+                                $ticket_result = $connection->query($ticket_sql);
+                            }
+                            else{
+                                $ticket_sql = "SELECT * FROM ticket WHERE ticket_status = 'Closed' AND resName = '$defaulthouse' ORDER BY ticketID DESC;";
+                                $ticket_result = $connection->query($ticket_sql);
+                            }
+
+                            if ($ticket_result === FALSE) {
+                                die("<p class=\"error\">Query was Unsuccessful!</p>");
+                            }
+
+                            if ($ticket_result->num_rows > 0) {
+                                while ($row = $ticket_result->fetch_assoc())
+                                {
+                                    echo "<tr><td>#{$row['ticketID']}</td>";
+                                    echo "<td>{$row['ticket_description']}</td>";
+                                    if (strtolower($row['ticket_status']) == "completed") {
+                                        echo "<td><span id='completed'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
+                                    }
+                                    else {
+                                        echo "<td><span id='rejected'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
+                                    }
+                                    echo "<td>" . date("D h:ia", strtotime($row['ticketDate'])) . "</td>";
+                                    echo "<td>{$row['category']}</td>";
+                                    switch (strtolower($row['priority'])) {
+                                        case "high":
+                                            echo "<td><span class='priority high-risk'><span class='circle'></span>&nbsp;&nbsp;High</span></td></tr>";
+                                            break;
+                                        case "medium":
+                                            echo "<td><span class='priority medium-risk'><span class='circle'></span>&nbsp;&nbsp;Medium</span></td></tr>";
+                                            break;
+                                        default:
+                                            echo "<td><span class='priority low-risk'><span class='circle'></span>&nbsp;&nbsp;Low</span></td></tr>";
+                                    }
                                 }
                             }
+                            else {
+                                echo "<td><p><strong>There are currently no Closed/Rejected tickets!</strong></p></td>";
+                            }
+                            // close connection
+                            $connection->close();
                         ?>
                     </tbody>
                 </table>

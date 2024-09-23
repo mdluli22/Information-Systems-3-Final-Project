@@ -23,6 +23,7 @@
         }
     </style>
 </head>
+
 <body>
     <?php
     // if (isset(($_REQUEST['submit']))) {
@@ -40,10 +41,13 @@
         die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
     }
 
-    // Remove approved requests from maintenance requests list
+    // Remove REQUISITIONED requests from CONFIRMED requests list
+    // These requests are now REQUISITIONED - they will go to maintenance staff's OPENED page
     if (isset(($_REQUEST['approve_request']))) {
         $ticketID = $_REQUEST['ticketID'];
-        $remove_request = "UPDATE ticket SET ticket_status = 'Confirmed' WHERE ticketID = $ticketID";
+        $student_name = $_REQUEST['student_name'];
+        $student_room_num = $_REQUEST['student_room_num'];
+        $remove_request = "UPDATE ticket SET ticket_status = 'Requisitioned' WHERE ticketID = $ticketID";
         $remove_request_result = $connection->query($remove_request);
 
         // Check if request removal was successful
@@ -67,15 +71,11 @@
                 FROM residence JOIN hall_secretary ON hall_secretary.hall_name = residence.hall_name
                 WHERE hall_secretary.HS_userName = '$hall_sec_userName';";
     $residences_result = $connection->query($residences);
-                            
-    $opened_tickets_query =
-        "SELECT ticketID, concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority
-                FROM student s JOIN ticket t ON s.userName = t.userName
-                WHERE ticket_status = 'Opened';";
-    $opened_tickets_result = $connection->query($opened_tickets_query);
+    
+
 
     // Check if query successful
-    if ($ticket_result === FALSE || !$hall_name_result || !$residences_result || !$opened_tickets_result) {
+    if ($ticket_result === FALSE || !$hall_name_result || !$residences_result) {
         die("<p class=\"error\">Query was Unsuccessful!</p>");
     }
 
@@ -86,8 +86,7 @@
     // REPLACED $hall_name with $_SESSION['hall_name]
     $_SESSION['hall_name'] = $hall_name_result->fetch_assoc()['hall_name'];
 
-    // close connection
-    $connection->close();
+
     // }
     ?>
     <div class="container">
@@ -158,24 +157,30 @@
             <nav class="houses">
                 <?php
                 // $residence = array();
+                $defaulthouse = '';
                 $active = 0;
                 do {
+                        
                     if ($active == 0) {
-                        echo "<a href='#' class='house-link active'>{$residence['residences']}</a>";
                         $active++;
-                        continue;
+                        $defaulthouse = $residence['residences'];
                     }
-                    echo "<a href='#' class='house-link'>{$residence['residences']}</a>";
+
+                    $activeHouse = isset($_REQUEST['house_name']) ? $_REQUEST['house_name'] : $defaulthouse;
+                    $isActive = ($residence['residences'] === $activeHouse) ? 'active' : '';
+                    echo "<a href='hall_secretary_open_tickets.php?house_name={$residence['residences']}' class='house-link {$isActive}'>{$residence['residences']}</a>";
                 } while ($residence = $residences_result->fetch_assoc());
                 ?>
             </nav>
-
             <?php
-            if (isset($ticketID) && !empty($ticketID)) {
-                echo "<div class='success'>Successfully Approved Request!</div>";
-            }
+                if (isset($ticketID) && !empty($ticketID)) {
+                    echo "<div id='success-message' class='success-message'>
+                            <h2>Ticket Requestioned!<i class='fas fa-times cancel-icon' onclick='remove_feedback()'></i></h2>
+                            <p>The maintenance request for <strong>$student_name</strong> in <strong>room $student_room_num</strong> has been requisitioned successfully. The maintenance team will be notified shortly.</p>
+                        </div>";
+                }
             ?>
-
+            <!-- <input type="hidden" name=""> -->
             <!-- Maintenance requests section -->
             <section class="maintenance-requests"> <!--maintenance-scrollbar">-->
                 <header id="maintenance-requests-header">
@@ -190,31 +195,70 @@
                     <!--*** N.B. FLIP form and Priority -->
 
                     <?php
-                    while ($row = $opened_tickets_result->fetch_assoc()) {
-                        echo "<article class='request'>
-                                    <div class='request-top-btns request-btns'>
-                                        <!-- Buttons for commenting and deleting a request -->
-                                        <button class='comment-btn' onclick><i class='fa-solid fa-pen'></i>&nbsp;&nbsp;&nbsp;Comment</button>
-                                        <button class='delete-btn'><i class='fa-solid fa-trash' style='color: #e53e3e;'></i>&nbsp;&nbsp;&nbsp;Delete</button>
-                                    </div>
-                                    <!-- Request information -->
-                                    <div class='request-info'>
-                                        <p><strong>{$row['full_name']}</strong></p>
-                                        <p>Residence: <strong>{$row['resName']}</strong></p>
-                                        <p>Room Number: <strong>{$row['room_number']}</strong></p>
-                                        <form class='request-form' action='hall_secretary_open_tickets.php' method='get'>
-                                            <input type='hidden' name='ticketID' value='{$row['ticketID']}'>
-                                            <textarea class='comment-section' name='comment' rows=5 cols=100 ></textarea>
-                                            
-                                            <button type='submit' name='approve_request' class='approve-btn request-btns'>
-                                                <i class='fa-solid fa-plus' style='color: #a020f0;'></i>&nbsp;&nbsp;&nbsp;Approve Request
-                                            </button>
-                                        </form>
-                                        <p>Priority: <strong>{$row['priority']}</strong></p>
-                                        
-                                    </div>
-                                  </article>";
+                    $count = 0;
+
+                    if(isset($_REQUEST['house_name'])){
+                        // get approved/confirmed tickets from house warden
+                        $housename = $_REQUEST['house_name'];
+                        $requisitioned_tickets_query =
+                            "SELECT ticketID, concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority
+                                    FROM student s JOIN ticket t ON s.userName = t.userName
+                                    WHERE ticket_status = 'Confirmed' and t.resName = '$housename';";
+                        $requisitioned_tickets_result = $connection->query($requisitioned_tickets_query);
                     }
+                
+                    else{
+                
+                        $requisitioned_tickets_query =
+                        "SELECT ticketID, concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority
+                                FROM student s JOIN ticket t ON s.userName = t.userName
+                                WHERE ticket_status = 'Confirmed' and t.resName = '$defaulthouse';";
+                        $requisitioned_tickets_result = $connection->query($requisitioned_tickets_query);
+                
+                    }
+
+                    // Check if query successful
+                    if ($requisitioned_tickets_query === FALSE) {
+                        die("<p class=\"error\">Query was Unsuccessful!</p>");
+                    }
+
+                    if ($requisitioned_tickets_result->num_rows > 0) {
+
+                        while ($row = $requisitioned_tickets_result->fetch_assoc()) {
+                            echo "<article class='request'>
+                                        <div class='request-top-btns request-btns'>
+                                            <!-- Buttons for commenting and deleting a request -->
+                                            <button class='comment-btn' onclick><i class='fa-solid fa-pen'></i>&nbsp;&nbsp;&nbsp;Comment</button>
+                                            <button class='delete-btn'><i class='fa-solid fa-trash' style='color: #e53e3e;'></i>&nbsp;&nbsp;&nbsp;Delete</button>
+                                        </div>
+                                        <!-- Request information -->
+                                        <div class='request-info'>
+                                            <p><strong>{$row['full_name']}</strong></p>
+                                            <p>Residence: <strong>{$row['resName']}</strong></p>
+                                            <p>Room Number: <strong>{$row['room_number']}</strong></p>
+                                            <form class='request-form' action='hall_secretary_open_tickets.php' method='get'>
+                                                <input type='hidden' name='ticketID' value='{$row['ticketID']}'>
+                                                <button type='submit' name='approve_request' class='approve-btn request-btns'>
+                                                    <i class='fa-solid fa-plus' style='color: #a020f0;'></i>&nbsp;&nbsp;&nbsp;Approve Request
+                                                </button>
+                                                <input type='hidden' name='student_name' value='{$row['full_name']}'>
+                                                <input type='hidden' name='student_room_num' value='{$row['room_number']}'>
+                                            </form>
+                                            <p>Priority: <strong>{$row['priority']}</strong></p>
+                                            
+                                        </div>
+                                    </article>";
+                                    $count++;
+                        }
+                    }
+                    else {
+                        echo "<p><strong>There are currently no Opened tickets!</strong></p>";
+                    }
+                    echo "COUNT = $count";
+                    echo "";
+
+                    // close connection
+                    $connection->close();
                     ?>
                 </div>
             </section>

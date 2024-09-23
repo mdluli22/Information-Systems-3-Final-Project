@@ -28,9 +28,6 @@
 <body>
 
     <?php
-    // get hall name from login page/pop-up
-    $warden_userName = "w07k1234";
-    $resName = "Adamson House"; // $_REQUEST['resName'];
 
     // include database details from config.php file
     require_once("config.php");
@@ -43,8 +40,22 @@
         die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
     }
 
+    // get hall name from login page/pop-up
+    $warden_userName = $_SESSION['username'];
+
+    $warden_res_query = "SELECT resName, concat(f_Name, ' ', l_Name) as 'Name' FROM house_warden WHERE userName = '$warden_userName';";
+    $warden_res_query_result = $connection->query($warden_res_query);
+    
+    if ($warden_res_query_result === FALSE) {
+        die("<p class=\"error\">Query was Unsuccessful!</p>");
+    }
+
+    $resnamel = $warden_res_query_result->fetch_assoc();
+    $resname = $resnamel['resName'];
+    $wardeName = $resnamel['Name'];
+
     // query instructions for tickets pending and processing
-    $sql = "SELECT * FROM ticket WHERE lower(ticket_status) IN ('pending', 'processing');";
+    $sql = "SELECT * FROM ticket WHERE resName = '$resname' ;";
     $result = $connection->query($sql);
 
     // Check if query successfull
@@ -73,10 +84,10 @@
             <nav>
                 <ul id="sidebar-nav">
                     <!-- Navigation links with icons -->
-                    <li id="all-tickets"><a class="sidebar-links active" href="<?php echo "house_warden_all_tickets.php?warden_userName=$warden_userName&hall_name=$resName" ?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
-                    <li id="open-tickets"><a class="sidebar-links" href="<?php echo "house_warden_open_tickets.php?warden_userName=$warden_userName&hall_name=$resName"; ?>"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
-                    <li id="closed-tickets"><a class="sidebar-links" href="<?php echo "house_warden_closed_tickets.php?warden_userName=$warden_userName&hall_name=$resName"; ?>"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
-                    <li id="statistics"><a class="sidebar-links" href="<?php echo "../Statistics/Stats_warden.php?warden_userName=$warden_userName&hall_name=$resName" ?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
+                    <li id="all-tickets"><a class="sidebar-links active" href="<?php echo "house_warden_all_tickets.php?warden_userName=$warden_userName&hall_name=$resname" ?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
+                    <li id="open-tickets"><a class="sidebar-links" href="<?php echo "house_warden_open_tickets.php?warden_userName=$warden_userName&hall_name=$resname"; ?>"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
+                    <li id="closed-tickets"><a class="sidebar-links" href="<?php echo "house_warden_closed_tickets.php?warden_userName=$warden_userName&hall_name=$resname"; ?>"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
+                    <li id="statistics"><a class="sidebar-links" href="<?php echo "Stats_warden.php?warden_userName=$warden_userName&hall_name=$resname" ?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
                 </ul>
             </nav>
 
@@ -90,7 +101,7 @@
                 </div>
                 <!-- Profile information area -->
                 <div class="profile-info">
-                    <span id="user-name" class="username"><?php echo "Thokozile Tshabalala" ?></span><br>
+                    <span id="user-name" class="username"><?php echo $wardeName ?></span><br>
                     <span class="role"><?php echo "Warden" ?></span>
                 </div>
                 <!-- Logout button with icon -->
@@ -104,7 +115,7 @@
         <main class="content">
             <header class="page-header">
                 <!-- Welcome message -->
-                <h1>Welcome, <span class="username"><?php echo "Thokozile" ?></span></h1>
+                <h1>Welcome, <span class="username"><?php echo $wardeName  ?></span></h1>
                 <p>Access & Manage maintenance requisitions efficiently.</p>
             </header>
 

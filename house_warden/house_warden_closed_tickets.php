@@ -47,7 +47,7 @@
 
 
         // Check if query successfull
-        if ($result === FALSE || $pending_result === FALSE) {
+        if ($result === FALSE ) {
             die("<p class=\"error\">Query was Unsuccessful!</p>");
         }
         
@@ -75,7 +75,7 @@
                     <li id="all-tickets"><a class="sidebar-links" href="<?php echo "house_warden_all_tickets.php?warden_userName=$warden_userName&hall_name=$resName" ?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
                     <li id="open-tickets"><a class="sidebar-links" href="<?php echo "house_warden_open_tickets.php?warden_userName=$warden_userName&hall_name=$resName"; ?>"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
                     <li id="closed-tickets"><a class="sidebar-links active" href="<?php echo "house_warden_closed_tickets.php?warden_userName=$warden_userName&hall_name=$resName"; ?>"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
-                    <li id="statistics"><a class="sidebar-links" href="<?php echo "../Statistics/Stats_warden.php?warden_userName=$warden_userName&hall_name=$resName"?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
+                    <li id="statistics"><a class="sidebar-links" href="<?php echo "Stats_warden.php?warden_userName=$warden_userName&hall_name=$resName"?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
                 </ul>
             </nav>
     

@@ -7,30 +7,34 @@
 
 /* Global styles for the body */
 body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensures the body takes up the full viewport height */
+    margin: 0;
     font-family: Arial, sans-serif;
-    /* Sets the font */
-    line-height: 1.6rem;
-    /* Improves readability */
-    /* background-color: #A020F0; Light background color*/
-    /* background: linear-gradient(135deg, #ececec, #d1cfd1); Background gradient */
-    color: #333;
-    /* Default text color */
+    font-size: 1rem; /* Sets base size for rem units */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    padding-top: 5.5rem; /* Space for the fixed header */
     background-color: #CFDDE9;
+    color: #333;
 }
 
 /* Header styles: Top navigation bar */
 .header {
-    display: flex;
-    /* Flexbox layout for alignment */
+   display: flex;
     justify-content: space-between;
-    /* Space between logo, nav, and buttons */
     align-items: center;
-    /* Vertically align items */
-    padding: 0rem 7%;
-    background-color: #fff;
-    /* White background */
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
-    /* Subtle shadow for depth */
+    padding: 1.25rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #12222E;
+    box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
+    height: 5.5rem;
+    z-index: 1000; /* Ensure it stays on top of other content */
 }
 
 /* insert header pic */

@@ -2,26 +2,13 @@
 require_once("secure.php");
 
 if (isset($_SESSION['username'])) {
-    // echo 'Session Username: ' . $_SESSION['username'];
     $userID = $_SESSION['username']; //get userID for this 
 }else {
     die("User is not logged in.");
 }
 
-// Start the session
-//session_start();
-
 // Include database details from config.php file
 require_once("../config.php");
-/* 
-// Handle form submission
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Store the userID in the session
-    $_SESSION['userID'] = $_POST['userID'];
-}
-
-// Get userID from session or set default value
-$userID = isset($_SESSION['userID']) ? $_SESSION['userID'] : ''; */
                     
 // attempt to make database connection
 $connection = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
@@ -32,7 +19,6 @@ if ($connection->connect_error) {
 }
 
 //get the student information to use on the page
-//query instructions for the student's residence
 $sql = "SELECT * FROM systemsurgeons.student where userName = '$userID'";
 $result = $connection -> query($sql); //execute query
 
@@ -87,8 +73,6 @@ if ($result && $result->num_rows > 0) {
                 </ul>
             </nav>
     
-            <!-- <hr id="sidebar-hr"> -->
-    
             <!-- Profile section at the bottom of the sidebar -->
             <div class="profile">
                 <!-- Profile picture area -->
@@ -118,25 +102,12 @@ if ($result && $result->num_rows > 0) {
                 </div>
             </header>
 
-
             <!-- Flex container for the ticket list and ticket detail -->
             <div class="content-wrapper">
                 <!-- Section for the list of tickets -->
                 <section class="ticket-list">
                     <!-- <a href="../ticket_creation/ticketCreation.html"><button class="add-ticket">+ Add New Ticket</button></a>
                     <br> -->
-                    
-                    <!--  TEMPORARY Form for userID input
-                    <section class="user-id-input">
-                        <h3>Enter User ID to View Tickets</h3>
-                        <form action="ticket_tracking_all.php" method="POST">
-                            <label for="userID">User ID:</label>
-                            <input type="text" id="userID" name="userID" required>
-                            <button type="submit">Submit</button>
-                        </form>
-                    </section>
-                    <br>
-                    <!--  TEMPORARY Form for userID input  -->
 
                     <h3>Your Tickets</h3>
                     <?php
@@ -157,18 +128,18 @@ if ($result && $result->num_rows > 0) {
                                 echo "<tr class='ticket-card'>";
                                 echo "<td class='ticket-number'><img src='pictures/clipboard-tick.png' alt='clipboard-tick' style='margin-right: 10px;'>#{$row['ticketID']}</td>";
                                     
-                                    // Determine the CSS class based on the ticket_status so the correct color is produced
-                                    if ($row['ticket_status'] == "Opened") {
-                                        $statusClass = "status opened";
-                                    } elseif ($row['ticket_status'] == "Processing") {
-                                        $statusClass = "status processing";
-                                    } elseif ($row['ticket_status'] == "Completed") {
-                                        $statusClass = "status completed";
-                                    } elseif ($row['ticket_status'] == "Rejected") {
-                                        $statusClass = "status rejected";
-                                    } else {
-                                        $statusClass = "status"; // Default class if needed
-                                    }
+                                // Determine the CSS class based on the ticket_status so the correct color is produced
+                                if ($row['ticket_status'] == "Opened") {
+                                    $statusClass = "status opened";
+                                } elseif ($row['ticket_status'] == "Processing") {
+                                    $statusClass = "status processing";
+                                } elseif ($row['ticket_status'] == "Completed") {
+                                    $statusClass = "status completed";
+                                } elseif ($row['ticket_status'] == "Rejected") {
+                                    $statusClass = "status rejected";
+                                } else {
+                                    $statusClass = "status"; // Default class if needed
+                                }
 
                                 echo "<td><span class='{$statusClass}'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
                                 echo "<td><a href='ticket_tracking_all.php?ticketID={$row['ticketID']}' class='details-button'>View Details</button></a></td>";
@@ -242,8 +213,6 @@ if ($result && $result->num_rows > 0) {
                             if (isset($_GET['ticketID'])) {
                                 $ticketID = $_GET['ticketID'];
                         
-                                //echo "<h3>Ticket   #$ticketID</h3>"; //ticket heading
-                        
                                 //query instructions for the student's tickets
                                 $sql = "SELECT ticketID, userName, resName, ticket_status, ticketDate, ticket_description, category, priority  FROM systemsurgeons.ticket where ticketID = '$ticketID'";
                                 $result = $connection -> query($sql); //execute query
@@ -253,41 +222,39 @@ if ($result && $result->num_rows > 0) {
                                     die("<p class=\"error\">Could not connect to database to get ticket details!</p>");
                                 }
 
-                                $ticketowner = '';
+                                $ticketowner = ''; //will be used to authorise user to make comments on their ticket, and to allow them to delete comments under their ticket
 
                                 if($result -> num_rows > 0) {
                                     $ticket = $result->fetch_assoc(); //get related ticket details
                                     $ticketowner = $ticket['userName'];
 
-                                //display the ticket details for the specific ticket
-                                //echo "<table class='ticket-table'>";
-
-                                echo "<table class='info-table'>";
+                                    //display the ticket details for the specific ticket
+                                    echo "<table class='info-table'>";
                                     echo "<tr><td><span class='info-data'><h3>Details for Ticket #$ticketID</h3></span></td></tr>";
-                                echo "</table>";
-                                echo "<table class='info-table'>";
-                                    echo "<tr>";
-                                        echo "<td class='info-cell'>";
-                                            echo "<span class='info-label'>Date Logged:</span>";
-                                            // Convert the date from the database to the desired format
-                                            $date = date_create($ticket['ticketDate']); // Create a DateTime object
-                                            echo "<span class='info-data'>" . date_format($date, 'j F Y') . "</span>"; // Format the date
+                                    echo "</table>";
+                                    echo "<table class='info-table'>";
+                                        echo "<tr>";
+                                            echo "<td class='info-cell'>";
+                                                echo "<span class='info-label'>Date Logged:</span>";
+                                                // Convert the date from the database to the desired format
+                                                $date = date_create($ticket['ticketDate']); // Create a DateTime object
+                                                echo "<span class='info-data'>" . date_format($date, 'j F Y') . "</span>"; // Format the date
+                                            echo "</td>";
+                                            echo "<td class='info-cell'>";
+                                                echo "<span class='info-label'>Priority:</span>";
+                                                echo "<span class='info-data'>{$ticket['priority']}</span>";
+                                            echo "</td>";
+                                            echo "<td class='info-cell'>";
+                                                echo "<span class='info-label'>Category:</span>";
+                                                echo "<span class='info-data'>{$ticket['category']}</span>";
                                         echo "</td>";
-                                        echo "<td class='info-cell'>";
-                                            echo "<span class='info-label'>Priority:</span>";
-                                            echo "<span class='info-data'>{$ticket['priority']}</span>";
-                                        echo "</td>";
-                                        echo "<td class='info-cell'>";
-                                            echo "<span class='info-label'>Category:</span>";
-                                            echo "<span class='info-data'>{$ticket['category']}</span>";
-                                    echo "</td>";
-                                    echo "<tr>";
-                                        echo "<td class='info-cell' colspan='3'>";
-                                            echo "<span class='info-label'>Description:</span>";
-                                            echo "<span class='info-data'>{$ticket['ticket_description']}</span>";
-                                        echo "</td>";
-                                    echo "</tr>";
-                                echo "</table>";
+                                        echo "<tr>";
+                                            echo "<td class='info-cell' colspan='3'>";
+                                                echo "<span class='info-label'>Description:</span>";
+                                                echo "<span class='info-data'>{$ticket['ticket_description']}</span>";
+                                            echo "</td>";
+                                        echo "</tr>";
+                                    echo "</table>";
                                 }
                                 else {
                                     echo "<p>No details found for this ticket.</p>";

@@ -24,12 +24,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['commentID'])) {
 
         if ($page = 'all') {
             header("Location: ticket_tracking_all.php?ticketID=$ticketID");
+            $page = '';
             exit();}
         else if ($page = 'open') {
             header("Location: ticket_tracking_open.php?ticketID=$ticketID");
+            $page = '';
             exit();}
         else if ($page = 'closed') {
             header("Location: ticket_tracking_closed.php?ticketID=$ticketID");
+            $page = '';
             exit();}
         else {
             echo "<p class='error'>Failed to find page to return to: " . $connection->error . "</p>";

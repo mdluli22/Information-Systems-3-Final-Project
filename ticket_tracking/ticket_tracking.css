@@ -278,7 +278,7 @@ h1 .ticket_type, .comment_time {
 }
 
 /* Styles for status: opened, pending and rejected */
-.status.opened {
+.status.confirmed {
     padding: 5px 10px;
     border-radius: 20px;
     font-size: 14px;
@@ -286,12 +286,12 @@ h1 .ticket_type, .comment_time {
     border: 0.03125rem solid royalblue; /* green border for opened status */
 }
 
-.status.pending {
+.status.opened {
     padding: 5px 10px;
     border-radius: 20px;
     font-size: 14px;
     color: #333; /* Dark grey text color */
-    border: 0.03125rem solid grey; /* Grey border for pending status */
+    border: 0.03125rem solid grey; /* Grey border for opened status */
 }
 
 .status.rejected {
@@ -310,14 +310,14 @@ h1 .ticket_type, .comment_time {
     border: 0.03125rem solid #37b24d; /* green border for completed status */
 }
 
-/* Colors for opened status circle */
-.status.opened .circle {
-    background-color: royalblue; /* green color for opened status circle */
+/* Colors for confrimed status circle */
+.status.confirmed .circle {
+    background-color: royalblue; /* green color for confirmed status circle */
 }
 
-/* Colors for pending status circle */
-.status.pending .circle {
-    background-color: grey; /* Grey color for pending status circle */
+/* Colors for opened status circle */
+.status.opened .circle {
+    background-color: grey; /* Grey color for opened status circle */
 }
 
 /* Colors for rejected status circle */

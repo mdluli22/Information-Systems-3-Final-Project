@@ -1,7 +1,7 @@
 <?php
 // Include database details from config.php file
 require_once("../config.php");
-
+$page = '';
 // Check if form data is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get the submitted data
@@ -27,15 +27,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($page = 'all') {
             header("Location: ticket_tracking_all.php?ticketID=$ticketID");
+            $page = '';
             exit();}
         else if ($page = 'open') {
             header("Location: ticket_tracking_open.php?ticketID=$ticketID");
+            $page = '';
             exit();}
         else if ($page = 'closed') {
             header("Location: ticket_tracking_closed.php?ticketID=$ticketID");
+            $page = '';
             exit();}
         else {
-            echo "<p class='error'>Failed to find page to returnh to: " . $connection->error . "</p>";
+            echo "<p class='error'>Failed to find page to return to: " . $connection->error . "</p>";
         }
         
     } else {

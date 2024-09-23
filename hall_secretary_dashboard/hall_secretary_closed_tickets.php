@@ -41,7 +41,7 @@
             }
 
             // get information of Reject and Completed
-            $ticket_sql = "SELECT * FROM ticket WHERE ticket_status IN ('Rejected', 'Completed') ORDER BY ticketID DESC;";
+            $ticket_sql = "SELECT * FROM ticket WHERE ticket_status = 'Closed' ORDER BY ticketID DESC;";
             $ticket_result = $connection->query($ticket_sql);
 
             // Get res names of hall overseen by the hall secretary
@@ -160,28 +160,33 @@
                     <tbody>
                         <!-- populate dashboard board with tickets from database -->
                         <?php
-                            while ($row = $ticket_result->fetch_assoc())
-                            {
-                                echo "<tr><td>#{$row['ticketID']}</td>";
-                                echo "<td>{$row['ticket_description']}</td>";
-                                if (strtolower($row['ticket_status']) == "completed") {
-                                    echo "<td><span id='completed'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
+                            if ($ticket_result->num_rows > 0) {
+                                while ($row = $ticket_result->fetch_assoc())
+                                {
+                                    echo "<tr><td>#{$row['ticketID']}</td>";
+                                    echo "<td>{$row['ticket_description']}</td>";
+                                    if (strtolower($row['ticket_status']) == "completed") {
+                                        echo "<td><span id='completed'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
+                                    }
+                                    else {
+                                        echo "<td><span id='rejected'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
+                                    }
+                                    echo "<td>" . date("D h:ia", strtotime($row['ticketDate'])) . "</td>";
+                                    echo "<td>{$row['category']}</td>";
+                                    switch (strtolower($row['priority'])) {
+                                        case "high":
+                                            echo "<td><span class='priority high-risk'><span class='circle'></span>&nbsp;&nbsp;High</span></td></tr>";
+                                            break;
+                                        case "medium":
+                                            echo "<td><span class='priority medium-risk'><span class='circle'></span>&nbsp;&nbsp;Medium</span></td></tr>";
+                                            break;
+                                        default:
+                                            echo "<td><span class='priority low-risk'><span class='circle'></span>&nbsp;&nbsp;Low</span></td></tr>";
+                                    }
                                 }
-                                else {
-                                    echo "<td><span id='rejected'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
-                                }
-                                echo "<td>" . date("D h:ia", strtotime($row['ticketDate'])) . "</td>";
-                                echo "<td>{$row['category']}</td>";
-                                switch (strtolower($row['priority'])) {
-                                    case "high":
-                                        echo "<td><span class='priority high-risk'><span class='circle'></span>&nbsp;&nbsp;High</span></td></tr>";
-                                        break;
-                                    case "medium":
-                                        echo "<td><span class='priority medium-risk'><span class='circle'></span>&nbsp;&nbsp;Medium</span></td></tr>";
-                                        break;
-                                    default:
-                                        echo "<td><span class='priority low-risk'><span class='circle'></span>&nbsp;&nbsp;Low</span></td></tr>";
-                                }
+                            }
+                            else {
+                                echo "<p><strong>There are currently no Closed/Rejected tickets!</strong></p>";
                             }
                         ?>
                     </tbody>

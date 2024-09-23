@@ -22,15 +22,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['commentID'])) {
 
     if ($connection->query($sql_delete) === TRUE) {
 
-        if ($page = 'all') {
+        if ($page == 'all') {
             header("Location: ticket_tracking_all.php?ticketID=$ticketID");
             $page = '';
             exit();}
-        else if ($page = 'open') {
+        else if ($page == 'open') {
             header("Location: ticket_tracking_open.php?ticketID=$ticketID");
             $page = '';
             exit();}
-        else if ($page = 'closed') {
+        else if ($page == 'closed') {
             header("Location: ticket_tracking_closed.php?ticketID=$ticketID");
             $page = '';
             exit();}

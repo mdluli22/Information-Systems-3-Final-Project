@@ -40,9 +40,7 @@
                 die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
             }
 
-            // get information of Reject and Completed
-            $ticket_sql = "SELECT * FROM ticket WHERE ticket_status = 'Closed' ORDER BY ticketID DESC;";
-            $ticket_result = $connection->query($ticket_sql);
+
 
             // Get res names of hall overseen by the hall secretary
             $residences = 
@@ -61,12 +59,11 @@
             // $pending_result = $connection->query($pending_query);
 
             // Check if query successful
-            if ($ticket_result === FALSE || $residences_result === FALSE) { // || $pending_result === FALSE) {
+            if ($residences_result === FALSE) { // || $pending_result === FALSE) {
                 die("<p class=\"error\">Query was Unsuccessful!</p>");
             }
             
-            // close connection
-            $connection->close();
+
         // }
     ?>
     <div class="container">
@@ -127,7 +124,7 @@
             <!-- House selection links -->
             <nav class="houses">
                 <?php
-                    
+                    $defaulthouse = '';
                     $active = 0;
                     while ($residence = $residences_result->fetch_assoc()) {
                         
@@ -160,6 +157,21 @@
                     <tbody>
                         <!-- populate dashboard board with tickets from database -->
                         <?php
+                            if(isset($_REQUEST['house_name'])){
+                                $housename = $_REQUEST['house_name'];
+                                // get information of Reject and Completed
+                                $ticket_sql = "SELECT * FROM ticket WHERE ticket_status = 'Closed' AND resName = '$housename' ORDER BY ticketID DESC;";
+                                $ticket_result = $connection->query($ticket_sql);
+                            }
+                            else{
+                                $ticket_sql = "SELECT * FROM ticket WHERE ticket_status = 'Closed' AND resName = '$defaulthouse' ORDER BY ticketID DESC;";
+                                $ticket_result = $connection->query($ticket_sql);
+                            }
+
+                            if ($ticket_result === FALSE) {
+                                die("<p class=\"error\">Query was Unsuccessful!</p>");
+                            }
+
                             if ($ticket_result->num_rows > 0) {
                                 while ($row = $ticket_result->fetch_assoc())
                                 {
@@ -186,8 +198,10 @@
                                 }
                             }
                             else {
-                                echo "<p><strong>There are currently no Closed/Rejected tickets!</strong></p>";
+                                echo "<td><p><strong>There are currently no Closed/Rejected tickets!</strong></p></td>";
                             }
+                            // close connection
+                            $connection->close();
                         ?>
                     </tbody>
                 </table>

@@ -41,9 +41,7 @@
                 die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
             }
 
-            // get ticket information
-            $ticket_sql = "SELECT * FROM ticket ORDER BY ticketID DESC;";
-            $ticket_result = $connection->query($ticket_sql);
+
 
             // Get res names of hall overseen by the hall secretary           
             $residences = 
@@ -59,12 +57,11 @@
             $all_tickets_query_results = $connection->query($all_tickets_query);
 
             // Check if query successful
-            if ($ticket_result === FALSE || !$residences_result || !$all_tickets_query_results) {
+            if ($residences_result === FALSE || !$all_tickets_query_results) {
                 die("<p class=\"error\">Query was Unsuccessful!</p>");
             }
             
-            // close connection
-            $connection->close();
+
         // }
     ?>
     <div class="container">
@@ -158,6 +155,22 @@
                     <tbody>
                         <!-- populate dashboard board with tickets from database -->
                         <?php
+                            if(isset($_REQUEST['house_name'])){
+                                $housename = $_REQUEST['house_name'];
+                                // get ticket information
+                                $ticket_sql = "SELECT * FROM ticket  WHERE resName = '$housename' ORDER BY ticketID DESC;";
+                                $ticket_result = $connection->query($ticket_sql);
+                            }
+                            else{
+                                // get ticket information
+                                $ticket_sql = "SELECT * FROM ticket  WHERE resName = '$defaulthouse' ORDER BY ticketID DESC;";
+                                $ticket_result = $connection->query($ticket_sql);
+                            }
+
+                            if ($ticket_result === FALSE) {
+                                die("<p class=\"error\">Query was Unsuccessful!</p>");
+                            }
+
                             while ($row = $ticket_result->fetch_assoc())
                             {
                                 echo "<tr><td>#{$row['ticketID']}</td>";
@@ -187,6 +200,8 @@
                                         echo "<td><span class='priority low-risk'><span class='circle'></span>&nbsp;&nbsp;Low</span></td></tr>";
                                 }
                             }
+                            // close connection
+                            $connection->close();
                         ?>
                     </tbody>
                 </table>

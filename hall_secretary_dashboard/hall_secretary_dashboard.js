@@ -6,3 +6,6 @@ document.querySelectorAll('.house-link').forEach(link => {
     });
 });
 
+function remove_feedback() {
+    document.getElementById('success-message').style.display = 'none';
+}

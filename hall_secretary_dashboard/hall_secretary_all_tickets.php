@@ -45,11 +45,12 @@
             $ticket_sql = "SELECT * FROM ticket ORDER BY ticketID DESC;";
             $ticket_result = $connection->query($ticket_sql);
 
-            // Get res names of hall overseen by the hall secretary
+            // Get res names of hall overseen by the hall secretary           
             $residences = 
-                "SELECT DISTINCT concat(hall_secretary.f_Name, ' ', hall_secretary.l_name) AS 'hall_secretary_name', house_warden.resName AS 'residences'
-                FROM house_warden JOIN hall_secretary ON hall_secretary.HS_userName = house_warden.HS_userName
-                WHERE hall_secretary.HS_userName = '$hall_sec_userName';";
+            "SELECT DISTINCT concat(hall_secretary.f_Name, ' ', hall_secretary.l_name) AS 'hall_secretary_name', resName AS 'residences'
+            FROM residence JOIN hall_secretary ON hall_secretary.hall_name = residence.hall_name
+            WHERE hall_secretary.HS_userName = '$hall_sec_userName';";
+
             $residences_result = $connection->query($residences);
             
             $all_tickets_query = 
@@ -123,15 +124,19 @@
 
             <!-- House selection links -->
             <nav class="houses">
-                <?php
+            <?php
+                    
                     $active = 0;
                     while ($residence = $residences_result->fetch_assoc()) {
+                        
                         if ($active == 0) {
-                            echo "<a href='#' class='house-link active'>{$residence['residences']}</a>";
                             $active++;
-                            continue;
+                            $defaulthouse = $residence['residences'];
                         }
-                        echo "<a href='#' class='house-link'>{$residence['residences']}</a>";
+
+                        $activeHouse = isset($_REQUEST['house_name']) ? $_REQUEST['house_name'] : $defaulthouse;
+                        $isActive = ($residence['residences'] === $activeHouse) ? 'active' : '';
+                        echo "<a href='hall_secretary_all_tickets.php?house_name={$residence['residences']}' class='house-link {$isActive}'>{$residence['residences']}</a>";
                     }
                 ?>
             </nav>
@@ -186,38 +191,6 @@
                     </tbody>
                 </table>
             </section>
-
-            <!-- Maintenance requests section -->
-            <!-- <section class="maintenance-requests maintenance-scrollbar">
-                <header id="maintenance-requests-header">-->
-                    <!-- Header with title and view all button -->
-                    <!-- <h2 id="h2">Maintenance Requests</h2> -->
-                    <!-- <button class="view-all">View all</button> -->
-                <!-- </header> -->
-
-                <!-- populate maintenance faults pending approval
-                <div class="requests"> -->
-                    <?php
-                        // while ($row = $all_tickets_query_results->fetch_assoc())
-                        // {
-                        //     echo "<article class='request'>
-                        //             <div class='request-top-btns request-btns'>
-                        //                 <!-- Buttons for commenting and deleting a request -->
-                        //                 <button class='comment-btn'><i class='fa-solid fa-pen'></i>&nbsp;&nbsp;&nbsp;Comment</button>
-                        //                 <button class='delete-btn'><i class='fa-solid fa-trash' style='color: #e53e3e;'></i>&nbsp;&nbsp;&nbsp;Delete</button>
-                        //             </div>
-                        //             <!-- Request information -->
-                        //             <div class='request-info'>";
-                        //     echo    "<p><strong>{$row['full_name']}<strong></p>";
-                        //     echo       "<p>Residence: <strong>{$row['resName']}<strong></p>";
-                        //     echo       "<p>Room Number: <strong>{$row['room_number']}<strong></p>";
-                        //     echo       "<p>Priority: <strong>{$row['priority']}<strong>";
-                        //     echo       "<button class='approve-btn request-btns'><i class='fa-solid fa-plus' style='color: #a020f0;'></i>&nbsp;&nbsp;&nbsp;Approve Request</button></p>";
-                        //     echo    "</div></article>";
-                        // }
-                    ?>
-                <!-- </div>
-            </section> --> 
         </main>
     </div>
     <!-- Link to external JavaScript file -->

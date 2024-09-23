@@ -57,30 +57,31 @@
             }
         }
 
-        //  use warden userName to hall name
-        $res_name_sql = 
-        "SELECT resName FROM house_warden WHERE userName = '$warden_userName';";
-        $res_name_result = $connection->query($res_name_sql);
 
-        // get ticket information
-        $ticket_sql = "SELECT * FROM ticket;-- WHERE ticket_status = 'Processing'";
-        $ticket_result = $connection->query($ticket_sql);
+        // get hall name from login page/pop-up
+        $warden_userName = $_SESSION['username'];
 
-        $opened_tickets_query = 
-            "SELECT ticketID, concat(f_Name, ' ', l_Name) AS 'full_name', CONCAT(LEFT(f_Name, 1), LEFT(l_Name, 1)) AS initials, t.resName, room_number, priority
-            FROM student s JOIN ticket t ON s.userName = t.userName
-            WHERE ticket_status = 'Opened'";
-        $opened_tickets_result = $connection->query($opened_tickets_query);
+        $warden_res_query = "SELECT resName, concat(f_Name, ' ', l_Name) as 'Name' FROM house_warden WHERE userName = '$warden_userName';";
+        $warden_res_query_result = $connection->query($warden_res_query);
+    
+        if ($warden_res_query_result === FALSE) {
+            die("<p class=\"error\">Query was Unsuccessful!</p>");
+        }
+
+        $resnamel = $warden_res_query_result->fetch_assoc();
+        $resname = $resnamel['resName'];
+        $wardeName = $resnamel['Name'];
+
+        // query instructions for tickets pending and processing
+        $sql = "SELECT ticketID, concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority FROM student s JOIN ticket t ON s.userName = t.userName WHERE ticket_status = 'Opened' and t.resName = '$resname';";;
+        $opened_tickets_result = $connection->query($sql);
+
 
 
         // Check if query successfull
-        if ($ticket_result === FALSE || $opened_tickets_result === FALSE || !$res_name_result) {
+        if ($opened_tickets_result === FALSE) {
             die("<p class=\"error\">Query was Unsuccessful!</p>");
         }
-        
-        // get resName of hall_sec
-        // REPLACED $resName with $_SESSION['res_name]
-        $_SESSION['res_name'] = $res_name_result->fetch_assoc()['resName'];
 
         // close connection
         $connection->close();
@@ -103,10 +104,10 @@
             <nav>
                  <ul id="sidebar-nav">
                     <!-- Navigation links with icons -->
-                    <li id="all-tickets"><a class="sidebar-links" href="<?php echo "house_warden_all_tickets.php?warden_userName=$warden_userName&res_name={$_SESSION['res_name']}"?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
-                    <li id="open-tickets"><a class="sidebar-links active" href="<?php echo "house_warden_open_tickets.php?warden_userName=$warden_userName&res_name={$_SESSION['res_name']}"; ?>"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
-                    <li id="closed-tickets"><a class="sidebar-links" href="<?php echo "house_warden_closed_tickets.php?warden_userName=$warden_userName&res_name={$_SESSION['res_name']}"; ?>"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
-                    <li id="statistics"><a class="sidebar-links" href="<?php echo "../Statistics/Stats_warden.php?warden_userName=$warden_userName&res_name={$_SESSION['res_name']}"?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
+                    <li id="all-tickets"><a class="sidebar-links" href="<?php echo "house_warden_all_tickets.php?warden_userName=$warden_userName&res_name={$resname}"?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
+                    <li id="open-tickets"><a class="sidebar-links active" href="<?php echo "house_warden_open_tickets.php?warden_userName=$warden_userName&res_name={$resname}"; ?>"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
+                    <li id="closed-tickets"><a class="sidebar-links" href="<?php echo "house_warden_closed_tickets.php?warden_userName=$warden_userName&res_name={$resname}"; ?>"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
+                    <li id="statistics"><a class="sidebar-links" href="<?php echo "Stats_warden.php?warden_userName=$warden_userName&res_name={$resname}"?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
                 </ul>
             </nav>
     
@@ -120,7 +121,7 @@
                 </div>
                 <!-- Profile information area -->
                 <div class="profile-info">
-                    <span id="user-name" class="username"><?php echo "Thokozile Tshabalala"?></span><br>
+                    <span id="user-name" class="username"><?php echo $wardeName?></span><br>
                     <span class="role"><?php echo "Warden"?></span>
                 </div>
                 <!-- Logout button with icon -->
@@ -130,11 +131,11 @@
             </div>
         </aside>
 
-        <!-- Main content area -->
+        <!-- Main content area --> 
         <main class="content">
             <header class="page-header">
                 <!-- Welcome message -->
-                <h1>Welcome, <span class="username"><?php echo "Thokozile"?></span></h1>
+                <h1>Welcome, <span class="username"><?php echo $wardeName?></span></h1>
                 <p>Access & Manage maintenance requisitions efficiently.</p>
             </header>
             <!-- removed the Ticket table section -->

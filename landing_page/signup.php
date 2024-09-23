@@ -15,7 +15,7 @@
     }
 </style>
 <?php
-// Start the session
+//Start the session
 session_start();
 
 // come from a form submission
@@ -27,6 +27,8 @@ $roomNumber = $_REQUEST['roomNumber'];
 $username = $_REQUEST['username'];
 $password = $_REQUEST['password'];
 $hall = $_REQUEST['hall'];
+$role = $_REQUEST['role']; // Retrieve role from the form
+echo "Selected role: " . $role; // Debugging statement
 
 //include database credentials 
 require_once("config.php");
@@ -54,18 +56,14 @@ if ($result->num_rows > 0) {
     //user doesn't already exist
     $hashed_password = password_hash($password, PASSWORD_BCRYPT); // Hash the password
     $userTable = "INSERT INTO user(userName, user_password, user_role, email)
-                  VALUES ('$username', '$hashed_password', 'student', '$email')";
+                  VALUES ('$username', '$hashed_password', '$role', '$email')";
     $fromUser = $conn->query($userTable);
 
     //check if the user has been added successfully into user table
     if ($fromUser === TRUE) {
-        $roleResult = "SELECT user_role FROM user WHERE userName = '$username'";
-        $Role = $conn->query($roleResult);
-        $roleRow = $Role->fetch_assoc();
-        $forRole = $roleRow['user_role'];
 
         //check the role of the user
-        switch ($forRole) {
+        switch ($role) {
             //if the user is a student
             case 'student':
                 //check if the residence exists
@@ -114,6 +112,16 @@ if ($result->num_rows > 0) {
                     }
                 }
 
+                // Ensure that the selected hall secretary exists
+                //$checkHSUser = "SELECT * FROM hall_secretary WHERE HS_userName = '$HS_userName'";
+                $checkHSUser = "SELECT resName FROM residence  
+                                JOIN hall_secretary ON hall_secretary.hall_name = residence.hall_name WHERE resName = '$resname'";
+                $hsResult = $conn->query($checkHSUser);
+
+                if ($hsResult->num_rows == 0) {
+                    die("<p class='error'>No such hall secretary found with HS_userName: $HS_userName</p>");
+                }
+
                 // Insert into the house warden table
                 $wardenTable = "INSERT INTO house_warden (f_Name, l_Name, resName, userName, HS_userName)
                                 VALUES ('$fname', '$lname', '$resname', '$username', 'SOME_HS_USER')"; // Replace SOME_HS_USER with the actual HS_userName
@@ -121,31 +129,31 @@ if ($result->num_rows > 0) {
 
                 if ($warden === TRUE) {
                     echo "<p class=\"success\">House Warden added successfully!</p>";
-                    header("Location: wardenDashboard.php");
+                    header("Location: ../house_warden/house_warden_open_tickets.php");
                     exit();
                 } else {
                     die("<p class=\"error\">Error adding to house warden table: " . $conn->error . "</p>");
                 }
 
                 break;
-            case 'hall secretary' :
-                // Insert into the hall secretary table
-                $secretaryTable = "INSERT INTO hall_secretary (HS_userName, f_Name, l_Name, hall_name, userName)
-                                   VALUES ('$username', '$fname', '$lname', '$hall', '$username')";
+            case 'hall secretary':
+                // Logic for hall secretary
+                $secretaryTable = "INSERT INTO hall_secretary (HS_userName, f_Name, l_Name, userName, hall_name)
+                                   VALUES ('$username', '$fname', '$lname', '$username', '$hall')";
                 $secretary = $conn->query($secretaryTable);
 
                 if ($secretary === TRUE) {
-                    echo "<p class=\"success\">Hall Secretary added successfully!</p>";
-                    header("Location: secretaryDashboard.php");
+                    echo "<p class='success'>Hall Secretary added successfully!</p>";
+                    header("Location: ../hall_secretary_dashboard/hall_secretary_open_tickets.php");
                     exit();
                 } else {
-                    die("<p class=\"error\">Error adding to hall secretary table: " . $conn->error . "</p>");
+                    die("<p class='error'>Error adding to hall secretary table: " . $conn->error . "</p>");
                 }
                 break;
     
             default:
                 // Handle other roles
-                die("<p class=\"error\">Unknown user role: $forRole</p>");
+                die("<p class=\"error\">Unknown user role: $role</p>");
                 break;
             }
         } else {
@@ -156,5 +164,6 @@ if ($result->num_rows > 0) {
 // Close connection to the database
 $conn->close();
 ?>
+
 </body>
 </html>

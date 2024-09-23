@@ -93,9 +93,8 @@
                     <select name="role" id="role" required>
                         <option value="">Select Role</option>
                         <option value="student">Student</option>
-                        <option value="houseWarden">House Warden</option>
-                        <option value="hallSec">Hall Secretary</option>
-                        <option value="maintenancePersonnel">Maintenance Personnel</option>
+                        <option value="house warden">House Warden</option>
+                        <option value="hall secretary">Hall Secretary</option>
                     </select>
 
                     <!-- genetal field -->
@@ -105,28 +104,27 @@
 
                         <label for="lname">Surname</label>
                         <input type="text" id="lname" placeholder="Smith" name="lname" required>
-
-                        <label for="username">Username</label>
-                        <input type="text" id="username" placeholder="g12s3456" name="username" required maxlength="8">
-                        
-                        <label for="password">Password</label>
-                        <input type="password" id="password" placeholder="*******" name="password" required>
                     </div>
 
                     <!-- the student area -->
                     <div id="studentFields">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" placeholder="g12s3456" name="username" maxlength="8">
+                        
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="*******" name="password">
 
                         <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="g12s3456@campus.ru.ac.za" name="email" required>
+                        <input type="email" id="email" placeholder="g12s3456@campus.ru.ac.za" name="email">
 
                         <label for="resName">Resident Name</label>
-                        <input type="text" id="resName" placeholder="Enter resident name" name="resName" required>
+                        <input type="text" id="resName" placeholder="Enter resident name" name="resName">
 
                         <label for="roomNumber">Room Number</label>
-                        <input type="text" id="roomNumber" placeholder="Enter room number" name="roomNumber" pattern="\d{1,3}" required>
+                        <input type="text" id="roomNumber" placeholder="Enter room number" name="roomNumber" pattern="\d{1,3}">
 
                         <label for="hall">Hall Name</label>
-                        <select name="hall" id="hall" required>
+                        <select name="hall" id="hall">
                             <option value="">Select Hall Name</option>
                             <option value="Miriam Makeba Hall">Miriam Makeba Hall</option>
                             <option value="Mandela Hall">Mandela Hall</option>
@@ -147,41 +145,55 @@
                 
                     <!-- House Warden Fields -->
                     <div id="houseWardenFields" class="hidden">
-                        <!-- <label for="hw-fname">First Name</label>
-                        <input type="text" id="hw-fname" placeholder="John" name="hw_fname" required>
+                        <label for="username">Username</label>
+                        <input type="text" id="username" placeholder="w12s3456" name="username" maxlength="8">
+                        
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="*******" name="password">
 
-                        <label for="hw-lname">Surname</label>
-                        <input type="text" id="hw-lname" placeholder="Smith" name="hw_lname" required> -->
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="w12s3456@campus.ru.ac.za" name="email">
 
                         <label for="hw-resName">Residence Name</label>
-                        <input type="text" id="hw-resName" placeholder="Enter resident name" name="hw_resName" required>
+                        <input type="text" id="hw-resName" placeholder="Enter resident name" name="hw_resName">
 
-                        <!-- <label for="hw-userName">Username</label>
-                        <input type="text" id="hw-userName" placeholder="g12s3456" name="hw_userName" required maxlength="8"> -->
-
-                        <label for="hs-userName">Hall Secretary Username</label>
-                        <input type="text" id="hs-userName" placeholder="Enter Hall Secretary's username" name="hs_userName" required maxlength="8">
+                        <!-- <label for="hs-userName">Hall Secretary Username</label>
+                        <input type="text" id="hs-userName" placeholder="Enter Hall Secretary's username" name="hs_userName" maxlength="8"> -->
                     </div>
 
                     <!-- Hall Secretary Fields -->
                     <div id="hallSecretaryFields" class="hidden">
-                        <!-- <label for="hs-fname">First Name</label>
-                        <input type="text" id="hs-fname" placeholder="John" name="hs_fname" required>
+                        <label for="username">Username</label>
+                        <input type="text" id="username" placeholder="h12s3456" name="username" maxlength="8">
+                        
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="*******" name="password">
 
-                        <label for="hs-lname">Surname</label>
-                        <input type="text" id="hs-lname" placeholder="Smith" name="hs_lname" required>
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="h12s3456@campus.ru.ac.za" name="email">
 
-                        <label for="hs-userName">Username</label>
-                        <input type="text" id="hs-userName" placeholder="g12s3456" name="hs_userName" required maxlength="8"> -->
-
-                        <label for="hall-name">Hall Name</label>
-                        <input type="text" id="hall-name" placeholder="Enter hall name" name="hall_name" required>
+                        <label for="hall">Hall Name</label>
+                            <select name="hall" id="hall">
+                                <option value="">Select Hall Name</option>
+                                <option value="Miriam Makeba Hall">Miriam Makeba Hall</option>
+                                <option value="Mandela Hall">Mandela Hall</option>
+                                <option value="Solomon Kalushi Mahlangu">Solomon Kalushi Mahlangu</option>
+                                <option value="Lillian Ngoyi Hall">Lillian Ngoyi Hall</option>
+                                <option value="Courtenay-Latimer Hall">Courtenay-Latimer Hall</option>
+                                <option value="Kimberly Hall">Kimberly Hall</option>
+                                <option value="Allan Webb Hall">Allan Webb Hall</option>
+                                <option value="St Mary Hall">St Mary Hall</option>
+                                <option value="Hobson Hall">Hobson Hall</option>
+                                <option value="Desmond Tutu">Desmond Tutu</option>
+                                <option value="Drostdy Hall">Drostdy Hall</option>
+                                <option value="Founders Hall">Founders Hall</option>
+                                <option value="Hugh Masekela Hall">Hugh Masekela Hall</option>
+                            </select>
                     </div>
-
-                    <input type="submit" id="signup-submit-btn" name="submit" value="Sign up">
+                    <input type="submit" id="signup-submit-btn" name="submit" value="Signup">
                 </form>
 
-                <p>Already have an account? <a href="login_page.html">Login in</a></p>
+                <p>Already have an account? <a href="login_page.html">Login</a></p>
             </div>
         </div>
     </section>

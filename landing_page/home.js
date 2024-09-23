@@ -45,21 +45,47 @@ window.onclick = function(event) {
 };
 
 // Handle showing and hiding fields based on the selected role
+// document.getElementById('role').addEventListener('change', function() {
+//     const role = this.value;
+
+//     // Hide all fields first
+//     document.getElementById('studentFields').classList.add('hidden');
+//     document.getElementById('houseWardenFields').classList.add('hidden');
+//     document.getElementById('hallSecretaryFields').classList.add('hidden');
+//     document.getElementById('generalFields').classList.remove('hidden');
+
+//     // Show the relevant fields
+//     if (role === 'student') {
+//         document.getElementById('studentFields').classList.remove('hidden');
+//     } else if (role === 'houseWarden') {
+//         document.getElementById('houseWardenFields').classList.remove('hidden');
+//     } else if (role === 'hallSec') {
+//         document.getElementById('hallSecretaryFields').classList.remove('hidden');
+//     }
+// });
+
 document.getElementById('role').addEventListener('change', function() {
     const role = this.value;
 
-    // Hide all fields first
+    // Hide all role-specific field sections and remove 'required' from their inputs
     document.getElementById('studentFields').classList.add('hidden');
     document.getElementById('houseWardenFields').classList.add('hidden');
     document.getElementById('hallSecretaryFields').classList.add('hidden');
-    document.getElementById('generalFields').classList.remove('hidden');
+    document.querySelectorAll('#studentFields input, #houseWardenFields input, #hallSecretaryFields input').forEach(input => input.required = false);
 
-    // Show the relevant fields
+    // Ensure the general fields are always visible and required
+    document.getElementById('generalFields').classList.remove('hidden');
+    document.querySelectorAll('#generalFields input').forEach(input => input.required = true);
+
+    // Show the relevant role-specific fields and set them to required
     if (role === 'student') {
         document.getElementById('studentFields').classList.remove('hidden');
-    } else if (role === 'houseWarden') {
+        document.querySelectorAll('#studentFields input').forEach(input => input.required = true);
+    } else if (role === 'house warden') {
         document.getElementById('houseWardenFields').classList.remove('hidden');
-    } else if (role === 'hallSec') {
+        document.querySelectorAll('#houseWardenFields input').forEach(input => input.required = true);
+    } else if (role === 'hall secretary') {
         document.getElementById('hallSecretaryFields').classList.remove('hidden');
+        document.querySelectorAll('#hallSecretaryFields input').forEach(input => input.required = true);
     }
 });

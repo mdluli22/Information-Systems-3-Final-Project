@@ -199,11 +199,13 @@
                             echo "<td><a href='maintenance_opened_tickets.php?ticket_ID={$row['ticketID']}&house_name={$activeHouse} '>Comments</a></td></tr>";
 
                             
-
+                            //code for rendering the comments
                             if(isset($_REQUEST['ticket_ID'])){
+                                //when we reach the specific ticket we want comments for.
                                 if($_REQUEST['ticket_ID'] == $row['ticketID']){
                                     $theticketID = $_REQUEST['ticket_ID'];
 
+                                    //get all comments for the ticket
                                     $sql = "SELECT * from comment where ticketID = '$theticketID' ";
                                     $thecomments = $connection -> query($sql);
 
@@ -211,12 +213,23 @@
                                         die("<p class=\"error\">Query was Unsuccessful!</p>");
                                     }
 
+                                    //get the name of the person that made the comment
+                                    $sql = "SELECT concat(f_Name, ' ', l_Name) as 'name' from student where  userName = '{$row['userName']}' ";
+                                    $thename = $connection -> query($sql);
+
+                                    if ($thename === FALSE) {
+                                        die("<p class=\"error\">Query was Unsuccessful!</p>");
+                                    }
+
+                                    $name = $thename -> fetch_assoc();
+
                                     echo "<tr class = 'commentSection'>";
                                     if($thecomments -> num_rows == 0){
                                         echo "<td><p>No commments available</p> </td>";
                                     }
                                     while($comment = $thecomments -> fetch_assoc()){
-                                        echo "<td><p> {$comment['comment_description']} </p> </td>";
+                                        
+                                        echo "<td> <h5> {$name['name']} </h4> <p> {$comment['comment_description']} </p> </td>";
                                     }
                                     echo "</tr>";
                                 }

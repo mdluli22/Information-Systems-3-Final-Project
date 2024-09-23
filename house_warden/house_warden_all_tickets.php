@@ -43,7 +43,7 @@
     // get hall name from login page/pop-up
     $warden_userName = $_SESSION['username'];
 
-    $warden_res_query = "SELECT resName, concat(f_Name, ' ', l_Name) as 'Name' FROM house_warden WHERE userName = '$warden_userName';";
+    $warden_res_query = "SELECT resName, concat(f_Name, ' ', l_Name) as 'Name', f_Name as 'firstName' FROM house_warden WHERE userName = '$warden_userName';";
     $warden_res_query_result = $connection->query($warden_res_query);
     
     if ($warden_res_query_result === FALSE) {
@@ -55,7 +55,7 @@
     $wardeName = $resnamel['Name'];
 
     // query instructions for tickets pending and processing
-    $sql = "SELECT * FROM ticket WHERE resName = '$resname' ;";
+    $sql = "SELECT * FROM ticket WHERE resName = '$resname' ORDER BY ticketID DESC;";
     $result = $connection->query($sql);
 
     // Check if query successfull
@@ -80,7 +80,7 @@
                 <input class="search-input" type="search" name="search-field" id="search-field" placeholder="Search">
             </form>
 
-            <!-- Navigation menu in the sidebar -->
+            <!-- Navigation menu in the sidebar --> 
             <nav>
                 <ul id="sidebar-nav">
                     <!-- Navigation links with icons -->
@@ -115,7 +115,7 @@
         <main class="content">
             <header class="page-header">
                 <!-- Welcome message -->
-                <h1>Welcome, <span class="username"><?php echo $wardeName  ?></span></h1>
+                <h1>Welcome, <span class="username"><?php echo $resnamel['firstName'] ?></span></h1>
                 <p>Access & Manage maintenance requisitions efficiently.</p>
             </header>
 

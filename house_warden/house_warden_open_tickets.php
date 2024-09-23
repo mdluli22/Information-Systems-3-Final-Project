@@ -131,7 +131,7 @@
             </div>
         </aside>
 
-        <!-- Main content area -->
+        <!-- Main content area --> 
         <main class="content">
             <header class="page-header">
                 <!-- Welcome message -->

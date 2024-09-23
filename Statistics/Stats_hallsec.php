@@ -88,7 +88,7 @@
     </aside>
     <main class="content">
         <header class="header">
-            <h2>Statistics</h2>
+            <h1>Statistics</h1>
             <div class="filters">
                 <span>From</span>
                 <input type="date" value="2021-06-10">

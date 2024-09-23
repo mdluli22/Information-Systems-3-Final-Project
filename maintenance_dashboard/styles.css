@@ -10,10 +10,6 @@ body {
     height: 100%; /* Container spans the full height of the viewport */
 }
 
-.container .logo h2 {
-    color: #fff;
-}
-
 /* Sidebar section with fixed position for navigation */
 .sidebar {
     background-color:#12222E;

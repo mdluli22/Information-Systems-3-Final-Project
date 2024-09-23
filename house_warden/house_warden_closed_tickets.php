@@ -26,9 +26,9 @@
 <body>  
 
     <?php
-        // get hall name from login page/pop-up
-        $warden_userName = "w07k1234";
-        $resName = "Adamson House";// $_REQUEST['resName'];
+        // get house_warden username from login page/pop-up
+        $warden_userName = $_SESSION['username'];
+        // $resName = "Adamson House";// $_REQUEST['resName'];
 
         // include database details from config.php file
         require_once("config.php");

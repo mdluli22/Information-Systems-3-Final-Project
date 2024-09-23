@@ -198,7 +198,7 @@
                                 }
                             }
                             else {
-                                echo "<td><p><strong>There are currently no Closed/Rejected tickets!</strong></p></td>";
+                                echo "<tr><td> <p> No Tickets Available </p></td></tr>";
                             }
                             // close connection
                             $connection->close();

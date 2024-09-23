@@ -29,7 +29,9 @@
             die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
         }
 
-        $warden_res_query = "SELECT resName FROM house_warden WHERE userName = '$warden_userName';";
+        $warden_res_query =
+            "SELECT resName, concat(f_Name, ' ', l_Name) as 'Name', f_Name as 'firstName', CONCAT(LEFT(house_warden.f_Name, 1), LEFT(house_warden.l_Name, 1)) AS initials
+            FROM house_warden WHERE userName = '$warden_userName';";
         $warden_res_query_result = $connection->query($warden_res_query);
 
         if ($warden_res_query_result === FALSE) {
@@ -38,6 +40,8 @@
 
         $resnamel = $warden_res_query_result->fetch_assoc();
         $resname = $resnamel['resName'];
+        $wardeName = $resnamel['Name'];
+        $initials = $resnamel['initials'];
     ?>
 
     <div class="container">
@@ -69,11 +73,13 @@
         <!-- Profile section at the bottom of the sidebar -->
         <div class="profile">
             <!-- Profile picture area -->
-            <div class="profile-pic">AM</div>
+            <div class="profile-pic">
+                <?php echo $initials;?>
+            </div>
             <!-- Profile information area -->
             <div class="profile-info">
-                <span id="user-name" class="username">Amogelang Mphela</span><br>
-                <span class="role">Hall Secretary</span>
+                <span id="user-name" class="username"><?php echo $wardeName?></span><br>
+                <span class="role"><?php echo "Warden"?></span>
             </div>
             <!-- Logout button with icon -->
             <div id="sidebar-log-out">
@@ -82,8 +88,8 @@
         </div>
     </aside>
     <main class="content">
-        <header class="header"> 
-            <h2>Statistics</h2>
+        <header class="header">
+            <h1>Statistics</h1>
             <div class="filters">
                 <span>From</span>
                 <input type="date" value="2021-06-10">
@@ -196,7 +202,6 @@
                                     echo ($result -> num_rows).",";
 
                                     $num++;
-
                                 }
                             ?>
                             ],

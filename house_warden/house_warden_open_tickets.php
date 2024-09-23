@@ -61,7 +61,9 @@
         // get hall name from login page/pop-up
         $warden_userName = $_SESSION['username'];
 
-        $warden_res_query = "SELECT resName, concat(f_Name, ' ', l_Name) as 'Name' FROM house_warden WHERE userName = '$warden_userName';";
+        $warden_res_query =
+            "SELECT resName, concat(f_Name, ' ', l_Name) as 'Name', f_Name as 'firstName', CONCAT(LEFT(house_warden.f_Name, 1), LEFT(house_warden.l_Name, 1)) AS initials
+            FROM house_warden WHERE userName = '$warden_userName';";
         $warden_res_query_result = $connection->query($warden_res_query);
     
         if ($warden_res_query_result === FALSE) {
@@ -71,12 +73,11 @@
         $resnamel = $warden_res_query_result->fetch_assoc();
         $resname = $resnamel['resName'];
         $wardeName = $resnamel['Name'];
+        $initials = $resnamel['initials'];
 
         // query instructions for tickets pending and processing
         $sql = "SELECT ticketID, concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority FROM student s JOIN ticket t ON s.userName = t.userName WHERE ticket_status = 'Opened' and t.resName = '$resname';";;
         $opened_tickets_result = $connection->query($sql);
-
-
 
         // Check if query successfull
         if ($opened_tickets_result === FALSE) {
@@ -117,7 +118,7 @@
             <div class="profile">
                 <!-- Profile picture area -->
                 <div class="profile-pic">
-                    <?php echo "TT";?>
+                    <?php echo $initials;?>
                 </div>
                 <!-- Profile information area -->
                 <div class="profile-info">
@@ -135,7 +136,7 @@
         <main class="content">
             <header class="page-header">
                 <!-- Welcome message -->
-                <h1>Welcome, <span class="username"><?php echo $wardeName?></span></h1>
+                <h1>Welcome, <span class="username"><?php echo $resnamel['firstName']; ?></span></h1>
                 <p>Access & Manage maintenance requisitions efficiently.</p>
             </header>
             <!-- removed the Ticket table section -->
@@ -208,7 +209,7 @@
                             }
                         }
                         else {
-                            echo "<p><strong>There are currently no Opened tickets!</strong></p>";
+                            echo "<tr><td> <p> No Tickets Available </p></td></tr>";
                         }
                         echo "COUNT = $count";
                         echo "";

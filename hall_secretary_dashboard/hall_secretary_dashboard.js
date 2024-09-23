@@ -5,3 +5,7 @@ document.querySelectorAll('.house-link').forEach(link => {
         this.classList.add('active');
     });
 });
+
+function remove_feedback() {
+    document.getElementById('success-message').style.display = 'none';
+}

@@ -52,10 +52,10 @@
         <nav>
             <ul id="sidebar-nav">
                 <!-- Navigation links with icons -->
-                <li id="all-tickets"><a class="sidebar-links" href="<?php echo '../house_warden/house_warden_all_tickets.php?warden_userName=$warden_userName&hall_name=$hall_name'; ?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
-                <li id="open-tickets"><a class="sidebar-links" href="<?php echo '../house_warden\house_warden_open_tickets.php?warden_userName=$warden_userName&hall_name=$hall_name'; ?>"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
-                <li id="closed-tickets"><a class="sidebar-links" href="<?php echo '../house_warden\house_warden_closed_tickets.php?warden_userName=$warden_userName&hall_name=$hall_name'; ?>"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
-                <li id="statistics"><a class="sidebar-links active" href="<?php echo 'Stats_warden.php?warden_userName=$warden_userName&hall_name=$hall_name';?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
+                <li id="all-tickets"><a class="sidebar-links" href="<?php echo "../house_warden/house_warden_all_tickets.php?warden_userName=$warden_userName&res_name={$_SESSION['res_name']}"; ?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
+                <li id="open-tickets"><a class="sidebar-links" href="<?php echo "../house_warden\house_warden_open_tickets.php?warden_userName=$warden_userName&res_name={$_SESSION['res_name']}"; ?>"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
+                <li id="closed-tickets"><a class="sidebar-links" href="<?php echo "../house_warden\house_warden_closed_tickets.php?warden_userName=$warden_userName&res_name={$_SESSION['res_name']}"; ?>"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
+                <li id="statistics"><a class="sidebar-links active" href="<?php echo "Stats_warden.php?warden_userName=$warden_userName&res_name={$_SESSION['res_name']}";?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
             </ul>
         </nav>
 
@@ -72,7 +72,7 @@
             </div>
             <!-- Logout button with icon -->
             <div id="sidebar-log-out">
-                <a href="#"><i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i></a>
+                <a href="../landing_page/logout.php" onclick = " return confirm('Are you sure you want to log out')"><i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i></a>
             </div>
         </div>
     </aside>

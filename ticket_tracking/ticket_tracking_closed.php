@@ -222,6 +222,32 @@ if ($result && $result->num_rows > 0) {
 
                             $ticketowner = ''; //will be used to authorise user to make comments on their ticket, and to allow them to delete comments under their ticket
 
+                            // Fetch and display photos from the 'photos' table for the ticketID
+                            $sql_photos = "SELECT photo FROM systemsurgeons.photos WHERE ticketID = '$ticketID'";
+                            $photos_result = $connection->query($sql_photos);
+
+                            if ($photos_result->num_rows > 0) {
+                                echo "<div class='carousel'>";
+                                //echo "<h3>Ticket Photos</h3>";
+                                echo "<div class='carousel-images'>";
+                                
+                                while ($photo = $photos_result->fetch_assoc()) {
+                                    $photo_src = "../landing_page/pictures/" . $photo['photo'];
+                                    echo "<div class='carousel-slide'>";
+                                    echo "<img src='$photo_src' alt='Ticket Image' class='carousel-image'>";
+                                    echo "</div>";
+                                }
+
+                                echo "</div>";
+                                echo "<button class='carousel-prev'>Prev</button>";
+                                echo "<button class='carousel-next'>Next</button>";
+                                echo "</div>";
+                            } else {
+                                // echo "<p>No photos have been uploaded for this ticket.</p>";
+                                echo "<img src='pictures/leak.jpg' alt='Ticket Image'>";
+                            }
+                            //image carousel ends here
+
                             if($result -> num_rows > 0) {
                                 $ticket = $result->fetch_assoc(); //get related ticket details
                                 $ticketowner = $ticket['userName'];
@@ -324,6 +350,7 @@ if ($result && $result->num_rows > 0) {
                             }
                         }
                         else {
+                            echo "<img src='pictures/leak.jpg' alt='Ticket Image'>";
                             echo "<p>Please select a ticket to view its details.</p>";
                         }
                         ?>

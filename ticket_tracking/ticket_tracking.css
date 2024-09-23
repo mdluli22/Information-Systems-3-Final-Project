@@ -461,3 +461,56 @@ h1 .ticket_type, .comment_time {
     margin: 5px 0;
     font-size: 1rem;
 }
+
+/* Carousel container for image viewing */
+.carousel {
+    position: relative;
+    width: 100%;
+    max-width: 500px; /* Set the desired width for the carousel */
+    margin: 20px auto;
+}
+
+/* Carousel images */
+.carousel-images {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+}
+
+.carousel-slide {
+    min-width: 100%; /* Each image takes up full width of the carousel */
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* Previous and Next buttons */
+.carousel-prev,
+.carousel-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.carousel-prev {
+    left: 0;
+}
+
+.carousel-next {
+    right: 0;
+}
+
+.carousel-prev:hover,
+.carousel-next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+/* End of carousel container for image viewing */

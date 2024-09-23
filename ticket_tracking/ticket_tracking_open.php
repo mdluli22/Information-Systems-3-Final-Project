@@ -112,7 +112,7 @@ if ($result && $result->num_rows > 0) {
                     <h3>Your Tickets</h3>
                     <?php
                         //query instructions for the student's tickets
-                        $sql = "SELECT ticketID, resName, ticket_status FROM systemsurgeons.ticket where userName = '$userID' and ((ticket_status = 'Opened') or (ticket_status ='Confirmed'))";
+                        $sql = "SELECT ticketID, resName, ticket_status FROM systemsurgeons.ticket where userName = '$userID' and ((ticket_status = 'Opened') or (ticket_status ='Confirmed') or (ticket_status ='Requisitioned'))";
                         $result = $connection -> query($sql); //execute query
 
                         // Check if query successfull
@@ -161,7 +161,7 @@ if ($result && $result->num_rows > 0) {
                     echo "<h3>$residence Tickets</h3>";
 
                         //query instructions for all tickets within the same residence
-                        $sql = "SELECT ticketID, resName, ticket_status FROM systemsurgeons.ticket where resName = '$residence' and ( (ticket_status = 'Opened') or (ticket_status ='Confirmed'));";
+                        $sql = "SELECT ticketID, resName, ticket_status FROM systemsurgeons.ticket where resName = '$residence' and ( (ticket_status = 'Opened') or (ticket_status ='Confirmed') or (ticket_status ='Requisitioned'));";
                         $result = $connection -> query($sql); //execute query
 
                         // Check if query successfull
@@ -215,7 +215,7 @@ if ($result && $result->num_rows > 0) {
                                 $ticketID = $_GET['ticketID'];
 
                             //query instructions for the student's tickets
-                           $sql = "SELECT ticketID, userName, resName, ticket_status, ticketDate, ticket_description, category, priority  FROM systemsurgeons.ticket where ticketID = '$ticketID' and ((ticket_status = 'Opened') or (ticket_status ='Confirmed'))";
+                           $sql = "SELECT ticketID, userName, resName, ticket_status, ticketDate, ticket_description, category, priority  FROM systemsurgeons.ticket where ticketID = '$ticketID' and ( (ticket_status = 'Opened') or (ticket_status ='Confirmed') or (ticket_status ='Requisitioned'))";
                            //$sql = "SELECT ticketID, userName, resName, ticket_status, ticketDate, ticket_description, category, priority  FROM systemsurgeons.ticket where ticketID = '$ticketID'"; 
                            $result = $connection -> query($sql); //execute query
 
@@ -225,6 +225,32 @@ if ($result && $result->num_rows > 0) {
                             }
 
                             $ticketowner = ''; //will be used to authorise user to make comments on their ticket, and to allow them to delete comments under their ticket
+
+                            // Fetch and display photos from the 'photos' table for the ticketID
+                            $sql_photos = "SELECT photo FROM systemsurgeons.photos WHERE ticketID = '$ticketID'";
+                            $photos_result = $connection->query($sql_photos);
+
+                            if ($photos_result->num_rows > 0) {
+                                echo "<div class='carousel'>";
+                                //echo "<h3>Ticket Photos</h3>";
+                                echo "<div class='carousel-images'>";
+                                
+                                while ($photo = $photos_result->fetch_assoc()) {
+                                    $photo_src = "../landing_page/pictures/" . $photo['photo'];
+                                    echo "<div class='carousel-slide'>";
+                                    echo "<img src='$photo_src' alt='Ticket Image' class='carousel-image'>";
+                                    echo "</div>";
+                                }
+
+                                echo "</div>";
+                                echo "<button class='carousel-prev'>Prev</button>";
+                                echo "<button class='carousel-next'>Next</button>";
+                                echo "</div>";
+                            } else {
+                                // echo "<p>No photos have been uploaded for this ticket.</p>";
+                                echo "<img src='pictures/leak.jpg' alt='Ticket Image'>";
+                            }
+                            //image carousel ends here
 
                             if($result -> num_rows > 0) {
                                 $ticket = $result->fetch_assoc(); //get related ticket details
@@ -328,6 +354,7 @@ if ($result && $result->num_rows > 0) {
                             }
                         }
                         else {
+                            echo "<img src='pictures/leak.jpg' alt='Ticket Image'>";
                             echo "<p>Please select a ticket to view its details.</p>";
                         }
                         ?>

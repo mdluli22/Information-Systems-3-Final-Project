@@ -44,21 +44,6 @@ if ($conn->connect_error) {
     die("<p class=\"error\">Connection to the database failed!</p>" . $conn->connect_error);
 }
 
-//for debugging purposes
-echo "Form Data Received:<br>";
-echo "First Name: $fname<br>";
-echo "Last Name: $lname<br>";
-echo "Email: $email<br>";
-echo "Residence Name: $resname<br>";
-echo "Room Number: $roomNumber<br>";
-echo "Username: $username<br>";
-echo "Password: $password<br>";
-echo "Hall: $hall<br>";
-echo "Role: $role<br>";
-
-// if (empty($username) || empty($password) || empty($email) || empty($resname) || empty($hall)) {
-//     die("<p class='error'>All fields are required. Please fill in all the details.</p>");
-// }
 
 //query to check if the user exists in the database
 $sql = "SELECT * FROM user WHERE userName = '$username'";
@@ -74,7 +59,7 @@ if ($result->num_rows > 0) {
     $_SESSION['hall'] = $hall;
     $_SESSION['resName'] = $resname;
     $_SESSION['access'] = "yes";
-    //header("Location: ../ticket_tracking/ticket_tracking_all.php");
+    header("Location: ../ticket_tracking/ticket_tracking_all.php");
     exit();
 } else {
     //user doesn't already exist
@@ -184,7 +169,6 @@ if ($result->num_rows > 0) {
         die("<p class=\"error\">Error adding into user table: " . $conn->error . "</p>");
     }
 }
-
 // Close connection to the database
 $conn->close();
 ?>

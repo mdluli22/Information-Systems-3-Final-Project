@@ -1,3 +1,6 @@
+<?php
+    require_once("secure.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +15,8 @@
 </head>
 <body>
 <?php
-        $warden = "w23t1898";
+
+        $warden_userName = $_SESSION['username'];
         
         // include database details from config.php file
         require_once("config.php");
@@ -25,14 +29,19 @@
             die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
         }
 
-        $warden_res_query = "SELECT resName FROM house_warden WHERE userName = '$warden';";
+        $warden_res_query =
+            "SELECT resName, concat(f_Name, ' ', l_Name) as 'Name', f_Name as 'firstName', CONCAT(LEFT(house_warden.f_Name, 1), LEFT(house_warden.l_Name, 1)) AS initials
+            FROM house_warden WHERE userName = '$warden_userName';";
         $warden_res_query_result = $connection->query($warden_res_query);
 
         if ($warden_res_query_result === FALSE) {
             die("<p class=\"error\">Query was Unsuccessful!</p>");
         }
 
-        $warden_res = $warden_res_query_result->fetch_assoc()['resName'];
+        $resnamel = $warden_res_query_result->fetch_assoc();
+        $resname = $resnamel['resName'];
+        $wardeName = $resnamel['Name'];
+        $initials = $resnamel['initials'];
     ?>
 
     <div class="container">
@@ -52,10 +61,10 @@
         <nav>
             <ul id="sidebar-nav">
                 <!-- Navigation links with icons -->
-                <li id="all-tickets"><a class="sidebar-links" href="<?php echo "../house_warden/house_warden_all_tickets.php?warden_userName=$warden_userName&res_name={$_SESSION['res_name']}"; ?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
-                <li id="open-tickets"><a class="sidebar-links" href="<?php echo "../house_warden\house_warden_open_tickets.php?warden_userName=$warden_userName&res_name={$_SESSION['res_name']}"; ?>"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
-                <li id="closed-tickets"><a class="sidebar-links" href="<?php echo "../house_warden\house_warden_closed_tickets.php?warden_userName=$warden_userName&res_name={$_SESSION['res_name']}"; ?>"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
-                <li id="statistics"><a class="sidebar-links active" href="<?php echo "Stats_warden.php?warden_userName=$warden_userName&res_name={$_SESSION['res_name']}";?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
+                <li id="all-tickets"><a class="sidebar-links" href="<?php echo "house_warden_all_tickets.php?warden_userName=$warden_userName&res_name={$resname}"; ?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
+                <li id="open-tickets"><a class="sidebar-links" href="<?php echo "house_warden_open_tickets.php?warden_userName=$warden_userName&res_name={$resname}"; ?>"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
+                <li id="closed-tickets"><a class="sidebar-links" href="<?php echo "house_warden_closed_tickets.php?warden_userName=$warden_userName&res_name={$resname}"; ?>"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
+                <li id="statistics"><a class="sidebar-links active" href="<?php echo "Stats_warden.php?warden_userName=$warden_userName&res_name={$resname}";?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
             </ul>
         </nav>
 
@@ -64,11 +73,13 @@
         <!-- Profile section at the bottom of the sidebar -->
         <div class="profile">
             <!-- Profile picture area -->
-            <div class="profile-pic">AM</div>
+            <div class="profile-pic">
+                <?php echo $initials;?>
+            </div>
             <!-- Profile information area -->
             <div class="profile-info">
-                <span id="user-name" class="username">Amogelang Mphela</span><br>
-                <span class="role">Hall Secretary</span>
+                <span id="user-name" class="username"><?php echo $wardeName?></span><br>
+                <span class="role"><?php echo "Warden"?></span>
             </div>
             <!-- Logout button with icon -->
             <div id="sidebar-log-out">
@@ -78,7 +89,7 @@
     </aside>
     <main class="content">
         <header class="header">
-            <h2>Statistics</h2>
+            <h1>Statistics</h1>
             <div class="filters">
                 <span>From</span>
                 <input type="date" value="2021-06-10">
@@ -91,17 +102,17 @@
 
             <?php 
              
-                $ticket_status = array("Pending", "Processing", "Completed");
+                $ticket_status = array("Opened", "Confirmed", "Closed");
                 $icons = array("pictures/layer.svg", "pictures/clipboard-tick.svg", "pictures/task.svg");
                 $class_names = array("card-icon", "card-icon1", "card-icon2");
-                $names = array("Pending Tickets", "Processing Tickets", "Completed Tickets");
+                $names = array("Opened Tickets", "Confirmed Tickets", "Closed Tickets");
                 $ticketTotals = array(0,0,0);
                 $index = 0;
                 $total = 0;
                 
                //for each loop for rendering the Pending, Processing, Closed and Total tickets
                 foreach($ticket_status as $status){
-                    $sql = "SELECT * FROM ticket WHERE ticket_status = '$status' AND resName = '$warden_res'";
+                    $sql = "SELECT * FROM ticket WHERE ticket_status = '$status' AND resName = '$resname'";
                     $result = $connection->query($sql);
 
                     // Check if query successfull
@@ -174,9 +185,15 @@
                             <?php
                                 $num = 1;
                                 while($num <= 9){
-                                    $sql = "SELECT * FROM ticket WHERE MONTH(ticketDate) = '$num'";
+                                    if(isset($_REQUEST['res_name'])){
+                                        $resname = $_REQUEST['res_name'];
+                                        $sql = "SELECT * FROM ticket WHERE MONTH(ticketDate) = '$num' AND resName = '$resname' ";
+                                    }
+                                    else{
+                                        $sql = "SELECT * FROM ticket WHERE MONTH(ticketDate) = '$num' AND resName = '$defaulthouse' ";
+                                        
+                                    }
                                     $result = $connection -> query($sql);
-
                                     // Check if query successfull
                                     if ($result === FALSE) {
                                         die("<p class=\"error\">Query was Unsuccessful!</p>");
@@ -185,7 +202,6 @@
                                     echo ($result -> num_rows).",";
 
                                     $num++;
-
                                 }
                             ?>
                             ],

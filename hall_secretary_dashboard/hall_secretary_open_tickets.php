@@ -71,16 +71,9 @@
                 FROM residence JOIN hall_secretary ON hall_secretary.hall_name = residence.hall_name
                 WHERE hall_secretary.HS_userName = '$hall_sec_userName';";
     $residences_result = $connection->query($residences);
-                            
-    // get approved/confirmed tickets from house warden
-    $requisitioned_tickets_query =
-        "SELECT ticketID, concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority
-                FROM student s JOIN ticket t ON s.userName = t.userName
-                WHERE ticket_status = 'Confirmed';";
-    $requisitioned_tickets_result = $connection->query($requisitioned_tickets_query);
 
     // Check if query successful
-    if ($ticket_result === FALSE || !$hall_name_result || !$residences_result || !$requisitioned_tickets_result) {
+    if ($ticket_result === FALSE || !$hall_name_result || !$residences_result) {
         die("<p class=\"error\">Query was Unsuccessful!</p>");
     }
 
@@ -91,8 +84,7 @@
     // REPLACED $hall_name with $_SESSION['hall_name]
     $_SESSION['hall_name'] = $hall_name_result->fetch_assoc()['hall_name'];
 
-    // close connection
-    $connection->close();
+
     // }
     ?>
     <div class="container">
@@ -163,6 +155,7 @@
             <nav class="houses">
                 <?php
                 // $residence = array();
+                $defaulthouse = '';
                 $active = 0;
                 do {
                         
@@ -201,7 +194,34 @@
 
                     <?php
                     $count = 0;
+
+                    if(isset($_REQUEST['house_name'])){
+                        // get approved/confirmed tickets from house warden
+                        $housename = $_REQUEST['house_name'];
+                        $requisitioned_tickets_query =
+                            "SELECT ticketID, concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority
+                                    FROM student s JOIN ticket t ON s.userName = t.userName
+                                    WHERE ticket_status = 'Confirmed' and t.resName = '$housename';";
+                        $requisitioned_tickets_result = $connection->query($requisitioned_tickets_query);
+                    }
+                
+                    else{
+                
+                        $requisitioned_tickets_query =
+                        "SELECT ticketID, concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority
+                                FROM student s JOIN ticket t ON s.userName = t.userName
+                                WHERE ticket_status = 'Confirmed' and t.resName = '$defaulthouse';";
+                        $requisitioned_tickets_result = $connection->query($requisitioned_tickets_query);
+                
+                    }
+
+                    // Check if query successful
+                    if ($requisitioned_tickets_query === FALSE) {
+                        die("<p class=\"error\">Query was Unsuccessful!</p>");
+                    }
+
                     if ($requisitioned_tickets_result->num_rows > 0) {
+
                         while ($row = $requisitioned_tickets_result->fetch_assoc()) {
                             echo "<article class='request'>
                                         <div class='request-top-btns request-btns'>
@@ -230,10 +250,13 @@
                         }
                     }
                     else {
-                        echo "<p><strong>There are currently no Opened tickets!</strong></p>";
+                        echo "<tr><td> <p> No Tickets Available </p></td></tr>";
                     }
                     echo "COUNT = $count";
                     echo "";
+
+                    // close connection
+                    $connection->close();
                     ?>
                 </div>
             </section>

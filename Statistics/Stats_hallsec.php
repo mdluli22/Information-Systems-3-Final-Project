@@ -15,9 +15,9 @@
 </head>
 <body>
     <?php
-        // get hall name from login page/pop-up
-        $hall_sec_userName = "h01b5432";
-        $hall_name = "Solomon Kalushi Mahlangu Hall";// $_REQUEST['hall_name'];
+        // get hall_sec username from login page/pop-up
+        $hall_sec_userName = $_SESSION['username'];
+        // $hall_name = $_SESSION['hall_name'];
 
         // include database details from config.php file
         require_once("config.php");
@@ -59,10 +59,10 @@
         <nav>
                 <ul id="sidebar-nav">
                     <!-- Navigation links with icons -->
-                    <li id="all-tickets"><a class="sidebar-links" href="<?php echo "../hall_secretary_dashboard/hall_secretary_all_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
-                    <li id="open-tickets"><a class="sidebar-links" href="<?php echo "../hall_secretary_dashboard/hall_secretary_open_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"; ?>"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
-                    <li id="closed-tickets"><a class="sidebar-links" href="<?php echo "../hall_secretary_dashboard/hall_secretary_closed_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"; ?>"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
-                    <li id="statistics"><a class="sidebar-links active" href="<?php echo "Stats_hallsec.php?hall_sec_userName=$hall_sec_userName&hall_name=$hall_name"?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
+                    <li id="all-tickets"><a class="sidebar-links" href="<?php echo "../hall_secretary_dashboard/hall_secretary_all_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}"?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
+                    <li id="open-tickets"><a class="sidebar-links" href="<?php echo "../hall_secretary_dashboard/hall_secretary_open_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}"; ?>"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
+                    <li id="closed-tickets"><a class="sidebar-links" href="<?php echo "../hall_secretary_dashboard/hall_secretary_closed_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}"; ?>"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
+                    <li id="statistics"><a class="sidebar-links active" href="<?php echo "Stats_hallsec.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}?";?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
                 </ul>
             </nav>
 
@@ -125,10 +125,10 @@
                 }
 
                 
-                $ticket_status = array("Pending", "Processing", "Completed");
+                $ticket_status = array("Opened", "Confirmed", "Closed");
                 $icons = array("pictures/layer.svg", "pictures/clipboard-tick.svg", "pictures/task.svg");
                 $class_names = array("card-icon", "card-icon1", "card-icon2");
-                $names = array("Pending Tickets", "Processing Tickets", "Completed Tickets");
+                $names = array("Opened Tickets", "Confirmed Tickets", "Closed Tickets");
                 $ticketTotals = array(0,0,0);
                 $index = 0;
                 $total = 0;
@@ -173,8 +173,6 @@
                     $index++;
                     $total += $result -> num_rows;
                 }
-
-             
             ?>
 
             <div class="card">

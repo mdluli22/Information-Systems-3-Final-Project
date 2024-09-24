@@ -26,8 +26,7 @@
 
 <body>
     <?php
-    // if (isset(($_REQUEST['submit']))) {
-    // get hall_sec username from login page/pop-up
+
     $hall_sec_userName = $_SESSION['username'];
     
     // include database details from config.php file
@@ -66,26 +65,21 @@
     $ticket_result = $connection->query($ticket_sql);
 
     // Get res names of hall overseen by the hall secretary
-    $residences =
-        "SELECT DISTINCT f_Name, CONCAT(hall_secretary.f_Name, ' ', hall_secretary.l_name) AS 'hall_secretary_name', CONCAT(LEFT(hall_secretary.f_Name, 1), LEFT(hall_secretary.l_Name, 1)) AS initials, resName AS 'residences'
-                FROM residence JOIN hall_secretary ON hall_secretary.hall_name = residence.hall_name
-                WHERE hall_secretary.HS_userName = '$hall_sec_userName';";
+    $residences = "SELECT DISTINCT s.f_Name AS student_first_name, s.l_Name AS student_last_name, CONCAT(LEFT(s.f_Name, 1), LEFT(s.l_Name, 1)) AS initials, r.resName AS residences
+                    FROM residence AS r JOIN student AS s ON r.resName = s.resName WHERE s.userName = '$hall_sec_userName'; ";
     $residences_result = $connection->query($residences);
 
-    // Check if query successful
+    // Check if the query was successful
     if ($ticket_result === FALSE || !$hall_name_result || !$residences_result) {
         die("<p class=\"error\">Query was Unsuccessful!</p>");
     }
 
-    // get hall secretary name + initials
+    // Get student information and initials
     $residence = $residences_result->fetch_assoc();
-    
-    // get hall name of hall_sec
-    // REPLACED $hall_name with $_SESSION['hall_name]
+
+    // Get hall name of hall_sec
     $_SESSION['hall_name'] = $hall_name_result->fetch_assoc()['hall_name'];
 
-
-    // }
     ?>
     <div class="container">
         <!-- Sidebar section for navigation -->

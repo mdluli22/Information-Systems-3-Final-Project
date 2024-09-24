@@ -1,12 +1,12 @@
 <?php
-// require_once("secure.php");
+require_once("secure.php");
 
-// if (isset($_SESSION['username'])) {
-//     // echo 'Session Username: ' . $_SESSION['username'];
-//     $studentID = $_SESSION['username'];
-// }else {
-//     die("User is not logged in.");
-// }
+if (isset($_SESSION['username'])) {
+    // echo 'Session Username: ' . $_SESSION['username'];
+    $studentID = $_SESSION['username'];
+}else {
+    die("User is not logged in.");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +14,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maintenance Form | ResQue</title>
-    <!-- <link rel="icon" type="image/x-icon" href="pictures/resque-logo.png"> -->
+    <link rel="icon" type="image/x-icon" href="pictures/2-removebg-preview.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />    
     <link rel="stylesheet" href="ticketCreationStyle.css">
@@ -23,29 +23,45 @@
 </head>
 <body>
 <?php
-    // // include database details from config.php file
-    // require_once("config.php");
+    // include database details from config.php file
+    require_once("config.php");
 
-    // // attempt to make database connection
-    // $conn = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
+    // attempt to make database connection
+    $conn = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
 
-    // // Check if connection was successful
-    // if ($conn -> connect_error) {
-    //     die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
-    // }
+    // Check if connection was successful
+    if ($conn -> connect_error) {
+        die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
+    }
 
-    // //for the res name on top
-    // $sql1 = "SELECT resName FROM student WHERE userName = '$studentID'";
-    // $result = $conn->query($sql1);
+    //for the res name on top
+    $sql1 = "SELECT resName FROM student WHERE userName = '$studentID'";
+    $result = $conn->query($sql1);
 
-    // if($result->num_rows > 0) {
-    //     $row = $result->fetch_assoc();
-    //     $resName = $row['resName'];
-    // } else {
-    //     $resName = "Residence not found";
-    // }
+    if($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $resName = $row['resName'];
+    } else {
+        $resName = "Residence not found";
+    }
 
-    // $conn->close();
+    // Fetch student's full name, initials, and role
+    $sql = " SELECT s.f_Name AS first_name, s.l_Name AS last_name, CONCAT(LEFT(s.f_Name, 1), LEFT(s.l_Name, 1)) AS initials, u.user_role AS role
+            FROM student AS s JOIN user AS u ON s.userName = u.userName WHERE s.userName = '$studentID'; ";
+
+    $result = $conn->query($sql);
+
+    // Check if the query was successful and fetch the result
+    if ($result && $result->num_rows > 0) {
+    $studentInfo = $result->fetch_assoc();
+    $_SESSION['initials'] = $studentInfo['initials'];
+    $_SESSION['full_name'] = $studentInfo['first_name'] . ' ' . $studentInfo['last_name'];
+    $_SESSION['role'] = $studentInfo['role'];
+    } else {
+        die("<p class=\"error\">Student not found or query unsuccessful!</p>");
+    }
+
+    $conn->close();
 ?>
     <div class="container">
         <!-- the white left side of the page -->
@@ -62,29 +78,39 @@
                 <nav>
                     <ul>
                         <li id="logFaults" class="sidebar-item">
-                            <a href="#"><img src="pictures/receipt-add.png" alt="receipt-add">Log faults</a>
+                            <a href="#"><img src="pictures/receipt-add.png" alt="receipt-add"><span>Log faults</span></a>
                         </li>
                         <li id="allTickets" class="sidebar-item">
-                            <a href="#"><img src="pictures/receipt-icon.png" alt="receipt-icon">All Tickets</a>
+                            <a href="#"><img src="pictures/receipt-icon.png" alt="receipt-icon"><span>All Tickets</span></a>
                         </li>
                         <li id="openTickets" class="sidebar-item">
-                            <a href="#"><img src="pictures/layer.png" alt="layer">Open Tickets</a>
+                            <a href="#"><img src="pictures/layer.png" alt="layer"><span>Open Tickets</span></a>
                         </li>
                         <li id="closedTickets" class="sidebar-item">
-                            <a href="#"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a>
+                            <a href="#"><img src="pictures/clipboard-tick.png" alt="clipboard-tick"><span>Closed Tickets</span></a>
                         </li>
                     </ul>
                 </nav>
+
                 <div class="profile">
-                    <div class="profile-pic">AM</div>
+                    <div class="profile-pic">
+                        <?php echo $_SESSION['initials']; ?>
+                    </div>
                     <div class="profile-info">
-                        <span id="user-name" class="username">Jesus Christ</span><br>
-                        <span class="role">Student</span>
+                        <span id="user-name" class="username"><?php echo htmlspecialchars($_SESSION['full_name']); ?></span><br>
+                        <span class="role"><?php echo htmlspecialchars($_SESSION['role']); ?></span>
                     </div>
                     <div id="sidebar-log-out">
-                        <a href="#"><i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i></a>
+                        <a href="../landing_page/logout.php" onclick="return confirm('Are you sure you want to log out')">
+                            <i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i>
+                        </a>
                     </div>
                 </div>
+                    <!-- Logout button with icon -->
+                <!-- <div id="sidebar-log-out">
+                    <a href="../landing_page/logout.php" onclick = " return confirm('Are you sure you want to log out')"><i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i></a>
+                </div>
+                </div> -->
             </aside>
         </div>
         <script>
@@ -106,29 +132,28 @@
         }
 
         </script>
-
-
+        
         <main class="content">
-            <!-- <header class="page-header">
+            <header class="page-header">
                 <div>
                     <h1>Maintenance requisition form</h1>   
                     <p class="fade-out" id="residence" name="residence">
                         <?php echo htmlspecialchars($resName); ?>
                     </p>
                 </div>
-                 -->
-                <!-- <img src="pictures/resque-logo.png" alt="Logo" width="150" height="110"> -->
+                 
+                <img src="pictures/fake logo(1).png" alt="Logo" width="150" height="110">
             </header>
             <section>
                 <!-- the actual form for fault -->
-                <!-- <form action="ticketCreation.php" method="post" enctype="multipart/form-data" class="requisition-form">
+                <form action="ticketCreation.php" method="post" enctype="multipart/form-data" class="requisition-form">
                     <div class="form-header">
                         <h3>Requisition Details</h3>
                         <p class="fade-out">Please fill in the form below</p>
-                    </div> -->
+                    </div>
 
                     <!-- dropdown for fault category -->
-                    <!-- <div class="form-group">
+                    <div class="form-group">
                         <label for="fault-category">Fault Category *</label>
                         <div class="form-input">
                             <select id="fault-category" name="fault-category" required>
@@ -140,17 +165,17 @@
                                 <option value="Other">Other</option>
                             </select>
                         </div>
-                    </div> -->
+                    </div>
 
-                    <!-- <div class="form-group">
+                    <div class="form-group">
                         <label for="description">Description</label>
                         <div class="form-extra-info"><small>Please provide any additional information or instructions related to the requisition</small></div>
                         <div class="form-input">
                             <textarea id="description" name="description" required></textarea>
                         </div>
-                    </div> -->
+                    </div>
 
-                    <!-- <div class="form-group">
+                    <div class="form-group">
                         <label for="priority">Priority *</label>
                         <div class="form-input">
                             <select id="priority" name="priority" required>
@@ -160,9 +185,9 @@
                                 <option value="High">High</option>
                             </select>
                         </div>
-                    </div> -->
+                    </div>
 
-                    <!-- <div class="form-group">
+                    <div class="form-group">
                         <label for="picture">Upload an Image</label>
                         <div class="form-input">
                             <input type="file" name="picture[]" id="picture" placeholder="Choose file" multiple>
@@ -172,7 +197,7 @@
                         <input type="hidden" id="resName" name="residence" value="<?php $resName; ?>">
                         <button type="reset" class="cancel-btn">Cancel</button>
                         <input type="submit" value="Submit" >   
-                    </div> -->
+                    </div>
                 </form>
             </section>
         </main>

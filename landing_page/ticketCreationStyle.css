@@ -2,144 +2,148 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;
-    height: 100vh; /* Ensure the body takes up the full viewport height */
+    height: 100vh;
     background-color: #CFDDE9;
 }
 
-.container {
+.app {
     display: flex;
     height: 100vh;
 }
 
-/* the whole left side section */
+* {
+    box-sizing: border-box;
+}
+
 .sidebar {
+    position: relative;
+    width: 17.5rem; /* 280px */
     background-color: #12222E;
+    padding: 1.5rem; /* 24px */
+    padding-top: 2.5rem; /* Add extra padding to accommodate the logo height */
     display: flex;
     flex-direction: column;
-    position: fixed;
-    width: 17.5rem; /* 280px converted to rem */
-    padding: 1.25rem; /* 20px converted to rem */
-    height: 100vh; /* Ensure sidebar takes up full height */
+    gap: 0.5rem; /* 8px */
+    transition: width 0.4s ease;
 }
 
-.sidebar .profile {
+.sidebar.collapsed {
+    width: 5rem; /* 80px */
+}
+
+.sidebar__collapse-button {
+    cursor: pointer;
     position: absolute;
-    font-size: 0.85rem; /* 85% of 16px */
-    bottom: 2.5rem; /* 40px converted to rem */
-    width: 100%;
-    text-align: left;
     display: flex;
-    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 2rem; /* 24px */
+    height: 2rem; /* 24px */
+    border-radius: 1rem; /* 16px */
+    background-color: #f5f5f5;
+    border: 0.0625rem solid #a9aeb4; /* 1px */
+    right: -1rem; /* -10px */
+    top: 4rem; /* Adjusted to be below the logo */
+    z-index: 10; /* Ensure it’s above other elements */
 }
 
-.profile-pic {
-    background-color: #ddd;
-    color: #333;
-    width: 2.8125rem; /* 45px converted to rem */
-    height: 2.8125rem; /* 45px converted to rem */
-    border-radius: 50%;
-    margin: 0 auto;
-    line-height: 3.125rem; /* 50px converted to rem */
-    font-size: 1.25rem; /* 20px converted to rem */
-    float: left;
-    text-align: center;
-}
-
-.profile-info {
-    margin-left: 1.25rem; /* 20px converted to rem */
-    /* padding-left: -20px; */
-    font-weight: bold;
-    flex-grow: 1;
-    line-height: 1.9375rem; /* 155% of 16px */
-}
-
-.sidebar .profile-info .role {
-    font-weight: lighter;
-}
-
-#sidebar-log-out {
-    float: right;
-    flex-grow: 1.5;
-}
-
-/* provides vertical spacing between each list item */
-/* For the search bar */
 .search {
-    --padding: 0.875rem; /* 14px converted to rem */
     display: flex;
     align-items: center;
-    padding: var(--padding);
-    border-radius: 0.5rem; /* 8px converted to rem */
+    padding: 0.875rem; /* 14px */
+    border-radius: 0.5rem; /* 8px */
     background: #ddd;
-    width: 13.4375rem; /* 215px converted to rem */
+    width: 13.4375rem; /* 215px */
 }
 
-.search-input{
+.search-input {
     font-size: 1rem; /* 16px */
-    font-family: 'Inter', sans-serif;
     color: #333333;
-    margin-left: var(--padding);
+    margin-left: 0.875rem; /* 14px */
     outline: none;
     border: none;
     background: transparent;
     flex: 1;
-    transition: background 0.25s;
 }
 
-.search:focus-within {
-    background: #f6f6f6;
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* 8px */
+    padding: 0.625rem; /* 10px */
+    cursor: pointer;
+    transition: all 0.4s ease;
 }
 
-.search-input::placeholder,
-.search-icon {
-    color: #666;
+.sidebar-item img {
+    width: 1.5rem; /* 24px */
+    height: 1.5rem; /* 24px */
 }
 
-/* removes the bullet points */
+/* Hide text labels in collapsed state */
+.sidebar.collapsed .sidebar-item span,
+.sidebar.collapsed .search-input,
+.sidebar.collapsed .profile-info {
+    display: none; /* Hide text */
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* 8px */
+    margin-top: auto;
+}
+
+.profile-pic {
+    width: 2.5rem; /* 40px */
+    height: 2.5rem; /* 40px */
+    background-color: #b197fc;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: white;
+}
+
 nav ul {
     list-style: none;
     padding: 0;
 }
 
 nav ul li {
-    margin-bottom: 0.9375rem; /* 15px converted to rem */
+    margin-bottom: 0.9375rem; /* 15px */
 }
 
 nav ul li a {
     align-items: center;
-    text-decoration: none;  /* removes the underline */
-    color: white;    /* sets the text color */
-    font-size: 1.125rem;   /* 18px converted to rem */
-    display: block; /* makes the link a block-level element */
-    padding: 0.9375rem; /* 15px converted to rem */
-    border-radius: 0.5rem; /* 8px converted to rem */
-    transition: background-color 0.25s; /* adds a smooth color transition */
-    width: 13.4375rem; /* Matches the width of the search bar */
+    text-decoration: none;
+    color: white;
+    font-size: 1.125rem; /* 18px */
+    display: flex; /* Change to flex for icon and text alignment */
+    padding: 0.9375rem; /* 15px */
+    border-radius: 0.5rem; /* 8px */
+    transition: background-color 0.25s;
+    width: 100%; /* Full width for items */
 }
 
-nav ul li a img{
-    margin-right: 0.5rem;  /* 8px converted to rem */
-    width: 1.5rem;    /* 24px converted to rem */
-    height: 1.5rem;   /* 24px converted to rem */
-    object-fit: contain;    /* ensures the icon fits within the specified width and height */
+nav ul li a img {
+    margin-right: 0.5rem; /* 8px */
+    width: 1.5rem; /* 24px */
+    height: 1.5rem; /* 24px */
+    object-fit: contain;
 }
 
 nav ul li a:hover {
     background-color: #B45C3D;
 }
 
-/* Styling for active links within the sidebar-links section */
-.sidebar-links.active {
-    background-color: #B45C3D;
-    color: #fff;
-}
-
 .profile {
     text-align: left;
-    margin-top: auto; /* Pushes profile section to the bottom */
-    padding: 0.5625rem; /* Padding around profile section */
-    border-top: 0.0625rem solid #ddd; /* Top border for separation */
-    position: relative; /* Allows for positioning of pseudo-elements */
+    margin-top: auto;
+    padding: 0.5625rem; /* 9px */
+    border-top: 0.0625rem solid #ddd; /* 1px */
+    position: relative;
     color: white;
 }
 
@@ -147,12 +151,10 @@ nav ul li a:hover {
     color: white;
 }
 
-/* the left side section ends here */
-
 .logo {
-    font-size: 1.5rem; /* 24px converted to rem */
+    font-size: 1.5rem; /* 24px */
     font-weight: 700;
-    margin-bottom: 1.875rem; /* 30px converted to rem */
+    margin-bottom: 1.875rem; /* 30px */
 }
 
 .content {
@@ -161,7 +163,7 @@ nav ul li a:hover {
     padding-right: 5rem;
     background-color: #CFDDE9;
     position: relative;
-    height: 100vh; /* Ensure content area takes up full height */
+    height: 100vh;
     margin-left: 17.5rem; /* Matches the width of the sidebar */
 }
 
@@ -169,22 +171,49 @@ nav ul li a:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.25rem; /* 20px converted to rem */
+    margin-bottom: 1.25rem; /* 20px */
 }
 
 h1 {
-    font-size: 1.75rem; /* 28px converted to rem */
-    margin-bottom: 0.625rem; /* 10px converted to rem */
+    font-size: 1.75rem; /* 28px */
+    margin-bottom: 0.625rem; /* 10px */
 }
 
-.fade-out {
-    color: #666;
-    margin-bottom: 1.25rem; /* 20px converted to rem */
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 15rem; /* Adjusted width for smaller screens */
+    }
+    
+    .sidebar.collapsed {
+        width: 5rem; /* Maintain collapsed width */
+    }
+
+    .content {
+        margin-left: 15rem; /* Adjust for smaller screens */
+    }
+
+    .search, nav ul li a {
+        width: 100%; /* Full width on smaller screens */
+    }
+
+    .search-input {
+        font-size: 0.875rem; /* 14px */
+    }
 }
 
-.header-logo {
-    width: 6.25rem; /* 100px converted to rem */
-    height: auto;
+@media (max-width: 480px) {
+    .sidebar {
+        width: 12rem; /* Further adjust for mobile devices */
+    }
+    
+    .sidebar.collapsed {
+        width: 4rem; /* Maintain collapsed width */
+    }
+
+    .content {
+        margin-left: 12rem; /* Adjust for smaller screens */
+    }
 }
 
 .requisition-form {

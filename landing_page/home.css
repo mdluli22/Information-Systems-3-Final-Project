@@ -24,10 +24,10 @@ body {
     display: none;
 }
 
-.show {
+/* .show {
     display: block;
-}
-
+    opacity: 1;
+} */
 
 /* Container */
 .container {

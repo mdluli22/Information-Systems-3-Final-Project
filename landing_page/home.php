@@ -104,18 +104,19 @@
 
                         <label for="lname">Surname</label>
                         <input type="text" id="lname" placeholder="Smith" name="lname" required>
+
+                        <label for="username">Username</label>
+                        <input type="text" id="username" placeholder="g12s3456" name="username" maxlength="8" required>
+                        
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="*******" name="password" required>
+
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="g12s3456@campus.ru.ac.za" name="email" required>
                     </div>
 
                     <!-- the student area -->
                     <div id="studentFields">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" placeholder="g12s3456" name="username" maxlength="8">
-                        
-                        <label for="password">Password</label>
-                        <input type="password" id="password" placeholder="*******" name="password">
-
-                        <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="g12s3456@campus.ru.ac.za" name="email">
 
                         <label for="resName">Resident Name</label>
                         <input type="text" id="resName" placeholder="Enter resident name" name="resName">
@@ -124,7 +125,7 @@
                         <input type="text" id="roomNumber" placeholder="Enter room number" name="roomNumber" pattern="\d{1,3}">
 
                         <label for="hall">Hall Name</label>
-                        <select name="hall" id="hall">
+                        <select name="studentHall" id="studentHall">
                             <option value="">Select Hall Name</option>
                             <option value="Miriam Makeba Hall">Miriam Makeba Hall</option>
                             <option value="Mandela Hall">Mandela Hall</option>
@@ -144,20 +145,12 @@
                 
                     <!-- House Warden Fields -->
                     <div id="houseWardenFields" class="hidden">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" placeholder="w12s3456" name="username" maxlength="8">
-                        
-                        <label for="password">Password</label>
-                        <input type="password" id="password" placeholder="*******" name="password">
 
-                        <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="w12s3456@campus.ru.ac.za" name="email">
-
-                        <label for="hw-resName">Residence Name</label>
+                        <label for="hw-resName">Resident Name</label>
                         <input type="text" id="hw-resName" placeholder="Enter resident name" name="hw_resName">
 
                         <label for="hall">Hall Name</label>
-                        <select name="hall" id="hall">
+                        <select name="hw-hall" id="hw-hall">
                             <option value="">Select Hall Name</option>
                             <option value="Miriam Makeba Hall">Miriam Makeba Hall</option>
                             <option value="Mandela Hall">Mandela Hall</option>
@@ -177,17 +170,9 @@
 
                     <!-- Hall Secretary Fields -->
                     <div id="hallSecretaryFields" class="hidden">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" placeholder="h12s3456" name="username" maxlength="8">
-                        
-                        <label for="password">Password</label>
-                        <input type="password" id="password" placeholder="*******" name="password">
 
-                        <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="h12s3456@campus.ru.ac.za" name="email">
-
-                        <label for="hall">Hall Name</label>
-                        <select name="hall" id="hall">
+                        <label for="hallSecretaryHall">Hall Name</label>
+                        <select name="hallSecretaryHall" id="hallSecretaryHall">
                             <option value="">Select Hall Name</option>
                             <option value="Miriam Makeba Hall">Miriam Makeba Hall</option>
                             <option value="Mandela Hall">Mandela Hall</option>

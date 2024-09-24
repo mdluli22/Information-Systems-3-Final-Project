@@ -26,9 +26,12 @@ $resname = $_REQUEST['resName'];
 $roomNumber = $_REQUEST['roomNumber'];
 $username = $_REQUEST['username'];
 $password = $_REQUEST['password'];
-$hall = $_REQUEST['hall'];
+$hall = $_REQUEST['studentHall'];
+$hall2 = $_REQUEST['hw-hall'];
+$hall3 = $_REQUEST['hallSecretaryHall'];
 $role = $_REQUEST['role']; // Retrieve role from the form
-echo "Selected role: " . $role; // Debugging statement
+
+echo "Selected role: " . $role . "<br>"; // Debugging statement
 
 //include database credentials 
 require_once("config.php");
@@ -52,6 +55,10 @@ echo "Username: $username<br>";
 echo "Password: $password<br>";
 echo "Hall: $hall<br>";
 echo "Role: $role<br>";
+
+// if (empty($username) || empty($password) || empty($email) || empty($resname) || empty($hall)) {
+//     die("<p class='error'>All fields are required. Please fill in all the details.</p>");
+// }
 
 //query to check if the user exists in the database
 $sql = "SELECT * FROM user WHERE userName = '$username'";
@@ -121,7 +128,7 @@ if ($result->num_rows > 0) {
 
                 // If the residence doesn't exist, add the residence
                 if ($resResult->num_rows == 0) {
-                    $residenceTable = "INSERT INTO residence (resName, hall_name) VALUES ('$resname', '$hall')";
+                    $residenceTable = "INSERT INTO residence (resName, hall_name) VALUES ('$resname', '$hall2')";
                     $residence = $conn->query($residenceTable);
                     
                     if (!$residence) {
@@ -156,7 +163,7 @@ if ($result->num_rows > 0) {
             case 'hall secretary':
                 // Logic for hall secretary
                 $secretaryTable = "INSERT INTO hall_secretary (HS_userName, f_Name, l_Name, userName, hall_name)
-                                   VALUES ('$username', '$fname', '$lname', '$username', '$hall')";
+                                   VALUES ('$username', '$fname', '$lname', '$username', '$hall3')";
                 $secretary = $conn->query($secretaryTable);
 
                 if ($secretary === TRUE) {

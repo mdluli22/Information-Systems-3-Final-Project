@@ -62,7 +62,6 @@
         // Username doesn't exist
         echo "<p class=\"error\">Username does not exist!</p>";
     }
-
     // Close connection to the database
     $conn->close();
 ?>

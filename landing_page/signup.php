@@ -41,16 +41,33 @@ if ($conn->connect_error) {
     die("<p class=\"error\">Connection to the database failed!</p>" . $conn->connect_error);
 }
 
+//for debugging purposes
+echo "Form Data Received:<br>";
+echo "First Name: $fname<br>";
+echo "Last Name: $lname<br>";
+echo "Email: $email<br>";
+echo "Residence Name: $resname<br>";
+echo "Room Number: $roomNumber<br>";
+echo "Username: $username<br>";
+echo "Password: $password<br>";
+echo "Hall: $hall<br>";
+echo "Role: $role<br>";
+
 //query to check if the user exists in the database
 $sql = "SELECT * FROM user WHERE userName = '$username'";
 $result = $conn->query($sql);
 
+if (!$result) {
+    die("Error querying user table: " . $conn->error);
+}
+
 if ($result->num_rows > 0) {
+    //user already exists, log them in
     $_SESSION['username'] = $username;  // Set the username in the session
     $_SESSION['hall'] = $hall;
     $_SESSION['resName'] = $resname;
     $_SESSION['access'] = "yes";
-    header("Location: ../ticket_tracking/ticket_tracking_all.php");
+    //header("Location: ../ticket_tracking/ticket_tracking_all.php");
     exit();
 } else {
     //user doesn't already exist
@@ -61,7 +78,7 @@ if ($result->num_rows > 0) {
 
     //check if the user has been added successfully into user table
     if ($fromUser === TRUE) {
-
+        echo "User added successfully.";
         //check the role of the user
         switch ($role) {
             //if the user is a student

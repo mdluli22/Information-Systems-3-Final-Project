@@ -1,12 +1,12 @@
 <?php
-require_once("secure.php");
+// require_once("secure.php");
 
-if (isset($_SESSION['username'])) {
-    // echo 'Session Username: ' . $_SESSION['username'];
-    $studentID = $_SESSION['username'];
-}else {
-    die("User is not logged in.");
-}
+// if (isset($_SESSION['username'])) {
+//     // echo 'Session Username: ' . $_SESSION['username'];
+//     $studentID = $_SESSION['username'];
+// }else {
+//     die("User is not logged in.");
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -125,10 +125,10 @@
                 }
 
                 
-                $ticket_status = array("Pending", "Processing", "Completed");
+                $ticket_status = array("Opened", "Confirmed", "Closed");
                 $icons = array("pictures/layer.svg", "pictures/clipboard-tick.svg", "pictures/task.svg");
                 $class_names = array("card-icon", "card-icon1", "card-icon2");
-                $names = array("Pending Tickets", "Processing Tickets", "Completed Tickets");
+                $names = array("Opened Tickets", "Confirmed Tickets", "Closed Tickets");
                 $ticketTotals = array(0,0,0);
                 $index = 0;
                 $total = 0;
@@ -173,8 +173,6 @@
                     $index++;
                     $total += $result -> num_rows;
                 }
-
-             
             ?>
 
             <div class="card">

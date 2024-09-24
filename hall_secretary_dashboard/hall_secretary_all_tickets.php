@@ -171,34 +171,39 @@
                                 die("<p class=\"error\">Query was Unsuccessful!</p>");
                             }
 
-                            while ($row = $ticket_result->fetch_assoc())
-                            {
-                                echo "<tr><td>#{$row['ticketID']}</td>";
-                                echo "<td>{$row['ticket_description']}</td>";
-                                // display ticket status
-                                switch (strtolower($row['ticket_status'])) {
-                                    case "completed":
-                                        echo "<td><span id='completed'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
-                                        break;
-                                    case "rejected":
-                                        echo "<td><span id='rejected'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
-                                        break;
-                                    default:
-                                        echo "<td><span class='status processing'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
+                            if ($ticket_result->num_rows > 0) {
+                                while ($row = $ticket_result->fetch_assoc())
+                                {
+                                    echo "<tr><td>#{$row['ticketID']}</td>";
+                                    echo "<td>{$row['ticket_description']}</td>";
+                                    // display ticket status
+                                    switch (strtolower($row['ticket_status'])) {
+                                        case "completed":
+                                            echo "<td><span id='completed'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
+                                            break;
+                                        case "rejected":
+                                            echo "<td><span id='rejected'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
+                                            break;
+                                        default:
+                                            echo "<td><span class='status processing'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
+                                    }
+                                    echo "<td>" . date("D h:ia", strtotime($row['ticketDate'])) . "</td>";
+                                    echo "<td>{$row['category']}</td>";
+                                    // display ticket priority
+                                    switch (strtolower($row['priority'])) {
+                                        case "high":
+                                            echo "<td><span class='priority high-risk'><span class='circle'></span>&nbsp;&nbsp;High</span></td></tr>";
+                                            break;
+                                        case "medium":
+                                            echo "<td><span class='priority medium-risk'><span class='circle'></span>&nbsp;&nbsp;Medium</span></td></tr>";
+                                            break;
+                                        default:
+                                            echo "<td><span class='priority low-risk'><span class='circle'></span>&nbsp;&nbsp;Low</span></td></tr>";
+                                    }
                                 }
-                                echo "<td>" . date("D h:ia", strtotime($row['ticketDate'])) . "</td>";
-                                echo "<td>{$row['category']}</td>";
-                                // display ticket priority
-                                switch (strtolower($row['priority'])) {
-                                    case "high":
-                                        echo "<td><span class='priority high-risk'><span class='circle'></span>&nbsp;&nbsp;High</span></td></tr>";
-                                        break;
-                                    case "medium":
-                                        echo "<td><span class='priority medium-risk'><span class='circle'></span>&nbsp;&nbsp;Medium</span></td></tr>";
-                                        break;
-                                    default:
-                                        echo "<td><span class='priority low-risk'><span class='circle'></span>&nbsp;&nbsp;Low</span></td></tr>";
-                                }
+                            }
+                            else {
+                                echo "<tr><td> <p> No Tickets Available </p></td></tr>";
                             }
                             // close connection
                             $connection->close();

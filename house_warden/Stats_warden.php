@@ -29,7 +29,9 @@
             die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
         }
 
-        $warden_res_query = "SELECT resName FROM house_warden WHERE userName = '$warden_userName';";
+        $warden_res_query =
+            "SELECT resName, concat(f_Name, ' ', l_Name) as 'Name', f_Name as 'firstName', CONCAT(LEFT(house_warden.f_Name, 1), LEFT(house_warden.l_Name, 1)) AS initials
+            FROM house_warden WHERE userName = '$warden_userName';";
         $warden_res_query_result = $connection->query($warden_res_query);
 
         if ($warden_res_query_result === FALSE) {
@@ -38,6 +40,8 @@
 
         $resnamel = $warden_res_query_result->fetch_assoc();
         $resname = $resnamel['resName'];
+        $wardeName = $resnamel['Name'];
+        $initials = $resnamel['initials'];
     ?>
 
     <div class="container">
@@ -69,11 +73,13 @@
         <!-- Profile section at the bottom of the sidebar -->
         <div class="profile">
             <!-- Profile picture area -->
-            <div class="profile-pic">AM</div>
+            <div class="profile-pic">
+                <?php echo $initials;?>
+            </div>
             <!-- Profile information area -->
             <div class="profile-info">
-                <span id="user-name" class="username">Amogelang Mphela</span><br>
-                <span class="role">Hall Secretary</span>
+                <span id="user-name" class="username"><?php echo $wardeName?></span><br>
+                <span class="role"><?php echo "Warden"?></span>
             </div>
             <!-- Logout button with icon -->
             <div id="sidebar-log-out">
@@ -83,7 +89,7 @@
     </aside>
     <main class="content">
         <header class="header">
-            <h2>Statistics</h2>
+            <h1>Statistics</h1>
             <div class="filters">
                 <span>From</span>
                 <input type="date" value="2021-06-10">
@@ -96,10 +102,10 @@
 
             <?php 
              
-                $ticket_status = array("Pending", "Processing", "Completed");
+                $ticket_status = array("Opened", "Confirmed", "Closed");
                 $icons = array("pictures/layer.svg", "pictures/clipboard-tick.svg", "pictures/task.svg");
                 $class_names = array("card-icon", "card-icon1", "card-icon2");
-                $names = array("Pending Tickets", "Processing Tickets", "Completed Tickets");
+                $names = array("Opened Tickets", "Confirmed Tickets", "Closed Tickets");
                 $ticketTotals = array(0,0,0);
                 $index = 0;
                 $total = 0;
@@ -179,9 +185,15 @@
                             <?php
                                 $num = 1;
                                 while($num <= 9){
-                                    $sql = "SELECT * FROM ticket WHERE MONTH(ticketDate) = '$num'";
+                                    if(isset($_REQUEST['res_name'])){
+                                        $resname = $_REQUEST['res_name'];
+                                        $sql = "SELECT * FROM ticket WHERE MONTH(ticketDate) = '$num' AND resName = '$resname' ";
+                                    }
+                                    else{
+                                        $sql = "SELECT * FROM ticket WHERE MONTH(ticketDate) = '$num' AND resName = '$defaulthouse' ";
+                                        
+                                    }
                                     $result = $connection -> query($sql);
-
                                     // Check if query successfull
                                     if ($result === FALSE) {
                                         die("<p class=\"error\">Query was Unsuccessful!</p>");
@@ -190,7 +202,6 @@
                                     echo ($result -> num_rows).",";
 
                                     $num++;
-
                                 }
                             ?>
                             ],

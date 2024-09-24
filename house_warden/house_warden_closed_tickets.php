@@ -41,7 +41,9 @@
             die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
         }
 
-        $warden_res_query = "SELECT resName, concat(f_Name, ' ', l_Name) as 'Name' FROM house_warden WHERE userName = '$warden_userName';";
+        $warden_res_query = 
+        "SELECT resName, concat(f_Name, ' ', l_Name) as 'Name', f_Name as 'firstName', CONCAT(LEFT(house_warden.f_Name, 1), LEFT(house_warden.l_Name, 1)) AS initials
+         FROM house_warden WHERE userName = '$warden_userName';";
         $warden_res_query_result = $connection->query($warden_res_query);
         
         if ($warden_res_query_result === FALSE) {
@@ -51,6 +53,7 @@
         $resnamel = $warden_res_query_result->fetch_assoc();
         $resname = $resnamel['resName'];
         $wardeName = $resnamel['Name'];
+        $initials = $resnamel['initials'];
     
         // query instructions for tickets pending and processing
         $sql = "SELECT * FROM ticket WHERE resName = '$resname' and ticket_status = 'Closed' ;";
@@ -94,11 +97,11 @@
             <div class="profile">
                 <!-- Profile picture area -->
                 <div class="profile-pic">
-                    <?php echo "TT";?>
+                    <?php echo $initials;?>
                 </div>
                 <!-- Profile information area -->
                 <div class="profile-info">
-                    <span id="user-name" class="username"><?php echo "Thokozile Tshabalala"?></span><br>
+                    <span id="user-name" class="username"><?php echo $wardeName ?></span><br>
                     <span class="role"><?php echo "Warden"?></span>
                 </div>
                 <!-- Logout button with icon -->
@@ -112,7 +115,7 @@
         <main class="content">
             <header class="page-header">
                 <!-- Welcome message -->
-                <h1>Welcome, <span class="username"><?php echo "Thokozile"?></span></h1>
+                <h1>Welcome, <span class="username"><?php echo $resnamel['firstName']; ?></span></h1>
                 <p>Access & Manage maintenance requisitions efficiently.</p>
             </header>
 

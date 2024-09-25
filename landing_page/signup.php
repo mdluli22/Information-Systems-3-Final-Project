@@ -26,9 +26,12 @@ $resname = $_REQUEST['resName'];
 $roomNumber = $_REQUEST['roomNumber'];
 $username = $_REQUEST['username'];
 $password = $_REQUEST['password'];
-$hall = $_REQUEST['hall'];
+$hall = $_REQUEST['studentHall'];
+$hall2 = $_REQUEST['hw-hall'];
+$hall3 = $_REQUEST['hallSecretaryHall'];
 $role = $_REQUEST['role']; // Retrieve role from the form
-echo "Selected role: " . $role; // Debugging statement
+
+echo "Selected role: " . $role . "<br>"; // Debugging statement
 
 //include database credentials 
 require_once("config.php");
@@ -41,11 +44,17 @@ if ($conn->connect_error) {
     die("<p class=\"error\">Connection to the database failed!</p>" . $conn->connect_error);
 }
 
+
 //query to check if the user exists in the database
 $sql = "SELECT * FROM user WHERE userName = '$username'";
 $result = $conn->query($sql);
 
+if (!$result) {
+    die("Error querying user table: " . $conn->error);
+}
+
 if ($result->num_rows > 0) {
+    //user already exists, log them in
     $_SESSION['username'] = $username;  // Set the username in the session
     $_SESSION['hall'] = $hall;
     $_SESSION['resName'] = $resname;
@@ -61,7 +70,7 @@ if ($result->num_rows > 0) {
 
     //check if the user has been added successfully into user table
     if ($fromUser === TRUE) {
-
+        echo "User added successfully.";
         //check the role of the user
         switch ($role) {
             //if the user is a student
@@ -104,7 +113,7 @@ if ($result->num_rows > 0) {
 
                 // If the residence doesn't exist, add the residence
                 if ($resResult->num_rows == 0) {
-                    $residenceTable = "INSERT INTO residence (resName, hall_name) VALUES ('$resname', '$hall')";
+                    $residenceTable = "INSERT INTO residence (resName, hall_name) VALUES ('$resname', '$hall2')";
                     $residence = $conn->query($residenceTable);
                     
                     if (!$residence) {
@@ -139,7 +148,7 @@ if ($result->num_rows > 0) {
             case 'hall secretary':
                 // Logic for hall secretary
                 $secretaryTable = "INSERT INTO hall_secretary (HS_userName, f_Name, l_Name, userName, hall_name)
-                                   VALUES ('$username', '$fname', '$lname', '$username', '$hall')";
+                                   VALUES ('$username', '$fname', '$lname', '$username', '$hall3')";
                 $secretary = $conn->query($secretaryTable);
 
                 if ($secretary === TRUE) {
@@ -160,7 +169,6 @@ if ($result->num_rows > 0) {
         die("<p class=\"error\">Error adding into user table: " . $conn->error . "</p>");
     }
 }
-
 // Close connection to the database
 $conn->close();
 ?>

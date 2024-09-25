@@ -52,7 +52,7 @@ body {
     align-items: center;
     /* Vertically align logo and nav on the same line */
     /* justify-content: space-between; Space between the logo and nav links */
-    width: 70%;
+    width: 30%;
 }
 
 /* Logo styles */

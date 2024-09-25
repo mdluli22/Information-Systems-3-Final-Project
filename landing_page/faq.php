@@ -18,8 +18,8 @@
             </div>
             <nav>
                 <ul class="nav-links">
-                    <li><a href="faq.html">FAQ</a></li>
-                    <li><a href="aboutus.html">About Us</a></li>
+                    <li><a href="../landing_page/faq.php">FAQ</a></li>
+                    <li><a href="../landing_page/aboutus.php">About Us</a></li>
                     <li><a href="#">Help</a></li>
                     <li><a href="#">Resources</a></li>
                 </ul>
@@ -39,7 +39,7 @@
             </label>
 
             <div class="mobile-menu">
-                <a href="index.html">Home</a>
+                <a href="../landing_page/home.php">Home</a>
                 <a href="../landing_page\aboutus.html">About Us</a>
                 <a href="review.html">Reviews</a>
                 <a href="help.html">Help</a>

@@ -56,10 +56,13 @@
         </section>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
    <?php
    require_once('login_signup.php');
    ?>
 =======
+=======
+>>>>>>> 2a5077af0f23e1a109cec233698b81976eb44032
     <section>
         <!-- Login Modal Structure -->
         <div class="login-body">
@@ -227,6 +230,7 @@
         </div>
     </section>
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> aab276fa571d14b08ab21633d840ef0736d1fa34
 =======
 <<<<<<< HEAD
@@ -336,6 +340,8 @@
 
 >>>>>>> d3f642c1ac3e1568231764335c282a43bc22e431
 >>>>>>> f4ff1a4a55c7303677f495a86ae9d328348d31bc
+=======
+>>>>>>> 2a5077af0f23e1a109cec233698b81976eb44032
     </div>
 
     <footer class="footer">

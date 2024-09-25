@@ -66,7 +66,8 @@
 
     // Get res names of hall overseen by the hall secretary
     $residences =
-        "SELECT DISTINCT concat(hall_secretary.f_Name, ' ', hall_secretary.l_name) AS 'hall_secretary_name', resName AS 'residences'
+        "SELECT DISTINCT concat(f_Name, ' ', l_name) AS 'hall_secretary_name',
+            resName AS 'residences', f_Name as 'firstName', CONCAT(LEFT(f_Name, 1), LEFT(l_Name, 1)) AS initials
             FROM residence JOIN hall_secretary ON hall_secretary.hall_name = residence.hall_name
             WHERE hall_secretary.HS_userName = '$hall_sec_userName';";
     $residences_result = $connection->query($residences);
@@ -142,7 +143,7 @@
             <header class="page-header">
                 <!-- Welcome message -->
                 <h1>Welcome, 
-                    <span class="username"><?php echo $_SESSION['first_name']; ?></span>
+                    <span class="username"><?php echo $_SESSION['first_name']; ?></span>  
                 </h1>
                 <p>Access & Manage maintenance requisitions efficiently.</p>
             </header>

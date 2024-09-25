@@ -65,8 +65,10 @@
     $ticket_result = $connection->query($ticket_sql);
 
     // Get res names of hall overseen by the hall secretary
-    $residences = "SELECT DISTINCT s.f_Name AS student_first_name, s.l_Name AS student_last_name, CONCAT(LEFT(s.f_Name, 1), LEFT(s.l_Name, 1)) AS initials, r.resName AS residences
-                    FROM residence AS r JOIN student AS s ON r.resName = s.resName WHERE s.userName = '$hall_sec_userName'; ";
+    $residences =
+        "SELECT DISTINCT concat(hall_secretary.f_Name, ' ', hall_secretary.l_name) AS 'hall_secretary_name', resName AS 'residences'
+            FROM residence JOIN hall_secretary ON hall_secretary.hall_name = residence.hall_name
+            WHERE hall_secretary.HS_userName = '$hall_sec_userName';";
     $residences_result = $connection->query($residences);
 
     // Check if the query was successful

@@ -26,7 +26,7 @@
                 <div class="user-actions">
                     <a href="#" class="login-btn" id="login-btn">Login</a>
                     <a href="#" class="signup-btn" id="sign-up-btn">Sign up</a>
-                </div>
+                </div>`
             </nav>
 
             <!-- for when switching to a smaller screen -->

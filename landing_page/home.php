@@ -102,12 +102,11 @@
                 <h1>Welcome 👋</h1>
                 <div><p>Please enter your credentials. Ensure that the credentials are typed correctly.</p></div>
 
-<<<<<<< HEAD
+
                 <form action="signup.php" method="POST">
-=======
+
                 <form action="signup.php" method="post">
-<<<<<<< HEAD
->>>>>>> f4ff1a4a55c7303677f495a86ae9d328348d31bc
+
                     <label for="role">Role</label>
                     <select name="role" id="role" required>
                         <option value="">Select Role</option>
@@ -120,7 +119,6 @@
                     <div id="generalFields" class="hidden">
                         <label for="fname">First Name</label>
                         <input type="text" id="fname" placeholder="John" name="fname" required>
-=======
                     <label for="fname">First Name</label>
                     <input type="text" id="fname" placeholder="John" name="fname" required>
 
@@ -156,7 +154,6 @@
                         <label for="roomNumber">Room Number</label>
                         <input type="text" id="roomNumber" placeholder="123" name="roomNumber" pattern="\d{1,3}" required>
                     </div>
->>>>>>> d3f642c1ac3e1568231764335c282a43bc22e431
 
                         <label for="lname">Surname</label>
                         <input type="text" id="lname" placeholder="Smith" name="lname" required>
@@ -253,11 +250,7 @@
             </div>
         </div>
     </section>
-<<<<<<< HEAD
->>>>>>> aab276fa571d14b08ab21633d840ef0736d1fa34
-=======
-<<<<<<< HEAD
-=======
+
     <script>
         // Role-based form handling
         document.getElementById('role').addEventListener('change', function () {

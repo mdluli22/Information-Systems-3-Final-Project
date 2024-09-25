@@ -3,117 +3,81 @@ require_once("secure.php");
 
 if (isset($_SESSION['username'])) {
     $studentID = $_SESSION['username'];
-
-}else {
+    // $resName = $_SESSION['resName'];
+} else {
     die("User is not logged in.");
 }
+
 if (isset($_SESSION['studentHall'])) {
     $hall = $_SESSION['studentHall'];
 } else {
     $hall = "Default Hall";  // Provide a default value or handle the missing data case
 }
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maintenance Requisition Form</title>
-    <link rel="icon" type="image/x-icon" href="pictures/resque-logo.png">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />    
-    <link rel="stylesheet" href="ticketCreationStyle.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="scriptTC.js "></script>
-    <!-- Link to the FontAwesome library for icons -->
-    <script src="https://kit.fontawesome.com/ddbf4d6190.js" crossorigin="anonymous"></script>
-    <style>
-        .error {
-            color: red;
-        }
 
-        .success {
-            color: green;
-        }
-    </style>
-</head>
-<body>
-<?php
-    //session_start();
+require_once("config.php");
+
+// database connection
+$conn = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
+
+// Check if connection was successful
+if ($conn -> connect_error) {
+    die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
+}
+
+// Retrieve the student's resName from the database
+$sql1 = "SELECT resName FROM student WHERE userName = '$studentID';";
+$result1 = $conn->query($sql1);
+
+if($result1->num_rows > 0) {
+    $row = $result1->fetch_assoc();
+    $resName = $row['resName'];  // Assign the resName
+} else {
+    $resName = "Unknown Residence";  // Handle the case if no resName is found
+}
+
+$fault = $_REQUEST['fault-category'];
+$description = $_REQUEST['description'];
+$priority = $_REQUEST['priority'];
+
+$ticket_status = "Opened";
+$ticketDate = date("Y-m-d H:i:s");
+$rating = NULL;  // Set rating to NULL for now
+
+// Insert the ticket into the database
+$sql = "INSERT INTO ticket (userName, resName, ticket_status, ticketDate, ticket_description, category, rating, priority) 
+        VALUES ('$studentID', '$resName', '$ticket_status', '$ticketDate', '$description', '$fault', NULL, '$priority');";
+$result = $conn->query($sql);
+
+if ($result === TRUE) {
+    // Ticket creation successful, get the inserted ticket ID
+    $ticketValue = $conn->insert_id;
     
-    // include database details from config.php file
-    require_once("config.php");
-    
-    // database connection
-    $conn = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
+    // Process file uploads
+    $countFiles = count($_FILES['picture']['name']); // Get the number of uploaded files
+    for ($i=0; $i < $countFiles; $i++) {
+        $picture = time() . "_" . basename($_FILES['picture']['name'][$i]);
+        $destination = "pictures/" . $picture;
 
-    // Check if connection was successful
-    if ($conn -> connect_error) {
-        die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
-    }
-        
-    //for the res name on top
-    $sql1 = "SELECT resName FROM student WHERE userName = '$studentID';";
-    $result = $conn->query($sql1);
-
-    if($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $resName = $row['resName'];
-        
-    } else {
-        $resName = "Residence not found";
-    }
-        $fault = $_REQUEST['fault-category'];
-        $description = $_REQUEST['description'];
-        $priority = $_REQUEST['priority'];
-        
-        $ticket_status = "Opened";
-        $ticketDate = date("Y-m-d H:i:s");
-
-        //since no rating is provided, we set it to NULL for now
-        $rating = NULL;
-
-    $sql = "INSERT INTO ticket (userName, resName, ticket_status, ticketDate, ticket_description, category, rating, priority) 
-                VALUES ('$studentID', '$resName', '$ticket_status', '$ticketDate', '$description', '$fault', NULL, '$priority');";
-    $result = $conn->query($sql);
-
-    //design an error pop up
-    if ($result === true) {
-        // echo "<p class=\"success\">Fault category successfully inserted into the database!</p>";
-        //$ticketValue = "SELECT ticketID FROM ticket";
-        $ticketValue = $conn->insert_id;
-
-        $countFiles = count($_FILES['picture']['name']);   // Get the number of uploaded files 
-        for ($i=0; $i < $countFiles; $i++) { 
-            $picture = time() . "_" . basename($_FILES['picture']['name'][$i]);
-            $destination = "pictures/" . $picture;
-
-            if (move_uploaded_file($_FILES['picture']['tmp_name'][$i], $destination)) {
-                //for uploading the pictures
-                $uploadPicture = "INSERT INTO photos (ticketID, photo) VALUES ('$ticketValue', '$picture');";
-                //$results = $conn->query($uploadPicture);
-
-                if ($conn->query($uploadPicture) === TRUE) {
-                    // echo "<p class=\"success\">Picture " . basename($_FILES['picture']['name'][$i]) . " uploaded successfully!</p>";
-                    
-                    // Store the ticket ID in session or redirect with it
-                    $_SESSION['ticketID'] = $ticketValue; // Store in session
-
-                    // Redirect back to ticketCreationFinal.php
-                    header("Location: ticketCreationFinal.php?success=1&ticketID=$ticketValue");
-                    exit(); // Make sure to exit after redirecting
-                } else {
-                    echo "<p class=\"error\">Failed to upload picture: " . $conn->error . "</p>";
-                }
-            } else {
-                echo "<p class=\"error\">Error uploading file " . basename($_FILES['picture']['name'][$i]) . ".</p>";
+        // Move uploaded file to the destination directory
+        if (move_uploaded_file($_FILES['picture']['tmp_name'][$i], $destination)) {
+            // Insert the picture into the photos table
+            $uploadPicture = "INSERT INTO photos (ticketID, photo) VALUES ('$ticketValue', '$picture');";
+            if ($conn->query($uploadPicture) !== TRUE) {
+                echo "<p class=\"error\">Failed to upload picture: " . $conn->error . "</p>";
             }
+        } else {
+            echo "<p class=\"error\">Error uploading file " . basename($_FILES['picture']['name'][$i]) . ".</p>";
         }
-    } else {
-        echo "<p class=\"error\">Failed to insert the ticket: " . $conn->error . "</p>";
     }
-    $conn->close();
 
+    // After processing all the files, redirect to the final page
+    $_SESSION['ticketID'] = $ticketValue; // Store ticket ID in session
+    header("Location: ticketCreationFinal.php?success=1&ticketID=$ticketValue");
+    exit();  // Make sure to exit after the redirect
+
+} else {
+    echo "<p class=\"error\">Failed to insert the ticket: " . $conn->error . "</p>";
+}
+
+$conn->close();
 ?>
-</body>
-</html>

@@ -8,6 +8,11 @@ if (isset($_SESSION['username'])) {
     die("User is not logged in.");
 }
 
+// Check if a success parameter is present in the URL
+if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['message'])) {
+    $successMessage = htmlspecialchars($_GET['message']); // Sanitize the message for output
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -138,68 +143,89 @@ if (isset($_SESSION['username'])) {
                 <img src="pictures/fake logo(1).png" alt="Logo" width="150" height="110">
             </header>
             <?php
-                if (isset($ticketID) && !empty($ticketID)) {
+
+                // Assuming that the ticket ID, student name, and room number are stored in session or passed through URL.
+                if (isset($_SESSION['ticketID']) && !empty($_SESSION['ticketID'])) {
+                    $ticketID = $_SESSION['ticketID'];
+
+                    // Fetch student information (assuming it's stored in the session or retrieved earlier)
+                    $student_name = $_SESSION['full_name']; 
+
                     echo "<div id='success-message' class='success-message'>
-                            <h2>Ticket Submitted Successfully!<i class='fas fa-times cancel-icon' onclick='remove_feedback()'></i></h2>
-                            <p>The maintenance ticket for <strong>$student_name</strong> in <strong>room $student_room_num</strong> has been submitted successfully. Your ticket number is <strong>$ticketID</strong>. The maintenance team will review your request and contact you shortly.</p>
+                            <h2>Ticket Requisitioned!<i class='fas fa-times cancel-icon' onclick='remove_feedback()'></i></h2>
+                            <p>The maintenance request for <strong>$student_name</strong> has been requisitioned successfully. The maintenance team will be notified shortly.</p>
                         </div>";
-                }
+                } 
+                // else {
+                //     echo "<p class='error'>No ticket information found.</p>";
+                // }
             ?>
+
+            <script>
+                function remove_feedback() {
+                    const successMessage = document.getElementById('success-message');
+                    if (successMessage) {
+                        successMessage.style.display = 'none';
+                    }
+                }
+            </script>
             <section>
-                <!-- the actual form for fault -->
-                <form action="ticketCreation.php" method="post" enctype="multipart/form-data" class="requisition-form">
-                    <div class="form-header">
-                        <h3>Requisition Details</h3>
-                        <p class="fade-out">Please fill in the form below</p>
-                    </div>
-
-                    <!-- dropdown for fault category -->
-                    <div class="form-group">
-                        <label for="fault-category">Fault Category *</label>
-                        <div class="form-input">
-                            <select id="fault-category" name="fault-category" required>
-                                <option value="" >Please enter fault category</option>
-                                <option value="Electrical">Electrical</option>
-                                <option value="Plumbing">Plumbing</option>
-                                <option value="Furniture">Furniture</option>
-                                <option value="Heater">Heater</option>
-                                <option value="Other">Other</option>
-                            </select>
+                <div>
+                    <!-- the actual form for fault -->
+                    <form action="ticketCreation.php" method="post" enctype="multipart/form-data" class="requisition-form">
+                        <div class="form-header">
+                            <h3>Requisition Details</h3>
+                            <p class="fade-out">Please fill in the form below</p>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="description">Description</label>
-                        <div class="form-extra-info"><small>Please provide any additional information or instructions related to the requisition</small></div>
-                        <div class="form-input">
-                            <textarea id="description" name="description" required></textarea>
+                        <!-- dropdown for fault category -->
+                        <div class="form-group">
+                            <label for="fault-category">Fault Category *</label>
+                            <div class="form-input">
+                                <select id="fault-category" name="fault-category" required>
+                                    <option value="" >Please enter fault category</option>
+                                    <option value="Electrical">Electrical</option>
+                                    <option value="Plumbing">Plumbing</option>
+                                    <option value="Furniture">Furniture</option>
+                                    <option value="Heater">Heater</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="priority">Priority *</label>
-                        <div class="form-input">
-                            <select id="priority" name="priority" required>
-                                <option value="">Please indicate severity of fault</option>
-                                <option value="Low">Low</option>
-                                <option value="Medium">Medium</option>
-                                <option value="High">High</option>
-                            </select>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <div class="form-extra-info"><small>Please provide any additional information or instructions related to the requisition</small></div>
+                            <div class="form-input">
+                                <textarea id="description" name="description" required></textarea>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="picture">Upload an Image</label>
-                        <div class="form-input">
-                            <input type="file" name="picture[]" id="picture" placeholder="Choose file" multiple>
+                        <div class="form-group">
+                            <label for="priority">Priority *</label>
+                            <div class="form-input">
+                                <select id="priority" name="priority" required>
+                                    <option value="">Please indicate severity of fault</option>
+                                    <option value="Low">Low</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="High">High</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-actions">
-                        <input type="hidden" id="resName" name="residence" value="<?php $resName; ?>">
-                        <button type="reset" class="cancel-btn">Cancel</button>
-                        <input type="submit" value="Submit" >   
-                    </div>
-                </form>
+
+                        <div class="form-group">
+                            <label for="picture">Upload an Image</label>
+                            <div class="form-input">
+                                <input type="file" name="picture[]" id="picture" placeholder="Choose file" multiple>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <input type="hidden" id="resName" name="residence" value="<?php $resName; ?>">
+                            <button type="reset" class="cancel-btn">Cancel</button>
+                            <input type="submit" value="Submit" >   
+                        </div>
+                    </form>
+                </div>
             </section>
         </main>
     </div>

@@ -166,6 +166,7 @@
                 } while ($residence = $residences_result->fetch_assoc());
                 ?>
             </nav>
+            
             <?php
                 if (isset($ticketID) && !empty($ticketID)) {
                     echo "<div id='success-message' class='success-message'>

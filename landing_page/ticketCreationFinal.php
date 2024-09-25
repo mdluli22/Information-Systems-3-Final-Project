@@ -7,6 +7,7 @@ if (isset($_SESSION['username'])) {
 }else {
     die("User is not logged in.");
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,7 +66,6 @@ if (isset($_SESSION['username'])) {
 ?>
     <div class="container">
         <!-- the white left side of the page -->
-        <div class="app">
             <aside class="sidebar">
                 <div class="logo">ResQue</div>
                 <button class="sidebar__collapse-button" id="collapseBtn">
@@ -106,13 +106,7 @@ if (isset($_SESSION['username'])) {
                         </a>
                     </div>
                 </div>
-                    <!-- Logout button with icon -->
-                <!-- <div id="sidebar-log-out">
-                    <a href="../landing_page/logout.php" onclick = " return confirm('Are you sure you want to log out')"><i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i></a>
-                </div>
-                </div> -->
             </aside>
-        </div>
         <script>
             document.getElementById("collapseBtn").addEventListener("click", function() {
             const sidebar = document.querySelector(".sidebar");
@@ -125,12 +119,11 @@ if (isset($_SESSION['username'])) {
             } else {
                 icon.textContent = "chevron_left"; // Change icon to left chevron
             }
-        });
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('collapsed');
-        }
-
+            });
+            function toggleSidebar() {
+                const sidebar = document.getElementById('sidebar');
+                sidebar.classList.toggle('collapsed');
+            }
         </script>
         
         <main class="content">
@@ -144,6 +137,14 @@ if (isset($_SESSION['username'])) {
                  
                 <img src="pictures/fake logo(1).png" alt="Logo" width="150" height="110">
             </header>
+            <?php
+                if (isset($ticketID) && !empty($ticketID)) {
+                    echo "<div id='success-message' class='success-message'>
+                            <h2>Ticket Submitted Successfully!<i class='fas fa-times cancel-icon' onclick='remove_feedback()'></i></h2>
+                            <p>The maintenance ticket for <strong>$student_name</strong> in <strong>room $student_room_num</strong> has been submitted successfully. Your ticket number is <strong>$ticketID</strong>. The maintenance team will review your request and contact you shortly.</p>
+                        </div>";
+                }
+            ?>
             <section>
                 <!-- the actual form for fault -->
                 <form action="ticketCreation.php" method="post" enctype="multipart/form-data" class="requisition-form">

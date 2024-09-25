@@ -2,12 +2,15 @@
 require_once("secure.php");
 
 if (isset($_SESSION['username'])) {
-    // echo 'Session Username: ' . $_SESSION['username'];
     $studentID = $_SESSION['username'];
-    $hall = $_SESSION['hall'];
-    //$resName = $_SESSION['resName'];
+
 }else {
     die("User is not logged in.");
+}
+if (isset($_SESSION['studentHall'])) {
+    $hall = $_SESSION['studentHall'];
+} else {
+    $hall = "Default Hall";  // Provide a default value or handle the missing data case
 }
 ?>
 <!DOCTYPE html>
@@ -56,7 +59,7 @@ if (isset($_SESSION['username'])) {
     if($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $resName = $row['resName'];
-        //echo "Residence: " . $resName;
+        
     } else {
         $resName = "Residence not found";
     }
@@ -64,17 +67,11 @@ if (isset($_SESSION['username'])) {
         $description = $_REQUEST['description'];
         $priority = $_REQUEST['priority'];
         
-        //$picture = time() . $_FILES['picture']['name'];
-        
-        $ticket_status = "Pending";
+        $ticket_status = "Opened";
         $ticketDate = date("Y-m-d H:i:s");
 
         //since no rating is provided, we set it to NULL for now
         $rating = NULL;
-
-        // $destination = "pictures/" . $picture;
-        // move_uploaded_file($_FILES['picture']['tmp_name'], $destination);
-
 
     $sql = "INSERT INTO ticket (userName, resName, ticket_status, ticketDate, ticket_description, category, rating, priority) 
                 VALUES ('$studentID', '$resName', '$ticket_status', '$ticketDate', '$description', '$fault', NULL, '$priority');";
@@ -82,7 +79,7 @@ if (isset($_SESSION['username'])) {
 
     //design an error pop up
     if ($result === true) {
-        echo "<p class=\"success\">Fault category successfully inserted into the database!</p>";
+        // echo "<p class=\"success\">Fault category successfully inserted into the database!</p>";
         //$ticketValue = "SELECT ticketID FROM ticket";
         $ticketValue = $conn->insert_id;
 
@@ -97,7 +94,14 @@ if (isset($_SESSION['username'])) {
                 //$results = $conn->query($uploadPicture);
 
                 if ($conn->query($uploadPicture) === TRUE) {
-                    echo "<p class=\"success\">Picture " . basename($_FILES['picture']['name'][$i]) . " uploaded successfully!</p>";
+                    // echo "<p class=\"success\">Picture " . basename($_FILES['picture']['name'][$i]) . " uploaded successfully!</p>";
+                    
+                    // Store the ticket ID in session or redirect with it
+                    $_SESSION['ticketID'] = $ticketValue; // Store in session
+
+                    // Redirect back to ticketCreationFinal.php
+                    header("Location: ticketCreationFinal.php?success=1&ticketID=$ticketValue");
+                    exit(); // Make sure to exit after redirecting
                 } else {
                     echo "<p class=\"error\">Failed to upload picture: " . $conn->error . "</p>";
                 }
@@ -105,12 +109,11 @@ if (isset($_SESSION['username'])) {
                 echo "<p class=\"error\">Error uploading file " . basename($_FILES['picture']['name'][$i]) . ".</p>";
             }
         }
-        
     } else {
         echo "<p class=\"error\">Failed to insert the ticket: " . $conn->error . "</p>";
     }
     $conn->close();
-// }
+
 ?>
 </body>
 </html>

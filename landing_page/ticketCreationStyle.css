@@ -6,29 +6,25 @@ body {
     background-color: #CFDDE9;
 }
 
-.app {
-    display: flex;
-    height: 100vh;
-}
-
 * {
     box-sizing: border-box;
 }
 
 .sidebar {
-    position: relative;
-    width: 17.5rem; /* 280px */
+    position: fixed;
+    width: 17rem; /* 280px */
     background-color: #12222E;
     padding: 1.5rem; /* 24px */
     padding-top: 2.5rem; /* Add extra padding to accommodate the logo height */
     display: flex;
     flex-direction: column;
     gap: 0.5rem; /* 8px */
+    height: 100vh; /* Ensure sidebar takes up full height */
     transition: width 0.4s ease;
 }
 
 .sidebar.collapsed {
-    width: 5rem; /* 80px */
+    width: 8rem; /* 80px */
 }
 
 .sidebar__collapse-button {
@@ -45,25 +41,6 @@ body {
     right: -1rem; /* -10px */
     top: 4rem; /* Adjusted to be below the logo */
     z-index: 10; /* Ensure it’s above other elements */
-}
-
-.search {
-    display: flex;
-    align-items: center;
-    padding: 0.875rem; /* 14px */
-    border-radius: 0.5rem; /* 8px */
-    background: #ddd;
-    width: 13.4375rem; /* 215px */
-}
-
-.search-input {
-    font-size: 1rem; /* 16px */
-    color: #333333;
-    margin-left: 0.875rem; /* 14px */
-    outline: none;
-    border: none;
-    background: transparent;
-    flex: 1;
 }
 
 .sidebar-item {
@@ -111,9 +88,6 @@ nav ul {
     padding: 0;
 }
 
-nav ul li {
-    margin-bottom: 0.9375rem; /* 15px */
-}
 
 nav ul li a {
     align-items: center;
@@ -121,7 +95,7 @@ nav ul li a {
     color: white;
     font-size: 1.125rem; /* 18px */
     display: flex; /* Change to flex for icon and text alignment */
-    padding: 0.9375rem; /* 15px */
+    padding: 0.5rem;
     border-radius: 0.5rem; /* 8px */
     transition: background-color 0.25s;
     width: 100%; /* Full width for items */
@@ -155,16 +129,18 @@ nav ul li a:hover {
     font-size: 1.5rem; /* 24px */
     font-weight: 700;
     margin-bottom: 1.875rem; /* 30px */
+    color: white;
 }
 
 .content {
     flex-grow: 1;
     padding: 2.5rem;
     padding-right: 5rem;
-    background-color: #CFDDE9;
     position: relative;
     height: 100vh;
     margin-left: 17.5rem; /* Matches the width of the sidebar */
+    /* Allows scrolling if content overflows */
+    /* overflow-y: auto;  */
 }
 
 .page-header {

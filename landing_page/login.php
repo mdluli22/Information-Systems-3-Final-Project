@@ -40,7 +40,7 @@
             // Redirect based on user role
             switch($user_role) {
                 case 'student':
-                    header("Location: ticketCreation.php");
+                    header("Location: ticketCreationFinal.php");
                     break;
                 case 'house warden':
                     header("Location: ../house_warden/house_warden_open_tickets.php");

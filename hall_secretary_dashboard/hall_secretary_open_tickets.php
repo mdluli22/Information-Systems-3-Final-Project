@@ -108,23 +108,24 @@
                     <li id="statistics"><a class="sidebar-links" href="<?php echo "../Statistics/Stats_hallsec.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}" ?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
                 </ul>
             </nav>
-
+            <?php 
+                // Get initials and full name
+                $_SESSION['initials'] = $residence['initials'];
+                $_SESSION['full_name'] = $residence['hall_secretary_name'];
+                
+                // get hall sec first name
+                $_SESSION['first_name'] = $residence['firstName'];
+            ?>
+            
             <!-- <hr id="sidebar-hr"> -->
 
             <!-- Profile section at the bottom of the sidebar -->
             <div class="profile">
                 <!-- Profile picture area -->
                 <div class="profile-pic">
-                    <?php 
-                        // Get initials and full name
-                        $_SESSION['initials'] = $residence['initials'];
-                        $_SESSION['full_name'] = $residence['hall_secretary_name'];
-                        
-                        // get hall sec first name
-                        $_SESSION['first_name'] = $residence['f_Name'];
-                        
-                        echo $_SESSION['initials'];
-                    ?>
+                      
+                    <?php echo $_SESSION['initials'];?>
+                    
                 </div>
                 <!-- Profile information area -->
                 <div class="profile-info">

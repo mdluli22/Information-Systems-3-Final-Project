@@ -21,6 +21,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />    
     <link rel="stylesheet" href="maintenance.css">
+    <link rel="stylesheet" href="comment.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Link to the FontAwesome library for icons -->
     <script src="https://kit.fontawesome.com/ddbf4d6190.js" crossorigin="anonymous"></script>
@@ -86,9 +87,9 @@
         <nav>
             <ul id="sidebar-nav">
                 <!-- Navigation links with icons -->
-                <li id="all-tickets"><a class="sidebar-links" href="maintenance_all_tickets.php"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
-                <li id="open-tickets"><a class="sidebar-links active" href="maintenance_opened_tickets.php"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
-                <li id="closed-tickets"><a class="sidebar-links" href="maintenance_closed_tickets.php"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
+             <!--   <li id="all-tickets"><a class="sidebar-links" href="maintenance_all_tickets.php"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li> -->
+                <li id="open-tickets"><a class="sidebar-links active" href="maintenance_opened_tickets.php"><img src="pictures/layer.png" alt="layer">Requisitioned Tickets</a></li>
+                <li id="closed-tickets"><a class="sidebar-links" href="maintenance_closed_tickets.php"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Resolved Tickets</a></li>
                 <li id="statistics"><a class="sidebar-links" href="Stats_maintenance.php"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li> 
             </ul>
         </nav>
@@ -153,7 +154,7 @@
                         <th>Date</th>
                         <th>Category</th>
                         <th>Priority</th>
-                        <th>Update Status</th>
+                        <th>Comments</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -161,10 +162,10 @@
                     <?php
                         if(isset($_REQUEST['house_name'])){
                             $resname = $_REQUEST['house_name'];
-                            $sql = "SELECT * FROM ticket join residence on ticket.resName = residence.resName where hall_name = '$resname' ";
+                            $sql = "SELECT * FROM ticket join residence on ticket.resName = residence.resName where hall_name = '$resname' and ticket_status = 'Requisitioned' ";
                         }
                         else{
-                            $sql = "SELECT * FROM ticket join residence on ticket.resName = residence.resName where hall_name = '$defaulthouse' ";
+                            $sql = "SELECT * FROM ticket join residence on ticket.resName = residence.resName where hall_name = '$defaulthouse' and ticket_status = 'Requisitioned'  ";
                         }
 
                         $result = $connection->query($sql);
@@ -231,6 +232,9 @@
                                         
                                         echo "<td> <h5> {$name['name']} </h4> <p> {$comment['comment_description']} </p> </td>";
                                     }
+                                    
+
+                                    echo "<td> <a href = '#' class='add-comment-link' > + Add Comment </a> </td>";
                                     echo "</tr>";
                                 }
                             }
@@ -240,10 +244,74 @@
                         // close connection
                         $connection->close();
                     ?>
+
+
                 </tbody>
             </table>
         </section>
     </main>
+    
+    <div id="commentModal" class="modal">
+        <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <h2>Add Comment</h2>
+        <form id="commentForm">
+            <textarea id="commentText" required placeholder="Enter your comment here..."></textarea>
+            <input type="hidden" id="ticketID" value="">
+            <button type="submit">Submit</button>
+       </form>
+        </div>
+    </div>
+
+    <script>
+                // Get modal element
+                var modal = document.getElementById("commentModal");
+
+                // Get the <span> element that closes the modal
+                var span = document.getElementById("closeModal");
+
+                // Handle the click event on "+ Add Comment" link
+                document.querySelectorAll(".commentSection a").forEach(function (link) {
+                    link.addEventListener("click", function (e) {
+                        e.preventDefault(); // Prevent default link behavior
+                        var ticketID = this.href.split('ticket_ID=')[1]; // Get ticket ID from URL
+                        document.getElementById("ticketID").value = ticketID; // Set ticket ID in the hidden input
+                        modal.style.display = "block"; // Show the modal
+                    });
+                });
+
+                // When the user clicks on <span> (x), close the modal
+                span.onclick = function() {
+                    modal.style.display = "none";
+                }
+
+                // When the user clicks anywhere outside of the modal, close it
+                window.onclick = function(event) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                }
+
+                // Handle comment submission
+                document.getElementById("commentForm").addEventListener("submit", function(e) {
+                    e.preventDefault(); // Prevent default form submission
+
+                    var ticketID = document.getElementById("ticketID").value;
+                    var commentText = document.getElementById("commentText").value;
+
+                    // Here you can send the comment to the server using AJAX
+                    // For example, you might use fetch or XMLHttpRequest
+                    console.log("Submitting comment for ticket ID:", ticketID);
+                    console.log("Comment:", commentText);
+
+                    // After submission, you might want to clear the text area and close the modal
+                    document.getElementById("commentText").value = "";
+                    modal.style.display = "none";
+
+                    // You would also typically refresh the comments section here
+                });
+            </script>
+
     <!-- </div> -->
 </body>
 </html>

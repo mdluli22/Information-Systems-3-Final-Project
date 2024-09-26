@@ -86,13 +86,13 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['message']))
                             <a href="#"><img src="pictures/receipt-add.png" alt="receipt-add"><span>Log faults</span></a>
                         </li>
                         <li id="allTickets" class="sidebar-item">
-                            <a href="#"><img src="pictures/receipt-icon.png" alt="receipt-icon"><span>All Tickets</span></a>
+                            <a href="../ticket_tracking/ticket_tracking_all.php"><img src="pictures/receipt-icon.png" alt="receipt-icon"><span>All Tickets</span></a>
                         </li>
                         <li id="openTickets" class="sidebar-item">
-                            <a href="#"><img src="pictures/layer.png" alt="layer"><span>Open Tickets</span></a>
+                            <a href="../ticket_tracking/ticket_tracking_open.php"><img src="pictures/layer.png" alt="layer"><span>Open Tickets</span></a>
                         </li>
                         <li id="closedTickets" class="sidebar-item">
-                            <a href="#"><img src="pictures/clipboard-tick.png" alt="clipboard-tick"><span>Closed Tickets</span></a>
+                            <a href="../ticket_tracking/ticket_tracking_closed.php"><img src="pictures/clipboard-tick.png" alt="clipboard-tick"><span>Closed Tickets</span></a>
                         </li>
                     </ul>
                 </nav>

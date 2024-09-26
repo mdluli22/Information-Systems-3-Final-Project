@@ -198,7 +198,7 @@
                         // get approved/confirmed tickets from house warden
                         $housename = $_REQUEST['house_name'];
                         $requisitioned_tickets_query =
-                            "SELECT ticketID, concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority
+                            "SELECT ticketID, s.userName, concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority
                                     FROM student s JOIN ticket t ON s.userName = t.userName
                                     WHERE ticket_status = 'Confirmed' and t.resName = '$housename';";
                         $requisitioned_tickets_result = $connection->query($requisitioned_tickets_query);
@@ -207,7 +207,7 @@
                     else{
                 
                         $requisitioned_tickets_query =
-                        "SELECT ticketID, concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority
+                        "SELECT ticketID, s.userName, concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority
                                 FROM student s JOIN ticket t ON s.userName = t.userName
                                 WHERE ticket_status = 'Confirmed' and t.resName = '$defaulthouse';";
                         $requisitioned_tickets_result = $connection->query($requisitioned_tickets_query);
@@ -225,7 +225,7 @@
                             echo "<article class='request'>
                                         <div class='request-top-btns request-btns'>
                                             <!-- Buttons for commenting and deleting a request -->
-                                            <button class='comment-btn' onclick><i class='fa-solid fa-pen'></i>&nbsp;&nbsp;&nbsp;Comment</button>
+                                            <a href = 'hall_secretary_open_tickets.php?ticket_ID={$row['ticketID']}&house_name={$activeHouse}' ><button class='comment-btn' onclick><i class='fa-solid fa-pen'></i>&nbsp;&nbsp;&nbsp;Comment</button></a>
                                             <button class='delete-btn'><i class='fa-solid fa-trash' style='color: #e53e3e;'></i>&nbsp;&nbsp;&nbsp;Delete</button>
                                         </div>
                                         <!-- Request information -->
@@ -246,6 +246,44 @@
                                         </div>
                                     </article>";
                                     $count++;
+
+                            if(isset($_REQUEST['ticket_ID'])){
+                                        //when we reach the specific ticket we want comments for.
+                                       if($_REQUEST['ticket_ID'] == $row['ticketID']){
+                                       $theticketID = $_REQUEST['ticket_ID'];
+           
+                                               //get all comments for the ticket
+                                               $sql = "SELECT * from comment where ticketID = '$theticketID' ";
+                                               $thecomments = $connection -> query($sql);
+           
+                                               if ($thecomments === FALSE) {
+                                                   die("<p class=\"error\">Query was Unsuccessful!</p>");
+                                               }
+           
+                                               //get the name of the person that made the comment
+                                               $sql = "SELECT concat(f_Name, ' ', l_Name) as 'name' from student where userName = '{$row['userName']}' ";
+                                               $thename = $connection -> query($sql);
+           
+                                               if ($thename === FALSE) {
+                                                   die("<p class=\"error\">Query was Unsuccessful!</p>");
+                                               }
+           
+                                               $name = $thename -> fetch_assoc();
+           
+                                               echo "<tr class = 'commentSection'>";
+                                               if($thecomments -> num_rows == 0){
+                                                   echo "<td><p>No commments available</p> </td>";
+                                               }
+                                               while($comment = $thecomments -> fetch_assoc()){
+                                                   
+                                                   echo "<td> <h5> {$name['name']} </h4> <p> {$comment['comment_description']} </p> </td>";
+                                               }
+                                               
+           
+                                               echo "<td> <a href = '#' class='add-comment-link' > + Add Comment </a> </td>";
+                                               echo "</tr>";
+                                           }
+                                    }
                         }
                     }
                     else {

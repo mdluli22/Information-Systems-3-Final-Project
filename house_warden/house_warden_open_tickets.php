@@ -76,7 +76,10 @@
         $initials = $resnamel['initials'];
 
         // query instructions for tickets pending and processing
-        $sql = "SELECT ticketID, concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority FROM student s JOIN ticket t ON s.userName = t.userName WHERE ticket_status = 'Opened' and t.resName = '$resname';";;
+        $sql = 
+            "SELECT ticketID, concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority 
+            FROM student s JOIN ticket t ON s.userName = t.userName 
+            WHERE ticket_status = 'Opened' and t.resName = '$resname';";
         $opened_tickets_result = $connection->query($sql);
 
         // Check if query successfull

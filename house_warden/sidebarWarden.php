@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,12 +53,12 @@
                 <!-- Profile section at the bottom of the sidebar -->
                 <div class="profile">
                     <div class="profile-pic">
-                        <?php //echo $initials;?>
+                        <?php echo $initials;?>
                     </div>
                     <!-- Profile information area -->
                     <div class="profile-info">
-                        <span id="user-name" class="username"><?php //echo $wardeName?></span><br>
-                        <span class="role"><?php //echo "Warden"?></span>
+                        <span id="user-name" class="username"><?php echo $wardeName?></span><br>
+                        <span class="role"><?php echo "Warden"?></span>
                     </div>
                     <!-- Logout button with icon -->
                     <div id="sidebar-log-out">

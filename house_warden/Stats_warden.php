@@ -45,17 +45,14 @@
     ?>
 
     <div class="container">
+        <!-- SIDE BAR!! -->
         <?php require_once("sidebarWarden.php"); ?>
+
     <main class="content">
         <header class="header">
             <h1>Statistics</h1>
-            <div class="filters">
-                <span>From</span>
-                <input type="date" value="2021-06-10">
-                <span>To</span>
-                <input type="date" value="2021-06-10">
-            </div>
         </header>
+        
         <div class="stats-overview">
 
             <?php 

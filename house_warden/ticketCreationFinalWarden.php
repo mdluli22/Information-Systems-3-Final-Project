@@ -25,7 +25,7 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['message']))
     <link rel="icon" type="image/x-icon" href="pictures/2-removebg-preview.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />    
-    <link rel="stylesheet" href="ticketCreationStyle.css">
+    <link rel="stylesheet" href="../landing_Page/ticketCreationStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="scriptTC.js "></script>
 </head>
@@ -95,63 +95,7 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['message']))
 ?>
     <div class="container">
         <!-- the white left side of the page -->
-            <aside class="sidebar">
-                <div class="logo">ResQue</div>
-                <button class="sidebar__collapse-button" id="collapseBtn">
-                    <span class="material-symbols-outlined">chevron_left</span>
-                </button>
-                <nav>
-                    <ul>
-                        <li id="logFaults" class="sidebar-item">
-                            <a href="../landing_Page/ticketCreationFinal.php">
-                                <img src="pictures/receipt-add.png" alt="receipt-add"><span>Log faults</span></a>
-                        </li>
-                        <li id="allTickets" class="sidebar-item">
-                        <a class="sidebar-links" href="<?php echo "house_warden_all_tickets.php?warden_userName=$warden_userName&res_name={$resname}"; ?>">
-                                <img src="pictures/receipt-icon.png" alt="receipt-icon"><span>All Tickets</span></a>
-                        </li>
-                        <li id="openTickets" class="sidebar-item">
-                            <a href="../ticket_tracking/ticket_tracking_open.php"><img src="pictures/layer.png" alt="layer"><span>Open Tickets</span></a>
-                        </li>
-                        <li id="closedTickets" class="sidebar-item">
-                            <a href="../ticket_tracking/ticket_tracking_closed.php"><img src="pictures/clipboard-tick.png" alt="clipboard-tick"><span>Closed Tickets</span></a>
-                        </li>
-                    </ul>
-                </nav>
-
-                <div class="profile">
-                    <div class="profile-pic">
-                        <?php echo $_SESSION['initials']; ?>
-                    </div>
-                    <div class="profile-info">
-                        <span id="user-name" class="username"><?php echo htmlspecialchars($_SESSION['full_name']); ?></span><br>
-                        <span class="role"><?php echo htmlspecialchars($_SESSION['role']); ?></span>
-                    </div>
-                    <div id="sidebar-log-out">
-                        <a href="../landing_page/logout.php" onclick="return confirm('Are you sure you want to log out')">
-                            <i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i>
-                        </a>
-                    </div>
-                </div>
-            </aside>
-        <script>
-            document.getElementById("collapseBtn").addEventListener("click", function() {
-            const sidebar = document.querySelector(".sidebar");
-            sidebar.classList.toggle("collapsed");
-
-            // Toggle the chevron icon direction
-            const icon = this.querySelector(".material-symbols-outlined");
-            if (sidebar.classList.contains("collapsed")) {
-                icon.textContent = "chevron_right"; // Change icon to right chevron
-            } else {
-                icon.textContent = "chevron_left"; // Change icon to left chevron
-            }
-            });
-            function toggleSidebar() {
-                const sidebar = document.getElementById('sidebar');
-                sidebar.classList.toggle('collapsed');
-            }
-        </script>
+        <?php require_once("sidebarWarden.php") ?>
         
         <main class="content">
             <header class="page-header">
@@ -194,7 +138,7 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['message']))
             <section>
                 <div>
                     <!-- the actual form for fault -->
-                    <form action="ticketCreation.php" method="post" enctype="multipart/form-data" class="requisition-form">
+                    <form action="ticketCreationWarden.php" method="post" enctype="multipart/form-data" class="requisition-form">
                         <div class="form-header">
                             <h3>Requisition Details</h3>
                             <p class="fade-out">Please fill in the form below</p>

@@ -55,7 +55,6 @@ if ($result && $result->num_rows > 0) {
         <!--Sidebar section for navigation-->
         <?php require_once("sidebarStudent.php"); ?>
 
-        
         <!-- Main Ticket Tracking section -->
         <main class="content">
             <header>

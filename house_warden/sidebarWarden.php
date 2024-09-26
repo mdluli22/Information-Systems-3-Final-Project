@@ -26,7 +26,8 @@
 
                         <!-- Navigation links with icons -->
                         <li id="logFaults" class="sidebar-item">
-                            <a href="#"><img src="pictures/receipt-add.png" alt="receipt-add"><span>Log faults</span></a>
+                            <a class="sidebar-links" href="<?php echo "ticketCreationFinalWarden.php?warden_userName=$warden_userName&res_name={$resname}"; ?>">
+                                <img src="pictures/receipt-add.png" alt="receipt-add"><span>Log faults</span></a>
                         </li>
                         <li id="all-tickets" class="sidebar-item">
                             <a class="sidebar-links" href="<?php echo "house_warden_all_tickets.php?warden_userName=$warden_userName&res_name={$resname}"; ?>">

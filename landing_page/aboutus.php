@@ -5,12 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About us</title>
-    <link rel="icon" type="image/x-icon" href="pictures/resque-logo.png">
+    <link rel="shortcut icon" href="pictures/fake logo(1).png" type="image/x-icon">
     <link rel="stylesheet" href="aboutus.css">
 </head>
 
 <body>
     <header>
+        
         <h1>Meet Our Fully Remote Team</h1>
         <h2>Ready to Save Your Day, One Fix at a Time.
             It takes a group of passionate operators to run the system
@@ -118,11 +119,17 @@
 
     </script>
 
-<!-- go back to home -->
-    <a id="back-link" href="../landing_page/landing_Page.html">Back to Home</a>
+<button id="back">Back Home</button>
 
-    <footer>
-        <p>&copy; ResQue <time datetime="">2024</time></p>
+    <!-- obtained from the landing page -->
+    <footer class="footer"> 
+        <div class="footer-links">
+            <a href="../footer_links/links.html#integrity-and-constraints">Integrity & Compliance</a>
+            <a href="../footer_links/links.html#legal">Legal</a>
+            <a href="../footer_links/links.html#manage-cookies">Manage Cookies</a>
+            <a href="../footer_links/links.html#privacy-policy">Privacy Policy</a>
+        </div>
+        <p>&copy; <time datetime="">2024</time> ResQue </p>
     </footer>
 </body>
 

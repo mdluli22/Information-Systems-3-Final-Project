@@ -1,11 +1,3 @@
-/* 
-/* 
-document.querySelectorAll('.sidebar-links').forEach(link => {
-    link.addEventListener('click', function() {
-        document.querySelectorAll('.sidebar-links').forEach(el => el.classList.remove('active'));
-        this.classList.add('active');
-    });
-}); */
 
 // Select all elements with the class 'sidebar-links'
 const sidebarLinks = document.querySelectorAll('.sidebar-links');
@@ -21,15 +13,26 @@ sidebarLinks.forEach(link => {
         this.classList.add('active');
     });
 });
+/* end of effects on side bars */
 
-/* function showDetails(ticketId) {
-    // Logic to display details for the ticket
-    console.log("Show details for ticket ID:", ticketId);
-    // Example: toggle visibility of a details section
-    var detailsSection = document.getElementById('details-' + ticketId);
-    if (detailsSection.style.display === 'none') {
-        detailsSection.style.display = 'block';
-    } else {
-        detailsSection.style.display = 'none';
-    }
-} */
+/* Effects on image carousel */
+let slideIndex = 0;
+const slides = document.querySelectorAll('.carousel-slide');
+
+document.querySelector('.carousel-prev').addEventListener('click', () => {
+    slideIndex = (slideIndex > 0) ? slideIndex - 1 : slides.length - 1;
+    updateCarousel();
+});
+
+document.querySelector('.carousel-next').addEventListener('click', () => {
+    slideIndex = (slideIndex < slides.length - 1) ? slideIndex + 1 : 0;
+    updateCarousel();
+});
+
+function updateCarousel() {
+    const offset = -slideIndex * 100; // Assuming each slide is 100% width
+    slides.forEach(slide => {
+        slide.style.transform = `translateX(${offset}%)`;
+    });
+}
+/* End of effects on image carousel */

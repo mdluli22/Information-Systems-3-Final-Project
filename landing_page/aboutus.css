@@ -1,5 +1,16 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1c6bef30be88462847d932609aacf39950e69c3e
+=======
+>>>>>>> main
+=======
 
+=======
+>>>>>>> 233a93ea58c5a6384f01d329e09fd3959789b796
+>>>>>>> 2a5077af0f23e1a109cec233698b81976eb44032
 header {
     text-align: center;
     padding: 1.25rem;
@@ -93,7 +104,7 @@ body {
 
 /* button design */
 .buttons {
-    margin-top: 4%;
+    margin-top: 1%;
 }
 
 .buttons button {
@@ -113,14 +124,62 @@ body {
 .buttons button:hover {
     background-color: #12222E;
 }
- 
 
-footer {
-text-align: center;/* Center-align text */
-padding: 1% 0;/* Responsive padding */
-color: grey;/* Text color */
-margin-top: -1.1rem;/* Space above the footer */
+.back{
+    background-color: #B45C3D;
+    color: white;       
+    border: none;
+    padding: 10px 20px;
+    margin: 8px;
+    cursor: pointer;
+    font-size: 1.5em;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 0.125rem 0.25rem #000929;
+    border-radius: 0.3125rem;
+    display: flex;
+    align-content: left;
+}
+.back:hover{
+    background-color:#12222E ;
+}
 
+/* Footer obtained from the landing page*/
+.footer {
+    background-color: #12222E; /* Same color as the header */
+    color: white;
+    padding: 2rem 0; /* Padding for space inside the footer */
+    text-align: center; /* Center the content */
+    font-family: 'Inter', sans-serif;
+    width: 100%;
+    position: relative;
+    margin-top: auto; /* Pushes the footer to the bottom if content is short */
+}
+
+/* Footer Links */
+.footer-links {
+    display: flex;
+    justify-content: center; /* Center the footer links */
+    gap: 2rem; /* Space between the links */
+    margin-bottom: 1rem; /* Space below the links */
+    
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 500;
+    transition: color 0.3s ease-in-out;
+}
+
+.footer-links a:hover {
+    color: #B45C3D; /* Same hover effect as other links */
+}
+
+/* Footer text (copyright) */
+.footer p {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: #ddd; /* Lighter text for the copyright */
 }
 
 

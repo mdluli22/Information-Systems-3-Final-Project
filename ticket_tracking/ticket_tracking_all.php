@@ -66,7 +66,7 @@ if ($result && $result->num_rows > 0) {
             <nav>
                 <ul>
                     <!-- Navigation links with icons -->
-                    <li id="log-faults"><a class="sidebar-links" href="../ticket_creation/ticketCreation.html"><img src="pictures/receipt-add.png" alt="Log faults">Log Faults</a></li>
+                    <li id="log-faults"><a class="sidebar-links" href="../landing_Page/ticketCreationFinal.php"><img src="pictures/receipt-add.png" alt="Log faults">Log Faults</a></li>
                     <li id="all-tickets"><a class="sidebar-links active" href="ticket_tracking_all.php"><img src="pictures/receipt-icon.png" alt="All tickets">All Tickets</a></li>
                     <li id="open-tickets"><a class="sidebar-links" href="ticket_tracking_open.php"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
                     <li id="closed-tickets"><a class="sidebar-links" href="ticket_tracking_closed.php"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>

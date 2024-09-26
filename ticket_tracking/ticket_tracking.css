@@ -13,7 +13,7 @@ html, body {
 
 /* the whole left side section */
 .sidebar {
-    background-color: #fff;
+    background-color: #12222E;
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -465,16 +465,18 @@ h1 .ticket_type, .comment_time {
 /* Carousel container for image viewing */
 .carousel {
     position: relative;
-    width: 100%;
-    max-width: 500px; /* Set the desired width for the carousel */
-    margin: 20px auto;
+    width: 100%; /* Adjust as needed */
+    max-width: 600px; /* Maximum width of the carousel */
+    margin: auto; /* Center the carousel */
+    overflow: hidden; /* Hide overflowing images */
 }
 
-/* Carousel images */
+/* Container for all slides */
 .carousel-images {
     display: flex;
-    overflow: hidden;
+    transition: transform 0.5s ease-in-out;
     width: 100%;
+    height: 400px; /* Set a fixed height for the image display box */
 }
 
 .carousel-slide {
@@ -482,31 +484,31 @@ h1 .ticket_type, .comment_time {
     transition: transform 0.5s ease-in-out;
 }
 
+/* Images in the carousel */
 .carousel-image {
     width: 100%;
-    height: auto;
-    border-radius: 10px;
+    height: 100%;
+    object-fit: contain; /* Resize image to fit within the container while maintaining aspect ratio */
 }
 
-/* Previous and Next buttons */
-.carousel-prev,
-.carousel-next {
+/* Navigation Buttons */
+.carousel-prev, .carousel-next {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    color: #fff;
     border: none;
     padding: 10px;
     cursor: pointer;
 }
 
 .carousel-prev {
-    left: 0;
+    left: 10px;
 }
 
 .carousel-next {
-    right: 0;
+    right: 10px;
 }
 
 .carousel-prev:hover,

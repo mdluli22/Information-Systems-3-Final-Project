@@ -24,11 +24,6 @@ body {
     display: none;
 }
 
-/* .show {
-    display: block;
-    opacity: 1;
-} */
-
 /* Container */
 .container {
     flex: 1; /* Makes the container grow and take up the remaining space */

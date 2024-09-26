@@ -53,41 +53,7 @@ if ($result && $result->num_rows > 0) {
     <div class="container">
 
         <!--Sidebar section for navigation-->
-        <aside class="sidebar">
-            <div class="logo">ResQue</div>
-
-            <!--Search bar in the sidebar-->
-            <form action="" class="search">
-                <span class="search-icon material-symbols-outlined">search</span>
-                <input class="search-input" type="search" name="search-field" id="search-field" placeholder="Search">
-            </form>
-
-            <!-- Navigation menu in the sidebar -->
-            <nav>
-                <ul>
-                    <!-- Navigation links with icons -->
-                    <li id="log-faults"><a class="sidebar-links" href="../ticket_creation/ticketCreation.html"><img src="pictures/receipt-add.png" alt="Log faults">Log Faults</a></li>
-                    <li id="all-tickets"><a class="sidebar-links" href="ticket_tracking_all.php"><img src="pictures/receipt-icon.png" alt="All tickets">All Tickets</a></li>
-                    <li id="open-tickets"><a class="sidebar-links" href="ticket_tracking_open.php"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
-                    <li id="closed-tickets"><a class="sidebar-links active" href="ticket_tracking_closed.php"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
-                </ul>
-            </nav>
-    
-            <!-- Profile section at the bottom of the sidebar -->
-            <div class="profile">
-                <!-- Profile picture area -->
-                <div class="profile-pic">YR</div>
-                <!-- Profile information area -->
-                <div class="profile-info">
-                    <span id="user-name" class="username">Yeukai Runyowa</span><br>
-                    <span class="role">Student</span>
-                </div>
-                <!-- Logout button with icon -->
-                <div id="sidebar-log-out">
-                    <a href="#"><i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i></a>
-                </div>
-            </div>
-        </aside>
+        <?php require_once("sidebarStudent.php"); ?>
 
         <!-- Main Ticket Tracking section -->
         <main class="content">

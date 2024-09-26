@@ -207,7 +207,6 @@ if ($result && $result->num_rows > 0) {
                 <!-- Section for the detailed view of a single ticket -->
                 <section class="ticket-detail">
                     <article class="ticket-info">
-                        <img src="pictures/leak.jpg" alt="Ticket Image">
                         <?php
 
                             // Check if a ticketID is provided via GET request

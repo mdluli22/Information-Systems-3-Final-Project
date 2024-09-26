@@ -55,11 +55,6 @@ session_start();
                 <h2>Saving Your Day, One Fix at a Time</h2>
                 <p>Easily report your maintenance issues and have them resolved without any hassle.</p>
                 </div>
-
-                <div class="hero-image">
-                    <img src="pictures/fake logo(1).png" alt="ResQue Logo">
-                </div>
-
             </div>
         </section>
 
@@ -67,29 +62,29 @@ session_start();
     <section class="card-section">
         
         <div class="card about">
-            <p class="card-title">About ResQue</p>
-            <img src="../landing_page/pictures/about the team.png" alt="about the team"><br>
-            <p>We are a website that ensures maintenance is made faster
+            <h4 class="card-title">About ResQue<h4/>
+            <img src="../landing_page/pictures/aboutresque.JPG" alt="about the team"><br>
+            <h4>We are a website that ensures maintenance is made faster
                 and much more efficent. Real time communication, faster maintenance issues, 
                 reliable staff, and friendly residence mates too.
-            </p>
+            </h4>
         
         </div>
 
         <div class="card what-wedo">
-            <p class="card-title">What does ResQue do?</p>
+            <h4 class="card-title">What does ResQue do?<h4/>
             <img src="../landing_page/pictures/maintenance.png" alt="maintenance">
-            <p>Maintain residence faults <br>
+            <h4>Maintain residence faults <br>
         Ensure a room is a home <br>
     Offer real time communicationbr
-Every student is a customer to us</p>
+Every student is a customer to us</h4>
         </div>
 
         <div class="card contact">
-        <p class="card-title">How to contact us?</p>
-            <p>Email: systemsurgeons@gmail.com <br>
+        <h4 class="card-title">How to contact us?<h4/>
+            <h4>Email: systemsurgeons@gmail.com <br>
         Telephone: +27 62 020 2020 <br>
-    Office: Rhodes University Hamilton third floor office 22</p>
+    Office: Rhodes University Hamilton third floor office 22</h4>
 
         </div>
     </section>

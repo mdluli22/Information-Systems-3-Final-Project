@@ -319,6 +319,26 @@ h1 {
     margin-right: 2%; /* Adds space between the buttons */
 }
 
+/* for the pop up success message */
 .cancel-btn:last-child {
     margin-right: 0; /* Removes the right margin from the last button */
 }
+
+.success-message {
+    background-color: #d4edda; /* Light green background */
+    color: #155724; /* Dark green text */
+    border: 0.0625rem solid #c3e6cb; /* Green border */
+    padding: 0.9375rem;
+    margin: 10px 0;
+    border-radius: 0.9375rem;
+    position: relative; /* For positioning the close icon */
+}
+
+.cancel-icon {
+    color: red; /* Make the icon red */
+    position: absolute; /* Position it to the top right */
+    top: 1.5rem; /* Adjust to suit your design */
+    right: 2rem; /* Adjust to suit your design */
+    cursor: pointer;
+}
+

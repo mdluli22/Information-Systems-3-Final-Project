@@ -119,7 +119,7 @@
 
     </script>
 
-<button id="back">Back Home</button>
+<a id="back-home" href="../landing_page/home.php">Back to Home</a>
 
     <!-- obtained from the landing page -->
     <footer class="footer"> 

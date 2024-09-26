@@ -89,48 +89,7 @@
     ?>
     <div class="container">
         <!-- Sidebar section for navigation -->
-        <aside class="sidebar">
-            <!-- Logo section at the top of the sidebar -->
-            <div class="logo">
-                <h2>ResQue</h2>
-            </div>
-            
-            <!-- Search bar in the sidebar -->
-            <form action="hall_secretary_dashboard.php" method="post" class="search">
-                <span id="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
-                <input class="search-input" type="search" name="search-field" id="search-field" placeholder="Search">
-            </form>
-            
-            <!-- Navigation menu in the sidebar -->
-            <nav>
-                 <ul id="sidebar-nav">
-                    <!-- Navigation links with icons -->
-                    <li id="all-tickets"><a class="sidebar-links" href="<?php echo "house_warden_all_tickets.php?warden_userName=$warden_userName&res_name={$resname}"?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
-                    <li id="open-tickets"><a class="sidebar-links active" href="<?php echo "house_warden_open_tickets.php?warden_userName=$warden_userName&res_name={$resname}"; ?>"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
-                    <li id="closed-tickets"><a class="sidebar-links" href="<?php echo "house_warden_closed_tickets.php?warden_userName=$warden_userName&res_name={$resname}"; ?>"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
-                    <li id="statistics"><a class="sidebar-links" href="<?php echo "Stats_warden.php?warden_userName=$warden_userName&res_name={$resname}"?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
-                </ul>
-            </nav>
-    
-            <!-- <hr id="sidebar-hr"> -->
-    
-            <!-- Profile section at the bottom of the sidebar -->
-            <div class="profile">
-                <!-- Profile picture area -->
-                <div class="profile-pic">
-                    <?php echo $initials;?>
-                </div>
-                <!-- Profile information area -->
-                <div class="profile-info">
-                    <span id="user-name" class="username"><?php echo $wardeName?></span><br>
-                    <span class="role"><?php echo "Warden"?></span>
-                </div>
-                <!-- Logout button with icon -->
-                <div id="sidebar-log-out">
-                    <a href="../landing_page/logout.php" onclick = " return confirm('Are you sure you want to log out')"><i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i></a>
-                </div>
-            </div>
-        </aside>
+        <?php require_once("sidebarWarden.php") ;?>
 
         <!-- Main content area --> 
         <main class="content">

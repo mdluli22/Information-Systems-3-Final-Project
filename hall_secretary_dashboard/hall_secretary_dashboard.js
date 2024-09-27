@@ -9,3 +9,7 @@ document.querySelectorAll('.house-link').forEach(link => {
 function remove_feedback() {
     document.getElementById('success-message').style.display = 'none';
 }
+
+setTimeout(function() {
+    document.getElementById('success-message').style.display = 'none';
+}, 5000); // Hide after 5 seconds

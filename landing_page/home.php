@@ -106,5 +106,4 @@ Every student is a customer to us</h4>
         </footer>
         <script src="home.js"></script>
 </body>
-
 </html>

@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hall Secretary Dashboard</title>
+    <title>Hall Secretary Dashboard | ResQue</title>
     <link rel="icon" type="image/x-icon" href="pictures/resque-logo.png">
     <!-- Link to the external CSS file -->
     <link rel="stylesheet" href="hall_secretary_dashboard.css">
@@ -86,14 +86,14 @@
     ?>
     <div class="container">
         <!-- Sidebar section for navigation -->
-        <?php require_once("sidebar"); ?>
+        <?php require_once("sidebarHallSec.php"); ?>
 
         <!-- Main content area -->
         <main class="content">
             <header class="page-header">
                 <!-- Welcome message -->
                 <h1>Welcome, 
-                    <span class="username"><?php echo $_SESSION['first_name']; ?></span>  
+                    <span class="username"><?php //echo $_SESSION['first_name']; ?></span>  
                 </h1>
                 <p>Access & Manage maintenance requisitions efficiently.</p>
             </header>

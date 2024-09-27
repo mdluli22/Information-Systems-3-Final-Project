@@ -133,6 +133,18 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['message']))
                         successMessage.style.display = 'none';
                     }
                 }
+
+                setTimeout(function() {
+                    document.getElementById('success-message').style.display = 'none';
+                }, 10000); // Hide after 5 seconds
+
+                setTimeout(function() {
+                    let successMessage = document.getElementById('success-message');
+                    if (successMessage) {
+                        successMessage.style.display = 'none';
+                    }
+                }, 10000);
+
             </script>
             <section>
                 <div>

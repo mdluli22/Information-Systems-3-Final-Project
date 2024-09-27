@@ -43,58 +43,11 @@
 
     ?>
     <div class="container">
-    <aside class="sidebar">
-        <!-- Logo section at the top of the sidebar -->
-        <div class="logo">
-            <h2>ResQue</h2>
-        </div>
-        
-        <!-- Search bar in the sidebar -->
-        <form action="hall_secretary_dashboard.php" method="post" class="search">
-            <span id="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
-            <input class="search-input" type="search" name="search-field" id="search-field" placeholder="Search">
-        </form>
-        
-        <!-- Navigation menu in the sidebar -->
-        <nav>
-                <ul id="sidebar-nav">
-                    <!-- Navigation links with icons -->
-                    <li id="all-tickets"><a class="sidebar-links" href="<?php echo "../hall_secretary_dashboard/hall_secretary_all_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}"?>"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li>
-                    <li id="open-tickets"><a class="sidebar-links" href="<?php echo "../hall_secretary_dashboard/hall_secretary_open_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}"; ?>"><img src="pictures/layer.png" alt="layer">Opened Tickets</a></li>
-                    <li id="closed-tickets"><a class="sidebar-links" href="<?php echo "../hall_secretary_dashboard/hall_secretary_closed_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}"; ?>"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Closed Tickets</a></li>
-                    <li id="statistics"><a class="sidebar-links active" href="<?php echo "Stats_hallsec.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}?";?>"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li>
-                </ul>
-            </nav>
-
-        <!-- <hr id="sidebar-hr"> -->
-
-        <!-- Profile section at the bottom of the sidebar -->
-        <!-- Profile section at the bottom of the sidebar -->
-            <div class="profile">
-                <!-- Profile picture area -->
-                <div class="profile-pic">
-                    <?php echo $_SESSION['initials'];?>
-                </div>
-                <!-- Profile information area -->
-                <div class="profile-info">
-                    <span id="user-name" class="username"><?php echo $_SESSION['full_name']; ?></span><br>
-                    <span class="role"><?php echo "Hall Secretary"?></span>
-                </div>
-                <!-- Logout button with icon -->
-                <div id="sidebar-log-out">
-                    <a href="../landing_page/logout.php" onclick = " return confirm('Are you sure you want to log out')"><i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i></a>
-                </div>
-            </div>
-    </aside>
+    <?php require_once("../hall_secretary_dashboard/sidebarHallSec.php"); ?>
     <main class="content">
         <header class="header">
             <h1>Statistics</h1>
-            <div class="filters">
-                <span>From</span>
-                <input type="date" value="2021-06-10">
-                <span>To</span>
-                <input type="date" value="2021-06-10">
-            </div>
+
         </header>
         <nav class="houses">
                 <?php

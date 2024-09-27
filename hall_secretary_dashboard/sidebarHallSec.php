@@ -25,15 +25,15 @@
                 <ul id="sidebar-nav">
                     <!-- Navigation links with icons -->
                     <li id="all-tickets" class="sidebar-item">
-                        <a class="sidebar-links" href="<?php echo "hall_secretary_all_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}" ?>">
+                        <a class="sidebar-links" href="<?php echo "../hall_secretary_dashboard/hall_secretary_all_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}" ?>">
                             <img src="pictures/receipt-icon.png" alt="receipt icon"><span>All Tickets</span></a>
                     </li>
                     <li id="open-tickets" class="sidebar-item">
-                        <a class="sidebar-links active" href="<?php echo "hall_secretary_open_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}"; ?>">
+                        <a class="sidebar-links active" href="<?php echo "../hall_secretary_dashboard/hall_secretary_open_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}"; ?>">
                             <img src="pictures/layer.png" alt="layer"><span>Opened Tickets</span></a>
                     </li>
                     <li id="closed-tickets" class="sidebar-item">
-                        <a class="sidebar-links" href="<?php echo "hall_secretary_closed_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}"; ?>">
+                        <a class="sidebar-links" href="<?php echo "../hall_secretary_dashboard/hall_secretary_closed_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}"; ?>">
                             <img src="pictures/clipboard-tick.png" alt="clipboard-tick"><span>Closed Tickets</span></a>
                     </li>
                     <li id="statistics" class="sidebar-item">
@@ -46,11 +46,11 @@
                 <div class="profile">
                     <!-- Profile picture area -->
                     <div class="profile-pic">
-                        <?php echo $_SESSION['initials'];?>
+                        <?php //echo $_SESSION['initials'];?>
                     </div>
                     <!-- Profile information area -->
                     <div class="profile-info">
-                        <span id="user-name" class="username"><?php echo $_SESSION['full_name']; ?></span><br>
+                        <span id="user-name" class="username"><?php //echo $_SESSION['full_name']; ?></span><br>
                         <span class="role"><?php echo "Hall Secretary"?></span>
                     </div>
                     <!-- Logout button with icon -->

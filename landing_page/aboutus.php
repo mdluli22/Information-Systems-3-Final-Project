@@ -21,56 +21,52 @@
     <!-- thoko -->
     <div class="team-container">
         <div class="team-member" id="member-1">
-            <img src="pictures/yuki.jpeg" alt="Thokozile Tshabalala">
+            <img src="../landing_page/pictures/thokozile.JPG" alt="Thokozile Tshabalala">
             <h3>Thokozile Tshabalala</h3>
             <p>Position: Project Manager
                 <br>
                 Former education: Business Science Honours
                 <br>at Rhodes University
                 <br>in Information system
-                <br>Expertise: Animation and Transition
             </p>
         </div>
 
 
         <!-- derrick  -->
         <div class="team-member" id="member-2">
-            <img src="pictures/derrick.avif" alt="Derrick Abogaye">
+            <img src="../landing_page/pictures/derrick.JPG" alt="Derrick Abogaye">
             <h3>Derrick Abogaye</h3>
             <p>Position: Software Engineer
                 <br>
                 Former education: Bachelor of Science Honours
                 <br>at Rhodes Univeristy
                 <br>in Computer Science
-                <br>Expertise: Data manipulation and Hacking
             </p>
         </div>
 
 
         <!-- yuki -->
         <div class="team-member highlighted" id="member-3">
-            <img src="pictures/thoko.avif" alt="Yeukai Runyowa">
+            <img src="../landing_page/pictures/yeukai.JPG" alt="Yeukai Runyowa">
             <h3>Yeukai Runyowa</h3>
             <p>Position: Software Quality Expert
                 <br>
                 Former education: Bachelor of Science Honours
                 <br>at Rhodes Univeristy
                 <br>in Computer Science
-                <br>Expertise: System Tester
             </p>
         </div>
 
 
         <!-- amo -->
         <div class="team-member" id="member-4">
-            <img src="pictures/derrick and amo.jpg" alt="Amogelang Mphela">
+            <img src="../landing_page/pictures/amogelang.JPG" alt="Amogelang Mphela">
             <h3>Amogelang Mphela</h3>
             <p>Position: UI/UX Expert
                 <br>
                 Former education: Bachelor of Science Honours
                 <br>at Rhodes Univeristy
                 <br>in Computer Science
-                <br>Expertise: User Interface Design
                 <br>and User Experience
             </p>
         </div>
@@ -78,14 +74,13 @@
 
         <!-- akhona -->
         <div class="team-member" id="member-5">
-            <img src="pictures/akhona.jpg" alt="Akhona Mdluli">
+            <img src="../landing_page/pictures/akhona.JPG" alt="Akhona Mdluli">
             <h3>Akhona Mdluli</h3>
             <p>Position: AI prompt expert
                 <br>
                 Former education: Bachelor of Science Honours
                 <br>at Rhodes Univeristy
                 <br>in Computer Science
-                <br>Expertise: AI prompt engineer
                 <br>and Git expert
             </p>
         </div>

@@ -223,18 +223,18 @@ nav {
 /* SECTION 1 */
 /* Hero section: Main content area */
 .hero {
-    padding: 4rem 2rem;      
+    padding: 3rem 2rem;      
 }
 
 h2 {
     font-family: 'Inter', sans-serif;
     font-style: normal;
-    font-weight: 700;
-    font-size: 50px;
+    font-weight: 800;
+    font-size: 65px;
     line-height: 110%;
     /* or 70px */
     letter-spacing: -0.01em;
-    color: #000929;
+    color: black;
     /* Main Color/Black */
     margin-bottom: 60%;
     /*to move a bit lower*/
@@ -420,7 +420,7 @@ h2, .words, .hero-image:nth-child(3) {
     transform: translateY(-10px);
 }
 
-.card p {
+.card h4 {
     margin-bottom: 15px;
 }
 
@@ -442,7 +442,7 @@ h2, .words, .hero-image:nth-child(3) {
 }
 .about img{
     width: 250px;
-    height: 210px;
+    height: 300px;
     border-radius: 20px;
     margin-bottom: 15px;
 }

@@ -23,28 +23,27 @@
                 <!-- Navigation menu in the sidebar -->
                 <nav>
                     <ul>
-
                         <!-- Navigation links with icons -->
                         <li id="logFaults" class="sidebar-item">
-                            <a href="#"><img src="pictures/receipt-add.png" alt="receipt-add"><span>Log faults</span></a>
+                            <a class="sidebar-links" href="<?php echo "ticketCreationFinalWarden.php"; ?>">
+                                <img src="pictures/receipt-add.png" alt="receipt-add"><span>Log faults</span></a>
                         </li>
                         <li id="all-tickets" class="sidebar-item">
-                            <a class="sidebar-links" href="<?php echo "house_warden_all_tickets.php?warden_userName=$warden_userName&res_name={$resname}"; ?>">
+                        <a class="sidebar-links" href="house_warden_all_tickets.php?warden_userName=<?php echo $warden_userName; ?>&res_name=<?php echo $resname; ?>">
                                 <img src="pictures/receipt-icon.png" alt="receipt icon"><span>All Tickets</span></a>
                         </li>
                         <li id="open-tickets" class="sidebar-item">
-                            <a class="sidebar-links" href="<?php echo "house_warden_open_tickets.php?warden_userName=$warden_userName&res_name={$resname}"; ?>">
+                            <a class="sidebar-links" href="house_warden_open_tickets.php?warden_userName=<?php echo $warden_userName; ?>&res_name=<?php echo $resname; ?>">
                                 <img src="pictures/layer.png" alt="layer"><span>Opened Tickets</span></a>
                         </li>
                         <li id="closed-tickets" class="sidebar-item">
-                            <a class="sidebar-links" href="<?php echo "house_warden_closed_tickets.php?warden_userName=$warden_userName&res_name={$resname}"; ?>">
+                            <a class="sidebar-links" href="house_warden_closed_tickets.php?warden_userName=<?php echo $warden_userName; ?>&res_name=<?php echo $resname; ?>">
                                 <img src="pictures/clipboard-tick.png" alt="clipboard-tick"><span>Closed Tickets</span></a>
                         </li>
                         <li id="statistics" class="sidebar-item">
-                        <a class="sidebar-links active" href="<?php echo "Stats_warden.php?warden_userName=$warden_userName&res_name={$resname}"; ?>">
+                        <a class="sidebar-links active" href="Stats_warden.php?warden_userName=<?php echo $warden_userName; ?>&res_name=<?php echo $resname; ?>">
                             <img src="pictures/bar-chart-icon.png" alt="bar chart icon"><span>Statistics</span></a>
-                    </li>
-
+                        </li>
                     </ul>
                 </nav>
 

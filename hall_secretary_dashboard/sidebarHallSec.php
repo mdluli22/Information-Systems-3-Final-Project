@@ -22,48 +22,40 @@
                 
                 <!-- Navigation menu in the sidebar -->
                 <nav>
-                    <ul>
-                        <!-- Navigation links with icons -->
-                        <li id="logFaults" class="sidebar-item">
-                            <a class="sidebar-links" href="<?php echo "ticketCreationFinalWarden.php"; ?>">
-                                <img src="pictures/receipt-add.png" alt="receipt-add"><span>Log faults</span></a>
-                        </li>
-                        <li id="all-tickets" class="sidebar-item">
-                        <a class="sidebar-links" href="house_warden_all_tickets.php?warden_userName=<?php echo $warden_userName; ?>&res_name=<?php echo $resname; ?>">
-                                <img src="pictures/receipt-icon.png" alt="receipt icon"><span>All Tickets</span></a>
-                        </li>
-                        <li id="open-tickets" class="sidebar-item">
-                            <a class="sidebar-links" href="house_warden_open_tickets.php?warden_userName=<?php echo $warden_userName; ?>&res_name=<?php echo $resname; ?>">
-                                <img src="pictures/layer.png" alt="layer"><span>Opened Tickets</span></a>
-                        </li>
-                        <li id="closed-tickets" class="sidebar-item">
-                            <a class="sidebar-links" href="house_warden_closed_tickets.php?warden_userName=<?php echo $warden_userName; ?>&res_name=<?php echo $resname; ?>">
-                                <img src="pictures/clipboard-tick.png" alt="clipboard-tick"><span>Closed Tickets</span></a>
-                        </li>
-                        <li id="statistics" class="sidebar-item">
-                        <a class="sidebar-links active" href="Stats_warden.php?warden_userName=<?php echo $warden_userName; ?>&res_name=<?php echo $resname; ?>">
+                <ul id="sidebar-nav">
+                    <!-- Navigation links with icons -->
+                    <li id="all-tickets" class="sidebar-item">
+                        <a class="sidebar-links" href="<?php echo "hall_secretary_all_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}" ?>">
+                            <img src="pictures/receipt-icon.png" alt="receipt icon"><span>All Tickets</span></a>
+                    </li>
+                    <li id="open-tickets" class="sidebar-item">
+                        <a class="sidebar-links active" href="<?php echo "hall_secretary_open_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}"; ?>">
+                            <img src="pictures/layer.png" alt="layer"><span>Opened Tickets</span></a>
+                    </li>
+                    <li id="closed-tickets" class="sidebar-item">
+                        <a class="sidebar-links" href="<?php echo "hall_secretary_closed_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}"; ?>">
+                            <img src="pictures/clipboard-tick.png" alt="clipboard-tick"><span>Closed Tickets</span></a>
+                    </li>
+                    <li id="statistics" class="sidebar-item">
+                        <a class="sidebar-links" href="<?php echo "../Statistics/Stats_hallsec.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}" ?>">
                             <img src="pictures/bar-chart-icon.png" alt="bar chart icon"><span>Statistics</span></a>
-                        </li>
-                    </ul>
-                </nav>
-
-                <!-- <hr id="sidebar-hr"> -->
-
+                    </li>
+                </ul>
+            </nav>
                 <!-- Profile section at the bottom of the sidebar -->
                 <div class="profile">
+                    <!-- Profile picture area -->
                     <div class="profile-pic">
-                        <?php echo $initials;?>
+                        <?php echo $_SESSION['initials'];?>
                     </div>
                     <!-- Profile information area -->
                     <div class="profile-info">
-                        <span id="user-name" class="username"><?php echo $wardeName?></span><br>
-                        <span class="role"><?php echo "Warden"?></span>
+                        <span id="user-name" class="username"><?php echo $_SESSION['full_name']; ?></span><br>
+                        <span class="role"><?php echo "Hall Secretary"?></span>
                     </div>
                     <!-- Logout button with icon -->
                     <div id="sidebar-log-out">
-                        <a href="../landing_page/logout.php" onclick = " return confirm('Are you sure you want to log out')">
-                            <i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i>
-                        </a>
+                        <a href="../landing_page/logout.php" onclick = " return confirm('Are you sure you want to log out')"><i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i></a>
                     </div>
                 </div>
             </aside>
@@ -219,8 +211,6 @@ nav ul li a:hover {
     align-items: center;
     margin-bottom: 1.25rem; /* 20px */
 }
-
-
 
 /* Media Queries for Responsive Design */
 @media (max-width: 768px) {

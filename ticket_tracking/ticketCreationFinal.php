@@ -1,9 +1,11 @@
 <?php
+//session_start();
+
 require_once("secure.php");
 
 if (isset($_SESSION['username'])) {
     // echo 'Session Username: ' . $_SESSION['username'];
-    $studentID = $_SESSION['username'];
+    $userID = $_SESSION['username'];
 }else {
     die("User is not logged in.");
 }
@@ -41,7 +43,9 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['message']))
     }
 
     //for the res name on top
-    $sql1 = "SELECT resName FROM student WHERE userName = '$studentID'";
+    $sql1 = "SELECT resName FROM student WHERE userName = '$userID'
+            UNION
+            SELECT resName FROM house_warden WHERE userName = '$userID';";
     $result = $conn->query($sql1);
 
     if($result->num_rows > 0) {
@@ -51,11 +55,31 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['message']))
         $resName = "Residence not found";
     }
 
-    // Fetch student's full name, initials, and role
-    $sql = " SELECT s.f_Name AS first_name, s.l_Name AS last_name, CONCAT(LEFT(s.f_Name, 1), LEFT(s.l_Name, 1)) AS initials, u.user_role AS role
-            FROM student AS s JOIN user AS u ON s.userName = u.userName WHERE s.userName = '$studentID'; ";
+    // Get user role from the 'user' table
+    $sqlRole = "SELECT user_role FROM user WHERE userName = '$userID'";
+    $resultRole = $conn->query($sqlRole);
 
-    $result = $conn->query($sql);
+    if ($resultRole->num_rows > 0) {
+        $userRoleRow = $resultRole->fetch_assoc();
+        $userRole = $userRoleRow['user_role'];  // Retrieve the user role
+    } else {
+        die("<p class=\"error\">User role not found!</p>");
+    }
+
+    // For student and house warden user role
+    if ($userRole == 'student') {
+        $sql = "SELECT s.f_Name AS first_name, s.l_Name AS last_name, CONCAT(LEFT(s.f_Name, 1), LEFT(s.l_Name, 1)) AS initials, '$userRole' AS role
+                FROM student AS s 
+                WHERE s.userName = '$userID'";
+    } elseif ($userRole == 'house warden') {
+        $sql = "SELECT w.f_Name AS first_name, w.l_Name AS last_name, CONCAT(LEFT(w.f_Name, 1), LEFT(w.l_Name, 1)) AS initials, '$userRole' AS role, w.resName
+                FROM house_warden AS w 
+                WHERE w.userName = '$userID'";
+    } else {
+        die("<p class=\"error\">User role not recognized!</p>");
+    }
+
+    $result = $conn->query($sql);  
 
     // Check if the query was successful and fetch the result
     if ($result && $result->num_rows > 0) {
@@ -71,65 +95,7 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['message']))
 ?>
     <div class="container">
         <!-- the white left side of the page -->
-            <aside class="sidebar">
-                <div class="logo">ResQue</div>
-                <button class="sidebar__collapse-button" id="collapseBtn">
-                    <span class="material-symbols-outlined">chevron_left</span>
-                </button>
-                <!-- <form action="" class="search">
-                    <span class="search-icon material-symbols-outlined">search</span>
-                    <input class="search-input" type="search" name="search-field" id="search-field" placeholder="Search">
-                </form> -->
-                <nav>
-                    <ul>
-                        <li id="logFaults" class="sidebar-item">
-                            <a href="#"><img src="pictures/receipt-add.png" alt="receipt-add"><span>Log faults</span></a>
-                        </li>
-                        <li id="allTickets" class="sidebar-item">
-                            <a href="../ticket_tracking/ticket_tracking_all.php"><img src="pictures/receipt-icon.png" alt="receipt-icon"><span>All Tickets</span></a>
-                        </li>
-                        <li id="openTickets" class="sidebar-item">
-                            <a href="../ticket_tracking/ticket_tracking_open.php"><img src="pictures/layer.png" alt="layer"><span>Open Tickets</span></a>
-                        </li>
-                        <li id="closedTickets" class="sidebar-item">
-                            <a href="../ticket_tracking/ticket_tracking_closed.php"><img src="pictures/clipboard-tick.png" alt="clipboard-tick"><span>Closed Tickets</span></a>
-                        </li>
-                    </ul>
-                </nav>
-
-                <div class="profile">
-                    <div class="profile-pic">
-                        <?php echo $_SESSION['initials']; ?>
-                    </div>
-                    <div class="profile-info">
-                        <span id="user-name" class="username"><?php echo htmlspecialchars($_SESSION['full_name']); ?></span><br>
-                        <span class="role"><?php echo htmlspecialchars($_SESSION['role']); ?></span>
-                    </div>
-                    <div id="sidebar-log-out">
-                        <a href="../landing_page/logout.php" onclick="return confirm('Are you sure you want to log out')">
-                            <i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i>
-                        </a>
-                    </div>
-                </div>
-            </aside>
-        <script>
-            document.getElementById("collapseBtn").addEventListener("click", function() {
-            const sidebar = document.querySelector(".sidebar");
-            sidebar.classList.toggle("collapsed");
-
-            // Toggle the chevron icon direction
-            const icon = this.querySelector(".material-symbols-outlined");
-            if (sidebar.classList.contains("collapsed")) {
-                icon.textContent = "chevron_right"; // Change icon to right chevron
-            } else {
-                icon.textContent = "chevron_left"; // Change icon to left chevron
-            }
-            });
-            function toggleSidebar() {
-                const sidebar = document.getElementById('sidebar');
-                sidebar.classList.toggle('collapsed');
-            }
-        </script>
+        <?php require_once("sidebarStudent.php") ?>
         
         <main class="content">
             <header class="page-header">
@@ -148,12 +114,12 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['message']))
                 if (isset($_SESSION['ticketID']) && !empty($_SESSION['ticketID'])) {
                     $ticketID = $_SESSION['ticketID'];
 
-                    // Fetch student information (assuming it's stored in the session or retrieved earlier)
-                    $student_name = $_SESSION['full_name']; 
+                    // Fetch user information (assuming it's stored in the session or retrieved earlier)
+                    $user_name = $_SESSION['full_name']; 
 
                     echo "<div id='success-message' class='success-message'>
                             <h2>Ticket Requisitioned!<i class='fas fa-times cancel-icon' onclick='remove_feedback()'></i></h2>
-                            <p>The maintenance request for <strong>$student_name</strong> has been requisitioned successfully. The maintenance team will be notified shortly.</p>
+                            <p>The maintenance request for <strong>". ($_SESSION['full_name']) ."</strong> has been requisitioned successfully. The maintenance team will be notified shortly.</p>
                         </div>";
                 } 
                 // else {

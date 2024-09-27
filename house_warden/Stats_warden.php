@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Statistics</title>
+    <title>Statistics | ResQue</title>
     <link rel="icon" type="image/x-icon" href="pictures/fake logo(1).png">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -45,17 +45,14 @@
     ?>
 
     <div class="container">
+        <!-- SIDE BAR!! -->
         <?php require_once("sidebarWarden.php"); ?>
+
     <main class="content">
         <header class="header">
             <h1>Statistics</h1>
-            <div class="filters">
-                <span>From</span>
-                <input type="date" value="2021-06-10">
-                <span>To</span>
-                <input type="date" value="2021-06-10">
-            </div>
         </header>
+        
         <div class="stats-overview">
 
             <?php 

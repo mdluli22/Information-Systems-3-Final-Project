@@ -2,7 +2,7 @@
 require_once("secure.php");
 
 if (isset($_SESSION['username'])) {
-    $studentID = $_SESSION['username'];
+    $userID = $_SESSION['username'];
     // $resName = $_SESSION['resName'];
 } else {
     die("User is not logged in.");
@@ -25,7 +25,10 @@ if ($conn -> connect_error) {
 }
 
 // Retrieve the student's resName from the database
-$sql1 = "SELECT resName FROM student WHERE userName = '$studentID';";
+$sql1 = "SELECT resName FROM student WHERE userName = '$userID'
+        UNION
+        SELECT resName FROM house_warden WHERE userName = '$userID';";
+
 $result1 = $conn->query($sql1);
 
 if($result1->num_rows > 0) {
@@ -45,7 +48,7 @@ $rating = NULL;  // Set rating to NULL for now
 
 // Insert the ticket into the database
 $sql = "INSERT INTO ticket (userName, resName, ticket_status, ticketDate, ticket_description, category, rating, priority) 
-        VALUES ('$studentID', '$resName', '$ticket_status', '$ticketDate', '$description', '$fault', NULL, '$priority');";
+        VALUES ('$userID', '$resName', '$ticket_status', '$ticketDate', '$description', '$fault', NULL, '$priority');";
 $result = $conn->query($sql);
 
 if ($result === TRUE) {

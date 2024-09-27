@@ -53,6 +53,7 @@ if ($result && $result->num_rows > 0) {
     <div class="container">
 
         <!--Sidebar section for navigation-->
+<<<<<<< HEAD
         <aside class="sidebar">
             <div class="logo">ResQue</div>
 
@@ -88,6 +89,9 @@ if ($result && $result->num_rows > 0) {
                 </div>
             </div>
         </aside>
+=======
+        <?php require_once("sidebarStudent.php"); ?>
+>>>>>>> dc1a06d1211c19d22d0a6719aae7b0ecb3fe05c9
 
         <!-- Main Ticket Tracking section -->
         <main class="content">

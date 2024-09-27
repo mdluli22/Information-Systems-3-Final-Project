@@ -2,7 +2,7 @@ html, body {
     font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8f9fa;
+    background-color: #CFDDE9;
     height: 100vh;  /* Ensure the body takes up the full viewport height */
 }
 
@@ -12,6 +12,7 @@ html, body {
 }
 
 /* the whole left side section */
+<<<<<<< HEAD
 .sidebar {
     background-color: #12222E;
     display: flex;
@@ -153,6 +154,8 @@ nav ul li a:hover {
 .role {
     color: #666;
 }
+=======
+>>>>>>> dc1a06d1211c19d22d0a6719aae7b0ecb3fe05c9
 
 /* left section ends here */
 
@@ -178,7 +181,6 @@ nav ul li a:hover {
 .content {
     padding: 2rem;
     padding-right: 4.5rem;
-    background-color: #f0f0f0;
     position: relative;
     margin-left: 17.5rem; /* Matches the width of the sidebar */
     flex-direction: column;

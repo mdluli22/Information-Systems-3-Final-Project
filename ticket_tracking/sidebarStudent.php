@@ -24,25 +24,21 @@
                 <nav>
                     <ul>
                         <!-- Navigation links with icons -->
-                        <li id="logFaults" class="sidebar-item">
-                            <a class="sidebar-links" href="<?php echo "ticketCreationFinalWarden.php"; ?>">
-                                <img src="pictures/receipt-add.png" alt="receipt-add"><span>Log faults</span></a>
+                        <li id="log-faults" class="sidebar-item">
+                            <a class="sidebar-links" href="ticketCreationFinal.php">
+                                <img src="pictures/receipt-add.png" alt="Log faults"><span>Log Faults</span></a>
                         </li>
                         <li id="all-tickets" class="sidebar-item">
-                        <a class="sidebar-links" href="house_warden_all_tickets.php?warden_userName=<?php echo $warden_userName; ?>&res_name=<?php echo $resname; ?>">
-                                <img src="pictures/receipt-icon.png" alt="receipt icon"><span>All Tickets</span></a>
+                            <a class="sidebar-links active" href="ticket_tracking_all.php">
+                                <img src="pictures/receipt-icon.png" alt="All tickets"><span>All Tickets</span></a>
                         </li>
                         <li id="open-tickets" class="sidebar-item">
-                            <a class="sidebar-links" href="house_warden_open_tickets.php?warden_userName=<?php echo $warden_userName; ?>&res_name=<?php echo $resname; ?>">
+                            <a class="sidebar-links" href="ticket_tracking_open.php">
                                 <img src="pictures/layer.png" alt="layer"><span>Opened Tickets</span></a>
                         </li>
                         <li id="closed-tickets" class="sidebar-item">
-                            <a class="sidebar-links" href="house_warden_closed_tickets.php?warden_userName=<?php echo $warden_userName; ?>&res_name=<?php echo $resname; ?>">
+                            <a class="sidebar-links" href="ticket_tracking_closed.php">
                                 <img src="pictures/clipboard-tick.png" alt="clipboard-tick"><span>Closed Tickets</span></a>
-                        </li>
-                        <li id="statistics" class="sidebar-item">
-                        <a class="sidebar-links active" href="Stats_warden.php?warden_userName=<?php echo $warden_userName; ?>&res_name=<?php echo $resname; ?>">
-                            <img src="pictures/bar-chart-icon.png" alt="bar chart icon"><span>Statistics</span></a>
                         </li>
                     </ul>
                 </nav>
@@ -52,12 +48,12 @@
                 <!-- Profile section at the bottom of the sidebar -->
                 <div class="profile">
                     <div class="profile-pic">
-                        <?php echo $initials;?>
+                        <?php //echo $initials;?>
                     </div>
                     <!-- Profile information area -->
                     <div class="profile-info">
-                        <span id="user-name" class="username"><?php echo $wardeName?></span><br>
-                        <span class="role"><?php echo "Warden"?></span>
+                        <span id="user-name" class="username">Full name</span><br>
+                        <span class="role"><?php echo "Student"?></span>
                     </div>
                     <!-- Logout button with icon -->
                     <div id="sidebar-log-out">
@@ -67,7 +63,6 @@
                     </div>
                 </div>
             </aside>
-
 <style>
 body {
     margin: 0;

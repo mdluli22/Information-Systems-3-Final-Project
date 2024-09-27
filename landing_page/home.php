@@ -58,55 +58,6 @@ session_start();
             </div>
         </section>
 
-<<<<<<< HEAD
-       <!-- Card Section -->
-    <section class="card-section">
-        
-        <div class="card about">
-            <h4 class="card-title">About ResQue<h4/>
-            <img src="../landing_page/pictures/aboutresque.JPG" alt="about the team"><br>
-            <h4>We are a website that ensures maintenance is made faster
-                and much more efficent. Real time communication, faster maintenance issues, 
-                reliable staff, and friendly residence mates too.
-            </h4>
-        
-        </div>
-
-        <div class="card what-wedo">
-            <h4 class="card-title">What does ResQue do?<h4/>
-            <img src="../landing_page/pictures/maintenance.png" alt="maintenance">
-            <h4>Maintain residence faults <br>
-        Ensure a room is a home <br>
-    Offer real time communicationbr
-Every student is a customer to us</h4>
-        </div>
-
-        <div class="card contact">
-        <h4 class="card-title">How to contact us?<h4/>
-            <h4>Email: systemsurgeons@gmail.com <br>
-        Telephone: +27 62 020 2020 <br>
-    Office: Rhodes University Hamilton third floor office 22</h4>
-
-        </div>
-    </section>
-
-        <!-- the login and sign up area -->
-        <?php
-        require_once('login_signup.php');
-        ?>
-        <script src="home.js"></script>
-
-        <footer class="footer">
-            <div class="footer-links">
-                <a href="../footer_links/links.html#integrity-and-constraints">Integrity & Compliance</a>
-                <a href="../footer_links/links.html#legal">Legal</a>
-                <a href="../footer_links/links.html#manage-cookies">Manage Cookies</a>
-                <a href="../footer_links/links.html#privacy-policy">Privacy Policy</a>
-            </div>
-            <p>&copy; <time datetime="<?php echo date('Y'); ?>"><?php echo date('Y'); ?></time> ResQue </p>
-        </footer>
-        <script src="home.js"></script>
-=======
     <section>
         <!-- Login Modal Structure -->
         <div class="login-body">
@@ -234,7 +185,6 @@ Every student is a customer to us</h4>
         <p>&copy; <time datetime="<?php echo date('Y'); ?>"><?php echo date('Y'); ?></time> ResQue </p>
     </footer>
     <script src="home.js"></script>
->>>>>>> cd880bba838c78d28f32696f4a3ce11a36909a25
 </body>
 
 </html>

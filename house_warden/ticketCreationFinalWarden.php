@@ -33,7 +33,6 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['message']))
 <?php
     // include database details from config.php file
     require_once("config.php");
-
     // attempt to make database connection
     $conn = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
 

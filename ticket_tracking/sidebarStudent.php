@@ -25,7 +25,7 @@
                     <ul>
                         <!-- Navigation links with icons -->
                         <li id="log-faults" class="sidebar-item">
-                            <a class="sidebar-links" href="../landing_Page/ticketCreationFinal.php">
+                            <a class="sidebar-links" href="ticketCreationFinal.php">
                                 <img src="pictures/receipt-add.png" alt="Log faults"><span>Log Faults</span></a>
                         </li>
                         <li id="all-tickets" class="sidebar-item">

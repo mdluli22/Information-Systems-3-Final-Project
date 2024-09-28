@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hall Secretary Dashboard | ResQue</title>
+    <title>Hall Secretary Dashboard</title>
     <link rel="icon" type="image/x-icon" href="pictures/resque-logo.png">
     <!-- Link to the external CSS file -->
     <link rel="stylesheet" href="hall_secretary_dashboard.css">
@@ -83,6 +83,10 @@
     // Get hall name of hall_sec
     $_SESSION['hall_name'] = $hall_name_result->fetch_assoc()['hall_name'];
 
+    // Get hall_sec name/details
+    $_SESSION['firstName'] = $residence['firstName'];
+    // $_SESSION['firstName'] = ;
+
     ?>
     <div class="container">
         <!-- Sidebar section for navigation -->
@@ -93,7 +97,7 @@
             <header class="page-header">
                 <!-- Welcome message -->
                 <h1>Welcome, 
-                    <span class="username"><?php //echo $_SESSION['first_name']; ?></span>  
+                    <span class="username"><?php echo $_SESSION['firstName']; ?></span>  
                 </h1>
                 <p>Access & Manage maintenance requisitions efficiently.</p>
             </header>

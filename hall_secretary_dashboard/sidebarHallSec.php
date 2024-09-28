@@ -1,4 +1,4 @@
-
+<?php require_once("secure.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

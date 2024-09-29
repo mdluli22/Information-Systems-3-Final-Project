@@ -72,13 +72,16 @@
 
         <!-- Main content area -->
         <main class="content">
-            <header class="page-header">
+        <header class="page-header">
+            <div class="text-container">
                 <!-- Welcome message -->
-                <h1>Welcome, 
-                    <span class="username"><?php //echo $_SESSION['first_name']; ?></span>
-                </h1>
+                <h1>Welcome, <span class="username"><?php echo $_SESSION['first_name']; ?></span></h1>
                 <p>Access & Manage maintenance requisitions efficiently.</p>
-            </header>
+            </div>
+            <div class="logo-container">
+                <img src="../landing_page/pictures/fake logo(1).png" alt="Logo">
+            </div>
+        </header>
 
             <!-- House selection links -->
             <nav class="houses">
@@ -157,7 +160,7 @@
                                 }
                             }
                             else {
-                                echo "<tr><td> <p> No Tickets Available </p></td></tr>";
+                                echo "<tr><td colspan=3> <p> No Tickets Available </p></td></tr>";
                             }
                             // close connection
                             $connection->close();

@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Statistics | ResQue</title>
-    <link rel="icon" type="image/x-icon" href="pictures/fake logo(1).png">
+    <link rel="icon" type="image/x-icon" href="../landing_page/pictures/fake logo(1).png">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Link to the FontAwesome library for icons -->
@@ -51,6 +51,9 @@
     <main class="content">
         <header class="header">
             <h1>Statistics</h1>
+            <div class="logo-container">
+                <img src="../landing_page/pictures/fake logo(1).png" alt="Logo" >
+            </div>
         </header>
         
         <div class="stats-overview">

@@ -17,10 +17,10 @@ if (isset($_SESSION['studentHall'])) {
 require_once("config.php");
 
 // database connection
-$conn = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
+$connection = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
 
 // Check if connection was successful
-if ($conn -> connect_error) {
+if ($connection -> connect_error) {
     die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
 }
 
@@ -29,7 +29,7 @@ $sql1 = "SELECT resName FROM student WHERE userName = '$userID'
         UNION
         SELECT resName FROM house_warden WHERE userName = '$userID';";
 
-$result1 = $conn->query($sql1);
+$result1 = $connection->query($sql1);
 
 if($result1->num_rows > 0) {
     $row = $result1->fetch_assoc();
@@ -49,11 +49,11 @@ $rating = NULL;  // Set rating to NULL for now
 // Insert the ticket into the database
 $sql = "INSERT INTO ticket (userName, resName, ticket_status, ticketDate, ticket_description, category, rating, priority) 
         VALUES ('$userID', '$resName', '$ticket_status', '$ticketDate', '$description', '$fault', NULL, '$priority');";
-$result = $conn->query($sql);
+$result = $connection->query($sql);
 
 if ($result === TRUE) {
     // Ticket creation successful, get the inserted ticket ID
-    $ticketValue = $conn->insert_id;
+    $ticketValue = $connection->insert_id;
     
     // Process file uploads
     $countFiles = count($_FILES['picture']['name']); // Get the number of uploaded files
@@ -65,8 +65,8 @@ if ($result === TRUE) {
         if (move_uploaded_file($_FILES['picture']['tmp_name'][$i], $destination)) {
             // Insert the picture into the photos table
             $uploadPicture = "INSERT INTO photos (ticketID, photo) VALUES ('$ticketValue', '$picture');";
-            if ($conn->query($uploadPicture) !== TRUE) {
-                echo "<p class=\"error\">Failed to upload picture: " . $conn->error . "</p>";
+            if ($connection->query($uploadPicture) !== TRUE) {
+                echo "<p class=\"error\">Failed to upload picture: " . $connection->error . "</p>";
             }
         } else {
             echo "<p class=\"error\">Error uploading file " . basename($_FILES['picture']['name'][$i]) . ".</p>";
@@ -79,8 +79,8 @@ if ($result === TRUE) {
     exit();  // Make sure to exit after the redirect
 
 } else {
-    echo "<p class=\"error\">Failed to insert the ticket: " . $conn->error . "</p>";
+    echo "<p class=\"error\">Failed to insert the ticket: " . $connection->error . "</p>";
 }
 
-$conn->close();
+$connection->close();
 ?>

@@ -1,4 +1,37 @@
+<?php
+// include database details from config.php file
+require_once("config.php");
 
+// attempt to make database connection
+$connection = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
+
+// Check if connection was successful
+if ($connection->connect_error) {
+    die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
+}
+
+// Get the username from the session
+$warden_userName = $_SESSION['username'];
+
+// Query to fetch warden details
+$warden_res_query = "
+    SELECT resName, 
+           CONCAT(f_Name, ' ', l_Name) as 'Name', 
+           CONCAT(LEFT(house_warden.f_Name, 1), LEFT(house_warden.l_Name, 1)) AS initials
+    FROM house_warden 
+    WHERE userName = '$warden_userName';";
+
+$warden_res_query_result = $connection->query($warden_res_query);
+
+if ($warden_res_query_result === FALSE) {
+    die("<p class=\"error\">Query was Unsuccessful!</p>");
+}
+
+$resnamel = $warden_res_query_result->fetch_assoc();
+$wardeName = $resnamel['Name']; // Full name
+$initials = $resnamel['initials']; // Initials
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,26 +59,36 @@
                         <!-- Navigation links with icons -->
                         <li id="logFaults" class="sidebar-item">
                             <a class="sidebar-links" href="<?php echo "ticketCreationFinalWarden.php"; ?>">
-                                <img src="pictures/receipt-add.png" alt="receipt-add"><span>Log faults</span></a>
+                                <img src="pictures/receipt-add.png" alt="receipt-add"><span>Log Faults</span>
+                            </a>
                         </li>
                         <li id="all-tickets" class="sidebar-item">
-                        <a class="sidebar-links" href="house_warden_all_tickets.php?warden_userName=<?php echo $warden_userName; ?>&res_name=<?php echo $resname; ?>">
-                                <img src="pictures/receipt-icon.png" alt="receipt icon"><span>All Tickets</span></a>
+                            <a class="sidebar-links" href="<?php echo "../house_warden/house_warden_all_tickets.php?warden_userName={$warden_userName}&res_name={$resnamel['resName']}"; ?>">
+                                <img src="pictures/receipt-icon.png" alt="receipt icon"><span>All Tickets</span>
+                            </a>
                         </li>
+
                         <li id="open-tickets" class="sidebar-item">
-                            <a class="sidebar-links" href="house_warden_open_tickets.php?warden_userName=<?php echo $warden_userName; ?>&res_name=<?php echo $resname; ?>">
-                                <img src="pictures/layer.png" alt="layer"><span>Opened Tickets</span></a>
+                            <a class="sidebar-links" href="<?php echo "../house_warden/house_warden_open_tickets.php?warden_userName={$warden_userName}&res_name={$resnamel['resName']}"; ?>">
+                                <img src="pictures/layer.png" alt="layer"><span>Opened Tickets</span>
+                                <!-- Notification Icon -->
+                                <span id="notification-icon" class="notification-icon"></span>
+                            </a>
                         </li>
+
                         <li id="closed-tickets" class="sidebar-item">
-                            <a class="sidebar-links" href="house_warden_closed_tickets.php?warden_userName=<?php echo $warden_userName; ?>&res_name=<?php echo $resname; ?>">
-                                <img src="pictures/clipboard-tick.png" alt="clipboard-tick"><span>Closed Tickets</span></a>
+                            <a class="sidebar-links" href="<?php echo "../house_warden/house_warden_closed_tickets.php?warden_userName={$warden_userName}&res_name={$resnamel['resName']}"; ?>">
+                                <img src="pictures/clipboard-tick.png" alt="clipboard-tick"><span>Closed Tickets</span>
+                            </a>
                         </li>
                         <li id="statistics" class="sidebar-item">
-                        <a class="sidebar-links active" href="Stats_warden.php?warden_userName=<?php echo $warden_userName; ?>&res_name=<?php echo $resname; ?>">
-                            <img src="pictures/bar-chart-icon.png" alt="bar chart icon"><span>Statistics</span></a>
+                            <a class="sidebar-links" href="<?php echo "../house_warden/Stats_warden.php?warden_userName={$warden_userName}&res_name={$resnamel['resName']}"; ?>">
+                                <img src="pictures/bar-chart-icon.png" alt="bar chart icon"><span>Statistics</span>
+                            </a>
                         </li>
                     </ul>
                 </nav>
+
 
                 <!-- <hr id="sidebar-hr"> -->
 
@@ -67,8 +110,13 @@
                     </div>
                 </div>
             </aside>
-
 <style>
+    /* Highlight the active sidebar link */
+.sidebar-links.active {
+    background-color: #B45C3D; /* Highlighting color */
+    color: white; /* Text color */
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -133,6 +181,18 @@ body {
 .sidebar.collapsed .profile-info {
     display: none; /* Hide text */
 }
+
+/* Notification icon styles */
+.notification-icon {
+    background-color: #ef3e3e; /* Red color for the notification */
+    color: white;
+    border-radius: 50%;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.75rem;
+    margin-left: 0.5rem;
+    display: none; /* Hide by default */
+}
+
 
 .profile {
     display: flex;
@@ -258,8 +318,27 @@ nav ul li a:hover {
         margin-left: 12rem; /* Adjust for smaller screens */
     }
 }
-    </style>
+</style>
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Highlight the active sidebar link based on the current page
+            const sidebarLinks = document.querySelectorAll('.sidebar-links');
+            const currentPage = window.location.pathname.split('/').pop().split('?')[0]; // Get the current page name without query parameters
+
+            // Iterate over each sidebar link
+            sidebarLinks.forEach(link => {
+                // Extract the page name from the link's href attribute without query parameters
+                const pageName = link.getAttribute('href').split('/').pop().split('?')[0];
+
+                // Check if the current page matches the link's page name
+                if (currentPage === pageName) {
+                    link.classList.add('active'); // Add 'active' class to the matching link
+                } else {
+                    link.classList.remove('active'); // Remove 'active' class from other links
+                }
+            });
+        });
+
             document.getElementById("collapseBtn").addEventListener("click", function() {
             const sidebar = document.querySelector(".sidebar");
             sidebar.classList.toggle("collapsed");
@@ -276,6 +355,16 @@ nav ul li a:hover {
                 const sidebar = document.getElementById('sidebar');
                 sidebar.classList.toggle('collapsed');
             }
+
+            document.addEventListener("DOMContentLoaded", function() {
+                // Update the notification icon for the "Opened Tickets" link
+                const notificationIcon = document.getElementById('notification-icon');
+
+                if (openedTicketsCount > 0) {
+                    notificationIcon.textContent = openedTicketsCount; // Set the count
+                    notificationIcon.style.display = 'inline-block'; // Show the icon
+                }
+            });
 </script>
 </body>
 </html>

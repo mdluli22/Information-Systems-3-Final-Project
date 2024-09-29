@@ -22,12 +22,12 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['message']))
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maintenance Form | ResQue</title>
-    <link rel="icon" type="image/x-icon" href="pictures/2-removebg-preview.png">
+    <link rel="icon" type="image/x-icon" href="../landing_page/pictures/fake logo(1).png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />    
     <link rel="stylesheet" href="../landing_Page/ticketCreationStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="scriptTC.js "></script>
+    <script src="house_warden.js"></script>
 </head>
 <body>
 <?php
@@ -66,11 +66,7 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['message']))
     }
 
     // For student and house warden user role
-    if ($userRole == 'student') {
-        $sql = "SELECT s.f_Name AS first_name, s.l_Name AS last_name, CONCAT(LEFT(s.f_Name, 1), LEFT(s.l_Name, 1)) AS initials, '$userRole' AS role
-                FROM student AS s 
-                WHERE s.userName = '$userID'";
-    } elseif ($userRole == 'house warden') {
+    if ($userRole == 'house warden') {
         $sql = "SELECT w.f_Name AS first_name, w.l_Name AS last_name, CONCAT(LEFT(w.f_Name, 1), LEFT(w.l_Name, 1)) AS initials, '$userRole' AS role, w.resName
                 FROM house_warden AS w 
                 WHERE w.userName = '$userID'";
@@ -90,6 +86,8 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['message']))
         die("<p class=\"error\">Student not found or query unsuccessful!</p>");
     }
 
+    
+
     $conn->close();
 ?>
     <div class="container">
@@ -104,8 +102,9 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['message']))
                         <?php echo htmlspecialchars($resName); ?>
                     </p>
                 </div>
-                 
-                <img src="pictures/fake logo(1).png" alt="Logo" width="150" height="110">
+                <div class="logo-container">
+                    <img src="../landing_page/pictures/fake logo(1).png" alt="Logo" >
+                </div>
             </header>
             <?php
 
@@ -143,7 +142,7 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['message']))
                     if (successMessage) {
                         successMessage.style.display = 'none';
                     }
-                }, 10000);
+                }, 5000);
 
             </script>
             <section>
@@ -198,10 +197,20 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['message']))
                         </div>
                         <div class="form-actions">
                             <input type="hidden" id="resName" name="residence" value="<?php $resName; ?>">
-                            <button type="reset" class="cancel-btn">Cancel</button>
-                            <input type="submit" value="Submit" >   
+                            <button type="button" class="cancel-btn" onclick="showConfirmModal()">Cancel</button>
+                            <input type="submit" class="submit-btn" value="Submit" >   
                         </div>
                     </form>
+
+                    <!-- Custom Confirmation Modal -->
+                    <div id="confirmModal" class="modal">
+                        <div class="modal-content">
+                            <img src="../landing_page/pictures/fake logo(1).png" alt="Confirmation Image" class="modal-image">
+                            <p>Are you sure you want to cancel?</p>
+                            <button class="modal-btn yes-btn" onclick="confirmCancel(true)">Yes</button>
+                            <button class="modal-btn no-btn" onclick="confirmCancel(false)">No</button>
+                        </div>
+                    </div>
                 </div>
             </section>
         </main>

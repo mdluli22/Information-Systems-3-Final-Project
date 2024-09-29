@@ -1,4 +1,35 @@
+<?php
+// Include database details from config.php file
+require_once("config.php");
+                    
+// attempt to make database connection
+$connection = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
 
+// Check if connection was successful
+if ($connection->connect_error) {
+    die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
+}
+
+//get the student information to use on the page
+$sql = "SELECT *, 
+    CONCAT(f_Name, ' ', l_Name) as 'Name',
+    CONCAT(LEFT(student.f_Name, 1), LEFT(student.l_Name, 1)) AS initials
+    FROM student where userName = '$userID'";
+$result = $connection -> query($sql); //execute query
+
+if ($result && $result->num_rows > 0) {
+    // Fetch the student information from the result set
+    $row = $result->fetch_assoc();
+    $fname = $row['f_Name'];
+    $lname = $row['l_Name'];
+    $residence = $row['resName'];
+    $room = $row['room_number'];
+    $initials = $row['initials']; 
+} else {
+    // Handle case where no student data was found
+    echo "<p class='error'>No student data found for the user.</p>";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,22 +79,27 @@
                 <!-- Profile section at the bottom of the sidebar -->
                 <div class="profile">
                     <div class="profile-pic">
-                        <?php //echo $initials;?>
+                        <?php echo $initials;?>
                     </div>
                     <!-- Profile information area -->
                     <div class="profile-info">
-                        <span id="user-name" class="username">Full name</span><br>
+                        <span id="user-name" class="username"><?php echo $fname. " ". $lname ?></span><br>
                         <span class="role"><?php echo "Student"?></span>
                     </div>
                     <!-- Logout button with icon -->
                     <div id="sidebar-log-out">
                         <a href="../landing_page/logout.php" onclick = " return confirm('Are you sure you want to log out')">
-                            <i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i>
+                            <i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B45C3D;"></i>
                         </a>
                     </div>
                 </div>
             </aside>
 <style>
+/* Highlight the active sidebar link */
+.sidebar-links.active {
+    background-color: #B45C3D; /* Highlighting color */
+    color: white; /* Text color */
+}
 body {
     margin: 0;
     padding: 0;
@@ -139,7 +175,7 @@ body {
 .profile-pic {
     width: 2.5rem; /* 40px */
     height: 2.5rem; /* 40px */
-    background-color: #b197fc;
+    background-color: #B45C3D;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -253,24 +289,49 @@ nav ul li a:hover {
         margin-left: 12rem; /* Adjust for smaller screens */
     }
 }
-    </style>
-    <script>
-            document.getElementById("collapseBtn").addEventListener("click", function() {
-            const sidebar = document.querySelector(".sidebar");
-            sidebar.classList.toggle("collapsed");
 
-            // Toggle the chevron icon direction
-            const icon = this.querySelector(".material-symbols-outlined");
-            if (sidebar.classList.contains("collapsed")) {
-                icon.textContent = "chevron_right"; // Change icon to right chevron
-            } else {
-                icon.textContent = "chevron_left"; // Change icon to left chevron
-            }
+.sidebar-links.active {
+    background-color: #B45C3D; /* Example: change the background color */
+    color: #fff; /* Change the text color */
+    border-radius: 10px; /* Optional: rounded corners for the active link */
+    padding: 10px; /* Optional: adjust padding for the active link */
+    text-decoration: none;
+}
+
+    </style>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+            // Highlight the active sidebar link based on the current page
+            const sidebarLinks = document.querySelectorAll('.sidebar-links');
+            const currentPage = window.location.pathname.split('/').pop().split('?')[0]; // Get the current page name without query parameters
+
+            // Iterate over each sidebar link
+            sidebarLinks.forEach(link => {
+                // Extract the page name from the link's href attribute without query parameters
+                const pageName = link.getAttribute('href').split('/').pop().split('?')[0];
+
+                // Check if the current page matches the link's page name
+                if (currentPage === pageName) {
+                    link.classList.add('active'); // Add 'active' class to the matching link
+                } else {
+                    link.classList.remove('active'); // Remove 'active' class from other links
+                }
             });
-            function toggleSidebar() {
-                const sidebar = document.getElementById('sidebar');
-                sidebar.classList.toggle('collapsed');
-            }
+        });
+
+    // Sidebar collapse functionality
+    document.getElementById("collapseBtn").addEventListener("click", function() {
+        const sidebar = document.querySelector(".sidebar");
+        sidebar.classList.toggle("collapsed");
+
+        // Toggle the chevron icon direction
+        const icon = this.querySelector(".material-symbols-outlined");
+        if (sidebar.classList.contains("collapsed")) {
+            icon.textContent = "chevron_right"; // Change icon to right chevron
+        } else {
+            icon.textContent = "chevron_left"; // Change icon to left chevron
+        }
+    });
 </script>
 </body>
 </html>

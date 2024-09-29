@@ -10,6 +10,45 @@ body {
     color: #fff;
 }
 
+/* Style for the page-header */
+.page-header {
+    display: flex; /* Use flexbox for alignment */
+    justify-content: space-between; /* Space out elements */
+    align-items: center; /* Vertically align items */
+    padding: 1rem; /* Add padding for spacing */
+    background-color: #CFDDE9; /* Match background color */
+}
+
+/* Container for text content */
+.page-header .text-container {
+    max-width: 70%; /* Limit the width of the text container */
+}
+
+/* Style for the h1 within the page-header */
+.page-header h1 {
+    margin: 0;
+    font-size: 2rem; /* Adjust the size of the heading */
+    line-height: 1.2; /* Adjust line height for better spacing */
+}
+
+/* Style for the p tag within the page-header */
+.page-header p {
+    margin-top: 0.5rem; /* Space between h1 and p */
+    font-size: 1rem; /* Adjust the size of the paragraph text */
+    color: #333; /* Adjust the color if needed */
+}
+
+/* Style for the logo-container */
+.logo-container {
+    max-width: 80px; /* Adjust the size as needed */
+}
+
+.logo-container img {
+    max-width: 100px;
+    height: auto;
+}
+
+
 /* Styling for username within the header */
 header h1 .username {
     color:#A020F0; /* Purple color for username text */
@@ -63,8 +102,8 @@ header h1 .username {
 .cancel-icon {
     color: red; /* Make the icon red */
     position: absolute; /* Position it to the top right */
-    top: 1.5rem; /* Adjust to suit your design */
-    right: 2rem; /* Adjust to suit your design */
+    top: 1.5rem; /*  */
+    right: 2rem; /*  */
     cursor: pointer;
 }
 
@@ -81,6 +120,20 @@ header h1 .username {
     cursor: pointer;
     /* float: right; - removed */
 }
+
+
+/* FEEDBACK AFTER REJECTING REQUEST */
+.rejected-message {
+    background-color: #d4edda;
+    border: 0.0625rem solid #751414;
+    color: #155724;
+    padding: 0.9375rem;
+    border-radius: 0.9375rem;
+    margin-top: 1.25rem;
+    position: relative; /* Ensure relative positioning for the icon */
+}
+
+
 
 .cancel-button i {
     margin-right: 0.5rem;
@@ -202,7 +255,7 @@ table thead {
     padding: 0.5rem 1.875rem; /* Padding inside the section */
     background-color: white; /* White background color */
     border-radius: 0.9375rem; /* Rounded corners */
-    width: 95%; /* Width of maintenance request section */
+    width: 100%; /* Width of maintenance request section */
 }
 
 /* Maintenance requests scrollbar */
@@ -251,8 +304,8 @@ table thead {
     float: right; /* Aligns buttons to the right */
 }
 
-/* Styling for approve, delete, and comment buttons */
-.approve-btn, .delete-btn, .comment-btn {
+/* Styling for approve, reject, and comment buttons */
+.approve-btn, .reject-btn, .comment-btn {
     padding: 0.625rem 1.25rem; /* Padding inside buttons */
     border: none; /* Removes border */
     cursor: pointer; /* Pointer cursor on hover */
@@ -275,8 +328,8 @@ table thead {
     float: inline-end; /* Floats button to the end (right) */
 }
 
-/* Styles the delete button */
-.delete-btn {
+/* Styles the reject button */
+.reject-btn {
     color: #ef3e3e; /* Red text color */
 }
 

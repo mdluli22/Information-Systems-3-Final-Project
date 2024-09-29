@@ -10,9 +10,36 @@ if (isset($_SESSION['username'])) {
     die("User is not logged in.");
 }
 
+// Include database details from config.php file
+require_once("config.php");
+                    
+// attempt to make database connection
+$connection = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
+
+// Check if connection was successful
+if ($connection->connect_error) {
+    die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
+}
+
 // Check if a success parameter is present in the URL
 if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['message'])) {
     $successMessage = htmlspecialchars($_GET['message']); // Sanitize the message for output
+}
+
+//get the student information to use on the page
+$sql = "SELECT * FROM systemsurgeons.student where userName = '$userID'";
+$result = $connection -> query($sql); //execute query
+
+if ($result && $result->num_rows > 0) {
+    // Fetch the student information from the result set
+    $row = $result->fetch_assoc();
+    $fname = $row['f_Name'];
+    $lname = $row['l_Name'];
+    $residence = $row['resName'];
+    $room = $row['room_number'];
+} else {
+    // Handle case where no student data was found
+    echo "<p class='error'>No student data found for the user.</p>";
 }
 
 ?>
@@ -22,12 +49,12 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['message']))
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maintenance Form | ResQue</title>
-    <link rel="icon" type="image/x-icon" href="pictures/2-removebg-preview.png">
+    <link rel="icon" type="image/x-icon" href="../landing_page/pictures/fake logo(1).png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />    
     <link rel="stylesheet" href="ticketCreationStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="scriptTC.js "></script>
+    <script src="../ticket_tracking/scriptTC.js"></script>
 </head>
 <body>
 <?php
@@ -106,7 +133,9 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['message']))
                     </p>
                 </div>
                  
-                <img src="pictures/fake logo(1).png" alt="Logo" width="150" height="110">
+                <div class="logo-container">
+                    <img src="../landing_page/pictures/fake logo(1).png" alt="Logo" >
+                </div>
             </header>
             <?php
 
@@ -127,27 +156,6 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['message']))
                 // }
             ?>
 
-            <script>
-                function remove_feedback() {
-                    const successMessage = document.getElementById('success-message');
-                    if (successMessage) {
-                        successMessage.style.display = 'none';
-                    }
-                }
-
-                setTimeout(function() {
-                    document.getElementById('success-message').style.display = 'none';
-                }, 10000); // Hide after 5 seconds
-                
-
-                setTimeout(function() {
-                    let successMessage = document.getElementById('success-message');
-                    if (successMessage) {
-                        successMessage.style.display = 'none';
-                    }
-                }, 10000);
-
-            </script>
             <section>
                 <div>
                     <!-- the actual form for fault -->
@@ -200,10 +208,22 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['message']))
                         </div>
                         <div class="form-actions">
                             <input type="hidden" id="resName" name="residence" value="<?php $resName; ?>">
-                            <button type="reset" class="cancel-btn">Cancel</button>
-                            <input type="submit" value="Submit" >   
-                        </div>
+                            
+                            <!-- Cancel Button -->
+                            <button type="button" class="cancel-btn" onclick="showConfirmModal()">Cancel</button>
+                            <input type="submit" class="submit-btn" value="Submit" >   
+                            <!-- The form ends here -->
                     </form>
+
+                    <!-- Custom Confirmation Modal -->
+                    <div id="confirmModal" class="modal">
+                        <div class="modal-content">
+                            <img src="../landing_page/pictures/fake logo(1).png" alt="Confirmation Image" class="modal-image">
+                            <p>Are you sure you want to cancel?</p>
+                            <button class="modal-btn yes-btn" onclick="confirmCancel(true)">Yes</button>
+                            <button class="modal-btn no-btn" onclick="confirmCancel(false)">No</button>
+                        </div>
+                    </div>
                 </div>
             </section>
         </main>

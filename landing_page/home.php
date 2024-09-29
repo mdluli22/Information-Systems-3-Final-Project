@@ -8,7 +8,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home | ResQue</title>
-    <link rel="shortcut icon" href="pictures/3-removebg-preview.png" type="image/x-icon">
+    <link rel="shortcut icon" href="pictures/fake logo(1).png" type="image/x-icon">
     <link rel="stylesheet" href="home.css">
 </head>
 
@@ -23,7 +23,7 @@ session_start();
                     <li><a href="../landing_page/faq.php">FAQ</a></li>
                     <li><a href="../landing_page/aboutus.php">About Us</a></li>
                     <li><a href="#">Help</a></li>
-                    <li><a href="#">Resources</a></li>
+                    <li><a href="https://www.ru.ac.za/safety/resources/">Resources</a></li>
                 </ul>
                 <div class="user-actions">
                     <a href="#" class="login-btn" id="login-btn">Login</a>
@@ -41,9 +41,8 @@ session_start();
             </label>
 
             <div class="mobile-menu">
-                <a href="index.html">Home</a>
-                <a href="about.html">About Us</a>
-                <a href="review.html">Reviews</a>
+                <a href="../landing_page/home.php">Home</a>
+                <a href="../landing_page/aboutus.php">About Us</a>
                 <a href="help.html">Help</a>
             </div>
         </header>
@@ -57,13 +56,14 @@ session_start();
                 </div>
             </div>
         </section>
+        <br>
 
        <!-- Card Section -->
     <section class="card-section">
         
         <div class="card about">
             <h4 class="card-title">About ResQue<h4/>
-            <img src="../landing_page/pictures/aboutresque.JPG" alt="about the team"><br>
+            <img src="../landing_page/pictures/aboutresque.JPG (1).jpg" alt="about the team"><br>
             <h4>We are a website that ensures maintenance is made faster
                 and much more efficent. Real time communication, faster maintenance issues, 
                 reliable staff, and friendly residence mates too.
@@ -73,7 +73,7 @@ session_start();
 
         <div class="card what-wedo">
             <h4 class="card-title">What does ResQue do?<h4/>
-            <img src="../landing_page/pictures/maintenance.png" alt="maintenance">
+            <img src="../landing_page/pictures/resquedoes.jpg" alt="maintenance">
             <h4>Maintain residence faults <br>
         Ensure a room is a home <br>
     Offer real time communicationbr
@@ -82,6 +82,7 @@ Every student is a customer to us</h4>
 
         <div class="card contact">
         <h4 class="card-title">How to contact us?<h4/>
+        <img src="../landing_page/pictures/contactus.JPG" alt="contact us">
             <h4>Email: systemsurgeons@gmail.com <br>
         Telephone: +27 62 020 2020 <br>
     Office: Rhodes University Hamilton third floor office 22</h4>
@@ -106,4 +107,5 @@ Every student is a customer to us</h4>
         </footer>
         <script src="home.js"></script>
 </body>
+
 </html>

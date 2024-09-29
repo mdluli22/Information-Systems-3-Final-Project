@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="maintenance.css">
     <link rel="stylesheet" href="comment.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="maintenance.js"></script>
     <!-- Link to the FontAwesome library for icons -->
     <script src="https://kit.fontawesome.com/ddbf4d6190.js" crossorigin="anonymous"></script>
     <style>
@@ -71,49 +72,9 @@
     ?>
 <!-- <div class="container"> -->
     <!-- Sidebar section for navigation -->
-    <aside class="sidebar">
-        <!-- Logo section at the top of the sidebar -->
-        <div class="logo">
-            <h2>ResQue</h2>
-        </div>
-        
-        <!-- Search bar in the sidebar -->
-        <form action="maintenance_opened_tickets.php" method="post" class="search">
-            <span id="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
-            <input class="search-input" type="search" name="search-field" id="search-field" placeholder="Search">
-        </form>
-        
-        <!-- Navigation menu in the sidebar -->
-        <nav>
-            <ul id="sidebar-nav">
-                <!-- Navigation links with icons -->
-             <!--   <li id="all-tickets"><a class="sidebar-links" href="maintenance_all_tickets.php"><img src="pictures/receipt-icon.png" alt="receipt icon">All Tickets</a></li> -->
-                <li id="open-tickets"><a class="sidebar-links active" href="maintenance_opened_tickets.php"><img src="pictures/layer.png" alt="layer">Requisitioned Tickets</a></li>
-                <li id="closed-tickets"><a class="sidebar-links" href="maintenance_closed_tickets.php"><img src="pictures/clipboard-tick.png" alt="clipboard-tick">Resolved Tickets</a></li>
-                <li id="statistics"><a class="sidebar-links" href="Stats_maintenance.php"><img src="pictures/bar-chart-icon.png" alt="bar chart icon">Statistics</a></li> 
-            </ul>
-        </nav>
-
-        <!-- <hr id="sidebar-hr"> -->
-
-        <!-- Profile section at the bottom of the sidebar -->
-        <div class="profile">
-            <!-- Profile picture area -->
-            <div class="profile-pic">
-                <?php echo "Staff";?>
-            </div>
-            <!-- Profile information area -->
-            <div class="profile-info">
-                <span id="user-name" class="username"><?php echo $name['name']?></span><br>
-                <span class="role"><?php echo "Maintenance"?></span>
-            </div>
-            <!-- Logout button with icon -->
-            <div id="sidebar-log-out">
-                <a href="../landing_page/logout.php" onclick = " return confirm('Are you sure you want to log out')"><i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i></a>
-            </div>
-        </div>
-    </aside>
-
+    <?php
+    require_once("sidebarMaintenance.php");
+    ?>
     <!-- Main content area -->
     <main class="content">
         <header class="page-header">
@@ -154,7 +115,8 @@
                         <th>Date</th>
                         <th>Category</th>
                         <th>Priority</th>
-                        <th>Comments</th>
+                        <th>Comments/Details</th>
+                        <th>Update status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -177,9 +139,7 @@
 
                         while ($row = $result->fetch_assoc())
                         {
-
-
-                            echo "<tr><td>#{$row['ticketID']}</td>";
+                            echo "<tr id = '{$row['ticketID']}'><td>#{$row['ticketID']}</td>";
                             echo "<td>{$row['ticket_description']}</td>";
                             // if ($row['ticket_status'] == "Processing") {
                             echo "<td><span class='status processing'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
@@ -196,51 +156,141 @@
                                 default:
                                     echo "<td><span class='priority low-risk'><span class='circle'></span>&nbsp;&nbsp;Low</span></td>";
                             }
-
-                            echo "<td><a href='maintenance_opened_tickets.php?ticket_ID={$row['ticketID']}&house_name={$activeHouse} '>Comments</a></td></tr>";
-
+                            echo "<a id='{$row['ticketID']}'>";
+                            echo "<td><a href='maintenance_opened_tickets.php?ticket_ID={$row['ticketID']}&house_name={$activeHouse}#{$row['ticketID']}'> Comment </a>";
+                            echo "<p><a href='maintenance_opened_tickets.php?ticket_ID={$row['ticketID']}&house_name={$activeHouse}#{$row['ticketID']} '> View Details</a></p></td>";
+                            echo "<td><a href='updateStatus.php?ticket_ID={$row['ticketID']}&house_name={$activeHouse}' onclick= \"return confirm('Are you sure you want to update ticket status')\">Ticket Resolved</a></td></tr>";
                             
+
+                            echo "<tr>";
                             //code for rendering the comments
                             if(isset($_REQUEST['ticket_ID'])){
                                 //when we reach the specific ticket we want comments for.
-                                if($_REQUEST['ticket_ID'] == $row['ticketID']){
-                                    $theticketID = $_REQUEST['ticket_ID'];
+                               if($_REQUEST['ticket_ID'] == $row['ticketID']){
+                                    $theticketID = $row['ticketID'];
+                                   // Query to get the comments related to this ticket
+                                    $sql_comments = "SELECT commentID, userName, comment_description, comment_date FROM systemsurgeons.comment WHERE ticketID = '$theticketID' and soft_delete_comment = false";
+                                    $comments_result = $connection->query($sql_comments); // Execute query for comments
 
-                                    //get all comments for the ticket
-                                    $sql = "SELECT * from comment where ticketID = '$theticketID' ";
-                                    $thecomments = $connection -> query($sql);
+                                    if ($comments_result->num_rows > 0) {
+                                        echo "<td>";
+                                        echo "<h3>Comments</h3>";
+                                        echo "<dl class='comment-list'>";
+                                        while ($comment = $comments_result->fetch_assoc()) {
+                                            
+                                            //calculate how long ago a comment was made
+                                            $comment_time = new DateTime($comment['comment_date']); //date comment was made
+                                            $current_time = new DateTime(); //today's date
+                                            $interval = $comment_time->diff($current_time); //difference in the time
 
-                                    if ($thecomments === FALSE) {
-                                        die("<p class=\"error\">Query was Unsuccessful!</p>");
+                                            // Create a readable time difference (e.g., '2 hours ago')
+                                            if ($interval->y > 0) {
+                                                $time_ago = $interval->y . ' year' . ($interval->y > 1 ? 's' : '') . ' ago';
+                                            } elseif ($interval->m > 0) {
+                                                $time_ago = $interval->m . ' month' . ($interval->m > 1 ? 's' : '') . ' ago';
+                                            } elseif ($interval->d > 0) {
+                                                $time_ago = $interval->d . ' day' . ($interval->d > 1 ? 's' : '') . ' ago';
+                                            } elseif ($interval->h > 0) {
+                                                $time_ago = $interval->h . ' hour' . ($interval->h > 1 ? 's' : '') . ' ago';
+                                            } elseif ($interval->i > 0) {
+                                                $time_ago = $interval->i . ' minute' . ($interval->i > 1 ? 's' : '') . ' ago';
+                                            } else {
+                                                $time_ago = 'Just now';
+                                            }
+
+
+                                            if ($comment['userName'] == $MaintenanceID) {
+                                                echo "<form action='soft_delete_comment.php' method='POST' style='display:inline;'>
+                                                        <input type='hidden' name='commentID' value='{$comment['commentID']}'>
+                                                        <input type='hidden' name='userID' value={$comment['userName']}>
+                                                        <input type='hidden' name='page' value='all'>"; //tells the form handler which page to return to
+                                                echo   "<button type='submit' class='delete-button'>Delete</button>
+                                                    </form>";
+                                            }
+                                            else{
+
+                                                //display the comment info
+                                                echo "<div class='comment-bubble'>";
+                                                echo "<dt class='commentor'>" . htmlspecialchars($comment['userName']) . ":</dt>";
+                                                echo "<dd class='comment-msg'> " . htmlspecialchars($comment['comment_description']) . "</dd>";
+                                                echo "<span class='comment_time'>" . htmlspecialchars($time_ago) . "</span>"; // Display time ago
+                                                // For each comment, show delete button BUT ONLY for the comment owner
+
+                                            }
+                                            echo "</div>";
+                                            echo "<br>";
+                                        }
+                                        echo "</dl>";
+                                    } else {
+                                        echo "<td>";
+                                        echo "<h3>Comments</h3>";
+                                        echo "<span class='info-label'>No comments have been made under this ticket yet.</span><br>";
                                     }
 
-                                    //get the name of the person that made the comment
-                                    $sql = "SELECT concat(f_Name, ' ', l_Name) as 'name' from student where  userName = '{$row['userName']}' ";
-                                    $thename = $connection -> query($sql);
+                                    echo "<form action='submit_comment.php' method='POST'>
+                                    <input type='hidden' name='ticketID' value='$theticketID'>
+                                    <input type='hidden' name='house_name' value='$activeHouse'>
+                                    <input type='hidden' name=''userID'' value='$MaintenanceID'>
+                                    <input type='hidden' name='page' value='open'>
+                                    <textarea name='comment_description' id='comment' rows='4' cols='50' placeholder='Leave a Comment' required></textarea><br>
+                                    <button type='submit' class='comment-button'>Submit Comment</button>
+                                    </form>";
 
-                                    if ($thename === FALSE) {
-                                        die("<p class=\"error\">Query was Unsuccessful!</p>");
-                                    }
+                                    echo "</td>";
 
-                                    $name = $thename -> fetch_assoc();
 
-                                    echo "<tr class = 'commentSection'>";
-                                    if($thecomments -> num_rows == 0){
-                                        echo "<td><p>No commments available</p> </td>";
-                                    }
-                                    while($comment = $thecomments -> fetch_assoc()){
-                                        
-                                        echo "<td> <h5> {$name['name']} </h4> <p> {$comment['comment_description']} </p> </td>";
-                                    }
+                                    echo "<td>";
+                                    echo "<p></p>";
+                                    echo "</td>";
+        
+                                    echo "<td colspan = 3 >";
                                     
+                                    // Fetch and display photos from the 'photos' table for the ticketID
+                                    $sql_photos = "SELECT photo FROM systemsurgeons.photos WHERE ticketID = '$theticketID'";
+                                    $photos_result = $connection->query($sql_photos);
 
-                                    echo "<td> <a href = '#' class='add-comment-link' > + Add Comment </a> </td>";
+
+                                    if ($photos_result->num_rows > 0) {
+                                        echo "<div class='carousel'>";
+                                        echo "<div class='carousel-images'>";
+                                        while ($photo = $photos_result->fetch_assoc()) {
+                                            $photo_src = "../landing_page/pictures/" . $photo['photo'];
+                                            echo "<div class='carousel-slide'>";
+                                            echo "<img src='$photo_src' alt='Ticket Image' class='carousel-image'>";
+                                            echo "</div>";
+                                        }
+                                        echo "</div>";
+                                        echo "<button class='carousel-prev'>Prev</button>";
+                                        echo "<button class='carousel-next'>Next</button>";
+                                        echo "</div>";
+                                    } else {
+                                        // echo "<p>No photos have been uploaded for this ticket.</p>";
+                                        echo "<div class='carousel'>";
+                                        echo "<img src='../landing_page/pictures/1727278796_damaged socket.jpg' alt='Ticket Image' class='carousel-image' >";
+                                        echo "</div>";
+                                    }
+                                    //image carousel ends here
+
+        
+                                    echo "</td>";
+        
+                                    echo "<td>";
+                                    echo "<p></p>";
+                                    echo "</td>";
+
+                                    echo "<td>";
+                                    echo "<p> </p>";
+                                    echo "</td>";
+        
                                     echo "</tr>";
+                                        
                                 }
+                                
                             }
 
-                            
+
                         }
+
                         // close connection
                         $connection->close();
                     ?>
@@ -251,66 +301,7 @@
         </section>
     </main>
     
-    <div id="commentModal" class="modal">
-        <div class="modal-content">
-        <span class="close" id="closeModal">&times;</span>
-        <h2>Add Comment</h2>
-        <form id="commentForm">
-            <textarea id="commentText" required placeholder="Enter your comment here..."></textarea>
-            <input type="hidden" id="ticketID" value="">
-            <button type="submit">Submit</button>
-       </form>
-        </div>
-    </div>
 
-    <script>
-                // Get modal element
-                var modal = document.getElementById("commentModal");
-
-                // Get the <span> element that closes the modal
-                var span = document.getElementById("closeModal");
-
-                // Handle the click event on "+ Add Comment" link
-                document.querySelectorAll(".commentSection a").forEach(function (link) {
-                    link.addEventListener("click", function (e) {
-                        e.preventDefault(); // Prevent default link behavior
-                        var ticketID = this.href.split('ticket_ID=')[1]; // Get ticket ID from URL
-                        document.getElementById("ticketID").value = ticketID; // Set ticket ID in the hidden input
-                        modal.style.display = "block"; // Show the modal
-                    });
-                });
-
-                // When the user clicks on <span> (x), close the modal
-                span.onclick = function() {
-                    modal.style.display = "none";
-                }
-
-                // When the user clicks anywhere outside of the modal, close it
-                window.onclick = function(event) {
-                    if (event.target == modal) {
-                        modal.style.display = "none";
-                    }
-                }
-
-                // Handle comment submission
-                document.getElementById("commentForm").addEventListener("submit", function(e) {
-                    e.preventDefault(); // Prevent default form submission
-
-                    var ticketID = document.getElementById("ticketID").value;
-                    var commentText = document.getElementById("commentText").value;
-
-                    // Here you can send the comment to the server using AJAX
-                    // For example, you might use fetch or XMLHttpRequest
-                    console.log("Submitting comment for ticket ID:", ticketID);
-                    console.log("Comment:", commentText);
-
-                    // After submission, you might want to clear the text area and close the modal
-                    document.getElementById("commentText").value = "";
-                    modal.style.display = "none";
-
-                    // You would also typically refresh the comments section here
-                });
-            </script>
 
     <!-- </div> -->
 </body>

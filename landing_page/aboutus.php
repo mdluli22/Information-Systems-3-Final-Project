@@ -7,16 +7,49 @@
     <title>About us</title>
     <link rel="shortcut icon" href="pictures/fake logo(1).png" type="image/x-icon">
     <link rel="stylesheet" href="aboutus.css">
+    <link rel="stylesheet" href="home.css">
 </head>
 
 <body>
     <header>
-        
-        <h1>Meet Our Fully Remote Team</h1>
-        <h2>Ready to Save Your Day, One Fix at a Time.
-            It takes a group of passionate operators to run the system
-        </h2>
+        <img src="pictures/fake logo(1).png" alt="Syntax On Air Logo" class="logo">
+
+        <!-- navigation bar -->
+        <nav>
+            <ul class="nav-links">
+                <li><a href="../landing_page/faq.php">FAQ</a></li>
+                <li><a href="../landing_page/aboutus.php">About Us</a></li>
+                <li><a href="#">Help</a></li>
+                <li><a href="https://www.ru.ac.za/safety/resources/">Resources</a></li>
+            </ul>
+            <div class="user-actions">
+                <a href="#" class="login-btn" id="login-btn">Login</a>
+                <a href="#" class="signup-btn" id="sign-up-btn">Sign up</a>
+            </div>
+        </nav>
+
+        <!-- for when switching to a smaller screen -->
+        <!-- for burger menu for mobile -->
+        <input type="checkbox" id="burger-toggle" />
+        <label for="burger-toggle" class="burger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </label>
+
+        <div class="mobile-menu">
+            <a href="../landing_page/home.php">Home</a>
+            <a href="../landing_page/aboutus.php">About Us</a>
+            <a href="help.html">Help</a>
+        </div>
+        </>
+
     </header>
+
+    <h5>Meet Our Fully Remote Team</h5>
+    <p>Ready to Save Your Day, One Fix at a Time.
+        It takes a group of passionate operators to run the system
+    </p>
 
     <!-- thoko -->
     <div class="team-container">
@@ -85,6 +118,8 @@
             </p>
         </div>
     </div>
+    <!-- move to the left side of alles -->
+    <a id="back-home" href="../landing_page/home.php">Back to Home</a>
 
     <div class="buttons">
         <button onclick="prevMember()">Previous</button>
@@ -111,13 +146,15 @@
             currentMember = (currentMember + 1 > 5) ? 1 : currentMember + 1;
             highlightMember(currentMember);
         }
-
     </script>
 
-<a id="back-home" href="../landing_page/home.php">Back to Home</a>
+    <?php
+    require_once('login_signup.php');
+    ?>
+    <script src="home.js"></script>
 
     <!-- obtained from the landing page -->
-    <footer class="footer"> 
+    <footer class="footer">
         <div class="footer-links">
             <a href="../footer_links/links.html#integrity-and-constraints">Integrity & Compliance</a>
             <a href="../footer_links/links.html#legal">Legal</a>

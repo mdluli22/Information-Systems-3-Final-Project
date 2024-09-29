@@ -5,6 +5,7 @@ require_once("../config.php");
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get the submitted data
     $ticketID = $_POST['ticketID'];
+    $houseName = $_POST['house_name'];
     $comment_description = $_POST['comment_description'];
     $userName = $_POST['userID']; // Replace this with the actual user session value
     $page = $_POST['page']; //the page the processor must go back to to return the data
@@ -28,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header("Location: ticket_tracking_all.php?ticketID=$ticketID");
             exit();}
         else if ($page == 'open') {
-            header("Location: ticket_tracking_open.php?ticketID=$ticketID");
+            header("Location: maintenance_opened_tickets.php?ticketID=$ticketID&house_name=$houseName");
             exit();}
         else if ($page == 'closed') {
             header("Location: ticket_tracking_closed.php?ticketID=$ticketID");

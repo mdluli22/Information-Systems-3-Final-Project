@@ -6,8 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>House Warden</title>
-    <link rel="icon" type="image/x-icon" href="pictures/resque-logo.png">
+    <title>House Warden | ResQue</title>
+    <link rel="icon" type="image/x-icon" href="../landing_page/pictures/fake logo(1).png">
     <!-- Link to the external CSS file -->
     <link rel="stylesheet" href="house_warden.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -41,25 +41,33 @@
             die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
         }
 
-        $warden_res_query = 
-        "SELECT resName, concat(f_Name, ' ', l_Name) as 'Name', f_Name as 'firstName', CONCAT(LEFT(house_warden.f_Name, 1), LEFT(house_warden.l_Name, 1)) AS initials
-         FROM house_warden WHERE userName = '$warden_userName';";
+        $warden_res_query =
+        "SELECT *, resName, concat(f_Name, ' ', l_Name) as 'Name', f_Name as 'firstName', CONCAT(LEFT(house_warden.f_Name, 1), LEFT(house_warden.l_Name, 1)) AS initials
+        FROM house_warden WHERE userName = '$warden_userName';";
         $warden_res_query_result = $connection->query($warden_res_query);
-        
-        if ($warden_res_query_result === FALSE) {
-            die("<p class=\"error\">Query was Unsuccessful!</p>");
+    
+        // Check if the query returned any results before accessing the array
+        if ($warden_res_query_result->num_rows > 0) {
+            $resnamel = $warden_res_query_result->fetch_assoc();
+            $resname = $resnamel['resName'];
+            $wardeName = $resnamel['Name'];
+            $initials = $resnamel['initials'];
+            $firstName = $resnamel['f_Name'];
+        } else {
+            // Output error message if no data was retrieved
+            die("<p class=\"error\">No results found for the current user!</p>");
         }
     
-        $resnamel = $warden_res_query_result->fetch_assoc();
-        $resname = $resnamel['resName'];
-        $wardeName = $resnamel['Name'];
-        $initials = $resnamel['initials'];
+        // $resnamel = $warden_res_query_result->fetch_assoc();
+        // $resname = $resnamel['resName'];
+        // $wardeName = $resnamel['Name'];
+        // $initials = $resnamel['initials'];
     
         // query instructions for tickets pending and processing
-        $sql = "SELECT * FROM ticket WHERE resName = '$resname' and ticket_status = 'Closed' ;";
+        $sql = "SELECT * FROM ticket WHERE resName = '$resname' and ticket_status = 'Closed' ORDER BY ticketID DESC;";
         $result = $connection->query($sql);
     
-        // Check if query successfull
+        // Check if query successful
         if ($result === FALSE) {
             die("<p class=\"error\">Query was Unsuccessful!</p>");
         }
@@ -72,13 +80,16 @@
 
         <!-- Main content area -->
         <main class="content">
-            <header class="page-header">
+        <header class="page-header">
+            <div class="text-container">
                 <!-- Welcome message -->
-                <h1>Welcome, <span class="username"><?php echo $resnamel['firstName']; ?></span></h1>
+                <h1>Welcome, <span class="username"><?php echo $firstName; ?></span></h1>
                 <p>Access & Manage maintenance requisitions efficiently.</p>
-            </header>
-
-        
+            </div>
+            <div class="logo-container">
+                <img src="../landing_page/pictures/fake logo(1).png" alt="Logo">
+            </div>
+        </header>
 
             <!-- Ticket table section -->
             <section class="ticket-table">
@@ -120,7 +131,7 @@
                                 }
                             }
                             else{
-                                echo "<tr><td> <p> No Tickets Available </p></td></tr>";
+                                echo "<tr><td colspan=3> <p> No Tickets Available </p></td></tr>";
                             }
                         ?>
                     </tbody>

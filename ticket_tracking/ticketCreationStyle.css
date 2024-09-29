@@ -10,128 +10,24 @@ body {
     box-sizing: border-box;
 }
 
-.sidebar {
-    position: fixed;
-    width: 17rem; /* 280px */
-    background-color: #12222E;
-    padding: 1.5rem; /* 24px */
-    padding-top: 2.5rem; /* Add extra padding to accommodate the logo height */
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem; /* 8px */
-    height: 100vh; /* Ensure sidebar takes up full height */
-    transition: width 0.4s ease;
-}
-
-.sidebar.collapsed {
-    width: 8rem; /* 80px */
-}
-
-.sidebar__collapse-button {
-    cursor: pointer;
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 2rem; /* 24px */
-    height: 2rem; /* 24px */
-    border-radius: 1rem; /* 16px */
-    background-color: #f5f5f5;
-    border: 0.0625rem solid #a9aeb4; /* 1px */
-    right: -1rem; /* -10px */
-    top: 4rem; /* Adjusted to be below the logo */
-    z-index: 10; /* Ensure it’s above other elements */
-}
-
-.sidebar-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem; /* 8px */
-    padding: 0.625rem; /* 10px */
-    cursor: pointer;
-    transition: all 0.4s ease;
-}
-
-.sidebar-item img {
-    width: 1.5rem; /* 24px */
-    height: 1.5rem; /* 24px */
-}
-
-/* Hide text labels in collapsed state */
-.sidebar.collapsed .sidebar-item span,
-.sidebar.collapsed .search-input,
-.sidebar.collapsed .profile-info {
-    display: none; /* Hide text */
-}
-
-.profile {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem; /* 8px */
-    margin-top: auto;
-}
-
-.profile-pic {
-    width: 2.5rem; /* 40px */
-    height: 2.5rem; /* 40px */
-    background-color: #b197fc;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    color: white;
-}
-
-nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-
-nav ul li a {
-    align-items: center;
-    text-decoration: none;
-    color: white;
-    font-size: 1.125rem; /* 18px */
-    display: flex; /* Change to flex for icon and text alignment */
-    padding: 0.5rem;
-    border-radius: 0.5rem; /* 8px */
-    transition: background-color 0.25s;
-    width: 100%; /* Full width for items */
-}
-
-nav ul li a img {
-    margin-right: 0.5rem; /* 8px */
-    width: 1.5rem; /* 24px */
-    height: 1.5rem; /* 24px */
-    object-fit: contain;
-}
-
-nav ul li a:hover {
-    background-color: #B45C3D;
-}
-
-.profile {
-    text-align: left;
-    margin-top: auto;
-    padding: 0.5625rem; /* 9px */
-    border-top: 0.0625rem solid #ddd; /* 1px */
-    position: relative;
-    color: white;
-}
-
-.role {
-    color: white;
-}
-
 .logo {
-    font-size: 1.5rem; /* 24px */
+    font-size: 1.5rem; /* 24px converted to rem */
     font-weight: 700;
-    margin-bottom: 1.875rem; /* 30px */
-    color: white;
+    margin-bottom: 1.875rem; /* 30px converted to rem */
 }
 
+/* moving ResQue logo to the right */
+.logo-container {
+    position: absolute;
+    top: 20px; /* Adjust the top position as needed */
+    right: 70px; /* Adjust the right position as needed */
+    z-index: 1000; /* Ensure it stays above other elements */
+}
+
+.logo-container img {
+    max-width: 100px; /* Adjust the size as needed */
+    height: auto;
+}
 .content {
     flex-grow: 1;
     padding: 2.5rem;
@@ -268,7 +164,7 @@ h1 {
 
 .submit-btn {
     width: 100%; /* Button takes up the full width of its container */
-    background-color: #A020F0; /* Purple background color for the submit button */
+    background-color: green; /* Purple background color for the submit button */
     color: #fff; /* White text color for the submit button */
     border: none; /* Removes the border around the button */
     padding: 0.625rem 1.25rem; /* Padding inside the button for spacing */
@@ -342,3 +238,58 @@ h1 {
     cursor: pointer;
 }
 
+/* for the pop ups */
+/* The Modal (background) */
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    overflow: auto; /* Enable scroll if needed */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    display: flex; /* Flexbox for centering content */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Adjust width as needed */
+    max-width: 500px; /* Set a maximum width */
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Add a shadow to the modal */
+}
+
+/* Modal Image */
+.modal-image {
+    width: 100px; /* Adjust size */
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+/* Modal Buttons */
+.modal-btn {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-btn:first-child {
+    background-color: #A020F0; /* Yes button color */
+    color: #fff;
+}
+
+.modal-btn:last-child {
+    background-color: #DA0707; /* No button color */
+    color: #fff;
+}

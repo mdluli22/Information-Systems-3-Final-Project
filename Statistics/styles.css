@@ -15,6 +15,26 @@ body {
     color: #fff;
 }
 
+/* for the logo on the page */
+.logo {
+    font-size: 1.5rem; /* 24px converted to rem */
+    font-weight: 700;
+    margin-bottom: 1.875rem; /* 30px converted to rem */
+}
+
+/* moving ResQue logo to the right */
+.logo-container {
+    position: absolute;
+    top: 20px; /* Adjust the top position as needed */
+    right: 70px; /* Adjust the right position as needed */
+    z-index: 1000; /* Ensure it stays above other elements */
+}
+
+.logo-container img {
+    max-width: 100px; /* Adjust the size as needed */
+    height: auto;
+}
+
 /* Sidebar section with fixed position for navigation */
 /* Main content area styling */
 .content {
@@ -48,8 +68,6 @@ body {
     justify-content: space-between;
     margin-bottom: 1.875rem; /* 30px converted to rem */
 }
-
-
 
 .sta-img {
     background-color: black;
@@ -177,8 +195,3 @@ body {
     color:#B45C3D; /* Purple color for active links */
     border-bottom: 0.3125rem solid #B45C3D; /* Purple bottom border for active state */
 }
-
-
-
-
-

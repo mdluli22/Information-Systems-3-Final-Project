@@ -8,7 +8,7 @@ if (isset($_SESSION['username'])) {
 }
 
 // Include database details from config.php file
-require_once("../config.php");
+require_once("config.php");
                     
 // attempt to make database connection
 $connection = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
@@ -42,7 +42,7 @@ if ($result && $result->num_rows > 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ticket Tracking</title>
-    <link rel="icon" type="image/x-icon" href="pictures/resque-logo.png">
+    <link rel="icon" type="image/x-icon" href="../landing_page/pictures/fake logo(1).png">
     <link rel="stylesheet" href="ticket_tracking.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -59,12 +59,12 @@ if ($result && $result->num_rows > 0) {
         <main class="content">
             <header>
                 <div>
-                    <h1>Ticket Tracking: <span class="ticket_type">All Tickets</span></h1>
+                    <h1>Welcome, <span class="ticket_type"><?php echo $fname ?></span></h1>
                     <p class="fade-out">View and make comments on all your logged tickets. View all your residence's tickets.</p>
                 </div>
                 <!-- Fix the logo size -->
-                 <div class="logo-container">
-                    <img src="pictures/resque-logo.png" alt="Logo" width="150" height="110">
+                <div class="logo-container">
+                    <img src="../landing_page/pictures/fake logo(1).png" alt="Logo" >
                 </div>
             </header>
 
@@ -97,10 +97,14 @@ if ($result && $result->num_rows > 0) {
                                 // Determine the CSS class based on the ticket_status so the correct color is produced
                                 if ($row['ticket_status'] == "Opened") {
                                     $statusClass = "status opened";
-                                } elseif ($row['ticket_status'] == "Processing") {
-                                    $statusClass = "status processing";
-                                } elseif ($row['ticket_status'] == "Completed") {
-                                    $statusClass = "status completed";
+                                } elseif ($row['ticket_status'] == "Confirmed") {
+                                    $statusClass = "status confirmed";
+                                } elseif ($row['ticket_status'] == "Requisitioned") {
+                                    $statusClass = "status requisitioned";
+                                } elseif ($row['ticket_status'] == "Resolved") {
+                                    $statusClass = "status resolved";
+                                } elseif ($row['ticket_status'] == "Closed") {
+                                    $statusClass = "status closed";
                                 } elseif ($row['ticket_status'] == "Rejected") {
                                     $statusClass = "status rejected";
                                 } else {
@@ -114,7 +118,13 @@ if ($result && $result->num_rows > 0) {
                             echo "</table>";
                         }
                         else {
+                            echo "<table class='ticket-table'>";
+                            echo "<tr class='ticket-card'>";
+                            echo "<td class='ticket-number'>";
                             echo "<p class='info-label'>No tickets were found for you.</p>";
+                            echo "</td>";
+                            echo "</tr>";
+                            echo "</table>";
                         }
                         echo "</section";
                     ?>
@@ -126,45 +136,51 @@ if ($result && $result->num_rows > 0) {
                     //query instructions for all tickets within the same residence
                     $sql = "SELECT ticketID, resName, ticket_status FROM systemsurgeons.ticket where resName = '$residence'";
                     $result = $connection -> query($sql); //execute query
-                    
 
                     // Check if query successfull
                     if ($result === FALSE) {
                         die("<p class=\"error\">Residence Tickets Query was Unsuccessful!</p>");
                     }
-                    
 
                     //dynamically display all tickets within that residence
                     //echo "<section class='scrollbar'>";
-                    if ($result -> num_rows > 0) {
-                        echo "<table class='ticket-table'>";
-                        while($row = $result->fetch_assoc()) {
-                            echo "<tr class='ticket-card'>";
-                            echo "<td class='ticket-number'><img src='pictures/clipboard-tick.png' alt='clipboard-tick' style='margin-right: 10px;'>#{$row['ticketID']}</td>";
-                                
+                        if ($result -> num_rows > 0) {
+                            echo "<table class='ticket-table'>";
+                            while($row = $result->fetch_assoc()) {
+                                echo "<tr class='ticket-card'>";
+                                echo "<td class='ticket-number'><img src='pictures/clipboard-tick.png' alt='clipboard-tick' style='margin-right: 10px;'>#{$row['ticketID']}</td>";
+                                    
                                 // Determine the CSS class based on the ticket_status so the correct color is produced
                                 if ($row['ticket_status'] == "Opened") {
                                     $statusClass = "status opened";
-                                } elseif ($row['ticket_status'] == "Processing") {
-                                    $statusClass = "status processing";
-                                } elseif ($row['ticket_status'] == "Completed") {
-                                    $statusClass = "status completed";
-                                } elseif ($row['ticket_status'] == "Rejected") {
-                                    $statusClass = "status rejected";
+                                } elseif ($row['ticket_status'] == "Confirmed") {
+                                    $statusClass = "status confirmed";
+                                } elseif ($row['ticket_status'] == "Requisitioned") {
+                                    $statusClass = "status requisitioned";
+                                } elseif ($row['ticket_status'] == "Resolved") {
+                                    $statusClass = "status resolved";
+                                } elseif ($row['ticket_status'] == "Closed") {
+                                    $statusClass = "status closed";
                                 } else {
                                     $statusClass = "status"; // Default class if needed
                                 }
 
-                            echo "<td><span class='{$statusClass}'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
-                            echo "<td><a href='ticket_tracking_all.php?ticketID={$row['ticketID']}' class='details-button'>View Details</button></a></td>";
+                                echo "<td><span class='{$statusClass}'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
+                                echo "<td><a href='ticket_tracking_all.php?ticketID={$row['ticketID']}' class='details-button'>View Details</button></a></td>";
+                                echo "</tr>";
+                            } //end table
+                            echo "</table>";
+                        }
+                        else {
+                            echo "<table class='ticket-table'>";
+                            echo "<tr class='ticket-card'>";
+                            echo "<td class='ticket-number'>";
+                            echo "<p class='info-label'>No tickets were found for your residence.</p>";
+                            echo "</td>";
                             echo "</tr>";
-                        } //end table
-                        echo "</table>";
-                    }
-                    else {
-                        echo "<p class='info-label'>No tickets were found for your residence.</p>";
-                    }
-                    echo "</section";
+                            echo "</table>";
+                        }
+                    //echo "</section";
                     ?>
                 </section>
                 
@@ -190,27 +206,34 @@ if ($result && $result->num_rows > 0) {
                                 $ticketowner = ''; //will be used to authorise user to make comments on their ticket, and to allow them to delete comments under their ticket
 
                                 // Fetch and display photos from the 'photos' table for the ticketID
-                                $sql_photos = "SELECT photo FROM systemsurgeons.photos WHERE ticketID = '$ticketID'";
+                                $sql_photos = "SELECT photoID, photo FROM systemsurgeons.photos WHERE ticketID = '$ticketID'";
                                 $photos_result = $connection->query($sql_photos);
 
                                 if ($photos_result->num_rows > 0) {
                                     echo "<div class='carousel'>";
-                                    //echo "<h3>Ticket Photos</h3>";
                                     echo "<div class='carousel-images'>";
-                                    
                                     while ($photo = $photos_result->fetch_assoc()) {
                                         $photo_src = "../landing_page/pictures/" . $photo['photo'];
+                                        $photoID = $photo['photoID'];
                                         echo "<div class='carousel-slide'>";
                                         echo "<img src='$photo_src' alt='Ticket Image' class='carousel-image'>";
+                                        
+                                        // Add delete button for the image positioned on top but ONLY if the user is the ticket owner
+                                        //if ($comment['userName'] == $userID) {
+                                            echo "<form action='delete_image.php' method='POST' class='carousel-delete'>";
+                                            echo "<input type='hidden' name='photoID' value='$photoID'>";
+                                            echo "<input type='hidden' name='ticketID' value='$ticketID'>"; // Pass ticketID to reload details of the ticket
+                                            echo "<input type='hidden' name='page' value='all'>";
+                                            echo "<button type='submit' class='delete-button'><i class='fa fa-trash' aria-hidden='true'></i></button>";
+                                            echo "</form>";
+                                        //}
                                         echo "</div>";
                                     }
-
                                     echo "</div>";
                                     echo "<button class='carousel-prev'>Prev</button>";
                                     echo "<button class='carousel-next'>Next</button>";
                                     echo "</div>";
                                 } else {
-                                    // echo "<p>No photos have been uploaded for this ticket.</p>";
                                     echo "<img src='pictures/leak.jpg' alt='Ticket Image'>";
                                 }
                                 //image carousel ends here
@@ -282,17 +305,32 @@ if ($result && $result->num_rows > 0) {
                                         }
 
                                         //display the comment info
+
+                                        // Determine the display name for the comment owner
+                                        if ($comment['userName'] == $userID) {
+                                            $displayName = $fname; // Use the current user's first name
+                                        } elseif (strpos($comment['userName'], 'w') === 0) {
+                                            $displayName = "House Warden";
+                                        } elseif (strpos($comment['userName'], 'm') === 0) {
+                                            $displayName = "Maintenance";
+                                        } elseif (strpos($comment['userName'], 'h') === 0) {
+                                            $displayName = "Hall Secretary";
+                                        } else {
+                                            $displayName = $comment['userName']; // Default to the original username
+                                        }
+
+                                        // Display the comment info
                                         echo "<div class='comment-bubble'>";
-                                        echo "<dt class='commentor'>" . htmlspecialchars($comment['userName']) . ":</dt>";
+                                        echo "<dt class='commentor'>" . htmlspecialchars($displayName) . ":</dt>";
                                         echo "<dd class='comment-msg'> " . htmlspecialchars($comment['comment_description']) . "</dd>";
                                         echo "<span class='comment_time'>" . htmlspecialchars($time_ago) . "</span>"; // Display time ago
                                         // For each comment, show delete button BUT ONLY for the comment owner
                                         if ($comment['userName'] == $userID) {
                                             echo "<form action='soft_delete_comment.php' method='POST' style='display:inline;'>
                                                     <input type='hidden' name='commentID' value='{$comment['commentID']}'>
-                                                    <input type='hidden' name='userID' value={$comment['userName']}>
-                                                    <input type='hidden' name='page' value='all'>"; //tells the form handler which page to return to
-                                            echo   "<button type='submit' class='delete-button'>Delete</button>
+                                                    <input type='hidden' name='userID' value='{$comment['userName']}'>
+                                                    <input type='hidden' name='page' value='all'>"; // tells the form handler which page to return to
+                                            echo   "&nbsp;&nbsp;&nbsp;&nbsp;<button type='submit' class='delete-button'><i class='fa fa-trash' aria-hidden='true'></i></button>
                                                 </form>";
                                         }
                                         echo "</div>";

@@ -16,8 +16,8 @@ body {
     background-position: center;
     background-attachment: fixed;
     padding-top: 5.5rem; /* Space for the fixed header */
-    background-color: #CFDDE9;
-    color: #333;
+    background-image: url(../landing_page/pictures/wrenchtoys.jpg);
+    color: black; /* also changes the colour of the text in the boxes */
 }
 
 .hidden {
@@ -223,7 +223,7 @@ nav {
 /* SECTION 1 */
 /* Hero section: Main content area */
 .hero {
-    padding: 3rem 2rem;      
+    padding: 21rem 2rem;      
 }
 
 h2 {
@@ -234,7 +234,6 @@ h2 {
     line-height: 110%;
     /* or 70px */
     letter-spacing: -0.01em;
-    color: black;
     /* Main Color/Black */
     margin-bottom: 60%;
     /*to move a bit lower*/
@@ -247,18 +246,18 @@ h2 {
 }
 
 /* animation */
-h2, p, .hero-image {
+h2, .hero-image {
     display: block;
     opacity: 0;
     transform: translateY(100%);
     animation: pull-up 1s forwards;
 }
 
-h2, p, .hero-image:nth-child(1) {
+h2, .hero-image:nth-child(1) {
     animation-delay: 0.1s;
 }
 
-h2, p, .hero-image:nth-child(2) {
+h2, .hero-image:nth-child(2) {
     animation-delay: 0.2s;
 }
 
@@ -274,19 +273,18 @@ h2, .words, .hero-image:nth-child(3) {
     }
 }
 
-
 /* Headline */
 .hero-content h2 {
  /* Adjust size for larger screens */
     margin-bottom: 1rem;
     color: #000929;
-    line-height: 1.2;
+    line-height: 1.5;
 }
 
 /* Paragraph in hero section */
 .hero-content p {
-    font-size: 1.25rem;
-    color: #555;
+    font-size: 1.5rem;
+    color: #000929;
     margin-bottom: 2rem;
 }
 
@@ -294,23 +292,6 @@ h2, .words, .hero-image:nth-child(3) {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-}
-
-/* Hero image */
-.hero-image {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    max-width: 100%;
-    padding-left: 20rem; /* Increase left padding for more spacing */
-}
-
-.hero-image img {
-    width: 100%;
-    max-width: 400px; /* Control max size of image */
-    height: auto;
-    display: flex;
 }
 
 /* Media Query for Tablets and Smaller Screens */
@@ -409,11 +390,16 @@ h2, .words, .hero-image:nth-child(3) {
 
 .card {
     border-radius: 20px;
-    padding: 20px;
+    /* for the words in the boxes */
+    padding: 9px;
     width: 30%;
     text-align: center;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s;
+    color: white;
+}
+.about{
+    color: black;
 }
 
 .card:hover {
@@ -423,13 +409,7 @@ h2, .words, .hero-image:nth-child(3) {
 .card h4 {
     margin-bottom: 15px;
 }
-
-.card-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    font-family:'Inter', sans-serif ;
-    font: white;
-}
+    
 
 .highlight {
     color: #ff5e42;
@@ -441,10 +421,12 @@ h2, .words, .hero-image:nth-child(3) {
     background-color: #CFDDE9;
 }
 .about img{
-    width: 250px;
-    height: 300px;
     border-radius: 20px;
     margin-bottom: 15px;
+
+    font-size: 1.2rem;
+    font-weight: bold;
+    font-family:'Inter', sans-serif ;
 }
 
 /* Card 2: what do we do */
@@ -452,24 +434,33 @@ h2, .words, .hero-image:nth-child(3) {
     background-color: #12222E;
 }
 .what-wedo img{
-    width: 250px;
-    height: 210px;
+   
     border-radius: 20px;
     margin-bottom: 15px;
-}
-.what-wedo .growth {
-    font-size: 1.5rem;
-    color: #333;
+
+    font-size: 1.2rem;
     font-weight: bold;
+    font-family:'Inter', sans-serif ; 
 }
 
 /* Card 3: Tutorials */
 .contact {
     background-color: #B45C3D;
-    font: white;
+
+
+    font-size: 1.2rem;
+    font-weight: bold;
+    font-family:'Inter', sans-serif ;
+   
 }
+.contact img{
+    border-radius: 20px;
+    margin-bottom: 15px;
 
-
+    font-size: 1.2rem;
+    font-weight: bold;
+    font-family:'Inter', sans-serif ; 
+}
 
 /* Sign-up section hidden by default */
 .signup-section {

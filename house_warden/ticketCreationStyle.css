@@ -10,6 +10,26 @@ body {
     box-sizing: border-box;
 }
 
+/* for the logo on the page */
+.logo {
+    font-size: 1.5rem; /* 24px converted to rem */
+    font-weight: 700;
+    margin-bottom: 1.875rem; /* 30px converted to rem */
+}
+
+/* moving ResQue logo to the right */
+.logo-container {
+    position: absolute;
+    top: 20px; /* Adjust the top position as needed */
+    right: 70px; /* Adjust the right position as needed */
+    z-index: 1000; /* Ensure it stays above other elements */
+}
+
+.logo-container img {
+    max-width: 100px; /* Adjust the size as needed */
+    height: auto;
+}
+
 .sidebar {
     position: fixed;
     width: 17rem; /* 280px */
@@ -22,6 +42,18 @@ body {
     height: 100vh; /* Ensure sidebar takes up full height */
     transition: width 0.4s ease;
 }
+
+/* Notification icon styles */
+.notification-icon {
+    background-color: #ef3e3e; /* Red color for the notification */
+    color: white;
+    border-radius: 50%;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.75rem;
+    margin-left: 0.5rem;
+    display: none; /* Hide by default */
+}
+
 
 .sidebar.collapsed {
     width: 8rem; /* 80px */
@@ -268,7 +300,7 @@ h1 {
 
 .submit-btn {
     width: 100%; /* Button takes up the full width of its container */
-    background-color: #A020F0; /* Purple background color for the submit button */
+    background-color: green; /* Purple background color for the submit button */
     color: #fff; /* White text color for the submit button */
     border: none; /* Removes the border around the button */
     padding: 0.625rem 1.25rem; /* Padding inside the button for spacing */
@@ -342,3 +374,58 @@ h1 {
     cursor: pointer;
 }
 
+/* for the pop ups */
+/* The Modal (background) */
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    overflow: auto; /* Enable scroll if needed */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    display: flex; /* Flexbox for centering content */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Adjust width as needed */
+    max-width: 500px; /* Set a maximum width */
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Add a shadow to the modal */
+}
+
+/* Modal Image */
+.modal-image {
+    width: 100px; /* Adjust size */
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+/* Modal Buttons */
+.modal-btn {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-btn:first-child {
+    background-color: #A020F0; /* Yes button color */
+    color: #fff;
+}
+
+.modal-btn:last-child {
+    background-color: #DA0707; /* No button color */
+    color: #fff;
+}

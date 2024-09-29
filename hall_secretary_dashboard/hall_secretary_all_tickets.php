@@ -23,46 +23,67 @@
         }
     </style>
 </head>
-<body><!--<bo accesskey=""dy>-->
+<body>
 
     <?php
-        // if (isset(($_REQUEST['submit']))) {
-            // get hall_sec username from login page/pop-up
-            $hall_sec_userName = $_SESSION['username'];
-    
-            // include database details from config.php file
-            require_once("config.php");
+        $hall_sec_userName = $_SESSION['username'];
 
-            // attempt to make database connection
-            $connection = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
+        // include database details from config.php file
+        require_once("config.php");
 
-            // Check if connection was successful
-            if ($connection->connect_error) {
-                die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
-            }
+        // attempt to make database connection
+        $connection = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
 
+        // Check if connection was successful
+        if ($connection->connect_error) {
+            die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
+        }
 
+        // Get res names of hall overseen by the hall secretary           
+        $residences = 
+        "SELECT DISTINCT concat(hall_secretary.f_Name, ' ', hall_secretary.l_name) AS 'hall_secretary_name', resName AS 'residences'
+        FROM residence JOIN hall_secretary ON hall_secretary.hall_name = residence.hall_name
+        WHERE hall_secretary.HS_userName = '$hall_sec_userName';";
 
-            // Get res names of hall overseen by the hall secretary           
-            $residences = 
-            "SELECT DISTINCT concat(hall_secretary.f_Name, ' ', hall_secretary.l_name) AS 'hall_secretary_name', resName AS 'residences'
-            FROM residence JOIN hall_secretary ON hall_secretary.hall_name = residence.hall_name
-            WHERE hall_secretary.HS_userName = '$hall_sec_userName';";
+        $residences_result = $connection->query($residences);
 
-            $residences_result = $connection->query($residences);
-            
-            $all_tickets_query = 
-                "SELECT concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority
-                FROM student s JOIN ticket t ON s.userName = t.userName;";
-            $all_tickets_query_results = $connection->query($all_tickets_query);
+        // Fetch residence details if any
+        $residence = $residences_result->fetch_assoc();
+        
+        //get all tickets
+        $all_tickets_query = 
+            "SELECT concat(f_Name, ' ', l_Name) AS 'full_name', t.resName, room_number, priority
+            FROM student s JOIN ticket t ON s.userName = t.userName;";
+        $all_tickets_query_results = $connection->query($all_tickets_query);
 
-            // Check if query successful
-            if ($residences_result === FALSE || !$all_tickets_query_results) {
-                die("<p class=\"error\">Query was Unsuccessful!</p>");
-            }
-            
+        // Check if query successful
+        if ($residences_result === FALSE || !$all_tickets_query_results) {
+            die("<p class=\"error\">Query was Unsuccessful!</p>");
+        }
 
-        // }
+        //  use hall_sec userName to hall name
+        $hall_name_sql = 
+        "SELECT hall_name FROM hall_secretary WHERE HS_userName = '$hall_sec_userName';";
+        $hall_name_result = $connection->query($hall_name_sql);
+
+        // Check if hall name query was successful
+        if ($hall_name_result === FALSE) {
+            die("<p class=\"error\">Query for hall name was Unsuccessful!</p>");
+        }
+
+        // Get hall name of hall_sec
+        $hall_name_row = $hall_name_result->fetch_assoc();
+        $_SESSION['hall_name'] = $hall_name_row['hall_name'];
+
+        if ($residence) {
+            // Split the full name into parts using space as the delimiter
+            $name_parts = explode(' ', $residence['hall_secretary_name']);
+            // Store the first part (first name) in the session variable
+            $_SESSION['first_name'] = $name_parts[0];
+        } else {
+            die("<p class=\"error\">Unable to retrieve hall secretary details!</p>");
+        }
+
     ?>
     <div class="container">
         <!-- Sidebar section for navigation -->
@@ -71,11 +92,14 @@
         <!-- Main content area -->
         <main class="content">
             <header class="page-header">
-                <!-- Welcome message -->
-                <h1>Welcome, 
-                    <span class="username"><?php //echo $_SESSION['first_name']; ?></span>
-                </h1>
-                <p>Access & Manage maintenance requisitions efficiently.</p>
+                <div class="text-container">
+                    <!-- Welcome message -->
+                    <h1>Welcome, <span class="username"><?php echo $_SESSION['first_name']; ?></span></h1>
+                    <p>Access & Manage maintenance requisitions efficiently.</p>
+                </div>
+                <div class="logo-container">
+                    <img src="../landing_page/pictures/fake logo(1).png" alt="Logo">
+                </div>
             </header>
 
             <!-- House selection links -->
@@ -162,7 +186,7 @@
                                 }
                             }
                             else {
-                                echo "<tr><td> <p> No Tickets Available </p></td></tr>";
+                                echo "<tr><td colspan=3> <p> No Tickets Available </p></td></tr>";
                             }
                             // close connection
                             $connection->close();

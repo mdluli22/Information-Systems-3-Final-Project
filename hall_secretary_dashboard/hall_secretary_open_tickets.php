@@ -57,7 +57,7 @@
 
     //  use hall_sec userName to hall name
     $hall_name_sql = 
-      "SELECT hall_name FROM hall_secretary WHERE HS_userName = '$hall_sec_userName';";
+      "SELECT *, hall_name FROM hall_secretary WHERE HS_userName = '$hall_sec_userName';";
     $hall_name_result = $connection->query($hall_name_sql);
     
     // get ticket information
@@ -94,13 +94,16 @@
 
         <!-- Main content area -->
         <main class="content">
-            <header class="page-header">
+        <header class="page-header">
+            <div class="text-container">
                 <!-- Welcome message -->
-                <h1>Welcome, 
-                    <span class="username"><?php echo $_SESSION['firstName']; ?></span>  
-                </h1>
+                <h1>Welcome, <span class="username"><?php echo $_SESSION['firstName']; ?></span></h1>
                 <p>Access & Manage maintenance requisitions efficiently.</p>
-            </header>
+            </div>
+            <div class="logo-container">
+                <img src="../landing_page/pictures/fake logo(1).png" alt="Logo">
+            </div>
+        </header>
 
             <!-- House selection links -->
             <nav class="houses">
@@ -145,7 +148,6 @@
                     <!--*** N.B. FLIP form and Priority -->
 
                     <?php
-                    $count = 0;
 
                     if(isset($_REQUEST['house_name'])){
                         // get approved/confirmed tickets from house warden
@@ -179,30 +181,31 @@
                                         <div class='request-top-btns request-btns'>
                                             <!-- Buttons for commenting and deleting a request -->
                                             <a href = 'hall_secretary_open_tickets.php?ticket_ID={$row['ticketID']}&house_name={$activeHouse}' ><button class='comment-btn' onclick><i class='fa-solid fa-pen'></i>&nbsp;&nbsp;&nbsp;Comment</button></a>
-                                            <button class='delete-btn'><i class='fa-solid fa-trash' style='color: #e53e3e;'></i>&nbsp;&nbsp;&nbsp;Delete</button>
+                                            <button class='close-ticket-btn'><i class='fa-solid fa-check' style='color: #90EE90;'></i>&nbsp;&nbsp;&nbsp;<strong>Close</strong></button>
                                         </div>
                                         <!-- Request information -->
                                         <div class='request-info'>
                                             <p><strong>{$row['full_name']}</strong></p>
+                                            <p>Ticket Number: <strong>{$row['ticketID']}</strong></p>
                                             <p>Residence: <strong>{$row['resName']}</strong></p>
                                             <p>Room Number: <strong>{$row['room_number']}</strong></p>
                                             <form class='request-form' action='hall_secretary_open_tickets.php' method='get'>
                                                 <input type='hidden' name='ticketID' value='{$row['ticketID']}'>
                                                 <button type='submit' name='approve_request' class='approve-btn request-btns'>
-                                                    <i class='fa-solid fa-plus' style='color: #a020f0;'></i>&nbsp;&nbsp;&nbsp;Approve Request
+                                                    <i class='fa-solid fa-plus' style='color: #a020f0;'></i>&nbsp;&nbsp;&nbsp;Requisition
                                                 </button>
                                                 <input type='hidden' name='student_name' value='{$row['full_name']}'>
                                                 <input type='hidden' name='student_room_num' value='{$row['room_number']}'>
+                                                <input type='hidden' name='house_name' value='{$activeHouse}'>
                                             </form>
                                             <p>Priority: <strong>{$row['priority']}</strong></p>
                                             
                                         </div>
                                     </article>";
-                                    $count++;
 
                             if(isset($_REQUEST['ticket_ID'])){
                                         //when we reach the specific ticket we want comments for.
-                                       if($_REQUEST['ticket_ID'] == $row['ticketID']){
+                                       if($_REQUEST['ticket_ID'] == $row['ticketID']) {
                                        $theticketID = $_REQUEST['ticket_ID'];
            
                                                //get all comments for the ticket
@@ -240,10 +243,8 @@
                         }
                     }
                     else {
-                        echo "<tr><td> <p> No Tickets Available </p></td></tr>";
+                        echo "<tr><td colspan=3> <p> No Tickets Available </p></td></tr>";
                     }
-                    echo "COUNT = $count";
-                    echo "";
 
                     // close connection
                     $connection->close();

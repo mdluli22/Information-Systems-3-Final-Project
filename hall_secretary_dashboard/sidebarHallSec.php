@@ -1,4 +1,31 @@
-<?php require_once("secure.php"); ?>
+<?php 
+// include database details from config.php file
+require_once("config.php");
+
+// attempt to make database connection
+$connection = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
+
+// Check if connection was successful
+if ($connection->connect_error) {
+    die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
+}
+
+$hall_name_sql = "SELECT *, 
+    CONCAT(f_Name, ' ', l_Name) as 'Name',
+    CONCAT(LEFT(hall_secretary.f_Name, 1), LEFT(hall_secretary.l_Name, 1)) AS initials
+    FROM hall_secretary WHERE HS_userName = '$hall_sec_userName';";
+$result = $connection->query($hall_name_sql); //execute query
+
+if ($result && $result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $fname = $row['f_Name'];
+    $lname = $row['l_Name'];
+    $initials = $row['initials'];
+} else {
+    // Handle case where no student data was found
+    echo "<p class='error'>No Hall Secretary data found for the user.</p>";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,11 +73,11 @@
                 <div class="profile">
                     <!-- Profile picture area -->
                     <div class="profile-pic">
-                        <?php //echo $_SESSION['initials'];?>
+                        <?php echo $initials;?>
                     </div>
                     <!-- Profile information area -->
                     <div class="profile-info">
-                        <span id="user-name" class="username"><?php //echo $_SESSION['full_name']; ?></span><br>
+                        <span id="user-name" class="username"><?php echo $fname . " " . $lname; ?></span><br>
                         <span class="role"><?php echo "Hall Secretary"?></span>
                     </div>
                     <!-- Logout button with icon -->
@@ -61,6 +88,11 @@
             </aside>
 
 <style>
+/* Highlight the active sidebar link */
+.sidebar-links.active {
+    background-color: #B45C3D; /* Highlighting color */
+    color: white; /* Text color */
+}
 body {
     margin: 0;
     padding: 0;
@@ -248,24 +280,59 @@ nav ul li a:hover {
         margin-left: 12rem; /* Adjust for smaller screens */
     }
 }
-    </style>
-    <script>
-            document.getElementById("collapseBtn").addEventListener("click", function() {
-            const sidebar = document.querySelector(".sidebar");
-            sidebar.classList.toggle("collapsed");
+.hidden {
+    visibility: hidden;
+}
 
-            // Toggle the chevron icon direction
-            const icon = this.querySelector(".material-symbols-outlined");
-            if (sidebar.classList.contains("collapsed")) {
-                icon.textContent = "chevron_right"; // Change icon to right chevron
+    </style>
+<script>
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        // Get the sidebar element
+        const sidebar = document.querySelector('.sidebar');
+        
+        // Temporarily hide the sidebar during iteration
+        sidebar.classList.add('hidden');
+
+        // Get the current page name without query parameters
+        const currentPage = window.location.pathname.split('/').pop().split('?')[0];
+
+        // Get all sidebar links
+        const sidebarLinks = document.querySelectorAll('.sidebar-links');
+
+        // Iterate over each sidebar link
+        sidebarLinks.forEach(link => {
+            // Extract the page name from the link's href attribute
+            const pageName = link.getAttribute('href').split('/').pop().split('?')[0];
+
+            // Check if the current page matches the link's page name
+            if (currentPage === pageName) {
+                link.classList.add('active'); // Add 'active' class to the matching link
             } else {
-                icon.textContent = "chevron_left"; // Change icon to left chevron
+                link.classList.remove('active'); // Remove 'active' class from other links
             }
-            });
-            function toggleSidebar() {
-                const sidebar = document.getElementById('sidebar');
-                sidebar.classList.toggle('collapsed');
-            }
+        });
+
+        // Show the sidebar again after iteration
+        sidebar.classList.remove('hidden');
+    });
+
+    document.getElementById("collapseBtn").addEventListener("click", function() {
+    const sidebar = document.querySelector(".sidebar");
+    sidebar.classList.toggle("collapsed");
+
+    // Toggle the chevron icon direction
+    const icon = this.querySelector(".material-symbols-outlined");
+    if (sidebar.classList.contains("collapsed")) {
+        icon.textContent = "chevron_right"; // Change icon to right chevron
+    } else {
+        icon.textContent = "chevron_left"; // Change icon to left chevron
+    }
+    });
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.toggle('collapsed');
+    }
 </script>
 </body>
 </html>

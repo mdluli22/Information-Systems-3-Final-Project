@@ -13,7 +13,7 @@
 
         
 
-        $sql_update = "update ticket set ticket_status = 'Resolved' where ticketID = $ticketID; ";
+        $sql_update = "update ticket set ticket_status = 'Resolved', m_seen = 0, s_seen = 0, h_seen = 0 where ticketID = $ticketID; ";
 
         if ($connection->query($sql_update) === TRUE) {
             header("Location: maintenance_opened_tickets.php?ticket_ID=$ticketID&house_name=$houseName");

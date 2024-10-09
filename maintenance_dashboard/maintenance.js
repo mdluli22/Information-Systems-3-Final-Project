@@ -21,3 +21,13 @@ function updateCarousel() {
     });
 }
 /* End of effects on image carousel */
+
+function navigateToLink() {
+    var dropdown = document.getElementById("linkDropdown");
+    var selectedValue = dropdown.value;
+
+    // Only navigate if a valid link is selected
+    if (selectedValue) {
+        window.location.href = selectedValue;
+    }
+}

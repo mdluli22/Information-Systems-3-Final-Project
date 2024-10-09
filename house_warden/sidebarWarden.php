@@ -59,31 +59,50 @@ $initials = $resnamel['initials']; // Initials
                         <!-- Navigation links with icons -->
                         <li id="logFaults" class="sidebar-item">
                             <a class="sidebar-links" href="<?php echo "ticketCreationFinalWarden.php"; ?>">
-                                <img src="pictures/receipt-add.png" alt="receipt-add"><span>Log Faults</span>
+                                <img src="pictures/addIcon.svg" alt="receipt-add"><span>Log Faults</span>
                             </a>
                         </li>
                         <li id="all-tickets" class="sidebar-item">
                             <a class="sidebar-links" href="<?php echo "../house_warden/house_warden_all_tickets.php?warden_userName={$warden_userName}&res_name={$resnamel['resName']}"; ?>">
-                                <img src="pictures/receipt-icon.png" alt="receipt icon"><span>All Tickets</span>
+                                <img src="pictures/Icon(1).svg" alt="receipt icon"><span>All Tickets</span>
                             </a>
                         </li>
-
                         <li id="open-tickets" class="sidebar-item">
                             <a class="sidebar-links" href="<?php echo "../house_warden/house_warden_open_tickets.php?warden_userName={$warden_userName}&res_name={$resnamel['resName']}"; ?>">
-                                <img src="pictures/layer.png" alt="layer"><span>Opened Tickets</span>
+                                <img src="pictures/layers-05.svg" alt="layer"><span>Opened Tickets</span>
                                 <!-- Notification Icon -->
                                 <span id="notification-icon" class="notification-icon"></span>
                             </a>
                         </li>
-
+                        <li id="confirmed" class="sidebar-item">
+                            <a class="sidebar-links" href="<?php echo "../house_warden/house_warden_confirmed.php?warden_userName={$warden_userName}&res_name={$resnamel['resName']}"; ?>">
+                            <img src="pictures/check-broken.svg" alt="layer"><span>Confirmed Tickets</span>
+                                <!-- Notification Icon -->
+                                <span id="notification-icon" class="notification-icon"></span>
+                            </a>
+                        </li>
+                        <li id="requis" class="sidebar-item">
+                            <a class="sidebar-links" href="<?php echo "../house_warden/house_warden_requis_tickets.php?warden_userName={$warden_userName}&res_name={$resnamel['resName']}"; ?>">
+                            <img src="pictures/check-contained.svg" alt="layer"><span>Requisitioned Tickets</span>
+                                <!-- Notification Icon -->
+                                <span id="notification-icon" class="notification-icon"></span>
+                            </a>
+                        </li>
+                        <li id="resolved" class="sidebar-item">
+                            <a class="sidebar-links" href="<?php echo "../house_warden/house_warden_resolved_ticket.php?warden_userName={$warden_userName}&res_name={$resnamel['resName']}"; ?>">
+                            <img src="pictures/check-square-broken.svg" alt="layer"><span>Resolved Tickets</span>
+                                <!-- Notification Icon -->
+                                <span id="notification-icon" class="notification-icon"></span>
+                            </a>
+                        </li>
                         <li id="closed-tickets" class="sidebar-item">
                             <a class="sidebar-links" href="<?php echo "../house_warden/house_warden_closed_tickets.php?warden_userName={$warden_userName}&res_name={$resnamel['resName']}"; ?>">
-                                <img src="pictures/clipboard-tick.png" alt="clipboard-tick"><span>Closed Tickets</span>
+                                <img src="pictures/check-square-contained.svg" alt="clipboard-tick"><span>Closed Tickets</span>
                             </a>
                         </li>
                         <li id="statistics" class="sidebar-item">
                             <a class="sidebar-links" href="<?php echo "../house_warden/Stats_warden.php?warden_userName={$warden_userName}&res_name={$resnamel['resName']}"; ?>">
-                                <img src="pictures/bar-chart-icon.png" alt="bar chart icon"><span>Statistics</span>
+                                <img src="pictures/Icon.svg" alt="bar chart icon"><span>Statistics</span>
                             </a>
                         </li>
                     </ul>
@@ -105,7 +124,7 @@ $initials = $resnamel['initials']; // Initials
                     <!-- Logout button with icon -->
                     <div id="sidebar-log-out">
                         <a href="../landing_page/logout.php" onclick = " return confirm('Are you sure you want to log out')">
-                            <i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i>
+                            <i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B45C3D;"></i>
                         </a>
                     </div>
                 </div>
@@ -204,7 +223,7 @@ body {
 .profile-pic {
     width: 2.5rem; /* 40px */
     height: 2.5rem; /* 40px */
-    background-color: #b197fc;
+    background-color: #B45C3D;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -280,8 +299,6 @@ nav ul li a:hover {
     margin-bottom: 1.25rem; /* 20px */
 }
 
-
-
 /* Media Queries for Responsive Design */
 @media (max-width: 768px) {
     .sidebar {
@@ -339,32 +356,32 @@ nav ul li a:hover {
             });
         });
 
-            document.getElementById("collapseBtn").addEventListener("click", function() {
-            const sidebar = document.querySelector(".sidebar");
-            sidebar.classList.toggle("collapsed");
+        document.getElementById("collapseBtn").addEventListener("click", function() {
+        const sidebar = document.querySelector(".sidebar");
+        sidebar.classList.toggle("collapsed");
 
-            // Toggle the chevron icon direction
-            const icon = this.querySelector(".material-symbols-outlined");
-            if (sidebar.classList.contains("collapsed")) {
-                icon.textContent = "chevron_right"; // Change icon to right chevron
-            } else {
-                icon.textContent = "chevron_left"; // Change icon to left chevron
+        // Toggle the chevron icon direction
+        const icon = this.querySelector(".material-symbols-outlined");
+        if (sidebar.classList.contains("collapsed")) {
+            icon.textContent = "chevron_right"; // Change icon to right chevron
+        } else {
+            icon.textContent = "chevron_left"; // Change icon to left chevron
+        }
+        });
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('collapsed');
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Update the notification icon for the "Opened Tickets" link
+            const notificationIcon = document.getElementById('notification-icon');
+
+            if (openedTicketsCount > 0) {
+                notificationIcon.textContent = openedTicketsCount; // Set the count
+                notificationIcon.style.display = 'inline-block'; // Show the icon
             }
-            });
-            function toggleSidebar() {
-                const sidebar = document.getElementById('sidebar');
-                sidebar.classList.toggle('collapsed');
-            }
-
-            document.addEventListener("DOMContentLoaded", function() {
-                // Update the notification icon for the "Opened Tickets" link
-                const notificationIcon = document.getElementById('notification-icon');
-
-                if (openedTicketsCount > 0) {
-                    notificationIcon.textContent = openedTicketsCount; // Set the count
-                    notificationIcon.style.display = 'inline-block'; // Show the icon
-                }
-            });
+        });
 </script>
 </body>
 </html>

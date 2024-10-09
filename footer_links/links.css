@@ -2,6 +2,7 @@ body {
     font-family: Inter, sans-serif;
     /* background: linear-gradient(180deg, rgba(174, 92, 220, 0.2) 0%, rgba(95, 63, 112, 0) 100%); */
     background-color:#CFDDE9;
+    margin: 0;
 }
 
 /* the header area */
@@ -9,16 +10,20 @@ h2 {
     /* all the headings before the purple line */
     font-family: 'Inter';
     font-style: normal;
-    /* font-weight: 600; */
-    font-weight: 37.5rem;
     font-size: 1.875rem;
     line-height: 1.5rem;
     /* identical to box height, or 80% */
-    color: #000000;
+    color: #B45C3D;
     /* text-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.25); */
     margin-bottom: 0.625rem;
+    text-decoration: underline;
+    font-weight: 700;
 }
 
+.wordy-things{
+    font-weight: 100;
+    letter-spacing: 1.1;
+}
 /* Images and Iframes */
 img {
     max-width: 100%; /* Flexible image: resizes based on container width */
@@ -36,6 +41,29 @@ iframe {
         width: 100%; /* Full width on smaller screens */
     }
 }
+
+#back-link{
+    background-color: #B45C3D;
+    color: white;
+    border: none;
+    padding: 3px 20px;
+    margin: 20px auto;
+    cursor: pointer;
+    font-size: 1.5em;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 0.125rem 0.25rem #000929;
+    border-radius: 1.25rem;
+    text-decoration: none;
+    position: fixed;
+    display: inline-flex;
+    margin-left: 10px;
+}
+
+#back-link:hover {
+    background-color: #12222E;
+    align-content: center;
+}
+
 
 /* Footer obtained from landing page */
 .footer {

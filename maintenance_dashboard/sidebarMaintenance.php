@@ -43,17 +43,17 @@ if ($result === FALSE) {
             <ul id="sidebar-nav">
                 <li id="open-tickets" class="sidebar-item">
                     <a class="sidebar-links" href="maintenance_opened_tickets.php">
-                        <img src="pictures/layer.png" alt="layer"><span>Requisitioned Tickets</span>
+                        <img src="pictures/layers-05.svg" alt="layer"><span>Requisitioned Tickets</span>
                     </a>
                 </li>
                 <li id="closed-tickets" class="sidebar-item">
                     <a class="sidebar-links" href="maintenance_closed_tickets.php">
-                        <img src="pictures/clipboard-tick.png" alt="clipboard-tick"><span>Resolved Tickets</span>
+                        <img src="pictures/check-square-contained.svg" alt="clipboard-tick"><span>Resolved Tickets</span>
                     </a>
                 </li>
                 <li id="statistics" class="sidebar-item">
                     <a class="sidebar-links" href="Stats_maintenance.php">
-                        <img src="pictures/bar-chart-icon.png" alt="bar chart icon"><span>Statistics</span>
+                        <img src="pictures/Icon.svg" alt="bar chart icon"><span>Statistics</span>
                     </a>
                 </li> 
             </ul>
@@ -65,7 +65,7 @@ if ($result === FALSE) {
         <div class="profile">
             <!-- Profile picture area -->
             <div class="profile-pic">
-                <?php //echo "Staff";?>
+                <?php echo "Staff";?>
             </div>
             <!-- Profile information area -->
             <div class="profile-info">
@@ -75,7 +75,7 @@ if ($result === FALSE) {
             <!-- Logout button with icon -->
             <div id="sidebar-log-out">
                 <a href="../landing_page/logout.php" onclick = " return confirm('Are you sure you want to log out')">
-                    <i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i>
+                    <i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B45C3D;"></i>
                 </a>
             </div>
         </div>
@@ -172,7 +172,7 @@ body {
 .profile-pic {
     width: 2.5rem; /* 40px */
     height: 2.5rem; /* 40px */
-    background-color: #b197fc;
+    background-color: #B45C3D;
     border-radius: 50%;
     display: flex;
     justify-content: center;

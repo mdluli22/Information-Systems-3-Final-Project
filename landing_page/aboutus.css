@@ -1,10 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #CFDDE9;
+    /* background-color: #CFDDE9; */
     margin: 0;
     padding: 0;
- text-align: center;
+    /* text-align: center; */
+}
+
+.topHeadings,
+.buttons {
+    text-align: center;
+}
+
+.hidden {
+    display: none;
 }
 
 header {
@@ -14,11 +28,11 @@ header {
 
 header h1 {
     font-size: 3.75em;
-    color:#12222E;
+    color: #12222E;
     text-shadow: 0.125rem 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
     text-align: center;
     /* for this to run well had to make it px and not rem */
-    margin-left: 30px;  
+    margin-left: 30px;
 }
 
 header h2 {
@@ -26,25 +40,30 @@ header h2 {
     color: #12222E;
     margin-top: 0;
     text-align: center;
-     /* for this to run well had to make it px and not rem */
+    /* for this to run well had to make it px and not rem */
     margin-left: 30px;
 }
 
-h2{
-    margin-bottom: 0; /* Removes any space below the heading */
-    padding-bottom: 0; /* Ensures no extra padding below the heading */
+h2 {
+    margin-bottom: 0;
+    /* Removes any space below the heading */
+    padding-bottom: 0;
+    /* Ensures no extra padding below the heading */
 }
 
+b {
+    color: red;
+}
 h5 {
     font-size: 5rem;
     font-weight: 50%;
     line-height: 110%;
     /* or 70px */
     letter-spacing: -0.01em;
-    color:#12222E;
+    color: #12222E;
     /*to move a bit lower*/
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-   margin: 20px 0;
+    margin: 20px 0;
 }
 
 /* the cool feature there */
@@ -54,11 +73,12 @@ h5 {
     align-items: center;
     margin: 120px 0;
     overflow: visible;
-    gap: -6000px; /* Make the images overlap */
+    gap: -6000px;
+    /* Make the images overlap */
     text-align: center;
-    color:#12222E;
+    color: #12222E;
 }
-    
+
 .team-member {
     position: relative;
     margin: 0 20px;
@@ -96,16 +116,16 @@ h5 {
 
 .buttons button {
     background-color: #B45C3D;
-    color: white;       
+    color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 3px 20px;
     margin: 8px;
     cursor: pointer;
     font-size: 1.5em;
     transition: background-color 0.3s ease;
     box-shadow: 0 0.125rem 0.25rem #000929;
-    border-radius: 0.3125rem;
-    align-content: center;
+    border-radius: 1.25rem;
+
 }
 
 /* when the user hovers on the button */
@@ -114,58 +134,33 @@ h5 {
     align-content: center;
 }
 
-.back-home{
+#back-home {
     background-color: #B45C3D;
-    color: white;       
+    color: white;
     border: none;
-    padding: 10px 20px;
-    margin: 8px;
+    padding: 3px 20px;
+    margin: 20px auto;
     cursor: pointer;
     font-size: 1.5em;
     transition: background-color 0.3s ease;
     box-shadow: 0 0.125rem 0.25rem #000929;
-    border-radius: 0.3125rem;
-
-}
-
-/* Footer obtained from the landing page*/
-.footer {
-    background-color: #12222E; /* Same color as the header */
-    color: white;
-    padding: 2rem 0; /* Padding for space inside the footer */
-    text-align: center; /* Center the content */
-    font-family: 'Inter', sans-serif;
-    width: 100%;
-    position: relative;
-    margin-top: auto; /* Pushes the footer to the bottom if content is short */
-}
-
-/* Footer Links */
-.footer-links {
-    display: flex;
-    justify-content: center; /* Center the footer links */
-    gap: 2rem; /* Space between the links */
-    margin-bottom: 1rem; /* Space below the links */
-    
-}
-
-.footer-links a {
+    border-radius: 1.25rem;
     text-decoration: none;
-    color: #ffffff;
-    font-weight: 500;
-    transition: color 0.3s ease-in-out;
+    position: fixed;
+    display: inline-flex;
+    margin-left: 10px;
 }
 
-.footer-links a:hover {
-    color: #B45C3D; /* Same hover effect as other links */
+#back-home:hover {
+    background-color: #12222E;
+    align-content: center;
 }
 
-/* Footer text (copyright) */
-.footer p {
-    margin-top: 1rem;
-    font-size: 0.875rem;
-    color: #ddd; /* Lighter text for the copyright */
+/* Style for the team logo */
+.team-logo {
+    display: block;
+    margin: 0 auto;
+    width: 150px; /* Adjust the width as needed */
+    height: auto;
+    margin-bottom: 20px; /* Space between the logo and the heading */
 }
-
-
-  

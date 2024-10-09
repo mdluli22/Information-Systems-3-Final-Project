@@ -51,7 +51,7 @@ body {
 
 /* Styling for username within the header */
 header h1 .username {
-    color:#A020F0; /* Purple color for username text */
+    color:#B45C3D; /* Purple color for username text */
 }
 
 /* Adds space below the houses section */
@@ -108,7 +108,7 @@ header h1 .username {
 }
 
 /* TO MAKE FEEDBACK div DISAPPEAR */
-.cancel-button {
+/* .cancel-button {
     background-color: #f8d7da;
     color: #721c24;
     border: 1px solid #f5c6cb;
@@ -119,14 +119,13 @@ header h1 .username {
     align-items: center;
     cursor: pointer;
     /* float: right; - removed */
-}
-
+/*} */
 
 /* FEEDBACK AFTER REJECTING REQUEST */
 .rejected-message {
-    background-color: #d4edda;
-    border: 0.0625rem solid #751414;
-    color: #155724;
+    background-color: #f8d7da; /* Light red/pink background */
+    border: 0.0625rem solid #f5c6cb; /* Slightly darker red border */
+    color: #721c24; /* Dark red text */
     padding: 0.9375rem;
     border-radius: 0.9375rem;
     margin-top: 1.25rem;
@@ -134,10 +133,9 @@ header h1 .username {
 }
 
 
-
-.cancel-button i {
+/* .cancel-button i {
     margin-right: 0.5rem;
-}
+} */
 
 /* Make table headers stick in place when scrolling */
 table thead {
@@ -344,4 +342,108 @@ table thead {
     border-radius: 0.4375rem; /* Rounded corners for button */
     margin: -0.625rem 0.625rem 1.875rem 0; /* Margin around the button */
     float: right; /* Floats button to the right */
+}
+
+.comment-bubble {
+    background-color: #f0f0f0;  /* Light grey background for the comment bubble */
+    padding: 10px;
+    border-radius: 10px;  /* Rounded corners to create the bubble effect */
+    margin-bottom: 10px;
+    max-width: 90%;  /* Ensure the bubble doesn't span too wide */
+    word-wrap: break-word;  /* Allow text to wrap within the bubble */
+    font-size: 14px;
+    color: #333;
+}
+
+.comment-bubble strong {
+    font-weight: 600;  /* Bold the user name */
+    margin-bottom: 5px;
+}
+
+.comment-bubble dd {
+    margin: 5px 0;
+    font-size: 1rem;
+}
+
+/* Carousel container for image viewing */
+.carousel {
+    position: relative;
+    width: 100%; /* Adjust as needed */
+    max-width: 400px; /* Maximum width of the carousel */
+    margin: auto; /* Center the carousel */
+    overflow: hidden; /* Hide overflowing images */
+    border-radius: 1rem;
+}
+
+/* Container for all slides */
+.carousel-images {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+    height: 400px; /* Set a fixed height for the image display box */
+    border-radius: 1rem;
+}
+
+.carousel-slide {
+    min-width: 100%; /* Each image takes up full width of the carousel */
+    transition: transform 0.5s ease-in-out;
+}
+
+/* Images in the carousel */
+.carousel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Resize image to fit within the container while maintaining aspect ratio */
+}
+
+/* Navigation Buttons */
+.carousel-prev, .carousel-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(18, 34, 46, 0.5); /* Semi-transparent background */
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.carousel-prev {
+    left: 10px;
+}
+
+.carousel-next {
+    right: 10px;
+}
+
+.carousel-prev:hover,
+.carousel-next:hover {
+    background-color: rgba(180, 92, 61, 0.8);
+}
+/* End of carousel container for image viewing */
+
+.custom-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: red; /* Adjusted to match the color theme of the page */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin: 5px 0; /* Added some margin for spacing */
+}
+
+#viewButton {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #B45C3D; /* Adjusted to match the color theme of the page */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin: 5px 0; /* Added some margin for spacing */
 }

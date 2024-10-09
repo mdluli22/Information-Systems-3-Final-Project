@@ -3,16 +3,16 @@
 require_once("../config.php");
 // Check if form data is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Get the submitted data
-    $ticketID = $_POST['ticketID'];
-    $houseName = $_POST['house_name'];
-    $comment_description = $_POST['comment_description'];
-    $userName = $_POST['userID']; // Replace this with the actual user session value
-    $page = $_POST['page']; //the page the processor must go back to to return the data
-    $currentDate = (new DateTime())->format('Y-m-d H:i:s'); // Automatically capture the current date
-
     // attempt to make database connection
     $connection = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
+
+    // Get the submitted data
+    $ticketID = mysqli_real_escape_string($connection, $_POST['ticketID']);
+    $houseName = mysqli_real_escape_string($connection, $_POST['house_name']);
+    $comment_description = mysqli_real_escape_string($connection, $_POST['comment_description']);
+    $userName = mysqli_real_escape_string($connection, $_POST['userID']); // Replace this with the actual user session value
+    $page = mysqli_real_escape_string($connection, $_POST['page']); //the page the processor must go back to to return the data
+    $currentDate = (new DateTime())->format('Y-m-d H:i:s'); // Automatically capture the current date
 
     // Check if connection was successful
     if ($connection->connect_error) {
@@ -25,19 +25,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($connection->query($sql_insert) === TRUE) {
         // Redirect back to the ticket page
 
-        if ($page == 'all') {
-            header("Location: ticket_tracking_all.php?ticketID=$ticketID");
-            exit();}
-        else if ($page == 'open') {
+        if ($page == 'open') {
             header("Location: maintenance_opened_tickets.php?ticketID=$ticketID&house_name=$houseName");
             exit();}
-        else if ($page == 'closed') {
-            header("Location: ticket_tracking_closed.php?ticketID=$ticketID");
+        else if ($page == 'closed'){
+            header("Location: maintenance_closed_tickets.php?ticketID=$ticketID&house_name=$houseName");
             exit();}
         else {
             echo "<p class='error'>Failed to find page to return to: " . $connection->error . "</p>";
         }
-        
+         
     } else {
         echo "<p class='error'>Failed to submit comment: " . $connection->error . "</p>";
     }

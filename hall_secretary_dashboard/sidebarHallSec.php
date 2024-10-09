@@ -39,53 +39,64 @@ if ($result && $result->num_rows > 0) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-            <aside class="sidebar">
-                <!-- Logo section at the top of the sidebar -->
-                <div class="logo">ResQue</div>
-                <button class="sidebar__collapse-button" id="collapseBtn">
-                    <span class="material-symbols-outlined">chevron_left</span>
-                </button>
-                
-                <!-- Navigation menu in the sidebar -->
-                <nav>
-                <ul id="sidebar-nav">
-                    <!-- Navigation links with icons -->
-                    <li id="all-tickets" class="sidebar-item">
-                        <a class="sidebar-links" href="<?php echo "../hall_secretary_dashboard/hall_secretary_all_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}" ?>">
-                            <img src="pictures/receipt-icon.png" alt="receipt icon"><span>All Tickets</span></a>
-                    </li>
-                    <li id="open-tickets" class="sidebar-item">
-                        <a class="sidebar-links active" href="<?php echo "../hall_secretary_dashboard/hall_secretary_open_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}"; ?>">
-                            <img src="pictures/layer.png" alt="layer"><span>Opened Tickets</span></a>
-                    </li>
-                    <li id="closed-tickets" class="sidebar-item">
-                        <a class="sidebar-links" href="<?php echo "../hall_secretary_dashboard/hall_secretary_closed_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}"; ?>">
-                            <img src="pictures/clipboard-tick.png" alt="clipboard-tick"><span>Closed Tickets</span></a>
-                    </li>
-                    <li id="statistics" class="sidebar-item">
-                        <a class="sidebar-links" href="<?php echo "../Statistics/Stats_hallsec.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}" ?>">
-                            <img src="pictures/bar-chart-icon.png" alt="bar chart icon"><span>Statistics</span></a>
-                    </li>
-                </ul>
-            </nav>
-                <!-- Profile section at the bottom of the sidebar -->
-                <div class="profile">
-                    <!-- Profile picture area -->
-                    <div class="profile-pic">
-                        <?php echo $initials;?>
-                    </div>
-                    <!-- Profile information area -->
-                    <div class="profile-info">
-                        <span id="user-name" class="username"><?php echo $fname . " " . $lname; ?></span><br>
-                        <span class="role"><?php echo "Hall Secretary"?></span>
-                    </div>
-                    <!-- Logout button with icon -->
-                    <div id="sidebar-log-out">
-                        <a href="../landing_page/logout.php" onclick = " return confirm('Are you sure you want to log out')"><i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B197FC;"></i></a>
-                    </div>
-                </div>
-            </aside>
+    <aside class="sidebar">
+        <!-- Logo section at the top of the sidebar -->
+        <div class="logo">ResQue</div>
+        <button class="sidebar__collapse-button" id="collapseBtn">
+            <span class="material-symbols-outlined">chevron_left</span>
+        </button>
+        
+        <!-- Navigation menu in the sidebar -->
+        <nav>
+        <ul id="sidebar-nav">
+            <!-- Navigation links with icons -->
+            <li id="all-tickets" class="sidebar-item">
+                <a class="sidebar-links" href="<?php echo "../hall_secretary_dashboard/hall_secretary_all_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}" ?>">
+                    <img src="pictures/Icon(1).svg" alt="receipt icon"><span>All Tickets</span></a>
+            </li>
+            <!-- <li id="open-tickets" class="sidebar-item">
+                <a class="sidebar-links active" href="<?php echo "../hall_secretary_dashboard/hall_secretary_open_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}"; ?>">
+                    <img src="pictures/layers-05.svg" alt="layer"><span>Opened Tickets</span></a>
+            </li> -->
+            <li id="confirmed-tickets" class="sidebar-item">
+                <a class="sidebar-links active" href="<?php echo "../hall_secretary_dashboard/hall_secretary_open_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}"; ?>">
+                    <img src="pictures/check-broken.svg" alt="layer"><span>Confirmed Tickets</span></a>
+            </li>
+            <li id="requis-tickets" class="sidebar-item">
+                <a class="sidebar-links active" href="<?php echo "../hall_secretary_dashboard/hall_secretary_requis_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}"; ?>">
+                    <img src="pictures/check-contained.svg" alt="layer"><span>Requisitioned Tickets</span></a>
+            </li>
+            <li id="resolved-tickets" class="sidebar-item">
+                <a class="sidebar-links active" href="<?php echo "../hall_secretary_dashboard/hall_secretary_resolved.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}"; ?>">
+                    <img src="pictures/check-square-broken.svg" alt="layer"><span>Resolved Tickets</span></a>
+            </li>
+            <li id="closed-tickets" class="sidebar-item">
+                <a class="sidebar-links" href="<?php echo "../hall_secretary_dashboard/hall_secretary_closed_tickets.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}"; ?>">
+                    <img src="pictures/check-square-contained.svg" alt="clipboard-tick"><span>Closed Tickets</span></a>
+            </li>
+            <li id="statistics" class="sidebar-item">
+                <a class="sidebar-links" href="<?php echo "../Statistics/Stats_hallsec.php?hall_sec_userName=$hall_sec_userName&hall_name={$_SESSION['hall_name']}" ?>">
+                    <img src="pictures/Icon.svg" alt="bar chart icon"><span>Statistics</span></a>
+            </li>
+        </ul>
+    </nav>
+        <!-- Profile section at the bottom of the sidebar -->
+        <div class="profile">
+            <!-- Profile picture area -->
+            <div class="profile-pic">
+                <?php echo $initials;?>
+            </div>
+            <!-- Profile information area -->
+            <div class="profile-info">
+                <span id="user-name" class="username"><?php echo $fname . " " . $lname; ?></span><br>
+                <span class="role"><?php echo "Hall Secretary"?></span>
+            </div>
+            <!-- Logout button with icon -->
+            <div id="sidebar-log-out">
+                <a href="../landing_page/logout.php" onclick = " return confirm('Are you sure you want to log out')"><i class="fa-solid fa-arrow-right-from-bracket fa-xl" style="color: #B45C3D;"></i></a>
+            </div>
+        </div>
+    </aside>
 
 <style>
 /* Highlight the active sidebar link */
@@ -168,7 +179,7 @@ body {
 .profile-pic {
     width: 2.5rem; /* 40px */
     height: 2.5rem; /* 40px */
-    background-color: #b197fc;
+    background-color: #B45C3D;
     border-radius: 50%;
     display: flex;
     justify-content: center;

@@ -1,7 +1,12 @@
 <?php
-    // Start the session
-    session_start();
+// Start the session
+session_start();
 
+// Initialize error variable
+$error = "";
+
+// Check if the form was submitted
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get the values from the form
     $username = $_REQUEST['username'];
     $password = $_REQUEST['password'];
@@ -56,12 +61,19 @@
             }
             exit();
         } else {
-            echo "<p class=\"error\">Password is incorrect!</p>";
+            // Incorrect password
+            $_SESSION['error'] = "Incorrect Password Dear!"; // Use specific error message
         }
     } else {
-        // Username doesn't exist
-        echo "<p class=\"error\">Username does not exist!</p>";
+        // User not found
+        $_SESSION['error'] = "Could not find user , please try creating a profile.";
     }
+
     // Close connection to the database
     $conn->close();
+
+    // Redirect back to login_signup.php
+    header("Location: ../landing_page/home.php");
+    exit();
+}
 ?>

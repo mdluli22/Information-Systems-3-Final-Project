@@ -1,5 +1,5 @@
 <?php
-session_start();
+    session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,103 +9,124 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home | ResQue</title>
     <link rel="shortcut icon" href="pictures/fake logo(1).png" type="image/x-icon">
-    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="../landing_page/home.css">
+    <link rel="stylesheet" href="../landing_page/login_signup.css">
 </head>
 
 <body>
+    <!-- Modal for messages -->
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <p id="messageContent" 
+            data-message="<?php echo isset($_SESSION['success']) ? $_SESSION['success'] : ''; ?>"
+            data-message-type="<?php echo isset($_SESSION['success']) ? 'success' : ''; ?>"></p>
+            <button class="close-btn-pop" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+
     <div class="container">
-        <header>
-            <img src="pictures/fake logo(1).png" alt="Syntax On Air Logo" class="logo">
-
-            <!-- navigation bar -->
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="../landing_page/faq.php">FAQ</a></li>
-                    <li><a href="../landing_page/aboutus.php">About Us</a></li>
-                    <li><a href="#">Help</a></li>
-                    <li><a href="https://www.ru.ac.za/safety/resources/">Resources</a></li>
-                </ul>
-                <div class="user-actions">
-                    <a href="#" class="login-btn" id="login-btn">Login</a>
-                    <a href="#" class="signup-btn" id="sign-up-btn">Sign up</a>
-                </div>
-            </nav>
-
-            <!-- for when switching to a smaller screen -->
-            <!-- for burger menu for mobile -->
-            <input type="checkbox" id="burger-toggle" />
-            <label for="burger-toggle" class="burger">
-                <div></div>
-                <div></div>
-                <div></div>
-            </label>
-
-            <div class="mobile-menu">
-                <a href="../landing_page/home.php">Home</a>
-                <a href="../landing_page/aboutus.php">About Us</a>
-                <a href="help.html">Help</a>
-            </div>
-        </header>
-
+        <?php
+        require_once('../landing_page/header.php');
+        ?>
         <!-- the head of the page -->
         <section class="hero">
             <div class="hero-content">
                 <div>
-                <h2>Saving Your Day, One Fix at a Time</h2>
-                <p>Easily report your maintenance issues and have them resolved without any hassle.</p>
+                    <h2>Saving Your Day, <br>
+                    One Fix at a Time</h2>
+                    <p>Easily report your maintenance issues and have them resolved without any hassle.</p>
                 </div>
             </div>
         </section>
         <br>
 
-       <!-- Card Section -->
-    <section class="card-section">
-        
-        <div class="card about">
-            <h4 class="card-title">About ResQue<h4/>
-            <img src="../landing_page/pictures/aboutresque.JPG (1).jpg" alt="about the team"><br>
-            <h4>We are a website that ensures maintenance is made faster
-                and much more efficent. Real time communication, faster maintenance issues, 
-                reliable staff, and friendly residence mates too.
-            </h4>
-        
-        </div>
+        <!-- Card Section -->
+        <section class="card-section">
 
-        <div class="card what-wedo">
-            <h4 class="card-title">What does ResQue do?<h4/>
-            <img src="../landing_page/pictures/resquedoes.jpg" alt="maintenance">
-            <h4>Maintain residence faults <br>
-        Ensure a room is a home <br>
-    Offer real time communicationbr
-Every student is a customer to us</h4>
-        </div>
+            <div class="card about">
+                <h4 class="card-title" id="headings">About ResQue</h4>
+                    <img src="../landing_page/pictures/aboutresque.JPG (1).jpg" alt="about the team"><br>
+                    <h4 id="text">We are a website that ensures maintenance is made faster
+                        and much more efficent. <br>
+                        Providing real time communication. <br>
+                        Faster maintenance faults resolved<br>
+                        Reliable residence staff,maintenance, and friendly residence mates too.
+                    </h4>
+            </div>
 
-        <div class="card contact">
-        <h4 class="card-title">How to contact us?<h4/>
-        <img src="../landing_page/pictures/contactus.JPG" alt="contact us">
-            <h4>Email: systemsurgeons@gmail.com <br>
-        Telephone: +27 62 020 2020 <br>
-    Office: Rhodes University Hamilton third floor office 22</h4>
+            <div class="card what-wedo">
+                <h4 class="card-title" id="headings">What does ResQue do?</h4>
+                    <img src="../landing_page/pictures/resquedoes.jpg" alt="maintenance"><br>
+                    <h4 id="text">Maintain residence faults digitally<br>
+                        Ensure a room is a home away from home<br>
+                        Offer real time communication through the website <br>
+                        Every student and staff member is a customer to us
+                    </h4>
+            </div>
 
-        </div>
-    </section>
+            <div class="card contact">
+                <h4 class="card-title" id="headings">How to contact us?</h4>
+                    <img src="../landing_page/pictures/contactus.JPG" alt="contact us">
+                    <h4 id="text"> Email:                                        systemsurgeons@gmail.com <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;informationsystems@ru.ac.za <br><br>
+                        Physical Location:                 Hamilton Building
+                        Prince Alfred Street
+                        6139, Makhanda (Grahamstown) <br><br>
+                        Telephone:&nbsp;&nbsp;<a href="tel:+27420202020">+27 42 020 2020</a> <br>
+                        Office hours: 08:00 am - 16:30pm <br>
+                       Office: Rhodes University Hamilton third floor office 22
+                    </h4>
+            </div>
+        </section>
 
         <!-- the login and sign up area -->
         <?php
-        require_once('login_signup.php');
+        require_once('../landing_page/login_signup.php');
         ?>
-        <script src="home.js"></script>
+        <script src="../landing_page/home.js"></script>
 
-        <footer class="footer">
-            <div class="footer-links">
-                <a href="../footer_links/links.html#integrity-and-constraints">Integrity & Compliance</a>
-                <a href="../footer_links/links.html#legal">Legal</a>
-                <a href="../footer_links/links.html#manage-cookies">Manage Cookies</a>
-                <a href="../footer_links/links.html#privacy-policy">Privacy Policy</a>
-            </div>
-            <p>&copy; <time datetime="<?php echo date('Y'); ?>"><?php echo date('Y'); ?></time> ResQue </p>
-        </footer>
-        <script src="home.js"></script>
+        <?php
+        require_once('../landing_page/footer.php');
+        ?>
+    </div>
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const messageContent = document.getElementById('messageContent');
+        if (messageContent) {
+            const message = messageContent.getAttribute('data-message');
+            const messageType = messageContent.getAttribute('data-message-type');
+
+            if (message) {
+                // Set the message content
+                messageContent.textContent = message;
+                
+                // Add the appropriate class to the modal content
+                const modalContent = document.querySelector('.modal-content');
+                if (messageType === 'success') {
+                    modalContent.classList.add('success');
+                }
+                // Display the modal
+                document.getElementById('messageModal').style.display = 'block';
+
+                // Automatically close the modal after 5 seconds (5000 milliseconds)
+                setTimeout(function() {
+                    closeModal();
+                }, 5000);
+            }
+        }
+    });
+
+    // Function to close the modal
+    function closeModal() {
+        document.getElementById('messageModal').style.display = 'none';
+    }
+</script>
+    <?php
+    // Clear session messages
+    unset($_SESSION['success'], $_SESSION['error']);
+    ?>
 </body>
 
 </html>

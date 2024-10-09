@@ -43,6 +43,7 @@ body {
     padding-right: 5rem; /* Extra padding on the right */
     position: relative; /* Allows for positioning of child elements */
     margin-left: 17.5rem; /* Aligns content next to the sidebar */
+    width: 100%;
 }
 
 .header {
@@ -67,6 +68,7 @@ body {
     display: flex;
     justify-content: space-between;
     margin-bottom: 1.875rem; /* 30px converted to rem */
+    max-width: 100%;
 }
 
 .sta-img {
@@ -195,3 +197,37 @@ body {
     color:#B45C3D; /* Purple color for active links */
     border-bottom: 0.3125rem solid #B45C3D; /* Purple bottom border for active state */
 }
+
+.cards {
+    /* display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr; */
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    margin: -0.5rem; /* Adjust margin for spacing */
+}
+
+.report {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 1.875rem; /* 30px converted to rem */
+    margin-top: 1.875rem;
+}
+
+.report-card {
+    display: flex;
+    flex-direction: row;
+    width: 20.5rem; /* 300px converted to rem */
+    min-height: 5rem;
+    padding: 1.25rem; /* 20px converted to rem */
+    background-color: #f9fafb;
+    border-radius: 0.625rem; /* 10px border radius converted to rem */
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1); /* 2px 4px shadow converted to rem */
+    text-align: center;
+    font-family: Arial, sans-serif;
+    align-items: center;
+    margin-right: 0.5rem;
+    flex: 1;
+}
+

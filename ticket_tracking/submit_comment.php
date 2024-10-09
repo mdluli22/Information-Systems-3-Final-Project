@@ -3,15 +3,15 @@
 require_once("../config.php");
 // Check if form data is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Get the submitted data
-    $ticketID = $_POST['ticketID'];
-    $comment_description = $_POST['comment_description'];
-    $userName = $_POST['userID']; // Replace this with the actual user session value
-    $page = $_POST['page']; //the page the processor must go back to to return the data
-    $currentDate = (new DateTime())->format('Y-m-d H:i:s'); // Automatically capture the current date
-
     // attempt to make database connection
     $connection = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
+
+    // Get the submitted data
+    $ticketID = mysqli_real_escape_string($connection, $_POST['ticketID']);
+    $comment_description = mysqli_real_escape_string($connection, $_POST['comment_description']);
+    $userName = mysqli_real_escape_string($connection, $_POST['userID']); // Replace this with the actual user session value
+    $page = mysqli_real_escape_string($connection, $_POST['page']); //the page the processor must go back to to return the data
+    $currentDate = (new DateTime())->format('Y-m-d H:i:s'); // Automatically capture the current date
 
     // Check if connection was successful
     if ($connection->connect_error) {
@@ -31,6 +31,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header("Location: ticket_tracking_open.php?ticketID=$ticketID");
             exit();}
         else if ($page == 'closed') {
+            header("Location: ticket_tracking_closed.php?ticketID=$ticketID");
+            exit();}
+        else if ($page == 'confirmed') {
+            header("Location: ticket_tracking_confirmed.php?ticketID=$ticketID");
+            exit();}
+        else if ($page == 'resolved') {
+            header("Location: ticket_tracking_resolved.php?ticketID=$ticketID");
+            exit();}
+        else if ($page == 'requisitioned') {
+            header("Location: ticket_tracking_requis.php?ticketID=$ticketID");
+            exit();}
+        else if ($page == 'rejected') {
             header("Location: ticket_tracking_closed.php?ticketID=$ticketID");
             exit();}
         else {

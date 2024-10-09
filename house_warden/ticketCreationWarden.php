@@ -41,14 +41,19 @@ if($result1->num_rows > 0) {
 $fault = $_REQUEST['fault-category'];
 $description = $_REQUEST['description'];
 $priority = $_REQUEST['priority'];
-
 $ticket_status = "Opened";
 $ticketDate = date("Y-m-d H:i:s");
-$rating = NULL;  // Set rating to NULL for now
+// Default values for the new columns
+$s_seen = 0;
+$w_seen = 0;
+$h_seen = 0;
+$m_seen = 0;
+$endDate = NULL;  // Set endDate to NULL for now
+
 
 // Insert the ticket into the database
-$sql = "INSERT INTO ticket (userName, resName, ticket_status, ticketDate, ticket_description, category, rating, priority) 
-        VALUES ('$userID', '$resName', '$ticket_status', '$ticketDate', '$description', '$fault', NULL, '$priority');";
+$sql = "INSERT INTO ticket (userName, resName, ticket_status, ticketDate, ticket_description, category, priority, s_seen, w_seen, h_seen, m_seen, endDate) 
+        VALUES ('$userID', '$resName', '$ticket_status', '$ticketDate', '$description', '$fault', '$priority', '$s_seen', '$w_seen', '$h_seen', '$m_seen', NULL);";
 $result = $conn->query($sql);
 
 if ($result === TRUE) {
@@ -75,7 +80,7 @@ if ($result === TRUE) {
 
     // After processing all the files, redirect to the final page
     $_SESSION['ticketID'] = $ticketValue; // Store ticket ID in session
-    header("Location: ticketCreationFinal.php?success=1&ticketID=$ticketValue");
+    header("Location: ../house_warden/ticketCreationFinalWarden.php?success=1&ticketID=$ticketValue");
     exit();  // Make sure to exit after the redirect
 
 } else {

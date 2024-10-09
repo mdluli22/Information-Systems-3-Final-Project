@@ -6,9 +6,16 @@ body {
     height: 100%; /* Ensures the body takes up the full viewport height */
 }
 
-body {
+/* body {
+    display: flex; 
+} */
+
+.container {
+    width: 100%; /* Or a fixed width, if you want */
     display: flex;
-    height: 100%; /* Container spans the full height of the viewport */
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 400px; /* Set to be at least the width of the success message */
 }
 
 /* Main content area styling */
@@ -38,7 +45,7 @@ header h1 {
 
 /* Styling for username within the header */
 header h1 .username {
-    color: black; /* Purple color for username text */
+    color: #B45C3D; 
 }
 
 /* Adds space below the houses section */
@@ -101,9 +108,6 @@ thead :last-child {
     border-top-right-radius: 0.9375rem;
 }
 
-
-
-
 /* Container to hold the table with scrollable content */
 .body {
     max-height: 18rem; /* Adjust this height as needed (e.g., 18rem should show about 3 tickets) */
@@ -120,10 +124,6 @@ thead :last-child {
     background-color: #ccc; /* Customize scrollbar color */
     border-radius: 0.25rem; /* Customize scrollbar roundness */
 }
-
-
-
-
 
 /* Padding and border for table header and cells */
 .ticket-table th, .ticket-table td {
@@ -253,6 +253,7 @@ thead :last-child {
     max-width: 400px; /* Maximum width of the carousel */
     margin: auto; /* Center the carousel */
     overflow: hidden; /* Hide overflowing images */
+    border-radius: 1rem;
 }
 
 /* Container for all slides */
@@ -261,6 +262,7 @@ thead :last-child {
     transition: transform 0.5s ease-in-out;
     width: 100%;
     height: 400px; /* Set a fixed height for the image display box */
+    border-radius: 1rem;
 }
 
 .carousel-slide {
@@ -301,3 +303,40 @@ thead :last-child {
 }
 /* End of carousel container for image viewing */
 
+.custom-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.custom-button:hover {
+    background-color: #218838;
+}
+
+.custom-button span {
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.custom-button:hover {
+    background-color: #8B4A2D; /* Darker shade for hover effect */
+}
+
+#viewButton {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #B45C3D; /* Adjusted to match the color theme of the page */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin: 5px 0; /* Added some margin for spacing */
+}

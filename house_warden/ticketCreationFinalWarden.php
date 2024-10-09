@@ -116,8 +116,8 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['message']))
                     $user_name = $_SESSION['full_name']; 
 
                     echo "<div id='success-message' class='success-message'>
-                            <h2>Ticket Requisitioned!<i class='fas fa-times cancel-icon' onclick='remove_feedback()'></i></h2>
-                            <p>The maintenance request for <strong>". ($_SESSION['full_name']) ."</strong> has been requisitioned successfully. The maintenance team will be notified shortly.</p>
+                            <h2>Ticket Submitted!<i class='fas fa-times cancel-icon' onclick='remove_feedback()'></i></h2>
+                            <p>The maintenance request for <strong>". ($_SESSION['full_name']) ."</strong> has been submitted successfully. The maintenance team will be notified shortly.</p>
                         </div>";
                 } 
                 // else {
@@ -156,7 +156,7 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['message']))
 
                         <!-- dropdown for fault category -->
                         <div class="form-group">
-                            <label for="fault-category">Fault Category *</label>
+                            <label for="fault-category">Fault Category <span class=" required">*</span></label>
                             <div class="form-input">
                                 <select id="fault-category" name="fault-category" required>
                                     <option value="" >Please enter fault category</option>
@@ -171,14 +171,14 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['message']))
 
                         <div class="form-group">
                             <label for="description">Description</label>
-                            <div class="form-extra-info"><small>Please provide any additional information or instructions related to the requisition</small></div>
+                            <?php $description_placeholder = 'Please provide any additional information or instructions related to the requisition';?>
                             <div class="form-input">
-                                <textarea id="description" name="description" required></textarea>
+                                <textarea id="description" name="description" placeholder="<?php echo $description_placeholder;?>" required></textarea>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="priority">Priority *</label>
+                            <label for="priority">Priority <span class=" required">*</span></label>
                             <div class="form-input">
                                 <select id="priority" name="priority" required>
                                     <option value="">Please indicate severity of fault</option>
@@ -192,7 +192,7 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['message']))
                         <div class="form-group">
                             <label for="picture">Upload an Image</label>
                             <div class="form-input">
-                                <input type="file" name="picture[]" id="picture" placeholder="Choose file" multiple>
+                            <input type="file" name="picture[]" id="picture" placeholder="Choose file" accept=".jpg, .jpeg, .png, .gif" multiple>
                             </div>
                         </div>
                         <div class="form-actions">

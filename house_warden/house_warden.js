@@ -18,24 +18,25 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-//for the success pop up
-function remove_feedback() {
+// Function to remove feedback messages
+function remove_approved_feedback() {
     const successMessage = document.getElementById('success-message');
     if (successMessage) {
         successMessage.style.display = 'none';
     }
 }
 
-setTimeout(function() {
-    document.getElementById('success-message').style.display = 'none';
-}, 10000); // Hide after 5 seconds
-
-setTimeout(function() {
-    let successMessage = document.getElementById('success-message');
-    if (successMessage) {
-        successMessage.style.display = 'none';
+// Function to remove rejected feedback messages
+function remove_rejected_feedback() {
+    const rejectMessage = document.getElementById('rejected-message');
+    if (rejectMessage) {
+        rejectMessage.style.display = 'none';
     }
-}, 5000);
+}
+
+// Automatically hide both messages after 10 seconds
+setTimeout(remove_approved_feedback, 10000);
+setTimeout(remove_rejected_feedback, 10000);
 
 // Hide the modal on page load
 window.onload = function() {

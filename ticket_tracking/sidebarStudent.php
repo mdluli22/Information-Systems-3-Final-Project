@@ -1,6 +1,18 @@
 <?php
 // Include database details from config.php file
 require_once("config.php");
+
+// Start session to access session variables
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Check if userID is set in session
+if (isset($_SESSION['username'])) {
+    $userID = $_SESSION['username'];
+} else {
+    die("User is not logged in.");
+}
                     
 // attempt to make database connection
 $connection = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
@@ -10,12 +22,11 @@ if ($connection->connect_error) {
     die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
 }
 
-//get the student information to use on the page
-$sql = "SELECT *, 
-    CONCAT(f_Name, ' ', l_Name) as 'Name',
-    CONCAT(LEFT(student.f_Name, 1), LEFT(student.l_Name, 1)) AS initials
-    FROM student where userName = '$userID'";
-$result = $connection -> query($sql); //execute query
+// Prepare the statement to get the student information securely
+$stmt = $connection->prepare("SELECT *, CONCAT(f_Name, ' ', l_Name) AS 'Name', CONCAT(LEFT(student.f_Name, 1), LEFT(student.l_Name, 1)) AS initials FROM student WHERE userName = ?");
+$stmt->bind_param("s", $userID);
+$stmt->execute();
+$result = $stmt->get_result();
 
 if ($result && $result->num_rows > 0) {
     // Fetch the student information from the result set
@@ -29,6 +40,32 @@ if ($result && $result->num_rows > 0) {
     // Handle case where no student data was found
     echo "<p class='error'>No student data found for the user.</p>";
 }
+$stmt->close(); // Close the statement
+
+// Get the number of unseen tickets for notifications dynamically
+function get_unseen_count($connection, $userID, $status) {
+    $stmt = $connection->prepare("SELECT COUNT(*) AS unseen_count FROM systemsurgeons.ticket WHERE userName = ? AND ticket_status = ? AND s_seen = 0");
+    $stmt->bind_param("ss", $userID, $status);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $count = 0;
+    if ($result && $row = $result->fetch_assoc()) {
+        $count = $row['unseen_count'];
+    }
+    $stmt->close();
+    return $count;
+}
+
+// Get unseen ticket counts for each status
+$unseen_count_open = get_unseen_count($connection, $userID, 'Opened');
+$unseen_count_confirmed = get_unseen_count($connection, $userID, 'Confirmed');
+$unseen_count_requis = get_unseen_count($connection, $userID, 'Requisitioned');
+$unseen_count_resolved = get_unseen_count($connection, $userID, 'Resolved');
+$unseen_count_closed = get_unseen_count($connection, $userID, 'Closed');
+//End of Notifications code
+
+// Close database connection
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,24 +94,50 @@ if ($result && $result->num_rows > 0) {
                         <!-- Navigation links with icons -->
                         <li id="log-faults" class="sidebar-item">
                             <a class="sidebar-links" href="ticketCreationFinal.php">
-                                <img src="pictures/receipt-add.png" alt="Log faults"><span>Log Faults</span></a>
+                                <img src="pictures/addIcon.svg" alt="Log faults"><span>Log Faults</span></a>
                         </li>
                         <li id="all-tickets" class="sidebar-item">
-                            <a class="sidebar-links active" href="ticket_tracking_all.php">
-                                <img src="pictures/receipt-icon.png" alt="All tickets"><span>All Tickets</span></a>
+                            <a class="sidebar-links active" href="<?php echo "../ticket_tracking/ticket_tracking_all.php"; ?>">
+                                <img src="pictures/Icon(1).svg" alt="All tickets"><span>All Tickets</span>
+                            </a>
                         </li>
                         <li id="open-tickets" class="sidebar-item">
-                            <a class="sidebar-links" href="ticket_tracking_open.php">
-                                <img src="pictures/layer.png" alt="layer"><span>Opened Tickets</span></a>
+                            <a class="sidebar-links" href="<?php echo "../ticket_tracking/ticket_tracking_open.php"; ?>">
+                                <img src="pictures/layers-05.svg" alt="layer"><span>Opened Tickets</span>
+
+                            </a>
+                        </li>
+                        <li id="confirmed" class="sidebar-item">
+                            <a class="sidebar-links" href="<?php echo "../ticket_tracking/ticket_tracking_confirmed.php"; ?>">
+                            <img src="pictures/check-broken.svg" alt="layer"><span>Confirmed Tickets</span>
+
+                            </a>
+                        </li>
+                        <li id="requis" class="sidebar-item">
+                            <a class="sidebar-links" href="<?php echo "../ticket_tracking/ticket_tracking_requis.php"; ?>">
+                            <img src="pictures/check-contained.svg" alt="layer"><span>Requisitioned Tickets</span>
+
+                            </a>
+                        </li>
+                        <li id="resolved" class="sidebar-item">
+                            <a class="sidebar-links" href="<?php echo "../ticket_tracking/ticket_tracking_resolved.php"; ?>">
+                            <img src="pictures/check-square-broken.svg" alt="layer"><span>Resolved Tickets</span>
+
+                            </a>
                         </li>
                         <li id="closed-tickets" class="sidebar-item">
-                            <a class="sidebar-links" href="ticket_tracking_closed.php">
-                                <img src="pictures/clipboard-tick.png" alt="clipboard-tick"><span>Closed Tickets</span></a>
+                            <a class="sidebar-links" href="<?php echo "../ticket_tracking/ticket_tracking_closed.php"; ?>">
+                                <img src="pictures/check-square-contained.svg" alt="clipboard-tick"><span>Closed Tickets</span>
+
+                            </a>
                         </li>
+                        <!-- <li id="statistics" class="sidebar-item">
+                            <a class="sidebar-links" href="<?php echo "../ticket_tracking/ticket_tracking_stats.php"; ?>">
+                                <img src="pictures/Icon.svg" alt="bar chart icon"><span>Statistics</span>
+                            </a>
+                        </li> -->
                     </ul>
                 </nav>
-
-                <!-- <hr id="sidebar-hr"> -->
 
                 <!-- Profile section at the bottom of the sidebar -->
                 <div class="profile">
@@ -83,7 +146,7 @@ if ($result && $result->num_rows > 0) {
                     </div>
                     <!-- Profile information area -->
                     <div class="profile-info">
-                        <span id="user-name" class="username"><?php echo $fname. " ". $lname ?></span><br>
+                        <span id="user-name" class="username"><?php echo $fname. " ". $lname;?></span><br>
                         <span class="role"><?php echo "Student"?></span>
                     </div>
                     <!-- Logout button with icon -->
@@ -298,7 +361,20 @@ nav ul li a:hover {
     text-decoration: none;
 }
 
-    </style>
+/* Notifications css */
+/* Additional styling for the notification icon */
+.notification-icon {
+    background-color: #ef3e3e; /* Red color for the notification */
+    color: white;
+    border-radius: 50%;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.75rem;
+    margin-left: 0.5rem;
+    display: inline-block; /* Always display the icon */
+}
+/* end of notification css */
+</style>
+
 <script>
     document.addEventListener('DOMContentLoaded', () => {
             // Highlight the active sidebar link based on the current page
@@ -332,6 +408,8 @@ nav ul li a:hover {
             icon.textContent = "chevron_left"; // Change icon to left chevron
         }
     });
+
+
 </script>
 </body>
 </html>

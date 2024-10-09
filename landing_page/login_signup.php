@@ -1,28 +1,49 @@
+<?php
+// Start the session only if it hasn't been started yet
+if (session_status() == PHP_SESSION_NONE) {
+    // session_start();
+}
+?>
 <section>
-        <!-- Login Modal Structure -->
-        <div class="login-body">
-            <div id="login-modal" class="modal">
-                <div class="modal-content">
-                    <span class="close-btn">&times;</span>
-                        <div class="login-form">
-                            <h1>Welcome Back 👋</h1>
-                            <p>Please enter your login credentials. Please ensure that login credentials are typed correctly.</p>
-                            <form action="login.php" method="post">
-                                <label for="username">Username</label>
-                                <input type="text" id="username" name="username" placeholder="Username" required maxlength="8">
-                                
-                                <label for="password">Password</label>
-                                <input type="password" id="password" name="password" placeholder="Password" required>
-                                
-                                <a href="#" class="forgot-password">Forgot Password?</a>
-                                
-                                <input type="submit" id="login-submit-btn" name="submit" value="Sign in">
-                            </form>
-                            <p>Don't have an account? <a href="../landing_page/home.php">Sign up</a></p>
-                        </div>
+    <!-- Login Modal Structure -->
+    <div class="login-body">
+        <div id="login-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <div class="login-form">
+                    <h1>Welcome Back 👋</h1>
+                    <p>Please enter your login credentials. Please ensure that login credentials are typed correctly.</p>
+                    <form action="login.php" method="post">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" placeholder="Username" required maxlength="8">
+                        
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="Password" required>
+                        
+                        <a href="#" class="forgot-password">Forgot Password?</a>
+                        
+                        <input type="submit" id="login-submit-btn" name="submit" value="Sign in">
+                    </form>
+                    <p>Don't have an account? <a href="../landing_page/home.php">Sign up</a></p>
+                </div>
+                <!-- Hidden element to store error message -->
+                <div id="error-message" style="display: none;">
+                    <?php
+                    // Display the error message if it exists
+                    if (isset($_SESSION['error'])) {
+                        echo $_SESSION['error'];
+                        // Unset the error session variable after displaying
+                        unset($_SESSION['error']);
+                    }
+                    ?>
                 </div>
             </div>
         </div>
+    </div>
+        <body>
+            <!-- Hidden element to store error message -->
+            <div id="error-message" style="display: none;"><?php echo $error; ?></div>
+        </body>
 
         <!-- Sign-up section -->
         <div id="signup-section" class="signup-section">
@@ -38,6 +59,7 @@
                         <option value="student">Student</option>
                         <option value="house warden">House Warden</option>
                         <option value="hall secretary">Hall Secretary</option>
+                        <option value="maintenance_staff">Maintenance</option>
                     </select>
 
                     <!-- genetal field -->
@@ -70,18 +92,38 @@
                             <option value="Founders Hall">Founders Hall</option>
                         </select>
 
-                        <label for="resName">Residence Name</label>
-                        <input type="text" id="resName" placeholder="Enter resident name" name="resName">
-
+                        <label for="resNameStudent">Residence Name</label>
+                        <select name="resNameStudent" id="resNameStudent">
+                            <option value="">Select Resident Name</option>
+                            <option value="Botha House">Botha House</option>
+                            <option value="College House">College House</option>
+                            <option value="Cory House">Cory House</option>
+                            <option value="Matthews House">Matthews House</option>
+                            <option value="Allan Gray House">Allan Gray House</option>
+                            <option value="Celeste House">Celeste House</option>
+                            <option value="Graham House">Graham House</option>
+                            <option value="Prince Alfred House">Prince Alfred House</option>
+                            <option value="Okdane House">Okdane House</option>
+                            <option value="Dingemans House">Dingemans House</option>
+                            <option value="Hobson House">Hobson House</option>
+                            <option value="Starling House">Starling House</option>
+                            <option value="Livingstone House">Livingstone House</option>
+                            <option value="Milner House">Milner House</option>
+                            <option value="Adelaide Tambo House">Adelaide Tambo House</option>
+                            <option value="Helen Joseph House">Helen Joseph House</option>
+                            <option value="Guy Butler House">Guy Butler House</option>
+                            <option value="Stanley Kidd House">Stanley Kidd House</option>
+                        </select>
+                        
                         <label for="roomNumber">Room Number</label>
-                        <input type="text" id="roomNumber" placeholder="Enter room number" name="roomNumber" pattern="\d{1,3}">
+                        <input type="number" id="roomNumber" placeholder="Enter room number" name="roomNumber" pattern="\d{1,3}">
 
                     </div>
                 
                     <!-- House Warden Fields -->
                     <div id="houseWardenFields" class="hidden">
 
-                        <label for="hall">Hall Name</label>
+                        <label for="hw-hall">Hall Name</label>
                         <select name="hw-hall" id="hw-hall">
                             <option value="">Select Hall Name</option>
                             <option value="Mandela Hall">Nelson Mandela Hall</option>
@@ -90,8 +132,28 @@
                             <option value="Founders Hall">Founders Hall</option>
                         </select>
 
-                        <label for="hw-resName">Residence Name</label>
-                        <input type="text" id="hw-resName" placeholder="Enter resident name" name="hw_resName">
+                        <label for="hw_resName">Residence Name</label>
+                        <select name="hw_resName" id="hw_resName">
+                            <option value="">Select Resident Name</option>
+                            <option value="Botha House">Botha House</option>
+                            <option value="College House">College House</option>
+                            <option value="Cory House">Cory House</option>
+                            <option value="Matthews House">Matthews House</option>
+                            <option value="Allan Gray House">Allan Gray House</option>
+                            <option value="Celeste House">Celeste House</option>
+                            <option value="Graham House">Graham House</option>
+                            <option value="Prince Alfred House">Prince Alfred House</option>
+                            <option value="Okdane House">Okdane House</option>
+                            <option value="Dingemans House">Dingemans House</option>
+                            <option value="Hobson House">Hobson House</option>
+                            <option value="Starling House">Starling House</option>
+                            <option value="Livingstone House">Livingstone House</option>
+                            <option value="Milner House">Milner House</option>
+                            <option value="Adelaide Tambo House">Adelaide Tambo House</option>
+                            <option value="Helen Joseph House">Helen Joseph House</option>
+                            <option value="Guy Butler House">Guy Butler House</option>
+                            <option value="Stanley Kidd House">Stanley Kidd House</option>
+                        </select>
                     </div>
 
                     <!-- Hall Secretary Fields -->
@@ -106,6 +168,10 @@
                             <option value="Founders Hall">Founders Hall</option>
                         </select>
                     </div>
+
+                    <div id="maintenanceFields" class="hidden">
+                        <!-- Add this option to the "Role" dropdown in the sign-up form -->
+                    </div>
                     <input type="submit" id="signup-submit-btn" name="submit" value="Signup">
                 </form>
 
@@ -114,90 +180,3 @@
         </div>
     </section>
     </div>
-
-
-<script>
-    // Get the sign-up section element
-    let signupSection = document.getElementById('signup-section');
-    // Get the button that triggers the sign-up section
-    let signupButton = document.getElementById('sign-up-btn');
-    // Get the close button inside the sign-up section
-    let closeSignupBtn = document.querySelector('.signup-section .close-btn1');
-
-    // Get the login modal and button elements
-    let loginModal = document.getElementById('login-modal');
-    let loginBtn = document.getElementById('login-btn');
-    let closeLoginBtn = document.querySelector('.login-body .close-btn');
-
-    // Show the sign-up section when the sign-up button is clicked
-    signupButton.onclick = function() {
-        signupSection.classList.add('show'); // Show the sign-up section
-        document.getElementById('generalFields').classList.add('hidden');
-        document.getElementById('studentFields').classList.add('hidden');
-
-        // Add a small delay to ensure the section is visible before scrolling
-        setTimeout(function() {
-            signupSection.scrollIntoView({
-                behavior: 'smooth'
-            });
-        }, 100); // Delay for 100ms
-    };
-
-    // Close the sign-up section when the close button is clicked
-    closeSignupBtn.onclick = function() {
-        signupSection.classList.remove('show'); // Hide the sign-up section
-    };
-
-    // Show the login modal when the login button is clicked
-    loginBtn.onclick = function() {
-        loginModal.style.display = 'block'; // Show the login modal
-    };
-
-    // Close the login modal when the close button is clicked
-    closeLoginBtn.onclick = function() {
-        loginModal.style.display = 'none'; // Hide the login modal
-    };
-
-    // Close the login modal when clicking outside the modal
-    window.onclick = function(event) {
-        if (event.target === loginModal) {
-            loginModal.style.display = 'none';
-        }
-    };
-
-
-    document.getElementById('role').addEventListener('change', function() {
-        const role = this.value;
-
-        // Hide all role-specific field sections and remove 'required' from their inputs
-        document.getElementById('studentFields').classList.add('hidden');
-        document.getElementById('houseWardenFields').classList.add('hidden');
-        document.getElementById('hallSecretaryFields').classList.add('hidden');
-
-        // Remove 'required' from all role-specific inputs
-        document.querySelectorAll('#studentFields input, #houseWardenFields input, #hallSecretaryFields input, #studentFields select, #houseWardenFields select, #hallSecretaryFields select').forEach(input => {
-            input.required = false; // Remove required from inputs
-        });
-
-        // Ensure the general fields are always visible and required
-        document.getElementById('generalFields').classList.remove('hidden');
-        document.querySelectorAll('#generalFields input').forEach(input => input.required = true); // Set general fields to required
-
-        // Show the relevant role-specific fields and set them to required
-        if (role === 'student') {
-            document.getElementById('studentFields').classList.remove('hidden');
-            document.querySelectorAll('#studentFields input').forEach(input => input.required = true);
-            document.getElementById('studentHall').required = true; // Ensure student hall is required and visible
-
-        } else if (role === 'house warden') {
-            document.getElementById('houseWardenFields').classList.remove('hidden');
-            document.querySelectorAll('#houseWardenFields input').forEach(input => input.required = true);
-            document.getElementById('houseWardenHall').required = true; // Ensure house warden hall is required
-
-        } else if (role === 'hall secretary') {
-            document.getElementById('hallSecretaryFields').classList.remove('hidden');
-            document.querySelectorAll('#hallSecretaryFields input').forEach(input => input.required = false); // Ensure inputs in hall secretary are not required
-            document.getElementById('hallSecretaryHall').required = true; // Ensure hall secretary hall is required
-        }
-    });
-</script>

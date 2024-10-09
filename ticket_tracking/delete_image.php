@@ -31,7 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['photoID'])) {
 
         // Delete the photo record from the database
         $sql_delete = "DELETE FROM systemsurgeons.photos WHERE photoID = '$photoID'";
+        
         if ($connection->query($sql_delete) === TRUE) {
+            
             if ($page == 'all') {
                 header("Location: ticket_tracking_all.php?ticketID=$ticketID");
                 exit();}
@@ -39,6 +41,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['photoID'])) {
                 header("Location: ticket_tracking_open.php?ticketID=$ticketID");
                 exit();}
             else if ($page == 'closed') {
+                header("Location: ticket_tracking_closed.php?ticketID=$ticketID");
+                exit();}
+            else if ($page == 'confirmed') {
+                header("Location: ticket_tracking_confirmed.php?ticketID=$ticketID");
+                exit();}
+            else if ($page == 'resolved') {
+                header("Location: ticket_tracking_resolved.php?ticketID=$ticketID");
+                exit();}
+            else if ($page == 'requisitioned') {
+                header("Location: ticket_tracking_requis.php?ticketID=$ticketID");
+                exit();}
+            else if ($page == 'rejected') {
                 header("Location: ticket_tracking_closed.php?ticketID=$ticketID");
                 exit();}
             else {

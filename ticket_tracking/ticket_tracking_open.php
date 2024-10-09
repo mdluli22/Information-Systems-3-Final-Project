@@ -18,6 +18,15 @@ if ($connection->connect_error) {
     die("<p class=\"error\">Connection failed: Incorrect credentials or Database not available!</p>");
 }
 
+// Mark the ticket as seen when "View Details" is clicked
+if (isset($_GET['ticketID']) && isset($_GET['mark_seen']) && $_GET['mark_seen'] == 1) {
+    $ticketID = $_GET['ticketID'];
+    
+    // Update the s_seen value to 1 for this ticket
+    $update_seen_query = "UPDATE systemsurgeons.ticket SET s_seen = 1 WHERE ticketID = '$ticketID' AND userName = '$userID'";
+    $connection->query($update_seen_query);
+}
+
 //get the student information to use on the page
 $sql = "SELECT * FROM systemsurgeons.student where userName = '$userID'";
 $result = $connection -> query($sql); //execute query
@@ -33,6 +42,17 @@ if ($result && $result->num_rows > 0) {
     // Handle case where no student data was found
     echo "<p class='error'>No student data found for the user.</p>";
 }
+
+// Unseen tickets count for 'Opened'
+$sql_unseen_open = "SELECT COUNT(*) AS unseen_count FROM systemsurgeons.ticket WHERE userName = '$userID' AND ticket_status = 'Opened' AND s_seen = 0";
+$result_unseen_open = $connection->query($sql_unseen_open);
+$unseen_count_open = 0; // Default count
+if ($result_unseen_open && $row = $result_unseen_open->fetch_assoc()) {
+    $unseen_count_open = $row['unseen_count'];
+}
+// Store the unseen count in the session for use in the sidebar
+$_SESSION['unseen_count_open'] = $unseen_count_open;
+// End of Notifications Code
 
 ?>
 
@@ -50,6 +70,7 @@ if ($result && $result->num_rows > 0) {
 </head>
 <body>
 
+
     <div class="container">
 
         <!--Sidebar section for navigation-->
@@ -60,7 +81,21 @@ if ($result && $result->num_rows > 0) {
             <header>
                 <div>
                     <h1>Welcome, <span class="ticket_type"><?php echo $fname ?></span></h1>
-                    <p class="fade-out">View tickets that are being processed as well as tickets pending approval.</p>
+
+                    <?php //unseen tickets Notification
+                        $sql_unseen = "SELECT COUNT(*) AS unseen_count FROM systemsurgeons.ticket WHERE userName = '$userID' AND s_seen = 0 AND (ticket_status = 'Opened')";
+                        $result_unseen = $connection->query($sql_unseen);
+                        $unseen_count = 0; // Default count
+                        if ($result_unseen && $row = $result_unseen->fetch_assoc()) {
+                            $unseen_count = $row['unseen_count'];
+                        }
+
+                        if ( $unseen_count > 0) {
+                            echo "<p class='fade-out'>View and make comments on opened tickets.<span style='color: #ef3e3e;'> You have $unseen_count new tickets</span></p>";
+                        } else {
+                            echo "<p class='fade-out'>View and make comments on opened tickets.</p>";
+                        }
+                    ?>
                 </div>
                 <!-- Fix the logo size -->
                  <div class="logo-container">
@@ -78,7 +113,7 @@ if ($result && $result->num_rows > 0) {
                     <h3>Your Tickets</h3>
                     <?php
                         //query instructions for the student's tickets
-                        $sql = "SELECT ticketID, resName, ticket_status FROM systemsurgeons.ticket where userName = '$userID' and ((ticket_status = 'Opened') or (ticket_status ='Confirmed') or (ticket_status ='Requisitioned'))";
+                        $sql = "SELECT ticketID, resName, ticket_status, s_seen FROM systemsurgeons.ticket where userName = '$userID' and (ticket_status = 'Opened')";
                         $result = $connection -> query($sql); //execute query
 
                         // Check if query successfull
@@ -93,26 +128,18 @@ if ($result && $result->num_rows > 0) {
                             while($row = $result->fetch_assoc()) {
                                 echo "<tr class='ticket-card'>";
                                 echo "<td class='ticket-number'><img src='pictures/clipboard-tick.png' alt='clipboard-tick' style='margin-right: 10px;'>#{$row['ticketID']}</td>";
-
+    
                                 // Determine the CSS class based on the ticket_status so the correct color is produced
-                                if ($row['ticket_status'] == "Opened") {
-                                    $statusClass = "status opened";
-                                } elseif ($row['ticket_status'] == "Confirmed") {
-                                    $statusClass = "status confirmed";
-                                } elseif ($row['ticket_status'] == "Requisitioned") {
-                                    $statusClass = "status requisitioned";
-                                } elseif ($row['ticket_status'] == "Resolved") {
-                                    $statusClass = "status resolved";
-                                } elseif ($row['ticket_status'] == "Closed") {
-                                    $statusClass = "status closed";
-                                } elseif ($row['ticket_status'] == "Rejected") {
-                                    $statusClass = "status rejected";
-                                } else {
-                                    $statusClass = "status"; // Default class if needed
-                                }
-                                
+                                $statusClass = "status " . strtolower($row['ticket_status']);
                                 echo "<td><span class='{$statusClass}'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
-                                echo "<td><a href='ticket_tracking_open.php?ticketID={$row['ticketID']}' class='details-button'>View Details</button></a></td>";
+
+                                // Add a red circle if the ticket's s_seen value is 0
+                                if ($row['s_seen'] == 0) {
+                                    echo "<td><a href='ticket_tracking_open.php?ticketID={$row['ticketID']}&mark_seen=1' class='details-button-unseen'>View Details</a></td>"; //if ticket isn't seen
+                                } else {
+                                    echo "<td><a href='ticket_tracking_open.php?ticketID={$row['ticketID']}&mark_seen=1' class='details-button'>View Details</a></td>"; //if the ticket has been seen
+                                }
+
                                 echo "</tr>";
                             } //end table
                             echo "</table>";
@@ -126,7 +153,7 @@ if ($result && $result->num_rows > 0) {
                             echo "</tr>";
                             echo "</table>";
                         }
-                        echo "</section";
+                        echo "</section>";
                     ?>
                     <br>
 
@@ -134,7 +161,7 @@ if ($result && $result->num_rows > 0) {
                     echo "<h3> $residence Tickets</h3>";
 
                     //query instructions for all tickets within the same residence
-                    $sql = "SELECT ticketID, resName, ticket_status FROM systemsurgeons.ticket where resName = '$residence' and ((ticket_status = 'Opened') or (ticket_status ='Confirmed') or (ticket_status ='Requisitioned') or (ticket_status ='Resolved'))";
+                    $sql = "SELECT ticketID, resName, ticket_status FROM systemsurgeons.ticket where resName = '$residence' and (ticket_status = 'Opened')";
                     $result = $connection -> query($sql); //execute query
 
                     // Check if query successfull
@@ -143,7 +170,7 @@ if ($result && $result->num_rows > 0) {
                     }
 
                     //dynamically display all tickets within that residence
-                    //echo "<section class='scrollbar'>";
+                    echo "<section class='scrollbar'>";
                         if ($result -> num_rows > 0) {
                             echo "<table class='ticket-table'>";
                             while($row = $result->fetch_assoc()) {
@@ -151,22 +178,10 @@ if ($result && $result->num_rows > 0) {
                                 echo "<td class='ticket-number'><img src='pictures/clipboard-tick.png' alt='clipboard-tick' style='margin-right: 10px;'>#{$row['ticketID']}</td>";
                                     
                                 // Determine the CSS class based on the ticket_status so the correct color is produced
-                                if ($row['ticket_status'] == "Opened") {
-                                    $statusClass = "status opened";
-                                } elseif ($row['ticket_status'] == "Confirmed") {
-                                    $statusClass = "status confirmed";
-                                } elseif ($row['ticket_status'] == "Requisitioned") {
-                                    $statusClass = "status requisitioned";
-                                } elseif ($row['ticket_status'] == "Resolved") {
-                                    $statusClass = "status resolved";
-                                } elseif ($row['ticket_status'] == "Closed") {
-                                    $statusClass = "status closed";
-                                } else {
-                                    $statusClass = "status"; // Default class if needed
-                                }
-
+                                // Set CSS class based on ticket status
+                                $statusClass = "status " . strtolower($row['ticket_status']);
                                 echo "<td><span class='{$statusClass}'><span class='circle'></span>&nbsp;&nbsp;{$row['ticket_status']}</span></td>";
-                                echo "<td><a href='ticket_tracking_open.php?ticketID={$row['ticketID']}' class='details-button'>View Details</button></a></td>";
+                                echo "<td><a href='ticket_tracking_open.php?ticketID={$row['ticketID']}&mark_seen=1' class='details-button'>View Details</a></td>";
                                 echo "</tr>";
                             } //end table
                             echo "</table>";
@@ -180,8 +195,9 @@ if ($result && $result->num_rows > 0) {
                             echo "</tr>";
                             echo "</table>";
                         }
-                    //echo "</section";
+                    echo "</section>";
                     ?>
+                </section>
                 </section>
                 
 
@@ -195,7 +211,7 @@ if ($result && $result->num_rows > 0) {
                                 $ticketID = $_GET['ticketID'];
 
                                 //query instructions for the student's tickets
-                                $sql = "SELECT ticketID, userName, resName, ticket_status, ticketDate, ticket_description, category, priority  FROM systemsurgeons.ticket where ticketID = '$ticketID' and ((ticket_status = 'Opened') or (ticket_status ='Confirmed') or (ticket_status ='Requisitioned') or (ticket_status ='Resolved'))";
+                                $sql = "SELECT *  FROM systemsurgeons.ticket where ticketID = '$ticketID' and (ticket_status = 'Opened')";
                                 $result = $connection -> query($sql); //execute query
 
                                 // Check if query successfull
@@ -203,7 +219,14 @@ if ($result && $result->num_rows > 0) {
                                     die("<p class=\"error\">Could not connect to database to get ticket details!</p>");
                                 }
 
-                                $ticketowner = ''; //will be used to authorise user to make comments on their ticket, and to allow them to delete comments under their ticket
+                                // Fetch ticket details and set $ticketowner
+                                $ticketowner = ''; //will be used to authorise user to make comments on their ticket, and to allow them to delete comments & images under their ticket
+                                if ($result->num_rows > 0) {
+                                    $ticket = $result->fetch_assoc(); // Get related ticket details
+                                    $ticketowner = $ticket['userName']; // Set the ticket owner
+                                } else {
+                                    echo "<p>No details found for this ticket.</p>";
+                                }
 
                                 // Fetch and display photos from the 'photos' table for the ticketID
                                 $sql_photos = "SELECT photoID, photo FROM systemsurgeons.photos WHERE ticketID = '$ticketID'";
@@ -213,20 +236,20 @@ if ($result && $result->num_rows > 0) {
                                     echo "<div class='carousel'>";
                                     echo "<div class='carousel-images'>";
                                     while ($photo = $photos_result->fetch_assoc()) {
-                                        $photo_src = "../landing_page/pictures/" . $photo['photo'];
+                                        $photo_src = "../pictures/" . $photo['photo'];
                                         $photoID = $photo['photoID'];
                                         echo "<div class='carousel-slide'>";
                                         echo "<img src='$photo_src' alt='Ticket Image' class='carousel-image'>";
                                         
                                         // Add delete button for the image positioned on top but ONLY if the user is the ticket owner
-                                        //if ($comment['userName'] == $userID) {
+                                        if ($ticketowner == $userID) {
                                             echo "<form action='delete_image.php' method='POST' class='carousel-delete'>";
                                             echo "<input type='hidden' name='photoID' value='$photoID'>";
                                             echo "<input type='hidden' name='ticketID' value='$ticketID'>"; // Pass ticketID to reload details of the ticket
                                             echo "<input type='hidden' name='page' value='open'>";
                                             echo "<button type='submit' class='delete-button'><i class='fa fa-trash' aria-hidden='true'></i></button>";
                                             echo "</form>";
-                                        //}
+                                        }
                                         echo "</div>";
                                     }
                                     echo "</div>";
@@ -234,14 +257,13 @@ if ($result && $result->num_rows > 0) {
                                     echo "<button class='carousel-next'>Next</button>";
                                     echo "</div>";
                                 } else {
-                                    echo "<img src='pictures/leak.jpg' alt='Ticket Image'>";
+                                    echo "<div class='carousel'><div class='carousel-images'><div class='carousel-slide'>";
+                                    echo "<img src='pictures/tools2.jpg' alt='Ticket Image'>";
+                                    echo "</div></div></div>";
                                 }
                                 //image carousel ends here
 
-                                if($result -> num_rows > 0) {
-                                    $ticket = $result->fetch_assoc(); //get related ticket details
-                                    $ticketowner = $ticket['userName'];
-
+                                if (!empty($ticketowner)) { //display ticket details if the ticket details exists
                                     //display the ticket details for the specific ticket
                                     echo "<table class='info-table'>";
                                     echo "<tr><td><span class='info-data'><h3>Details for Ticket #$ticketID</h3></span></td></tr>";
@@ -308,13 +330,26 @@ if ($result && $result->num_rows > 0) {
 
                                         // Determine the display name for the comment owner
                                         if ($comment['userName'] == $userID) {
-                                            $displayName = $fname; // Use the current user's first name
+                                            $displayName = 'You'; // Use the current user's first name
                                         } elseif (strpos($comment['userName'], 'w') === 0) {
                                             $displayName = "House Warden";
                                         } elseif (strpos($comment['userName'], 'm') === 0) {
                                             $displayName = "Maintenance";
                                         } elseif (strpos($comment['userName'], 'h') === 0) {
                                             $displayName = "Hall Secretary";
+                                        } elseif (strpos($comment['userName'], 'g') === 0) {
+
+                                            // Query to get the name of the commentor
+                                            $sql_commentor = "SELECT f_Name, l_Name FROM systemsurgeons.student WHERE userName = '{$comment['userName']}'";
+                                            $commentor_result = $connection->query($sql_commentor);
+                                
+                                            if ($commentor_result && $commentor_result->num_rows > 0) {
+                                                $commentor = $commentor_result->fetch_assoc();
+                                                $displayName = $commentor['f_Name'] . " " . $commentor['l_Name']; // Display the first name and last name of the user
+                                            } else {
+                                                $displayName = $comment['userName']; // Fallback to username if not found
+                                            }
+                                
                                         } else {
                                             $displayName = $comment['userName']; // Default to the original username
                                         }
@@ -353,15 +388,34 @@ if ($result && $result->num_rows > 0) {
                                     </form>";
                                 }
                             }
-                            else {
-                                echo "<img src='pictures/leak.jpg' alt='Ticket Image'>";
-                                echo "<p>Please select a ticket to view its details.</p>";
+                            else { //deafult image to be displayed by ticket details
+                                echo "<div class='carousel'><div class='carousel-images'><div class='carousel-slide'>";
+                                echo "<img src='pictures/tools2.jpg' alt='Ticket Image'>";
+                                echo "</div></div></div>";
+                                echo "<p>Please select a ticket to view details.</p>";
                             }
                         ?>
                     </article>
                 </section>
             </div>
         </main>
+        
+        <script> // Ticket notification code
+            document.addEventListener('DOMContentLoaded', function() {
+                const unseenCount = <?php echo $unseen_count_open; ?>;
+                const notificationIcon = document.querySelector('.notification-icon');
+
+                if (notificationIcon) {
+                    if (unseenCount > 0) {
+                        notificationIcon.textContent = unseenCount;
+                        notificationIcon.style.display = 'inline-block';
+                    } else {
+                        notificationIcon.style.display = 'none';
+                    }
+                }
+            });
+        </script> <!-- End of Notification code -->
+
     </div>
     <!-- Link to external JavaScript file -->
     <script src="ticket_tracking.js"></script>

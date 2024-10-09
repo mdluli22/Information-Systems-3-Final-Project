@@ -1,3 +1,4 @@
+/* this is for student */
 body {
     margin: 0;
     padding: 0;
@@ -102,33 +103,30 @@ h1 {
     margin-bottom: 1.25rem; /* Space below the header section */
     border-bottom: 0.0625rem solid #ddd; /* A thin border below the header to separate it from the rest of the form */
     padding-bottom: 0.625rem; /* Space below the header text */
+    margin-left: -11px;  /* ensures the header is aligned to the form labels */
 }
 
 .form-group {
     display: flex; /* Aligns the label and input elements side by side */
     align-items: center; /* Vertically centers the label and input elements */
+    margin-left: 20px;   /* moves the content on the side */
     margin-bottom: 1.25rem; /* Space below each form group (label and input pair) */
+}
+
+.form-group{
     border-bottom: 0.0625rem solid #ddd; /* A thin border below each form group for separation */
-    padding-bottom: 0.625rem; /* Space below the form group content */
-    /* flex: 1; */
-    /* flex-direction: column; */
+    padding-bottom: 3rem; /* Space below the form group content */
 }
 
-.form-extra-info, #fault-cat {
-    margin-bottom: 0.625rem; /* Space below any additional information like small text */
-    max-width: 30%; /* Limits the width of the labels */
-    /* padding: 0 2rem; Adds padding inside the label to create space around the content */
-    overflow-wrap: break-word; /* Ensures text breaks within the label if it’s too long */
-}
-
-.form-group small {
-    color: #666; /* Light grey color for any small text in the form */
+.required{
+    color: red;
 }
 
 .form-group select,
 .form-group textarea,
 .form-group input[type="file"] {
-    width: 32rem; /* Specifies a fixed width for dropdowns, text areas, and file inputs */
+    width: calc(100% - 2rem); /* Allows for responsive width while accounting for padding/margin */
+    max-width: 32rem; /* Specifies a maximum width for dropdowns, text areas, and file inputs */
     padding: 0.625rem; /* Padding inside the input fields to create space around the content */
     border: 0.0625rem solid #ddd; /* A thin border around the input fields */
     border-radius: 0.25rem; /* Slightly rounded corners for the input fields */
@@ -190,7 +188,7 @@ h1 {
 }
 
 .form-input textarea {
-    height: 6.25rem; /* Sets a fixed height for text areas */
+    height: 7rem; /* Sets a fixed height for text areas */
     resize: vertical; /* Allows users to resize text areas vertically */
 }
 
@@ -208,11 +206,16 @@ h1 {
 }
 
 /* Ensuring buttons look consistent */
-.cancel-btn,
 .submit-btn {
     display: inline-block; /* Makes the buttons inline-block elements to align them side by side */
-    width: 48%; /* Adjusts the width to allow the buttons to fit side by side */
-    margin-right: 2%; /* Adds space between the buttons */
+    width: 40%; /* Adjusts the width to allow the buttons to fit side by side */
+    margin-right: 6%; /* Adds space between the buttons */
+}
+
+.cancel-btn{
+    display: inline-block; /* Makes the buttons inline-block elements to align them side by side */
+    width: 40%; /* Adjusts the width to allow the buttons to fit side by side */
+    margin-left: 6%; /* Adds space between the buttons */
 }
 
 /* for the pop up success message */

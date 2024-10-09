@@ -44,11 +44,16 @@ $priority = $_REQUEST['priority'];
 
 $ticket_status = "Opened";
 $ticketDate = date("Y-m-d H:i:s");
-$rating = NULL;  // Set rating to NULL for now
+// Default values for the new columns
+$s_seen = 0;
+$w_seen = 0;
+$h_seen = 0;
+$m_seen = 0;
+$endDate = NULL;  // Set endDate to NULL for now
 
 // Insert the ticket into the database
-$sql = "INSERT INTO ticket (userName, resName, ticket_status, ticketDate, ticket_description, category, rating, priority) 
-        VALUES ('$userID', '$resName', '$ticket_status', '$ticketDate', '$description', '$fault', NULL, '$priority');";
+$sql = "INSERT INTO ticket (userName, resName, ticket_status, ticketDate, ticket_description, category, priority, s_seen, w_seen, h_seen, m_seen, endDate) 
+        VALUES ('$userID', '$resName', '$ticket_status', '$ticketDate', '$description', '$fault', '$priority', '$s_seen', '$w_seen', '$h_seen', '$m_seen', NULL);";
 $result = $connection->query($sql);
 
 if ($result === TRUE) {
@@ -59,7 +64,7 @@ if ($result === TRUE) {
     $countFiles = count($_FILES['picture']['name']); // Get the number of uploaded files
     for ($i=0; $i < $countFiles; $i++) {
         $picture = time() . "_" . basename($_FILES['picture']['name'][$i]);
-        $destination = "pictures/" . $picture;
+        $destination = "../pictures/" . $picture;
 
         // Move uploaded file to the destination directory
         if (move_uploaded_file($_FILES['picture']['tmp_name'][$i], $destination)) {
